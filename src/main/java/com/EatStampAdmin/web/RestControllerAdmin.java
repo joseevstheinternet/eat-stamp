@@ -379,4 +379,33 @@ public class RestControllerAdmin {
 			}
 		
 		}//update end
+		
+		
+		//0427 최은지 가게 등록 페이지 이동
+		@RequestMapping(value = "/restInsert.do")
+		public String restInsertGo(HttpServletResponse response) throws Exception{
+			
+			return "restInsertAdmin";
+		}//restSearchGo end
+		
+		//0427 최은지 가게 등록 페이지
+		@RequestMapping(value = "/insertRestContent.do")
+		public ModelAndView restContentInsert(@RequestParam(value = "img_route") MultipartFile real_file,
+																@RequestParam(value = "r_name") String r_name,
+																@RequestParam(value = "r_tel") String r_tel,
+																@RequestParam(value = "r_detail") String r_detail,
+																@RequestParam(value = "r_add") String r_add,
+																@RequestParam(value = "r_open") String r_open,
+																@RequestParam(value = "r_close") String r_close,
+																@RequestParam(value = "r_menu") String r_menu,
+																@RequestParam(value = "r_fileName") String r_fileName, 
+																@RequestParam(value = "update_add") String update_add,
+																@RequestParam(value = "update_add_semi") String update_add_semi,
+																MultipartHttpServletRequest request,
+																HttpServletResponse response) throws Exception{
+			
+			ModelAndView mav = new ModelAndView();
+			
+			return mav;
+		}//restSearchGo end
 }

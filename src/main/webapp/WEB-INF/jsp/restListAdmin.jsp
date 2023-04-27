@@ -170,6 +170,12 @@ select{
 					<!-- 상단 타이틀 끝 -->
 					<!-- 검색창 -->
 					<div class="mypage-section1-search">
+					
+						<!-- 식당 신규 등록 이동 -->
+						<div class="insert_box">
+							<button class="insert_btn" onclick="location.href='/restInsert.do'">신규 등록</button>
+						</div>
+						
 					    <form method="post"  action="/goRestSearchAdmin.do">
 					        <select name="field">			    
 							    <c:set var = "field" value = "${field }" />
