@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStampAdmin.mapper.AdminMapper">  
+
+	<!-- 0421 최은지 관리자 로그인-->
+		<select id="admin_login_check" resultType="memberVO"  parameterType="memberVO">	
+			SELECT
+					mem_num,
+					mem_email, 
+					mem_pw,
+					mem_nick,
+					mem_profileCode
+			FROM 
+					member
+			WHERE
+					mem_email = #{mem_email}
+			AND
+					mem_pw =  #{mem_pw} 
+			AND
+					 mem_admin_auth = 1
+		</select>
+			
+			
+		<select id="check_email" resultType="int" parameterType="memberVO">
+			SELECT
+					COUNT(*)
+			FROM 
+					member
+			WHERE
+					mem_email = #{mem_email}
+			AND
+					mem_pw =  #{mem_pw} 
+		</select>
+		
+		
+		<!-- 0421 이예지  -->
+		<!-- 비밀번호 변경용 비밀번호 받아오기 -->
+		<select id="delete_member_check" parameterType="memberVO"  resultType="memberVO">
+		
+		SELECT
+			mem_num,
+			mem_email,
+			mem_pw
+			
+		FROM 
+			member
+			 
+		WHERE
+			mem_num= #{mem_num}
+			
+		</select>
+		
+			
+		<!-- 0421 이예지  -->
+		<!-- 비밀번호 재설정 -->
+		<update id="reset_pw" parameterType="memberVO">
+			UPDATE
+				member
+			SET
+				mem_pw = #{mem_pw}
+			WHERE
+				mem_email=#{mem_email}
+		</update>
+		
+		
+
+</mapper>

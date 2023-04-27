@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+
+		<typeAlias  alias="stampVO" type="com.EatStampAdmin.domain.StampVO"/>
+		<typeAlias  alias="tagPostMappingVO" type="com.EatStampAdmin.domain.TagPostMappingVO"/>
+		<typeAlias  alias="memberVO" type="com.EatStampAdmin.domain.MemberVO"/>
+		<typeAlias  alias="stampVO" type="com.EatStampAdmin.domain.StampVO"/>
+		<typeAlias  alias="searchVO" type="com.EatStampAdmin.domain.SearchVO"/>
+		<typeAlias  alias="restVO" type="com.EatStampAdmin.domain.RestVO"/>
+		
+    </typeAliases>
+</configuration>

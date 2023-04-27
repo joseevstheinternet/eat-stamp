@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStampAdmin.mapper.AdminRestMapper">  
+
+	<!--  0420 최은지 레스토랑 리스트 불러오기-->
+		<select id="selectRestList" parameterType="map" resultType="restVO">
+		SELECT 
+			r_num, 
+			r_name, 
+			r_add, 
+			r_food,
+			r_tel, 
+			r_fileName, 
+			r_fileRoot, 
+			r_detail, 
+			r_menu, 
+			r_open, 
+			r_close, 
+			r_rate, 
+			r_category 
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				r_num, 
+				r_name, 
+				r_add, 
+				r_food,
+				r_tel, 
+				r_fileName, 
+				r_fileRoot, 
+				r_detail, 
+				r_menu, 
+				r_open, 
+				r_close, 
+				r_rate, 
+				r_category 
+			FROM 
+					rest
+			JOIN (SELECT @rownum:=0) TMP
+			ORDER BY r_num DESC
+			) t1
+		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+		
+	<!--  0420 최은지 레스토랑 리스트 개수-->
+	<select id="selectRestRowCount" resultType="int">
+  		SELECT 
+  			COUNT(*) 
+  		FROM
+  			 rest 
+  	</select>
+  
+  	
+  	<!-- 0420 최은지 레스토랑 검색 -->
+  	<select id="selectAdminSearchRestList" resultType="searchVO" parameterType="map">
+  			    SELECT 
+					r_num, 
+					r_name, 
+					r_add, 
+					r_food,
+					r_tel, 
+					r_fileName, 
+					r_detail, 
+					r_menu, 
+					r_open, 
+					r_close, 
+					r_category 
+			   
+			     FROM( 
+			         SELECT 
+			            @rownum:=@rownum+1 AS rn, 
+			          	r_num, 
+						r_name, 
+						r_add, 
+						r_food,
+						r_tel, 
+						r_fileName, 
+						r_detail, 
+						r_menu, 
+						r_open, 
+						r_close, 
+						r_category 
+						
+			         FROM 
+						rest, (SELECT @rownum:=0) TMP
+
+			         WHERE r_name LIKE CONCAT('%', #{search_keyword}, '%')
+			          		OR r_category LIKE CONCAT('%', #{search_keyword}, '%')
+			          		OR r_food LIKE CONCAT('%', #{search_keyword}, '%')
+			         ) t1
+			         WHERE rn BETWEEN #{start} and #{end}
+			         						
+					<if test="field != '' and search_keyword != ''">
+		                <choose>
+		                    <when test="field == 'r_num'">
+		                       	ORDER BY r_num desc
+		                    </when>
+		                    <when test="field == 'r_name'">
+		                        ORDER BY r_name asc
+		                    </when>
+		                     <when test="field == 'r_food'">
+		                        ORDER BY r_food asc
+		                    </when>
+		                     <when test="field == 'r_category'">
+		                        ORDER BY r_category asc
+		                    </when>
+		                </choose>
+	          		  </if>
+	  	</select>
+	  	
+	  	
+	  	<!-- 0421 최은지 검색 결과 개수 구하기  -->
+	  	<select id="selectSearchRestRowCount" resultType="int" parameterType="map">
+	  		SELECT 
+				COUNT(*) 
+			  FROM 
+					rest
+			  WHERE r_name LIKE CONCAT('%', #{search_keyword}, '%')
+			        OR
+			        	 r_category LIKE CONCAT('%', #{search_keyword}, '%')
+			        OR 
+			        	r_food LIKE CONCAT('%', #{search_keyword}, '%')
+	  	</select>
+	  	
+	  	
+	<!-- 0421 최은지 식당 상세 -->
+  	<select id="getAdminRestDetail" parameterType="int" resultType="restVO">
+  		SELECT 
+  			* 
+  		FROM 
+  			rest
+		WHERE r_num=#{r_num}
+  	</select>
+  	
+  	
+  	<!-- 0424 최은지 가게 비공개-->
+  	<update id="goRestBlock" parameterType="int">
+  			UPDATE
+				rest
+			SET
+				r_block=1
+			WHERE
+				 r_num=#{r_num}
+  	</update>
+  	
+  	
+  	 <!-- 0424 최은지 가게 공개-->
+  	<update id="goRestUnblock" parameterType="int">
+  			UPDATE
+				rest
+			SET
+				r_block=0
+			WHERE
+				 r_num=#{r_num}
+  	</update>
+  	
+  	
+  	<!--  0424 최은지 가게 삭제-->
+  	<delete id="restDelete" parameterType="int">
+		 DELETE 
+		 	FROM 
+		 		rest
+		WHERE
+			 r_num=#{r_num}
+  	</delete>
+  	
+  	
+  	<!-- 0424 최은지 가게 수정 -->
+  	<update id="restUpdate" parameterType="restVO">
+	  	UPDATE
+	  		 rest
+		SET 
+			r_add=#{r_add}, 
+			r_tel=#{r_tel},
+			r_fileName=#{r_fileName}, 
+			r_detail=#{r_detail},
+			r_open=#{r_open},
+			r_close=#{r_close},
+			r_menu=#{r_menu}
+		WHERE 
+			r_num=#{r_num}
+  	</update>
+  	  	
+</mapper>
