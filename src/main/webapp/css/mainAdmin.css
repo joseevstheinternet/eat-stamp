@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page_main{
+	width: 70%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+/* placeholder 지정  */
+input::placeholder{
+	color: #c6c1b1;
+}
+
+input{
+	padding-left: 30px;
+}
+
+.admin_login_wrap{
+	display: grid;
+	justify-items: center;
+	margin: 40px 0;
+}
+
+#logo_wrap{
+    display: flex;
+    align-items: flex-end;
+}
+
+.main_logo{
+/*	width: 165px; */
+ 	height: 150px;
+	margin-bottom: 10px;
+	margin-left: 120px;
+}
+
+.main_text{
+	font-size: 30px;
+	font-weight: bold;
+	color: #ffd274;	
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.admin_email{
+	display: block;
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.admin_pwd{
+	display: block;
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.admin_login_btn{
+	width: 230px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin:15px 10px 0 0;
+    font-weight: bold;
+	float: right;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+}

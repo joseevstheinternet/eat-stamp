@@ -1,0 +1,284 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page_main{
+	width: 720px;
+	margin: auto;
+	background-color: white;
+	border-radius: 20px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+	padding-top: 10px;
+	padding-bottom: 50px;
+	padding-right: 10px;
+}
+
+.button_list{	
+	float: right;
+}
+
+.update_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    float: right; 
+    border: none;
+}
+
+.delete_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    float: right; 
+    border: none;
+}
+
+.unblock_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    float: right; 
+    border: none;
+}
+
+.block_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ddd9cb;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    float: right; 
+    border: none;
+}
+
+.list_btn{
+	width: 100px;
+	height: 30px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    float: right; 
+    border: none;
+}
+
+.go_list{
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-right: 30px;
+}
+
+/* 업태명 + 공개여부 나란히 배치  */
+.detail_semi_wrap{
+	display: flex;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+
+.detail_wrap{
+	flex: 1;
+	font-size: 14px;
+}
+
+.flex_wrap1{
+	display: flex;
+}
+
+.all_wrap{
+	margin-bottom: 20px;
+}
+
+.flex_wrap2{
+	display: flex;
+	margin-left: 20px;
+	margin-top: 5px;
+	width: 720px;
+	vertical-align: middle;
+}
+
+.detail_box{
+	white-space: pre-line;
+}
+
+.detail_semi_wrap{
+	margin-bottom: 20px;
+}
+
+.text_box{
+	display: flex;
+	margin-top: 15px;
+	width: 720px;
+}
+
+.text_box span{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.menu_span{
+	flex: 1;
+	margin-left: 20px;
+}
+
+.add_span{
+	flex: 1;
+}
+
+.title_box{
+	display: flex;
+	margin-bottom: 20px;
+	width: 100%;
+	justify-content: center;
+}
+
+.title_box span{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.detail_span{
+	margin-bottom: 15px;
+}
+
+.open_box{
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.close_box{
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.tel_box{
+	margin-bottom: 15px;
+}
+
+.add_box{
+	display: flex;
+	vertical-align: middle;
+	padding-bottom: 10px;
+}
+
+.menu_box{
+	width: 310px;
+	height: 370px;
+	background-color: #ffad00;
+	border-radius: 20px;
+	color: white;
+	font-size: 15px;
+	padding-left: 20px;
+	padding-top: 10px;
+	white-space: pre-line;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+	margin-right: 4%;
+}
+
+
+#map{ 
+	border-radius: 20px;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.food_box{
+	flex: 2;
+}
+
+.block_box{
+	flex: 1;
+}
+
+.food_box span{
+	font-size: 18px;
+	font-weight: bold;
+	color: #ffad00;
+}
+
+.heart_box{
+	float: right;
+}
+
+.heart_box i{
+	color: #ffad00;
+	font-size: 30px;
+}
+
+.rest_img{
+	width: 300px;
+	height: 300px;
+	border-radius: 20px;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.img_box{
+	margin: 20px;
+	flex: 1;
+}
+
+.unblock_text{
+	width: 100px;
+	height: 25px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.block_text{
+	width: 100px;
+	height: 25px;
+	margin-left: 20px;
+	margin-right: 5px;
+	float: right;
+	background-color: #ddd9cb;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#rest_add{
+	border: none;
+	width: 300px;
+	font-size: 12px;
+	color: #666666;
+	vertical-align: middle;
+}

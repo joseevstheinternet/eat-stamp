@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ojtproject-1.0.0">
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        
+    <wb-module deploy-name="EatStamp_admin-1.0.0">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="ojtproject"/>
+                
         <property name="java-output-path" value="/ojtproject/build/classes"/>
+        <property name="context-root" value="EatStamp_admin"/>
+            
     </wb-module>
+    
 </project-modules>
