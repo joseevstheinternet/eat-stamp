@@ -48,7 +48,7 @@
 			
 			<form action="/insertRestContent.do"  method="post"  enctype="multipart/form-data" onsubmit="return checks()">
 			
-				<!-- 상호명, 카테고리 감싸기 div -->
+				<!-- 상호명 및 카테고리 감싸기 div -->
 				<div class = "foodCate_box">
 					<div class = "cate_box">
 						<div class="cate_text">
