@@ -2,12 +2,13 @@
 <!DOCTYPE mapper   
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="com.EatStampAdmin.mapper.StampMapper">  
+<mapper namespace="com.EatStamp.mapper.StampMapper">  
 
+<!-- 일단 가게 정보 XX
+ -->
 	<!-- 글목록 -->
 	<select id="selectList" parameterType="map" resultType="stampVO">
 		SELECT 
-			mem_nick,
 			s_num, 
 			s_title, 
 			s_content, 
@@ -22,7 +23,6 @@
 		FROM(
 			SELECT
 				@rownum:=@rownum+1 AS rn,
-				m.mem_nick, 
 				s_num,
 				s_title,
 				s_content,
@@ -33,77 +33,76 @@
 				s_rate,
 				reg_date,
 				r_name,
-				s.mem_num
-			FROM eatstamp.stamp s
-			JOIN eatstamp.member m ON s.mem_num = m.mem_num
-			JOIN (SELECT @rownum:=0) TMP
-	        <where>
-	            <if test="searchType != '' and searchKeyword != ''">
-	                <choose>
-	                    <when test="searchType == 'title'">
-	                        AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                    <when test="searchType == 'writer'">
-	                        AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                    <when test="searchType == 'rname'">
-	                        AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                </choose>
-	            </if>
-	        </where>
+				mem_num
+			FROM eatstamp.stamp, (SELECT @rownum:=0) TMP
+			WHERE mem_num = #{mem_num}
 			ORDER BY s_num DESC
 			) t1
 		WHERE rn BETWEEN #{start} and #{end}
+		
 	</select>
 	
-	<!-- 전체 글 개수 -->
+	<!-- 글수정 -->
+  	<update id="updateStamp" parameterType="stampVO">
+  		UPDATE stamp SET 
+  			s_title=#{s_title}, 
+  			s_content=#{s_content},  
+  		    s_rate=#{s_rate}, 
+  		    r_name=#{r_name}, 
+  		    s_tag=#{s_tag},
+  		    s_uploadPath=#{s_uploadPath}, 
+			s_fileLoca=#{s_fileLoca}, 
+			s_fileName=#{s_fileName}, 
+			s_fileRealName=#{s_fileRealName}
+  		WHERE s_num=#{s_num}
+  	</update>
+  	
+  	<!-- 글 개수 -->
   	<select id="selectRowCount" resultType="int">
   		SELECT 
   			COUNT(*) 
-  		FROM eatstamp.stamp s 
-  		JOIN eatstamp.member m ON s.mem_num = m.mem_num
-	    <where>
-	        <if test="searchType != '' and searchKeyword != ''">
-	            <choose>
-	                <when test="searchType == 'title'">
-	                    AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
-	                </when>
-	                <when test="searchType == 'writer'">
-	                    AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
-	                </when>
-	                <when test="searchType == 'rname'">
-	                    AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
-	                </when>
-	            </choose>
-	        </if>
-	    </where>
+  		FROM stamp AS s JOIN member AS m 
+  		ON s.mem_num = m.mem_num AND s.mem_num=#{mem_num}
   	</select>
+  	
+  	<!-- 글쓰기 -->
+  	<insert id="insertStamp" useGeneratedKeys="true" keyProperty="s_num" keyColumn="s_num" parameterType="stampVO" >
+  		INSERT INTO stamp 
+  		(
+			s_title, 
+			s_content, 
+	  		s_uploadPath, 
+			s_fileLoca, 
+			s_fileName, 
+			s_fileRealName, 
+			reg_date, 
+	  		s_rate, 
+	  		r_name, 
+			mem_num,
+			s_tag
+		) 
+			VALUES 
+		(
+			#{s_title}, 
+			#{s_content}, 
+			#{s_uploadPath}, 
+			#{s_fileLoca}, 
+			#{s_fileName}, 
+			#{s_fileRealName}, 
+			#{reg_date}, 
+			#{s_rate}, 
+			#{r_name}, 
+			#{mem_num},
+			#{s_tag}
+		)
+  	</insert>
   	
   	<!-- 글 상세 -->
   	<select id="selectStamp" parameterType="int" resultType="stampVO">
-		SELECT 
-			s_num,
-			s_title,
-			s_content,
-			s_uploadPath,
-			s_fileLoca,
-			s_fileName,
-			reg_date,
-			s_rate,
-			s.r_name,
-			s.mem_num,
-			s_tag,
-			m.mem_nick,
-			m.mem_email,
-			m.mem_profileCode, 
-			r.r_num 
-		FROM eatstamp.stamp s 
-		JOIN eatstamp.member m 
-		  ON s.mem_num = m.mem_num 
-		JOIN eatstamp.rest r 
-		  ON s.r_name = r.r_name 
-		WHERE s_num = #{s_num}
+  		SELECT 
+  			* 
+  		FROM stamp s JOIN member m USING(mem_num) 
+		WHERE s.s_num=#{s_num}
   	</select>
   	
   	<!-- 글 삭제 -->

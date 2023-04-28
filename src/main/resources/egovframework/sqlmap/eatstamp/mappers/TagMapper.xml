@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStamp.mapper.TagMapper">
+
+    <select id="findTagByContent" resultType="tagVO">
+        SELECT *
+        FROM tag
+        where tag_content=#{tag_content};
+    </select>
+
+	<insert id="saveTag">
+		INSERT INTO tag 
+			(
+			tag_content
+			) 
+		VALUES 
+			(
+			#{tag_content}
+			)
+	</insert>
+	
+</mapper>

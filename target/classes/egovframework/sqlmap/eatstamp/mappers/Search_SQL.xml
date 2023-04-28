@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStamp.mapper.SearchMapper">
+
+<!-- 0405 최은지 -->
+<!-- stamp 테이블 일반 검색 -->
+	<select id="nomal_searchCheck" parameterType="hashMap"  resultType="searchVO">
+	
+		SELECT 
+				s_num,
+				s_title,
+				s_content,
+				s_FileName,
+				reg_date,
+				mem_num,
+				s_fileLoca
+				
+			FROM
+				stamp
+				
+			WHERE
+				(
+				 mem_num = #{mem_num}
+					AND 
+						s_content LIKE
+					 		CONCAT('%',#{search_keyword},'%') 
+				)
+				
+				OR
+				
+				(
+				 mem_num = #{mem_num}
+					AND 
+						s_title LIKE
+							 CONCAT('%',#{search_keyword},'%') 	 		 
+				)
+			
+			LIMIT #{limit} OFFSET #{offset}
+								
+	</select> 
+	
+	
+	 <!-- 0406 최은지 -->
+	<!-- 일반 stamp 검색 결과 개수 조회 -->
+  	<select id="selectStampRowCount" resultType="int">
+  		SELECT 
+  			COUNT(*) 	
+  		FROM
+				stamp
+				
+			WHERE
+				(
+				 mem_num = #{mem_num}
+					AND 
+						s_content LIKE
+					 		CONCAT('%',#{search_keyword},'%') 
+				)
+				
+				OR
+				
+				(
+				 mem_num = #{mem_num}
+					AND 
+						s_title LIKE
+							 CONCAT('%',#{search_keyword},'%') 	 		 
+				)
+  	</select>
+  	
+  	
+  	<!-- 0407 최은지  -->
+	<!-- rest table 일반 검색 -->
+	<select id="rest_searchCheck" parameterType="hashMap"  resultType="searchVO">
+		SELECT 
+			r_num,
+			r_name,
+			r_add,
+			r_food,
+			r_tel,
+			r_fileName,
+			r_detail,
+			r_menu,
+			r_open,
+			r_close,
+			r_category
+		
+		FROM
+			rest
+		
+		WHERE
+			r_name LIKE 
+						CONCAT('%',#{search_keyword},'%') 
+		OR
+			r_food LIKE 
+						CONCAT('%',#{search_keyword},'%') 
+		OR
+			r_category LIKE 
+							CONCAT('%',#{search_keyword},'%') 
+							
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	
+	 <!-- 0407 최은지 -->
+	<!-- rest 검색 결과 개수 조회 -->
+  	<select id="selectRestRowCount" resultType="int">
+ 		SELECT 
+			COUNT(*) 
+		FROM
+			rest
+		
+		WHERE
+			r_name LIKE 
+						CONCAT('%',#{search_keyword},'%') 
+		OR
+			r_food LIKE 
+						CONCAT('%',#{search_keyword},'%') 
+		OR
+			r_category LIKE 
+							CONCAT('%',#{search_keyword},'%') 
+	</select>
+	
+	
+	 <!-- 0407 최은지 -->
+	<!-- 해시태그 검색 결과 조회 -->
+	<select id="tag_searchCheck" parameterType="searchForm"  resultType="searchVO">
+		  SELECT 
+		  	s.s_num, 
+		  	s_title, 
+		  	s_content, 
+		  	s_FileName, 
+		  	reg_date, 
+		  	s.mem_num,
+		  	s.s_fileLoca
+		  	
+		  FROM 
+		  	stamp s
+		  
+		  LEFT JOIN 
+		  	tagPostMapping tpm 
+		  	ON
+		  	 s.s_num = tpm.s_num
+		  	 
+		  LEFT JOIN tag t 
+		  	ON
+		 	  tpm.tag_num = t.tag_num
+		 	  
+		  WHERE 
+		  	tpm.mem_num = #{mem_num}
+
+		  <foreach item="tag_lists" index="index" collection="tag_list" open="AND (" separator=" OR " close=")">
+		   	 t.tag_content
+		    		 LIKE CONCAT('%', #{tag_lists}, '%')
+		  </foreach>
+		 		
+		 LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	
+	 <!-- 0407 최은지 -->
+	<!-- 해시태그 검색 결과 개수 조회 -->
+	<select id="selectTagRowCount" resultType="int">
+	  SELECT
+	  	 COUNT(*)
+	  	 
+	  FROM 
+	  	stamp s
+	  	
+	  LEFT JOIN 
+	  	tagPostMapping tpm
+	  	 ON
+	  	  s.s_num = tpm.s_num
+	  	  
+	  LEFT JOIN 
+	  	tag t 
+	  	ON
+	  	 tpm.tag_num = t.tag_num
+	  	 
+	  WHERE 
+	  	tpm.mem_num = #{mem_num}
+	  	
+	  <foreach item="tag_list" index="index" collection="tag_list" open="AND (" separator=" OR " close=")">
+	   		 t.tag_content 
+	   	 		LIKE CONCAT('%', #{tag_list}, '%')
+	  </foreach>
+	  
+	</select>
+	
+	
+	 <!-- 0410 최은지 -->
+	<!--  랜덤 태그 출력 -->
+	<select id="random_tagResult" parameterType="int"  resultType="searchVO">
+		SELECT
+		DISTINCT
+			 t.tag_content, 
+			 s.mem_num,
+			  s.s_num
+			  
+		FROM 
+			tag t
+			
+		INNER JOIN
+			 tagPostMapping tpm 
+			ON
+			 	tpm.tag_num = t.tag_num
+			 	
+		INNER JOIN
+			 stamp s 
+			 	ON
+			 	tpm.s_num = s.s_num
+			 	
+		WHERE 
+			s.mem_num = #{mem_num}
+			
+		ORDER BY RAND()
+		LIMIT 3;
+
+	</select>
+	
+	
+	
+		<!-- 0407 최은지 -->
+	<!-- 해시태그 클릭 검색 결과 조회 2 -->
+	<select id="selectClickTagList" parameterType="map"  resultType="searchVO">
+		    		 
+		     SELECT 
+			   s_num, 
+			   s_title, 
+			   s_content, 
+			   s_FileName, 
+			   reg_date, 
+			   mem_num,
+			   s_fileLoca 
+			   
+			     FROM( 
+			         SELECT 
+			            @rownum:=@rownum+1 AS rn, 
+			            s.s_num, 
+			            s_title, 
+			            s_content, 
+			            s_FileName, 
+			            reg_date, 
+			            s.mem_num,
+			            s_fileLoca 
+			         FROM 
+			         	eatstamp.stamp s join eatstamp.tagPostMapping tpm on s.s_num = tpm.s_num
+			            JOIN eatstamp.tag t on tpm.tag_num = t.tag_num 
+			            JOIN (SELECT @rownum:=0) TMP
+			         WHERE tpm.mem_num = #{mem_num} AND t.tag_content  LIKE CONCAT('%', #{tag_content}, '%')
+			            
+			         ) t1
+			         WHERE rn BETWEEN #{start} and #{end}
+		 		
+	</select>
+	
+	
+	<!-- 0407 최은지 -->
+	<!-- 해시태그 클릭 검색 결과 개수 조회 2 -->
+	<select id="selectClickTagRowCount"  resultType="int">
+		  SELECT 
+		 	COUNT(*)
+		
+		  FROM 
+		  	stamp s
+		  
+		  LEFT JOIN 
+		  	tagPostMapping tpm 
+		  	ON
+		  	 s.s_num = tpm.s_num
+		  	 
+		  LEFT JOIN tag t 
+		  	ON
+		 	  tpm.tag_num = t.tag_num
+		 	  
+		  WHERE 
+		  	tpm.mem_num = #{mem_num}
+
+		 AND
+		   	 t.tag_content
+		    		 LIKE CONCAT('%', #{tag_content}, '%')
+	</select>
+	
+	
+	
+
+</mapper>

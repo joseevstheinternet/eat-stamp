@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 40%;
+	margin-left: 29%;
+	background-color: white;
+	border-radius: 20px;
+	margin-bottom: 40px;
+}
+
+.listBtn{
+	width: 150px;
+	height: 50px;
+	margin-left: 20px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;
+    float: right; 
+    border: none;
+}
+
+.go_list{
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-right: 30px;
+}
+
+/* 업태명 + 하트 나란히 배치  */
+.detail_semi_wrap{
+	display: flex;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.flex_wrap1{
+	display: flex;
+}
+
+.flex_wrap2{
+	display: flex;
+	margin-left: 20px;
+	margin-top: 5px;
+	width: 140%;
+}
+
+.menu_box{
+	white-space: pre-line;
+}
+
+.detail_box{
+	white-space: pre-line;
+}
+
+.detail_semi_wrap{
+	margin-bottom: 20px;
+}
+
+.text_box{
+	display: flex;
+	margin-top: 15px;
+	margin-left: 20px;
+}
+
+.text_box span{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.menu_span{
+	margin-right: 220px;
+}
+
+.title_box{
+	margin-bottom: 20px;
+	margin-top: 30px;
+	width: 100%;
+	margin-left: 29%;
+}
+
+.title_box span{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.detail_span{
+	margin-bottom: 15px;
+}
+
+.open_box{
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.open_box span{
+	font-size: 12px;
+}
+
+.close_box{
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.close_box span{
+	font-size: 12px;
+}
+
+.tel_box{
+	margin-bottom: 15px;
+}
+
+.tel_box span{
+	font-size: 12px;
+}
+
+
+.menu_box{
+	background-color: #ffad00;
+	border-radius: 20px;
+	color: white;
+	width: 28%;
+	height: 350px;
+	margin-right: 2%;
+	margin-top: 15px;
+	font-size: 15px;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+#map{
+	width: 400px;
+	border-radius: 20px;
+	height: 250px;	
+}
+
+
+.food_box{
+	margin-right: 150px;
+}
+
+.food_box span{
+	font-size: 18px;
+	font-weight: bold;
+	color: #ffad00;
+}
+
+.heart_box{
+	float: right;
+}
+
+.heart_box i{
+	color: #ffad00;
+	font-size: 30px;
+}
+
+.rest_img{
+	width: 300px;
+	height: 300px;
+	border-radius: 20px;
+}
+
+.img_box{
+	margin: 20px;
+}
+
+#rest_add{
+	border: none;
+	width: 300px;
+	font-size: 12px;
+	margin-bottom: 5px;
+}

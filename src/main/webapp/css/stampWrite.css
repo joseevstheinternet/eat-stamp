@@ -1,0 +1,175 @@
+div.write-title{
+    width: 680px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+h1{
+	color: #ffc06c;
+}
+/* 타이틀 끝 */
+
+div.page-main{
+	padding: 80px 0;
+}
+
+div.box{
+	background-color: white;
+    border-radius: 20px;
+    padding: 50px;
+    width: 600px;
+    margin: 0 auto;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+div.box-wrap{
+	display: grid;
+    justify-items: center;
+}
+
+div.fileDiv{
+    display: block;
+    margin-bottom: 30px;
+    border-radius: 30px;
+}
+
+img.fileImg{
+	border-radius: 20px;
+	width: 100%;
+    max-width: 600px;
+}
+
+/* section1 (제목, 이미지 첨부) */
+div.section1{
+    display: flex;
+    align-items: center;
+}
+
+div#re_first{
+	width: 380px;
+    margin: 5px 0;
+}
+
+span.letter-count{
+	color: lightgray;
+}
+
+span.letter-count2{
+	color: lightgray;
+}
+
+textarea#s_title.form-control{
+    resize: none;
+    padding: 5px 15px;
+    width: 300;
+    border-radius: 20px;
+}
+
+label.input-file-btn{
+    padding: 7px 15px;
+    background-color: #ffc06c;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+/* section1 (제목, 이미지 첨부) 끝 */
+
+/* section2 (상호명 검색) */
+div.section2{
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+span.rest-name{
+    font-size: 14px;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+textarea#pInput.form-control{
+    resize: none;
+    padding: 3px 15px;
+    width: 270;
+    border-radius: 20px;
+}
+/* section2 (상호명 검색) 끝 */
+
+/* section3 (체크박스) */
+div.section3{
+	display: flex;
+}
+
+div.section3-2{
+    margin: 0 20px;
+}
+
+label.check-text{
+	font-size: 14px;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked::after {
+  display: block;
+}
+input[type="checkbox"]:checked + label {
+  color: #ffc06c;
+}
+/* section3 (체크박스) 끝 */
+
+/* section4 (내용) */
+div.section4{
+	margin: 20px 0;
+}
+
+textarea#s_content.form-control{
+    resize: none;
+    padding: 20px 20px;
+    width: 400;
+    border-radius: 20px;
+}
+/* section4 (내용) 끝 */
+
+/* section5 (태그) */
+div.section5{
+    display: flex;
+    align-items: center;
+}
+
+textarea#s_tag.form-control{
+    resize: none;
+    padding: 3px 15px;
+    width: 270;
+    border-radius: 20px;
+    color: #5da6ff;
+}
+
+textarea#s_tag.form-control::placeholder{
+    color: #5da6ff;
+}
+/* section5 (태그) 끝 */
+
+/* section6 (등록/취소 버튼) */
+div.section6{
+	margin-top: 30px;
+}
+
+button.uploadBtn{
+    background-color: #ffc06c;
+    padding: 7px 25px;
+    color: white;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 0 5px;
+}
+
+button#cancelBtn.btn{
+    background-color: #c9c9c9;
+    padding: 7px 25px;
+    color: white;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 0 5px;
+}
+/* section6 (등록/취소 버튼) 끝 */

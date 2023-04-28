@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampList.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampListAdmin.css'/>" />
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -193,7 +193,7 @@ button#pw_restet_checkBtn{
 							<h2 class="pw">관리자 비밀번호 변경</h2>
 						</div>
 						<div class="section4">
-							<form action="/mypage_pw.do" method="post" onsubmit="return checks();">
+							<form action="/mypageAdmin_pw.do" method="post" onsubmit="return checks();">
 							<input type ="hidden" id="mem_num"  name="mem_num" value ="${admin.mem_num}">
 							<input type ="hidden" id="mem_email"  name="mem_email" value ="${admin.mem_email}">
 							

@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 35%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+.main-logo{
+	width: 200px;
+	padding-bottom: 10px;
+}
+
+#loginMsg{
+	font-size: 30px;
+	color: #ffc06c;
+	font-weight: bold;
+}
+
+
+label{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#mem_pw{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    margin-right: 10px;
+}
+
+#mem_pwCheck{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    margin-right: 10px;
+}
+
+
+#pw_restet_checkBtn{
+	width: 150px;
+	height: 50px;
+	margin-left: 20px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;  
+
+}
+
+#pw1{
+	position: relative;
+}
+
+#pw1 i{
+    position: absolute;
+    left: 95%;
+    top: 45px;
+    color: orange;
+    font-size: 18px;
+}
+
+
+#pw2 {
+	position: relative;
+}
+
+#pw2 i{
+    position: absolute;
+    left: 95%;
+    top: 40px;
+    color: orange;
+    font-size: 18px;
+}
+
+

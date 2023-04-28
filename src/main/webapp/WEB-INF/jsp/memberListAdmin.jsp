@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampList.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampListAdmin.css'/>" />
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="

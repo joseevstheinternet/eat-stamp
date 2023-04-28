@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 70%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+.main-logo{
+	width: 200px;
+	margin-left: 25%;
+	padding-bottom: 10px;
+}
+
+#kakao_box{
+	float: right;
+    width: 500px;
+}
+
+.kakao-logo{
+	width: 55px;
+	margin-left: 88%;
+}
+
+#logo_box{
+	display: flex;
+	align-items: center;
+    position: relative;
+}
+
+/* 이메일 입력칸  */
+#mem_email{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+}
+
+/* 비밀번호 입력칸  */
+#mem_pw{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+}
+
+/* placeholder 지정  */
+input::placeholder{
+	color: #c6c1b1;
+	padding-left: 30px;
+}
+
+
+/* 입력창 및 버튼 위치 지정  */
+#login_wrap{
+	display: grid;
+	justify-items: center;
+}
+
+#email_box{
+	display: flex;
+	align-items: center;
+    position: relative;
+}
+
+#pw_box{
+	display: flex;
+	align-items: center;
+    position: relative;
+}
+
+#button_box{
+	display: flex;
+	align-items: center;
+    position: relative;
+}
+
+
+#message_box{
+	display: inline-block;
+	align-items: right;
+    position: relative;
+    width: 500px;
+}
+
+#sentence_box{
+	display: inline-block;
+	align-items: right;
+    position: relative;
+    width: 500px;
+}
+
+#loginBtn{
+	width: 230px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin:15px 10px 0 0;
+    font-weight: bold;
+}
+
+#joinBtn{
+	width: 230px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin:15px 0 0 10px;
+    font-weight: bold;
+}
+
+#findPwdMsg{
+	margin-top: 10px;
+	padding-right: 20px;
+	text-align: right;
+	font-size: 15px;
+	float: right;
+	color: #929292;
+}
+
+#findPwdMsg:hover {
+	color: #ffd274;
+	text-decoration: underline;
+	cursor: hand;
+}
+
+#loginMsg{
+	font-size: 30px;
+	color: #ffc06c;
+	font-weight: bold;
+}
+
+
+/* 멤버값 있을 때 (0414 이예지) */
+div.member-box{
+	background-color: white;
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    border-radius: 30px;
+    margin-top: 30px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+p.mem_nick{
+	font-size: 16px;
+}
+
+button.outBtn{
+	padding: 7px 15px;
+    background-color: #ffc06c;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
