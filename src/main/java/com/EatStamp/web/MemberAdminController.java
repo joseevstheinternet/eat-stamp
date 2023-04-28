@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 import com.EatStamp.service.MemberAdminService;
 import com.common.utils.PagingUtil;
 
@@ -90,4 +93,39 @@ public class MemberAdminController {
 		//업데이트 결과에 따라 성공/실패 문자열 반환
 		return (result > 0) ? "success" : "failure";
 	}
+	
+	
+	//0428 최은지 관리자 신고 페이지 이동 + 리스트 출력
+	@RequestMapping("/reportListAdmin.do")
+	public ModelAndView goReportListAdmin(@RequestParam(value = "pageNum",defaultValue = "1") int currentPage) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		List<ReportVO> list = null;
+		Map<String,Object> map = new HashMap<>();
+		
+		int count = memberService.selectReportRowCount(map);
+		
+		//페이징 처리
+		PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,"/reportListAdmin.do");
+		
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			//리스트 조회
+			list = memberService.getReportAdminList(map);
+			
+			map.put("list", list);
+		}
+		
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		mav.setViewName("reportListAdmin");
+		
+		return mav;
+		
+	}//goReportListAdmin end
+	
+	
 }

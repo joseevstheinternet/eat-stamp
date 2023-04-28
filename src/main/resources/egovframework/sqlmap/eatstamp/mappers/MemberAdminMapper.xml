@@ -69,5 +69,54 @@
   		SET mem_admin_auth = #{mem_admin_auth}
   		WHERE mem_num = #{mem_num}
   	</update>
-
+  	
+  	
+  	<!-- 0428최은지 신고글 리스트 개수 구하기  -->
+  	<select id="selectReportRowCount"  resultType="int">
+	  	SELECT 
+			COUNT(*)
+		FROM
+			report
+  	</select>
+  	
+  	
+  	<!-- <0428 최은지 신고글 리스트 출력 -->
+  	<select id="getReportAdminList" parameterType="map" resultType="reportVO">
+ 	SELECT 
+	  		report_num,
+  			mem_num,
+  			mem_num2,
+  			report_why,
+  			report_ynCode,
+  			s_num,
+  			cmt_num,
+  			report_return
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				  			report_num,
+  			mem_num,
+  			mem_num2,
+  			report_why,
+  			report_ynCode,
+  			s_num,
+  			cmt_num,
+  			report_return
+			FROM eatstamp.report , (SELECT @rownum:=0) TMP
+	        <where>
+	            <if test="search_keyword != '' and search_keyword != ''">
+	                <choose>
+	                    <when test="search_keyword == 'mem_num'">
+	                        AND mem_num LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    </when>
+	                    <when test="search_keyword == 'mem_num2'">
+	                        AND mem_num2 LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    </when>
+	                </choose>
+	             </if>
+	        </where>
+			) t1
+		WHERE rn BETWEEN #{start} and #{end}
+  	</select>
+  	
 </mapper>

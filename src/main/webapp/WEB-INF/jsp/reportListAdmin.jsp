@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/restListAdmin.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/reportListAdmin.css'/>" />
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -131,7 +131,7 @@ select{
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 게시글 관리</title>
+<title>EatStamp - 신고내역 관리</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");
@@ -167,28 +167,19 @@ select{
 				<div class="mypage-div02">
 					<!-- 상단 타이틀 -->
 					<div class="mypage-section1">
-						<span class="mypage-title">식당 관리</span>
+						<span class="mypage-title">신고 내역 관리</span>
 					</div>
 					<!-- 상단 타이틀 끝 -->
 					<!-- 검색창 -->
 					<div class="mypage-section1-search">
 					
-						<!-- 식당 신규 등록 이동 -->
-						<div class="insert_box">
-							<button class="insert_btn" onclick="location.href='/restInsert.do'">신규 등록</button>
-						</div>
-						
-					    <form method="post"  action="/goRestSearchAdmin.do">
+					    <form method="post"  action="/goReportSearchAdmin.do">
 					        <select name="field">			    
 							    <c:set var = "field" value = "${field }" />
 									<option value="r_num"
-										<c:if test="${field == 'r_num'}">selected</c:if>>최신순</option>			
+										<c:if test="${field == 'mem_num'}">selected</c:if>>작성자 닉네임</option>			
 									<option value="r_name"
-										<c:if test="${field == 'r_name'}">selected</c:if>>상호명순</option>	
-									<option value="r_food"
-										<c:if test="${field == 'r_food'}">selected</c:if>>주된음식순</option>			
-									<option value="r_category"
-										<c:if test="${field == 'r_category'}">selected</c:if>>업태명순</option>			
+										<c:if test="${field == 'mem_num2'}">selected</c:if>>신고자 닉네임</option>	
 							  </select>
 					        <button type="submit" class="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></button>
 					        <input type="text" name="search_keyword" placeholder="검색어를 입력하세요">
@@ -203,30 +194,34 @@ select{
 						<c:if test="${count > 0}">
 							<ul class="list-ul">
 								<div class="stamp-table-name">
-									<span class="table-image">NO</span>
-									<span class="table-title">상호명</span>
-									<span class="table-rname">주된음식</span>
-									<span class="table-regdate">카테고리</span>
+									<span class="table-image">구분</span>
+									<span class="table-title">신고 내용</span>
+									<span class="table-rname">작성자</span>
+									<span class="table-regdate">신고자</span>
+									<span class="table-regdate">처리 상태</span>
 								</div>
 								<hr class="line">
-								<c:forEach var="rest" items="${list}">
+								<c:forEach var="list" items="${list}">
 									<li class="list-list">
-										<div class="box-parent" onclick="location.href='/restAdminDetail.do?r_num=${rest.r_num}'">
-											<input type="hidden" value="${rest.r_num}">				
+										<div class="box-parent" onclick="location.href='/reportAdminDetail.do?r_num=${list.report_num}'">
+											<%-- <input type="hidden" value="${rest.r_num}"> --%>		
 											<div class="box-section1">
 												<div class="box-title">
-													<span class="font-set2">${rest.r_num}</span>
+													<span class="font-set2">${list.report_num}</span>
 												</div>
 											<div class="list-span01">
 												<div class="box-section1">
 													<div class="box-title2">
-														<span class="font-set2">${rest.r_name}</span>
+														<span class="font-set2">${list.report_why}</span>
 													</div>
 													<div class="box-rname">
-														<span class="font-set2">${rest.r_food}</span>
+														<span class="font-set2">${list.mem_num}</span>
 													</div>
+													<div class="box-rname">
+														<span class="font-set2">${list.mem_num2}</span>
+													</div>	
 													<div class="box-mem">
-														<span class="font-set2">${rest.r_category}</span>
+														<span class="font-set2">${list.report_ynCode}</span>
 													</div>
 												</div>
 											</div>

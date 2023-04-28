@@ -13,6 +13,7 @@
 		<typeAlias  alias="restVO" type="com.EatStamp.domain.RestVO"/>
 		<typeAlias  alias="tagVO" type="com.EatStamp.domain.TagVO"/>
 		<typeAlias  alias="tagPostMappingVO" type="com.EatStamp.domain.TagPostMappingVO"/>
+		<typeAlias  alias="reportVO" type="com.EatStamp.domain.ReportVO"/>
 
 		
     </typeAliases>

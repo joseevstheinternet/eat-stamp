@@ -1,6 +1,10 @@
 package com.EatStamp.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 
 public interface AdminService {
 	
@@ -18,4 +22,5 @@ public interface AdminService {
 
 	//0421 이예지 비밀번호 재설정
 	public int reset_pw(MemberVO vo)throws Exception;
+	
 }
