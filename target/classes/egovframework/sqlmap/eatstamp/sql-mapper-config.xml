@@ -4,12 +4,16 @@
 <configuration>
     <typeAliases>
 
-		<typeAlias  alias="stampVO" type="com.EatStampAdmin.domain.StampVO"/>
-		<typeAlias  alias="tagPostMappingVO" type="com.EatStampAdmin.domain.TagPostMappingVO"/>
-		<typeAlias  alias="memberVO" type="com.EatStampAdmin.domain.MemberVO"/>
-		<typeAlias  alias="stampVO" type="com.EatStampAdmin.domain.StampVO"/>
-		<typeAlias  alias="searchVO" type="com.EatStampAdmin.domain.SearchVO"/>
-		<typeAlias  alias="restVO" type="com.EatStampAdmin.domain.RestVO"/>
+		<typeAlias  alias="memberVO" type="com.EatStamp.domain.MemberVO"/>
+		<typeAlias  alias="stampVO" type="com.EatStamp.domain.StampVO"/>
+		<typeAlias  alias="keywordVO" type="com.EatStamp.domain.KeywordVO"/>
+		<typeAlias  alias="wordVO" type="com.EatStamp.domain.WordVO"/>
+		<typeAlias  alias="searchVO" type="com.EatStamp.domain.SearchVO"/>
+		<typeAlias  alias="searchForm" type="com.EatStamp.domain.SearchForm"/>
+		<typeAlias  alias="restVO" type="com.EatStamp.domain.RestVO"/>
+		<typeAlias  alias="tagVO" type="com.EatStamp.domain.TagVO"/>
+		<typeAlias  alias="tagPostMappingVO" type="com.EatStamp.domain.TagPostMappingVO"/>
+
 		
     </typeAliases>
 </configuration>

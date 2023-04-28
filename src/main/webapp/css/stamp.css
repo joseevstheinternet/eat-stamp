@@ -1,0 +1,392 @@
+/*qnaList 페이지*/
+body{
+	background:#f4f9f2;
+}
+/* qanlist start */
+.qnalist-list{
+	width:94%;
+	padding: 10px 0;
+	border-top: 1px solid gray;
+}
+.page-content02 li{
+	list-style: none;
+	
+}
+.myqna_btn01 input[type="button"]{
+	margin-top:12px;
+	margin-right:-5px;
+	background: #f4f9f2;
+	cursor:pointer;
+	border-radius:1px;
+	border-top:1px solid gray;
+	border-left:1px solid gray;
+	border-right:1px solid gray;
+	border-bottom:3px solid #f4f9f2;
+	font-weight:bold;
+	font-size:14px;
+}
+.myqna_btn01 input[type="button"]:hover{
+	margin-top:12px;
+	margin-right:-5px;
+	background: #7c8f83;
+	cursor:pointer;
+	border-radius:1px;
+	border-top:1px solid #7c8f83;
+	border-left:1px solid #7c8f83;
+	border-right:1px solid #7c8f83;
+	border-bottom:2px solid #7c8f83;
+	font-weight:bold;
+	font-size:14px;
+	color:white;
+}
+.category-ul{
+	margin-left:16px;
+}
+.mypage-div02{
+	padding-top:3%; 
+	margin-left:103px;
+	width:40%;
+	float:left; 
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.qnalist-ul{
+	margin-top:-15px;
+	margin-left: 20px;
+}
+.qnalistspanbottom{
+	margin-top:-4px;
+	margin-bottom: 14px;
+	margin-left: 56px;
+	color:gray;
+	font-size:8px;
+}
+.qnalist-image01{
+	margin-top:6px;
+	margin-right:15px;
+	margin-left:15px;
+}
+#qnalist-image02{
+	width:80px;
+	height:80px;
+	cursor:pointer;
+}
+.qnalist-span01{
+	margin:9px;
+}
+.box-title{
+	margin-top:4px;
+	font-size:15px;
+	font-weight:bold;
+}
+.box-content{
+	margin-top:-13px;
+	margin-bottom:6px;
+	font-size: 11px;
+}
+.box-date{
+	font-size:9px;
+}
+#qna_home{
+	margin-bottom:-3px;
+	width:17px;
+	height:17px;
+	cursor:pointer;
+}
+#qnacb{
+	margin-top:-22px;
+	margin-right:6%;
+	float:right;
+	font-size:11px;
+}
+
+#qnacb input[type="button"]{
+	font-size:11px;
+	border:none;
+	background:none;
+	cursor:pointer;
+}
+#qnacb input[type="checkbox"]{
+	width:12px;
+	height:13px;
+	cursor:pointer;
+	font-size: 11px;
+}
+.qnacheck-box input[type="checkbox"]{
+	margin-right:-5px;
+	margin-top:6px;
+	width:12px;
+	height:13px;
+	cursor:pointer;
+}
+/* end of qnalist */
+
+/*qnaWrite.jsp*/
+.qna_write_main{
+	margin: 120px 0 0 35%;
+}
+.faq_write_main h2{
+	margin-bottom:20px;
+}
+.q_title_li{
+	list-style: none;
+	padding-left:0px;
+}
+.qna_write_hr{
+	background:#7c8f83;
+    height:1px;
+    border:0;
+}
+#q_category{
+	margin-right:17px;
+	width: 115px;
+	height: 26px;
+	border-radius: 10px;
+	text-align:center;
+}
+.q_title_li input[type="text"]{
+	margin-top: 40px;
+	width: 462px;
+	height: 28px;
+	border-color:lightgray;
+	border-radius: 10px;
+}
+.q_title_li textarea{
+	margin-top: 30px;
+	width: 600px;
+	height: 200px;
+	border-color:lightgray;
+	border-radius: 7px;
+}
+.q_title_li input[type="text"]::placeholder, textarea::placeholder{
+	color: #d5d4d4;
+}
+#faq_write_btn01{
+	margin: 42px 250px 0;
+}
+#faq_write_btn01 button,#faq_write_btn01 input[type="button"]{
+	margin-right:15px;
+	width:45px;
+	height:23px;
+	background-color: #7c8f83;
+	color:white;
+	border: none;
+	border-radius: 10px;
+	font-weight:bold;
+}
+.my-photo2{
+	width:130px;
+	height:140px;
+}
+.photoUpload li{
+	list-style: none;
+}
+.photoUpload_li{
+	margin: 40px 0 0 190px;
+}
+#upload{
+	float:left;
+}
+.qna_write_btn02{
+	margin: 15px 0 0 115px;
+}
+#photo_reset{
+	width:20px;
+	height:20px;
+	cursor:pointer;
+}
+#qnacontent_ckeck{
+	padding-top:3px;
+	padding-left:544px;
+	font-size:11px;
+}
+.box-parent{
+	margin-bottom:-9px;
+    display: flex;
+    width:fit-content;
+}
+/*end qnaWrite.jsp*/
+
+/*qnaView.jsp start*/
+.qna-main{
+	margin: 138px 350px 90px 350px;
+	font-family : Arial, "돋움", dotum, sans-serif;
+}
+/* .qna-main h3{
+	margin-top: 45px;
+	color:gray;
+} */
+.qna-main a{
+	color:#A9A9A9;
+}
+.qnaViewtable{
+	width:100%;
+}
+.qnaViewtb table, th, td{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+	border-collapse : collapse;
+}
+.qnaViewtb th{
+	height:37px;
+	text-align:center;
+}
+#qnaac01{
+	height:37px;
+	border-bottom:1px solid lightgray;
+	font-size:12px;
+	font-weight: bold;
+	border:white;
+}
+#qnaac02{
+	width:12%;
+	text-align:center;
+}
+#qnaac03{
+	width:88%
+}
+.accordion-body{
+	margin-bottom:3%;
+	margin-right:12%;
+	margin-left:13%;
+	
+}
+#collapse{
+	border-bottom:2px solid lightgray;
+}
+.accordion-item{
+	border:none;
+}
+#qnalist-image03{
+	margin-bottom:6%;
+	width: 50%;
+	height: 50%;
+}
+.qna_btn_group{
+	margin:2%;
+}
+.qna_btn_group input[type="button"]{
+	margin-right:6px;
+	width:47px;
+	height:23px;
+	background-color: #7c8f83;
+	color:white;
+	border: none;
+	font-weight:bold;
+	font-size:13px;
+	border-radius: 50px;
+}
+#qnadiv01{
+	margin-top:50px;
+	font-size:11px;
+	font-weight:bold;
+}
+.qna_btn02 input[type="button"]{
+	margin:3%;
+	width:50px;
+	background:white;
+	border:1px solid silver;
+	font-size:13px;
+}
+.qnarefresh{
+   cursor: pointer;
+   height: 15px;
+   width: 15px;
+   position: fixed;
+   right:328px;
+   top: 139px;
+}
+/*end qnaView.jsp*/
+
+/*qna-comment*/
+.modify-btn{
+	width:35px;
+	height:20px;
+	background-color: white;
+	border: none;
+	font-weight:bold;
+	font-size:12px;
+	float:right;
+}
+
+.delete-btn{
+	width:35px;
+	height:20px;
+	margin-left:-3px;
+	background-color: white;
+	border: none;
+	font-weight:bold;
+	font-size:12px;
+	float:right;
+}
+#commentname{
+	font-size:13px;
+	font-weight:bold;
+}
+.sub-item p{
+	margin-top:10px;
+}
+.modify-date{
+	font-size:11px;
+	color:#CCCCCC;
+}
+.paging-button input[type="button"]{
+	background-color: white;
+	border: none;
+	font-weight:bold;
+	color: #A9A9A9;
+	text-decoration: underline;
+	text-underline-position: under;
+}
+#mqc_form{
+	margin-top:7px;
+}
+#mqc_second{
+	margin-top:7px;
+	margin-bottom:43px;
+}
+#mqc_second input[type="submit"]{
+	margin-left:15px;
+	width:35px;
+	height:20px;
+	background-color: white;
+	border: none;
+	font-weight:bold;
+	font-size:12px;
+	float:right;
+}
+#mqc_second input[type="button"]{
+	width:35px;
+	height:20px;
+	margin-left:-3px;
+	background-color: white;
+	border: none;
+	font-weight:bold;
+	font-size:12px;
+	float:right;
+}
+#mqc_content{
+	width:100%;
+}
+#qc_content{
+	margin-right: -13%;
+	margin-bottom: 25px;
+	width:75%;
+	border:none;
+	border-bottom:1px solid black;
+}
+.qna_btn03 input[type="submit"]{
+	float:right;
+	margin-right: 114px;
+	margin-top: -10px;
+	background:white;
+	border:none;
+	font-size:30px;
+}
+.managerbox{
+	background:#F7F8F9;
+	margin-top:-16px;
+}
+.item{
+	color:gray;
+}
+/*end qnaView comment*/

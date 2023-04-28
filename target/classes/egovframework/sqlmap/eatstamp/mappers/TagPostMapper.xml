@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.EatStampAdmin.mapper.TagPostMapper">
+<mapper namespace="com.EatStamp.mapper.TagPostMapper">
 
+	<insert id="saveTagPost">
+		INSERT INTO tagPostMapping 
+			(
+			tag_num, 
+			s_num, 
+			mem_num
+			) 
+		VALUES 
+			(
+			#{tag_num}, 
+			#{s_num}, 
+			#{mem_num}
+			)
+	</insert>
+	
 	<delete id="deleteTagPost">
 		DELETE FROM tagPostMapping
 		WHERE s_num = #{s_num}

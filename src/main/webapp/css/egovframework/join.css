@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 50%;
+	margin-left: 27%;
+}
+
+#title{
+   margin-top: 10px;
+   color: #ffad00;
+   border: none;
+}
+
+label {
+	color: #606060;
+	font-size: 16px;
+}
+
+#emal_etc{
+	display: flex;
+}
+
+/* placeholder 지정  */
+input::placeholder{
+   color: #c6c1b1;
+   padding-left: 10px;
+   font-size: 12px;
+   padding-bottom: 5px;
+}
+
+
+#pwd_input_box{
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#pwd_input_box i{
+    position: absolute;
+    left: 65%;
+    top: 30px;
+    color: orange;
+    font-size: 18px;
+}
+
+
+#pwd_input_check_box {
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	
+}
+
+#pwd_input_check_box i{
+    position: absolute;
+    left: 65%;
+    top: 30px;
+    color: orange;
+    font-size: 18px;
+}
+
+
+#sentence_box{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#email_input_box{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#email-form{
+	width: 500px;
+    height: 25px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 2px;
+}
+
+#email_etc{
+	width: 700px;
+}
+
+#emaliCheckBtn{
+	width: 150px;
+	height: 60px;
+	margin-left: 20px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;
+    float: right;
+}
+
+
+
+#pass-form{
+	width: 500px;
+    height: 25px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 2px;
+}
+
+
+#passCheck-form{
+	width: 500px;
+    height: 25px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 2px;
+}
+
+#nick_box{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#name-form{
+	width: 500px;
+    height: 25px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 15px;
+}
+
+#birth_box{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#birth_form{
+	width: 500px;
+    height: 25px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 15px;
+}
+
+#bitrh_label{
+	display: inline;
+}
+
+#last_div{
+	display: flex;
+	padding-right: 50px;
+}
+
+#last_label{
+	display: flex;
+}
+
+#gender_label{
+	margin-right: 25%;
+}
+
+.gender_box{
+	margin-right: 12%;
+}
+
+
+.gender_box input[type=radio]+label{
+    margin-right: 20px;
+}
+
+
+.profile_box input[type=radio]+label{
+    margin-right: 20px;
+}
+
+#joinBtn{
+	width: 150px;
+	height: 60px;
+	margin-left: 20px;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;
+    float: right;
+}
+
+
+
+

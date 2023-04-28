@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 50%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+.main-logo{
+	width: 200px;
+	padding-bottom: 10px;
+}
+
+#loginMsg{
+	font-size: 30px;
+	color: #ffc06c;
+	font-weight: bold;
+}
+
+.find_email_box{
+	display: flex;
+}
+
+.find_pw_box{
+	display: flex;
+}
+
+label{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+/* 이메일 입력칸  */
+#email-form{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    margin-right: 10px;
+}
+
+/* 비밀번호 입력칸  */
+#code-form{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    margin-right: 10px;
+}
+
+#find_pwBtn{
+	width: 150px;
+	height: 50px;
+	margin-left: 20px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;
+    float: right; 
+    margin: 20px 0 0 0;
+    border: none;
+}
+
+#submitBtn{
+	width: 150px;
+	height: 50px;
+	margin-left: 20px;
+	float: right;
+	background-color: #ffad00;
+	color: white;
+	border-radius: 30px;
+	font-size: 15px;
+    font-weight: bold;
+    float: right; 
+    margin: 20px 0 0 0;
+
+}
+

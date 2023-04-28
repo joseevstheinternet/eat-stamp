@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStamp.mapper.KeywordMapper">
+
+	<!-- 분석할 텍스트 선택-->
+	<select id="selectText" parameterType="map" resultType="stampVO">
+		SELECT
+			s_content
+		FROM stamp
+		WHERE mem_num=#{mem_num}
+	</select>
+</mapper>

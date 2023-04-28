@@ -33,26 +33,6 @@ p.menu-list{
 	margin: 10px 0 10px 10px;
 }
 
-div.no-admin{
-	background-color: white;
-    text-align: center;
-    padding: 50px;
-    width: 500px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    margin: 100px auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-span.no-admin{
-	font-size: 16px;
-    font-weight: bold;
-    color: #d90000;
-    margin: 3px 0;
-}
-
 /* 우측 list */
 div.no-list{
 	background-color: white;
@@ -109,20 +89,19 @@ div.box-section1{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
 i.imageIcon{
-    font-size: 40px;
+    font-size: 60px;
     color: ddd9cb;
 }
 
 img#imgfile{
-	height: 40px;
-    width: 40px;
-    border-radius: 5px;
-    object-fit: cover;
+	height: 60px;
+    width: 60px;
+    border-radius: 10px;
 }
 
 div.list-span01{
@@ -130,9 +109,9 @@ div.list-span01{
 	margin-top: 3px;
 }
 
-/* div.box-date{ */
-/* 	color: #ddd9cb; */
-/* } */
+div.box-date{
+	color: #ddd9cb;
+}
 
 span.font-set1{
 	font-size: 16px;
@@ -145,11 +124,6 @@ span.font-set2{
 	color: gray;
 }
 
-span.font-set3{
-	font-size: 12px;
-    color: gray;
-}
-
 i.restIcon{
 	margin-right: 5px;
     color: #b1b1b1;
@@ -157,13 +131,6 @@ i.restIcon{
 
 hr.line{
     margin: 15px 0;
-    background: #ddd9cb;
-    height: 1px;
-    border: 0;
-}
-
-hr.line2{
-    margin: 14px 0;
     background: #ddd9cb;
     height: 1px;
     border: 0;

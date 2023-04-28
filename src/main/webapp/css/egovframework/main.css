@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+.page-main{
+	width: 70%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+/* 슬라이드 CSS */
+/* .swiper-container {
+	height:420px;
+	border:5px solid silver;
+	border-radius:7px;
+	box-shadow:0 0 20px #ccc inset;
+} */
+/*  .swiper-slide {
+	text-align:center;
+	display:flex; 내용을 중앙정렬 하기위해 flex 사용
+	align-items:center; 위아래 기준 중앙정렬
+	justify-content:center; 좌우 기준 중앙정렬
+	width: 280px;
+}  */
+/* 슬라이드 css 끝 */
+
+/* 회원 페이지 */
+
+div.section{
+	display: grid;
+	justify-items: center;
+}
+
+/* 회원 페이지 section 1 */
+div.section1-1{
+	display: flex;
+	align-items: center;
+	left: -15px;
+    position: relative;
+}
+
+div.section1-1-1{
+	display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+div#section1-2{
+	display: flex;
+    flex-direction: column;
+	margin: 50px 0;
+    align-items: center;
+    justify-content: center;
+}
+
+div.yello-box{
+	background: #ffd274;
+    width: 700px;
+    height: 180px;
+    border-radius: 30px;
+}
+
+img.main-logo{
+	width: 200px;
+	margin: 0 10px;
+}
+
+span.main-text{
+	font-size: 22px;
+    letter-spacing: -1.5;
+}
+
+span.text-color{
+	color: #ffd274;
+}
+
+i.icon1{
+	margin: 15px 0;
+    font-size: 30px;
+    color: white;
+}
+
+span.box-text{
+	font-size: 15px;
+    letter-spacing: -1;
+    color: white;
+}
+
+button.box-button{
+	font-size: 16px;
+    width: 170px;
+    height: 40px;
+    border-radius: 20px;
+    color: #ffd274;
+    font-weight: bold;
+}
+/* 회원 페이지 section 1 끝 */
+
+/* 회원 페이지 section 2 */
+div#section2-1{
+	display: flex;
+    flex-direction: column;
+}
+
+span.main-title{
+	width: 700px;
+	font-size: 17px;
+    font-weight: bold;
+    color: #ffc06c;
+    letter-spacing: -1;
+    margin: 0 0 20px 0;
+}
+
+table {
+	margin-bottom: 20px;
+	border-spacing: 10px;
+}
+
+th, td {
+	padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+}
+
+div.no-list{
+	background-color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 500px;
+    align-self: center;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    margin-bottom: 15px;
+}
+
+span.no-list{
+	font-size: 14px;
+    letter-spacing: -1;
+    font-weight: bold;
+    color: #b3b3b3;
+}
+/* 회원 페이지 section 2 끝 */
+
+/* 회원 페이지 section 3 */
+div#section3-1{
+	display: flex;
+    flex-direction: column;
+}
+
+div.section3-1-1{
+	display: flex;
+    justify-content: space-between;
+    width: 700px;
+}
+
+div.section3-1-2{
+	cursor: pointer;
+    position: relative;
+    top: 5px;
+    color: ffdc90;
+    display: flex;
+}
+
+span.main-detail{
+	width: 100px;
+	text-align: end;
+}
+
+i.dotsIcon{
+	margin: 4px;
+}
+/* 회원 페이지 section 3 끝 */
+
+div.card-box-wrap{
+	display: flex;
+	justify-content: center;
+}
+
+div.card-box{
+	display: flex;
+    background-color: white;
+    width: 280px;
+    height: 90px;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 15px;
+    margin: 0 10px 30px 10px;
+    cursor: pointer;
+}
+
+i.card-box-image{
+	font-size: 60px;
+    margin-right: 10px;
+}
+
+img#imgfile{
+	height: 60px;
+    width: 60px;
+    border-radius: 10px;
+}
+
+div.card-box-column{
+	display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+span.card-box-title{
+	font-size: 15px;
+    color: #ffad00;
+    font-weight: bold;
+    margin-bottom: 5px;
+    height: 22px;
+    overflow: hidden;
+}
+
+span.card-box-contents{
+	font-size: 13px;
+	overflow: hidden;
+}
+/* 회원 페이지 끝 */
+
+
+/* 비회원 페이지 */
+div.unsection{
+	display: flex;
+    flex-direction: column;
+    margin: 50px 0;
+}
+button.box-button2{
+	width: 500px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+}
+
+
+/* 비회원 페이지 끝 */

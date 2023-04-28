@@ -1,0 +1,252 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.page-main{
+	width: 1000px;
+	margin: 0 auto;
+	margin-bottom: 80px;
+	padding-top: 50px;
+}
+
+ /* 좌측 메뉴바 */
+
+div#wrap{
+	display: flex;
+    justify-content: center;
+    padding: 50px 0;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+div.mypage-menu {
+    width: 150px;
+    height: 150px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 20 0 20 30px;
+}
+
+div.mypage-div02{
+	flex: 4;
+    margin-left: 100px;
+}
+
+a.menu-list{
+	font-size: 13px;
+    font-weight: bold;
+}
+
+p.menu-list{
+	margin: 10px 0 10px 10px;
+}
+
+/* 우측 list */
+div.mypage-section1{
+	display: flex;
+    align-items: center;
+}
+
+span.mypage-title{
+    font-size: 25px;
+    color: ffc06c;
+    font-weight: bold;
+    flex: 1;
+}
+
+i.writeBtn{
+	font-size: 30px;
+}
+
+ul.list-ul{
+	margin: 30px 0;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 30px;
+}
+
+li.list-list{
+	list-style-type: none;
+}
+
+div.box-parent{
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    align-items: center;
+    cursor: pointer;
+}
+
+div.box-section1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+i.imageIcon{
+    font-size: 60px;
+    color: ddd9cb;
+}
+
+img#imgfile{
+	height: 60px;
+    width: 60px;
+}
+
+div.list-span01{
+	margin-left: 12px;
+	margin-top: 3px;
+}
+
+div.box-date{
+	color: #ddd9cb;
+}
+
+span.font-set1{
+	font-size: 16px;
+	font-weight: bolder;
+	color: ffc06c;
+}
+
+span.font-set2{
+	font-size: 14px;
+}
+
+hr.line{
+    margin: 15px 0;
+    background: #ddd9cb;
+    height: 1px;
+    border: 0;
+}
+
+div.page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------------------------------------------------------------------  */
+
+.all_wrap{
+	display: flex;
+}
+
+.wrap{
+	margin-left: 20%;
+	align-items: center;
+	align-content: center;
+}
+
+.alert_box {
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.alert {
+	color : red;
+}
+
+.agree_box{
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.text_box{
+	color: ffc06c;
+	margin-bottom: 20px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.email_text{
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #e6d4ad;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    text-align: center;
+}
+
+#mem_pwCheck{
+	display: block;
+	margin-bottom: 20px;
+	width: 500px;
+    height: 50px;
+	border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin:15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    text-align: center;
+}
+
+#deleteBtn{
+	width: 230px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-left: 25%;
+}
+
+.main_form{
+	align-items: center;
+	align-content: center;
+}
+
+/*  체크박스!!!! */
+
+.alert_span{
+	margin-left: 10px;
+}
+
+.agree_box input[type="checkbox"] {
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    outline: none !important;
+    border: 3px solid #9999;
+    vertical-align: middle;
+}
+.agree_box input[type="checkbox"]::before {
+    content: "\2713";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    transform: scale(0) translate(-50%, -50%);
+    line-height: 1;
+}
+.agree_box input[type="checkbox"]:checked {
+    background-color: #ffd274;
+    border-color: white;
+    color: white;
+}
+.agree_box input[type="checkbox"]:checked::before {
+    border-radius: 4px;
+    transform: scale(1) translate(-50%, -50%)
+}

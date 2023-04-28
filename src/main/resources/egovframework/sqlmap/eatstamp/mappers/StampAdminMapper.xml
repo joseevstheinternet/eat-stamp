@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.EatStamp.mapper.StampAdminMapper">  
+
+	<!-- 글목록 -->
+	<select id="selectList" parameterType="map" resultType="stampVO">
+		SELECT 
+			mem_nick,
+			s_num, 
+			s_title, 
+			s_content, 
+			s_uploadPath,
+			s_fileLoca, 
+			s_fileName, 
+			s_fileRealName, 
+			s_rate, 
+			reg_date, 
+			r_name, 
+			mem_num
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				m.mem_nick, 
+				s_num,
+				s_title,
+				s_content,
+				s_uploadPath,
+				s_fileLoca, 
+				s_fileName, 
+				s_fileRealName, 
+				s_rate,
+				reg_date,
+				r_name,
+				s.mem_num
+			FROM eatstamp.stamp s
+			JOIN eatstamp.member m ON s.mem_num = m.mem_num
+			JOIN (SELECT @rownum:=0) TMP
+	        <where>
+	            <if test="searchType != '' and searchKeyword != ''">
+	                <choose>
+	                    <when test="searchType == 'title'">
+	                        AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    </when>
+	                    <when test="searchType == 'writer'">
+	                        AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    </when>
+	                    <when test="searchType == 'rname'">
+	                        AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    </when>
+	                </choose>
+	            </if>
+	        </where>
+			ORDER BY s_num DESC
+			) t1
+		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 전체 글 개수 -->
+  	<select id="selectRowCount" resultType="int">
+  		SELECT 
+  			COUNT(*) 
+  		FROM eatstamp.stamp s 
+  		JOIN eatstamp.member m ON s.mem_num = m.mem_num
+	    <where>
+	        <if test="searchType != '' and searchKeyword != ''">
+	            <choose>
+	                <when test="searchType == 'title'">
+	                    AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'writer'">
+	                    AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	                <when test="searchType == 'rname'">
+	                    AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </when>
+	            </choose>
+	        </if>
+	    </where>
+  	</select>
+  	
+  	<!-- 글 상세 -->
+  	<select id="selectStamp" parameterType="int" resultType="stampVO">
+		SELECT 
+			s_num,
+			s_title,
+			s_content,
+			s_uploadPath,
+			s_fileLoca,
+			s_fileName,
+			reg_date,
+			s_rate,
+			s.r_name,
+			s.mem_num,
+			s_tag,
+			m.mem_nick,
+			m.mem_email,
+			m.mem_profileCode, 
+			r.r_num 
+		FROM eatstamp.stamp s 
+		JOIN eatstamp.member m 
+		  ON s.mem_num = m.mem_num 
+		JOIN eatstamp.rest r 
+		  ON s.r_name = r.r_name 
+		WHERE s_num = #{s_num}
+  	</select>
+  	
+  	<!-- 글 삭제 -->
+  	<delete id="deleteStamp" parameterType="int">
+  		DELETE 
+  			FROM stamp 
+  			WHERE s_num=#{s_num}
+  	</delete>
+
+</mapper>

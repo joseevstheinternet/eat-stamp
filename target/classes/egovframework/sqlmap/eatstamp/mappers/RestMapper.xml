@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.EatStamp.mapper.RestMapper">
+
+	<!-- 식당 목록 -->
+	<select id="selectRestList" parameterType="map" resultType="restVO">
+		SELECT 
+			r_num, 
+			r_name, 
+			r_add, 
+			r_food,
+			r_tel, 
+			r_fileName, 
+			r_fileRoot, 
+			r_detail, 
+			r_menu, 
+			r_open, 
+			r_close, 
+			r_rate, 
+			r_category 
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				r_num, 
+				r_name, 
+				r_add, 
+				r_food,
+				r_tel, 
+				r_fileName, 
+				r_fileRoot, 
+				r_detail, 
+				r_menu, 
+				r_open, 
+				r_close, 
+				r_rate, 
+				r_category 
+			FROM eatstamp.rest, (SELECT @rownum:=0) TMP
+			ORDER BY r_rate DESC
+			) t1
+		WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+  	
+  	<!-- 키워드 기반 추천 식당 목록 -->
+	<select id="selectRecList" parameterType="map" resultType="restVO">
+		SELECT 
+			r_num, 
+			r_name, 
+			r_tel, 
+			r_add, 
+			r_fileName, 
+			r_food 
+		FROM(
+			SELECT 
+				@rownum:=@rownum+1 AS rn, 
+				r_num, 
+				r_name, 
+				r_tel, 
+				r_add, 
+				r_fileName, 
+				r_food 
+			FROM eatstamp.rest, (SELECT @rownum:=0) TMP
+			WHERE r_food LIKE CONCAT('%', #{k1}, '%') OR r_name LIKE CONCAT('%', #{k1}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k2}, '%') OR r_name LIKE CONCAT('%', #{k2}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k3}, '%') OR r_name LIKE CONCAT('%', #{k3}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k4}, '%') OR r_name LIKE CONCAT('%', #{k4}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k5}, '%') OR r_name LIKE CONCAT('%', #{k5}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k6}, '%') OR r_name LIKE CONCAT('%', #{k6}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k7}, '%') OR r_name LIKE CONCAT('%', #{k7}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k8}, '%') OR r_name LIKE CONCAT('%', #{k8}, '%') 
+		 	) t1 
+		   WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+  	<!-- 키워드 기반 추천 식당 개수 -->
+  	<select id="selectRecRowCount" resultType="int">
+  		SELECT 
+		  	COUNT(*) 
+		FROM (
+			SELECT 
+				r_num, r_name, r_tel, r_food 
+			FROM(
+				SELECT 
+					r_num, r_name, r_tel, r_food 
+				FROM eatstamp.rest
+			WHERE r_food LIKE CONCAT('%', #{k1}, '%') OR r_name LIKE CONCAT('%', #{k1}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k2}, '%') OR r_name LIKE CONCAT('%', #{k2}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k3}, '%') OR r_name LIKE CONCAT('%', #{k3}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k4}, '%') OR r_name LIKE CONCAT('%', #{k4}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k5}, '%') OR r_name LIKE CONCAT('%', #{k5}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k6}, '%') OR r_name LIKE CONCAT('%', #{k6}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k7}, '%') OR r_name LIKE CONCAT('%', #{k7}, '%') 
+			 OR r_food LIKE CONCAT('%', #{k8}, '%') OR r_name LIKE CONCAT('%', #{k8}, '%') 
+			 	) t1 
+		) t2
+  	</select>
+	
+  	<!-- 찜한 식당 목록 -->
+	<select id="selectLikeList" parameterType="map" resultType="restVO">
+		SELECT 
+			r_num, 
+			r_name, 
+			r_add, 
+			r_food,
+			r_tel, 
+			r_fileName, 
+			r_fileRoot, 
+			r_detail, 
+			r_menu, 
+			r_open, 
+			r_close, 
+			r_rate, 
+			r_category 
+		FROM (
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				r.r_num, 
+				r_name, 
+				r_add, 
+				r_food,
+				r_tel, 
+				r_fileName, 
+				r_fileRoot, 
+				r_detail, 
+				r_menu, 
+				r_open, 
+				r_close, 
+				r_rate, 
+				r_category 
+			FROM eatstamp.rest r 
+			JOIN eatstamp.r_like rl ON r.r_num = rl.r_num 
+			JOIN (SELECT @rownum:=0) TMP 
+			WHERE rl.mem_num = #{mem_num} 
+			ORDER BY rl.r_like_num DESC
+		) t1
+		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+  	<!-- 찜한 식당 개수 -->
+  	<select id="selectLikeRowCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM (
+			SELECT
+				r.r_num, 
+				r_name, 
+				r_add, 
+				r_food,
+				r_tel, 
+				r_fileName, 
+				r_fileRoot, 
+				r_detail, 
+				r_menu, 
+				r_open, 
+				r_close, 
+				r_rate, 
+				r_category 
+			FROM eatstamp.rest r 
+			JOIN eatstamp.r_like rl ON r.r_num = rl.r_num 
+			WHERE rl.mem_num = #{mem_num}
+			 ) t1 
+  	</select>
+
+  	<!-- 식당 상세 -->
+  	<select id="selectRest" parameterType="int" resultType="restVO">
+  		SELECT 
+  			* 
+  		FROM rest
+		WHERE r_num=#{r_num}
+  	</select>
+  	
+  	<!-- 상호명 검색 -->
+  	<select id="selectR_nameList" parameterType="map" resultType="restVO">
+	  	SELECT 
+	  		r_num, 
+			r_name,
+			r_add,
+			r_food,
+			r_category
+		FROM rest 
+		WHERE r_name REGEXP #{name}
+  	</select>
+
+	<!-- 상호명 검색 결과 개수 구하기 -->
+  	<select id="selectR_nameRowCount" parameterType="map" resultType="restVO">
+	  	SELECT 
+			COUNT(*) 
+		FROM (
+		  	SELECT 
+		  		r_num, 
+				r_name,
+				r_add,
+				r_food,
+				r_category
+			FROM rest 
+			WHERE r_name REGEXP #{name}
+			) t1
+  	</select>
+  	
+  	
+  	
+  	<!--  0411 최은지 가게 상세정보 조회-->
+  	<select id="getRestDetail" parameterType="restVO" resultType="restVO">
+  	
+	  	SELECT 
+			r_num,
+			r_name,
+			r_add,
+			r_food,
+			r_tel,
+			r_menu,
+			r_fileName,
+			r_detail,
+			r_open,
+			r_close,
+			r_category
+	
+		FROM
+		rest 
+	
+		WHERE
+		 r_num = #{r_num}
+ 
+  	</select>
+  	
+  	
+  	<!--  0411 최은지 가게 좋아요 여부 조회 -->
+  	<select id="getRestLike" parameterType="restVO" resultType="restVO">
+  	
+  		SELECT 
+			r_like_num 
+			
+		FROM 
+		 r_like
+		 
+		WHERE
+			mem_num = #{mem_num}
+			
+		AND
+			r_num = #{r_num}
+			
+  	</select>
+  	
+  	
+  	<!-- 0411 최은지 가게찜 -->
+  	<insert id="add_rest_like" parameterType="restVO">
+  	
+		INSERT 
+			INTO r_like
+				(
+					r_num,
+					mem_num
+				)		
+		VALUES(
+			#{r_num},
+			#{mem_num}
+			)
+		
+  	</insert>
+  	
+  	
+  	<!-- 0411 최은지 가게 찜하기 취소  -->
+  	<delete id="delete_rest_like" parameterType="restVO">
+  	
+  		DELETE
+  			 FROM eatstamp.r_like
+		WHERE
+			 r_like_num= #{r_like_num}
+			 
+  	</delete>
+  	
+  	
+  	<!--  0412 최은지 가게 찜하기 삭제용  추가 r_like_num 받아오기-->
+  	<select id="get_plus_rLike" parameterType="restVO" resultType="String">
+  	
+	  	SELECT 
+			r_like_num
+		FROM
+			r_like rl
+		
+			WHERE 
+			mem_num = #{mem_num}
+			AND 
+			r_num = #{r_num}
+  	
+  	</select>
+  	
+</mapper>
