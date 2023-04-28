@@ -347,6 +347,13 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.selectMember(mem_num);
 	}
 
+	//<0428 최은지 관리자 조회>
+	@Override
+	public int selectAdminOkay(String mem_email) {
+
+		return memberMapper.selectAdminOkay(mem_email);
+	}
+
 
 	
 	

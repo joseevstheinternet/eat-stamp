@@ -48,16 +48,18 @@
 			
 			<form action="/insertRestContent.do"  method="post"  enctype="multipart/form-data" onsubmit="return checks()">
 			
+				<input type="hidden" name= r_fileName class="file_name" > 
+			
 				<!-- 상호명 및 카테고리 감싸기ss div -->
 				<div class = "foodCate_box">
 					<div class = "cate_box">
 						<div class="cate_text">
 							<span class ="cate_span"> 카테고리</span>
 						</div>
-							<select class="cate_select" name ="r_food">
+							<select class="cate_select" name ="r_category">
 								<option value="한식">한식</option>
 								<option value="일식">일식</option>
-								<option value="중국식">증국식</option>
+								<option value="중국식">중국식</option>
 								<option value="경양식">경양식</option>
 								<option value="분식">분식</option>
 								<option value="외국음식">외국음식</option>
@@ -67,13 +69,6 @@
 							</select>
 					</div>
 					
-					<div class = "food_box">
-						<div class="food_text">
-							<span class ="food_span"> 주된 음식</span>
-						</div>
-						<input class="food_input" name="r_food" type="text" placeholder="주된 음식을 입력해주세요.">
-					</div>
-				
 				</div> <!-- foodcate end -->
 			
 				<!--  윗단 flex용 감싸기 -->
@@ -81,9 +76,8 @@
 				
 				<!--이미지 -->
 				<div class = "img_box">
-					<c:if test="${null == list.r_fileName}">
-							<img src="https://via.placeholder.com/300/a5a5a5/ffffff?Text=이미지를 등록해주세요.com" class="rest_img">
-					</c:if>
+						<img src="https://via.placeholder.com/300/a5a5a5/ffffff?Text=이미지를 등록해주세요.com" class="rest_img">
+
 					<br>
 					<div class ="btn_div">
 						<label for="img_route" class="img_insert_btn"> 이미지 등록</label>
@@ -95,12 +89,19 @@
 				<!-- flex용 감싸기 -->
 				<div class ="top_semi_warp">
 				
+				<div class = "food_box">
+					<div class="food_text">
+						<span class ="food_span"><i class="fa-solid fa-list-check"></i> 주된 음식</span>
+					</div>
+					<input class="food_input" name="r_food" type="text" placeholder="주된 음식을 입력해주세요.">
+				</div>
+				
 				<!--상호명 -->
 				<div class = "title_box">
 					<div class="title_text">
 						<span class ="title_span"><i class="fa-solid fa-signature"></i> 상호명</span>
 					</div>
-					<input class="title_input" name="r_name" type="text"" placeholder="상호명을 입력해주세요.">
+					<input class="title_input" name="r_name" type="text" placeholder="상호명을 입력해주세요.">
 				</div>
 				
 				<!-- 전화번호  >>형식 맞춰서 입력하도록 유효성 검사 -->

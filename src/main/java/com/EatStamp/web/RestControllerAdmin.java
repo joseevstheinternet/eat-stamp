@@ -303,8 +303,8 @@ public class RestControllerAdmin {
 				
 			ModelAndView mav = new ModelAndView();
 			RestVO vo = new RestVO();
-			String uploadPath = "C:/Users/shush/eclipse-workspace/EatStamp_admin/src/main/webapp/images/restImage";
-			
+			String uploadPath = "C:/Users/shush/git/ojtproject/src/main/webapp/images/restImage";
+		
 			//1. 이미지 파일 변경 여부 확인
 			if(r_fileName.equals("") ) { //새로 등록한 파일이 없다면
 				vo.setR_fileName(old_fileName); //구 파일명 set
@@ -387,25 +387,83 @@ public class RestControllerAdmin {
 			
 			return "restInsertAdmin";
 		}//restSearchGo end
+
 		
 		//0427 최은지 가게 등록 페이지
 		@RequestMapping(value = "/insertRestContent.do")
-		public ModelAndView restContentInsert(@RequestParam(value = "img_route") MultipartFile real_file,
-																@RequestParam(value = "r_name") String r_name,
-																@RequestParam(value = "r_tel") String r_tel,
-																@RequestParam(value = "r_detail") String r_detail,
-																@RequestParam(value = "r_add") String r_add,
-																@RequestParam(value = "r_open") String r_open,
-																@RequestParam(value = "r_close") String r_close,
-																@RequestParam(value = "r_menu") String r_menu,
-																@RequestParam(value = "r_fileName") String r_fileName, 
-																@RequestParam(value = "update_add") String update_add,
-																@RequestParam(value = "update_add_semi") String update_add_semi,
+		public ModelAndView restContentInsert(@RequestParam(value = "img_route") MultipartFile real_file, //확인
+																@RequestParam(value = "r_name") String r_name, //확인
+																@RequestParam(value = "r_tel") String r_tel, //확인
+																@RequestParam(value = "r_detail") String r_detail, //확인
+																@RequestParam(value = "r_food") String r_food, //확인
+																@RequestParam(value = "r_category") String r_category, //확인
+																@RequestParam(value = "r_open") String r_open, //확인
+																@RequestParam(value = "r_close") String r_close, //확인
+																@RequestParam(value = "r_menu") String r_menu, //확인
+																@RequestParam(value = "r_fileName") String r_fileName, //확인
+																@RequestParam(value = "update_add") String update_add, //확인
+																@RequestParam(value = "update_add_semi") String update_add_semi, //확인
 																MultipartHttpServletRequest request,
 																HttpServletResponse response) throws Exception{
+					
+					
+			System.out.println("컨트롤러>>>>>>>>>>>>>>>>");
 			
-			ModelAndView mav = new ModelAndView();
-			
-			return mav;
-		}//restSearchGo end
+					ModelAndView mav = new ModelAndView();
+					RestVO vo = new RestVO();
+					String uploadPath =  "C:/Users/shush/git/ojtproject/src/main/webapp/images/restImage";
+					
+					
+					//날짜 확인용 객체 생성
+					String curTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
+					
+		            //신규 파일 등록
+					File newFile = new File(uploadPath+"\\"+curTime+ "_"  +r_name+ "_"  +r_fileName);
+					real_file.transferTo(newFile); 	
+					
+					//중복 방지용
+					String rest_file_name = curTime+"_" +r_name+"_" +r_fileName;
+					vo.setR_fileName(rest_file_name); //신 파일명 set
+					
+					//메인 주소와 서브 주소를 합친 값
+					String plus_add = update_add + " " +update_add_semi;
+					
+					vo.setR_add(plus_add);
+					vo.setR_name(r_name);
+					vo.setR_tel(r_tel);
+					vo.setR_detail(r_detail);
+					vo.setR_menu(r_menu);
+					vo.setR_open(r_open);
+					vo.setR_close(r_close);
+					vo.setR_food(r_food);
+					vo.setR_category(r_category);
+					
+					//service에 전송
+					int result = service.restInsert(vo);
+					
+					if(1 == result) {//등록에 성공했다면
+
+						message = "가게 정보 등록에 성공했습니다.";
+			            response.setContentType("text/html; charset=UTF-8");
+			            PrintWriter out = response.getWriter();
+			            out.println("<script>alert('"+ message +"');</script>");
+			            out.println("<script>location.href('/restListAdmin.do');</script>");
+			            out.flush();
+			            
+						return mav;
+					}else { //등록 실패
+						
+						message = "가게 정보 등록에 실패했습니다. 다시 시도해주세요.";
+			            response.setContentType("text/html; charset=UTF-8");
+			            PrintWriter out = response.getWriter();
+			            out.println("<script>alert('"+ message +"');</script>");
+			            out.flush();
+			            
+			            mav.setViewName("restInsertAdmin");
+						
+						return mav;
+					}
+					
+				}//restInsert end
+
 }

@@ -83,5 +83,11 @@ public class AdminRestServiceImpl implements AdminRestService {
 		return mapper.restUpdate(vo);
 	}
 
+	//0428 최은지 가게 등록
+	@Override
+	public int restInsert(RestVO vo) {
+
+		return mapper.restInsert(vo);
+	}
 
 }

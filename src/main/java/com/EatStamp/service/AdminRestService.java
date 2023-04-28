@@ -38,4 +38,6 @@ public interface AdminRestService {
 	//0425 최은지 가게 업데이트
 	public int restUpdate(RestVO vo);
 
+	//0428 최은지 가게 등록
+	public int restInsert(RestVO vo);
 }
