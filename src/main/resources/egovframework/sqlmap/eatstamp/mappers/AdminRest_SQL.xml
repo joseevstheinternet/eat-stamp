@@ -181,5 +181,43 @@
 		WHERE 
 			r_num=#{r_num}
   	</update>
+  	
+  	
+  	<!-- 0428 최은지 가게 등록  -->
+  	  <insert id="restInsert" parameterType="restVO">
+  	  	INSERT INTO 
+  	  				rest(
+							r_name, 
+							r_add,
+							r_food, 
+							r_tel, 
+							r_fileName, 
+							r_fileRoot,
+							 r_detail, 
+							 r_menu,
+							 r_open, 
+							 r_close, 
+							 r_rate,
+							  r_category,
+							  r_block
+						  )
+					  
+					VALUES(
+								#{r_name},
+								#{r_add},
+								#{r_food},
+								#{r_tel},
+								#{r_fileName},
+								'',
+								#{r_detail},
+								#{r_menu},
+								#{r_open},
+								#{r_close},
+								0,
+								#{r_category},
+								0
+							)
+  	  </insert>
+  	  	
   	  	
 </mapper>

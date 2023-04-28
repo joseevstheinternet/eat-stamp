@@ -35,6 +35,10 @@
 			</div>
 			
 			<div id ="kakao_box">
+			
+				<!-- 관리자 로그인 -->
+				<a id="adminMsg" href="<%=request.getContextPath() %>/mainAdmin.do"><i class="fa-solid fa-user-shield"></i></a>
+				
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=7d9ef6c74111b87a039dd00b4b1812f6&redirect_uri=http://localhost:8282/kakaoLogin.do&response_type=code">
 				        <img src="${pageContext.request.contextPath}/images/egovframework/common/kakao_img.jpg" class="kakao-logo">
 					</a>
@@ -58,6 +62,7 @@
 			<div id="message_box">
 				 <a id="findPwdMsg" href="<%=request.getContextPath() %>/findPassword.do">
 				  <i class="fa-solid fa-arrow-right" ></i> 비밀번호를 잊으셨나요?</a>
+				  
 			</div>		
 			
 		</div>

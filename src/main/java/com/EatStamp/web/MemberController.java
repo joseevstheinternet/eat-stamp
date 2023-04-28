@@ -206,11 +206,25 @@ public class MemberController {
 	
 	// <0323 최은지>로그인 로직
 	@RequestMapping(value = "/login_check.do", method = RequestMethod.POST)
-	public String login_check(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+	public String login_check(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr, HttpServletResponse response) throws Exception {
 		
 		HttpSession session = req.getSession();
 		MemberVO login = service.loginCheck(vo);
 		boolean pwdMatch;
+		String message = null;
+		
+			//0428 관리자 로그인 확인
+			int admin_result = service.selectAdminOkay(vo.getMem_email());
+				if(1 == admin_result) {
+					message = "일반 회원은 접근 불가능한 이메일입니다.";
+		            response.setContentType("text/html; charset=UTF-8");
+		            PrintWriter out = response.getWriter();
+		            out.println("<script>alert('"+ message +"');</script>");
+		            out.flush();
+		            
+		            return "login/login";
+				}
+			
 
 		   //카카오 회원의 일반 로그인 시도 검사
 		    int kakao_result = service.login_kakaoCheck(vo.getMem_email());

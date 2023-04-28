@@ -4,10 +4,6 @@
  outline: none !important ;
 }
 
-.add_field{
- 	display: none;
-}
-
 .hidden_add{
 	display: none;
 }
@@ -42,31 +38,60 @@ input::placeholder{
 
 .cate_box{
 	display: flex;
-	flex: 1;
+	flex: 3;
 }
 
 .cate_text{
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 	margin-right: 10px;
 }
 
+.cate_select{
+	width: 200px;
+	height: 32px;
+	border: 2px solid #ffc06c;
+    border-radius: 20px;
+    color: #ffc06c;
+    text-align: center;
+    font-size: 18px;
+}
 
 .food_box{
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+
+.food_span{
 	flex: 1;
+	font-size: 20px;
+	color: gray;
+	font-weight: bold;
+	text-align: center;
 }
 
 .food_text{
-	font-size: 20px;
-	color: #666666;
-	font-weight: bold;
-	text-align: center;
-	margin-right: 10px;
+	height: 20px;
+	flex: 1;
+	color: gray;
 }
 
+.food_input{
+	flex: 2;
+	height: 20px;
+	width: 350px;
+	font-size: 15px;
+	background-color: #f6ecdb;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 25px;
+    border: 0;
+    border-radius: 20px;
+    color: gray;
+}
 
 .img_insert_btn{
 	padding: 15px 30px;
@@ -167,7 +192,7 @@ input::placeholder{
 .title_span{
 	flex: 1;
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -187,7 +212,7 @@ input::placeholder{
 .tel_span{
 	flex: 1;
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -231,7 +256,7 @@ input::placeholder{
 
 .detail_span{
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -257,7 +282,7 @@ input::placeholder{
     border: 0;
     border-radius: 20px;
     white-space: pre-line;
-    color: #666666;
+    color: gray;
     resize: none;
 }
 
@@ -267,7 +292,7 @@ input::placeholder{
 
 .add_span{
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -283,7 +308,7 @@ input::placeholder{
 	font-size: 15px;
 	background-color: #f6ecdb;
 	box-shadow: 3px 3px 30px 1px #ebebeb70;
-    color: #666666;
+    color: gray;
     padding: 25px;
     border: 0;
     border-radius: 20px;
@@ -315,7 +340,7 @@ input::placeholder{
 
 .menu_span{
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -333,7 +358,7 @@ input::placeholder{
     border: 0;
     border-radius: 20px;
     white-space: pre-line;
-    color: #666666;
+    color: gray;
     resize: none;
 }
 
@@ -380,7 +405,7 @@ input::placeholder{
 .open_span{
 	flex: 1;
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }
@@ -415,7 +440,7 @@ input::placeholder{
 .close_span{
 	flex: 1;
 	font-size: 20px;
-	color: #666666;
+	color: gray;
 	font-weight: bold;
 	text-align: center;
 }

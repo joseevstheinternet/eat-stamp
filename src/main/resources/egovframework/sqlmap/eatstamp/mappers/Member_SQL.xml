@@ -257,5 +257,17 @@
 			WHERE
 				  mem_num=#{mem_num} 
 		</select>
+		
+		<!--  0428 최은지 관리자 로그인 검증 -->
+		<select id="selectAdminOkay" parameterType="String" resultType="int">
+			SELECT 
+				COUNT(*)
+			FROM
+				member
+			WHERE 
+				mem_admin_auth = 1
+			AND 
+				mem_email = #{mem_email}
+		</select>
 
 </mapper>

@@ -59,4 +59,7 @@ public interface MemberService {
 	
 	//<0412 이예지> 회원 정보 조회
 	public MemberVO selectMember(Integer mem_num);
+	
+	//<0428 최은지> 관리자 조회
+	public int selectAdminOkay(String mem_email);
 }

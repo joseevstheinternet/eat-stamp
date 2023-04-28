@@ -43,7 +43,10 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int reset_pw(MemberVO vo) throws Exception {
-		return mapper.reset_pw(vo);
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+
 
 }
