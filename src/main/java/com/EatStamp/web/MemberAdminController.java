@@ -1,10 +1,9 @@
 package com.EatStamp.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.ReportVO;
 import com.EatStamp.service.MemberAdminService;
 import com.common.utils.PagingUtil;
+import com.google.gson.Gson;
 
 @Controller
 public class MemberAdminController {
@@ -118,8 +118,53 @@ public class MemberAdminController {
 			map.put("list", list);
 		}
 		
+		//업데이트 리스트
+		List<ReportVO> updatedList = new ArrayList<>();
+		
+		//회원 닉네임+이메일 추가 조회
+		for (ReportVO reportVO : list) {
+		    int mem_num1 = reportVO.getMem_num(); //신고자
+		    int mem_num2 = reportVO.getMem_num2(); //피신고자
+		    
+		    //기존 vo조회값 백업
+		    int report_num = reportVO.getReport_num();
+		    String report_why = reportVO.getReport_why();
+		    String report_ynCode = reportVO.getReport_ynCode();
+		    int s_num = reportVO.getS_num();
+		    int cmt_num = reportVO.getCmt_num();
+		    String report_return = reportVO.getReport_return();
+		    
+		   //신고 회원 조회
+		    reportVO = memberService.getMemselectOne(mem_num1);
+		   String mem_nick = reportVO.getMem_nick();
+		   String mem_email = reportVO.getMem_email();
+		   
+		   
+		   //피신고 회원 조회
+		   ReportVO reportVO2 = new ReportVO();
+		   reportVO2.setMem_num2(mem_num2);
+		   
+		   reportVO2 = memberService.getMemselectTwo(mem_num2);
+		   String mem_nick2 = reportVO2.getMem_nick();
+		   
+		   //다시 값 세팅
+		   	reportVO.setMem_num(mem_num1);
+		   	reportVO.setMem_num2(mem_num2);
+		    reportVO.setMem_nick(mem_nick);
+		    reportVO.setMem_nick2(mem_nick2);
+		    reportVO.setReport_num(report_num);
+		    reportVO.setReport_why(report_why);
+		    reportVO.setReport_ynCode(report_ynCode);
+		    reportVO.setS_num(s_num);
+		    reportVO.setCmt_num(cmt_num);
+		    reportVO.setReport_return(report_return);
+		    
+		    updatedList.add(reportVO);
+		    
+		}
+		
 		mav.addObject("count", count);
-		mav.addObject("list", list);
+		mav.addObject("list", updatedList);
 		mav.addObject("page", page.getPage());
 		mav.setViewName("reportListAdmin");
 		
@@ -127,5 +172,26 @@ public class MemberAdminController {
 		
 	}//goReportListAdmin end
 	
+	
+	//0502 최은지 신고 상세 정보 조회(모달창)
+	@ResponseBody
+	@RequestMapping("/getReportDetail.do")
+	public String getReportDetail(@RequestParam(value = "report_num") int report_num) throws Exception {
+		
+		//vo 생성하고 값 세팅
+		ReportVO vo = new ReportVO();
+		vo.setReport_num(report_num);
+		
+		ReportVO detailList = memberService.getReportDetailContent(vo);
+		
+		String jsonData = new Gson().toJson(detailList);
+		
+		System.out.println(jsonData);
+		
+		return jsonData;
+		
+	}//신고 상세 end
+	
+
 	
 }

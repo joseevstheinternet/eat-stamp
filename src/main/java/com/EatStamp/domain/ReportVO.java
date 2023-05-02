@@ -20,4 +20,8 @@ public class ReportVO {
 	private int cmt_num; //신고와 관련된 댓글 번호
 	private String report_return; //신고 반려 사유
 	
+	private String mem_nick; //신고자 닉네임
+	private String mem_nick2; //피신고자 닉네임
+	private String mem_email;//신고자 이메일
+	private String mem_email2; //피신고자 이메일
 }

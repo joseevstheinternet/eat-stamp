@@ -5,14 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/reportListAdmin.css'/>" />
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" 
 	    referrerpolicy="no-referrer" />	
-	    
+
+<!-- 부트스트랩 사용  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 
 ul.list-ul{
@@ -56,6 +59,10 @@ div.box-title{
 
 div.box-title2{
 	width: 200px;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 div.box-rname{
@@ -109,15 +116,6 @@ input::placeholder{
 	color: #ffc06c;
 }
 
-select{
-    height: 30px;
-    padding: 0 0 0 5px;
-    width: 63px;
-    border: 1px solid #ffc06c;
-    border-radius: 20px;
-    color: #ffc06c;
-/*     text-align: center; */
-}
 
 /* select option{ */
 /*     text-align: center; */
@@ -141,6 +139,9 @@ select{
      response.setHeader("Cache-Control","no-cache");
  %>		
 </head>
+
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />	
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/reportListAdmin.css'/>" />
 
 <body>
 
@@ -177,9 +178,9 @@ select{
 					        <select name="field">			    
 							    <c:set var = "field" value = "${field }" />
 									<option value="r_num"
-										<c:if test="${field == 'mem_num'}">selected</c:if>>작성자 닉네임</option>			
+										<c:if test="${field == 'mem_num'}">selected</c:if>>피신고자</option>			
 									<option value="r_name"
-										<c:if test="${field == 'mem_num2'}">selected</c:if>>신고자 닉네임</option>	
+										<c:if test="${field == 'mem_num2'}">selected</c:if>>신고자</option>	
 							  </select>
 					        <button type="submit" class="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></button>
 					        <input type="text" name="search_keyword" placeholder="검색어를 입력하세요">
@@ -194,20 +195,29 @@ select{
 						<c:if test="${count > 0}">
 							<ul class="list-ul">
 								<div class="stamp-table-name">
+									<span class="table-image">신고 번호</span>
 									<span class="table-image">구분</span>
 									<span class="table-title">신고 내용</span>
-									<span class="table-rname">작성자</span>
-									<span class="table-regdate">신고자</span>
+									<span class="table-rname">신고자</span>
+									<span class="table-regdate">피신고자</span>
 									<span class="table-regdate">처리 상태</span>
 								</div>
+								
 								<hr class="line">
 								<c:forEach var="list" items="${list}">
 									<li class="list-list">
-										<div class="box-parent" onclick="location.href='/reportAdminDetail.do?r_num=${list.report_num}'">
-											<%-- <input type="hidden" value="${rest.r_num}"> --%>		
+										<div class="box-parent" id="test_div">									 
 											<div class="box-section1">
-												<div class="box-title">
+												<div class="box-title" id="report_num_div">
 													<span class="font-set2">${list.report_num}</span>
+												</div>
+												<div class="box-title">
+													<c:if test="${'' == list.s_num}">
+														<span class="font-set2">댓글</span>
+													</c:if>
+													<c:if test="${'' == list.cmt_num}">
+														<span class="font-set2">글</span>
+													</c:if>
 												</div>
 											<div class="list-span01">
 												<div class="box-section1">
@@ -215,14 +225,23 @@ select{
 														<span class="font-set2">${list.report_why}</span>
 													</div>
 													<div class="box-rname">
-														<span class="font-set2">${list.mem_num}</span>
+														<span class="font-set2">${list.mem_nick2}</span>
 													</div>
 													<div class="box-rname">
-														<span class="font-set2">${list.mem_num2}</span>
+														<span class="font-set2">${list.mem_nick}</span>
 													</div>	
 													<div class="box-mem">
-														<span class="font-set2">${list.report_ynCode}</span>
+														<c:if test="${'w' == list.report_ynCode}">
+															<span class="font-set2" >대기</span>
+														</c:if>
+														<c:if test="${'n' == list.report_ynCode}">
+															<span class="font-set2" >반려</span>
+														</c:if>
+														<c:if test="${'y' == list.report_ynCode}">
+															<span class="font-set2" >승인</span>
+														</c:if>
 													</div>
+												</div>
 												</div>
 											</div>
 										</div>
@@ -234,6 +253,28 @@ select{
 					</div>
 				</div>
 			</div>
+			
+			<!-- 모달창 띄우기-->
+			<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">신고 상세 내역</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">X</span>
+							</button>
+						</div>
+						<!-- 상세내역 출력 div -->
+						<div class="modal-body"></div>
+						<div class="modal-footer">
+						<!-- 승인 및 반려 여부 text확인해서 js단에서 추가 처리(html 변경) -->
+							<a class="btn" id="modalY" href="#">승인</a>
+							<a class="btn" id="modalN" href="#">반려</a>
+						</div>
+					</div>
+				</div>
+			</div> <!-- 모달 end  -->
+			
 		</c:when>
 		<c:otherwise>
 			<div class="no-admin">
@@ -246,4 +287,58 @@ select{
 
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
+
+<script>
+//모달창 띄우기
+	$('.box-parent').click(function(e){
+		e.preventDefault();
+		$('#testModal').modal("show");
+		
+		// 조회할 report_num 가져오기
+		var divNode = this.firstElementChild.firstElementChild;
+		var getReportNum = divNode.innerText;
+		
+		//ajax실행 
+		console.log("신고 상세 내역 조회 ajax 실행");
+			
+					$.ajax({    
+				        
+			            url : "/getReportDetail.do",
+			            data : {
+			            		 report_num : getReportNum
+			           			 },
+			            dataType : "json",
+			            type     : "post",
+			            async    : true,
+			            success  : function(data) {	            	
+			            	
+			            	  var div = "";
+				  	          
+				  	          $(data).each(function(){
+				  	        	  
+				  	        	div += "<div class= 'modal_detail_report'>"; 
+				  	        	div += "<span class = 'num_text'>" + this.report_num + "</span>"
+				  	        	div += "<span class = 'mem1_email'>" + this.mem_email + "</span>"
+				  	        	div += "<span class = 'mem1_nick'>" + this.mem_nick + "</span>"
+				  	        	div += "<span class = 'why_text'>" + this.report_why + "</span>"
+				  	        	div += "</div>";            
+				  	        	
+				  	          })//each end
+				  	          
+				  	        $(".modal-body").html(div);
+				            
+			            },  //success end    
+			            
+			            error : function(data) {
+			            	console.log("상세정보 조회 오류");
+			            	alert("상세 정보 조회에 실패했습니다. 다시 시도해주세요.222");
+			            
+			            }//error end
+			            
+			         }); //ajax end
+		
+	}); //전체 함수 end
+
+</script>
+
 </html>

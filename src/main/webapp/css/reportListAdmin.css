@@ -6,17 +6,18 @@ div#wrap{
 	display: flex;
     justify-content: center;
     padding: 50px 0;
-    width: 1000px;
+    width: 1300px;
     margin: 0 auto;
 }
 
 div.mypage-menu {
     width: 150px;
-    height: 150px;
+    height: 200px;
     background: white;
     border-radius: 25px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     padding: 20 0 20 30px;
+    flex: 2;
 }
 
 div.mypage-div02{
@@ -179,4 +180,14 @@ div.page{
     background-color: #ffc06c;
     color: white;
     margin-right: 5px;
+}
+
+select{
+    height: 30px;
+    padding: 0 0 0 5px;
+    width: 80px;
+    border: 1px solid #ffc06c;
+    border-radius: 20px;
+    color: #ffc06c;
+/*     text-align: center; */
 }
