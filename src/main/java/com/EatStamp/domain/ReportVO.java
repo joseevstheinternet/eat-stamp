@@ -25,4 +25,8 @@ public class ReportVO {
 	private String mem_email;//신고자 이메일
 	private String mem_email2; //피신고자 이메일
 	
+	//db조회용
+	private String mem_nick1; //피신고자 닉네임
+	private String mem_email1; //피신고자 이메일
+	
 }

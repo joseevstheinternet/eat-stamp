@@ -32,4 +32,13 @@ public interface MemberAdminMapper {
 	//0502 최은지 피신고회원 닉네임, 이메일 조회
 	public ReportVO getMemberTwo(int mem_num2)throws Exception;
 	
+	//0503 최은지 회원 신고 승인 시 신고횟수 추가
+	public int acceptMemberReport(MemberVO vo)throws Exception;
+	
+	//0503 최은지 회원 신고 승인 시 ynCode업데이트
+	public int changeYncode(int report_num)throws Exception;
+	
+	//0503 최은지 회원 신고 반려 처리
+	public int denidedMemberReport(ReportVO vo)throws Exception;
+	
 }

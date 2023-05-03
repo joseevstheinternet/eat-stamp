@@ -37,6 +37,11 @@ div.mypage-div02{
     margin-left: 100px;
 }
 
+.ajax_text{
+	border: none;
+	color: #666666;
+}
+
 a.menu-list{
 	font-size: 13px;
     font-weight: bold;
@@ -154,6 +159,11 @@ span.font-set1{
 }
 
 span.font-set2{
+	font-size: 14px;
+	color: gray;
+}
+
+span.font-set4{
 	font-size: 14px;
 	color: gray;
 }

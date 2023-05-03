@@ -1,10 +1,12 @@
 package com.EatStamp.web;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -33,6 +35,8 @@ public class MemberAdminController {
 	@Autowired
 	private MemberAdminService memberService;
 	
+	//메시지 전달용 객체 생성
+	String message = null;
 	
 	//자바빈(VO) 초기화
 	@ModelAttribute
@@ -189,10 +193,76 @@ public class MemberAdminController {
 			
 			String jsonData = new Gson().toJson(detailList);
 			
-			System.out.println(jsonData);
-			
 			return jsonData;
 			
 		}//신고 상세 end
-	
+		
+		
+		//0502 최은지 신고 처리하기
+		@RequestMapping("/insertReportAdmin.do")
+		public ModelAndView insertReport(HttpServletResponse response,
+											@RequestParam(value = "report_num") int report_num,
+											@RequestParam(value = "report_return") String report_return,
+											@RequestParam(value = "mem_email1") String mem_email1) throws Exception {
+
+			ModelAndView mav = new ModelAndView();
+			String text = "";
+			
+			//반려사유가 입력되지 않았을 때(승인 처리)
+			if(report_return.equals(text)) {
+				
+				MemberVO vo = new MemberVO();
+				vo.setMem_email(mem_email1);
+				
+				int result = memberService.acceptReport(vo);
+				
+				if(1==result) { //1차 업뎃 성공 시
+					
+					//2차 코드 업뎃
+					int result2 = memberService.changeCode(report_num);
+					
+					if(1 == result2) {//코드 업뎃까지 성공 시
+						
+						message = "해당 신고 요청이 승인 처리되었습니다.";
+			            response.setContentType("text/html; charset=UTF-8");
+			            PrintWriter out = response.getWriter();
+			            out.println("<script>alert('"+ message +"');</script>"); 
+			            out.println("<script>location.replace('/reportListAdmin.do');</script>");
+			            out.flush();
+					}else {
+						System.out.println("승인 2차 오류메시지 추가하기");
+					}
+					
+				}else { //1차 업뎃 실패 시
+					System.out.println("승인 1차 오류메시지 추가하기");
+				}
+				
+				return mav; //승인 시 return
+				
+			//반려사유가 입력되었을 때(반려 처리)
+			}else {
+				
+				ReportVO vo = new ReportVO();
+				vo.setReport_num(report_num);
+				vo.setReport_return(report_return);
+				
+				int result = memberService.denidedReport(vo);
+				
+				if(1 == result) {//반려요청 처리 성공 시
+					message = "해당 신고 요청이 반려 처리되었습니다.";
+		            response.setContentType("text/html; charset=UTF-8");
+		            PrintWriter out = response.getWriter();
+		            out.println("<script>alert('"+ message +"');</script>"); 
+		            out.println("<script>location.replace('/reportListAdmin.do');</script>");
+		            out.flush();
+					
+				}else { //반려요청 처리 실패 시
+					System.out.println("반려 처리 메시지 추가하기");
+				}				
+				return mav; //반려 시 return
+
+			}//리턴 내용 분기 end
+		
+		}//신고 상세 end
+		
 }

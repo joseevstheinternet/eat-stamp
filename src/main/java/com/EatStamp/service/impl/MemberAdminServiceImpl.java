@@ -69,4 +69,25 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 		return memberMapper.getMemberTwo(mem_num2);
 	}
 
+	//0503 최은지 회원 신고 승인
+	@Override
+	public int acceptReport(MemberVO vo) throws Exception {
+
+		return memberMapper.acceptMemberReport(vo);
+	}
+
+	//0503 최은지 회원 신고 승인 시 컬럼 업데이트
+	@Override
+	public int changeCode(int report_num) throws Exception {
+
+		return memberMapper.changeYncode(report_num);
+	}
+
+	//0503 최은지 회원 신고 반려
+	@Override
+	public int denidedReport(ReportVO vo) throws Exception {
+
+		return memberMapper.denidedMemberReport(vo);
+	}
+
 }

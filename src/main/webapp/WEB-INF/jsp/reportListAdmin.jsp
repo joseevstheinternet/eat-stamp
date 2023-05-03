@@ -100,7 +100,7 @@ button.searchIcon{
     margin-left: 10px;
 }
 
-input[type=text] {
+.search_text {
     width: 200px;
     height: 30px;
     font-size: 12px;
@@ -183,7 +183,7 @@ input::placeholder{
 										<c:if test="${field == 'mem_num2'}">selected</c:if>>신고자</option>		
 							  </select>
 					        <button type="submit" class="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></button>
-					        <input type="text" name="search_keyword" placeholder="검색어를 입력하세요">
+					        <input class='search_text' type="text" name="search_keyword" placeholder="검색어를 입력하세요">
 					    </form>
 					</div>
 					<!-- 검색창 끝 -->
@@ -222,7 +222,7 @@ input::placeholder{
 											<div class="list-span01">
 												<div class="box-section1">
 													<div class="box-title2">
-														<span class="font-set2">${list.report_why}</span>
+														<span class="font-set2" >${list.report_why}</span>
 													</div>
 													<div class="box-rname">
 														<span class="font-set2">${list.mem_nick2}</span>
@@ -232,13 +232,13 @@ input::placeholder{
 													</div>	
 													<div class="box-mem">
 														<c:if test="${'w' == list.report_ynCode}">
-															<span class="font-set2" >대기</span>
+															<span class="font-set4">대기</span>
 														</c:if>
 														<c:if test="${'n' == list.report_ynCode}">
-															<span class="font-set2" >반려</span>
+															<span class="font-set4">반려</span>
 														</c:if>
 														<c:if test="${'y' == list.report_ynCode}">
-															<span class="font-set2" >승인</span>
+															<span class="font-set4">승인</span>
 														</c:if>
 													</div>
 												</div>
@@ -262,13 +262,12 @@ input::placeholder{
 								<span aria-hidden="true">X</span>
 							</button>
 						</div>
+						
+						<form method='post' action='/insertReportAdmin.do'>
 						<!-- 상세내역 출력 div -->
 						<div class="modal-body"></div>
-						<div class="modal-footer">
-						<!-- 승인 및 반려 여부 text확인해서 js단에서 추가 처리(html 변경) -->
-							<a class="btn" id="modalY" href="#">승인</a>
-							<a class="btn" id="modalN" href="#">반려</a>
-						</div>
+					</form>
+					
 					</div>
 				</div>
 			</div> <!-- 모달 end  -->
@@ -300,7 +299,7 @@ input::placeholder{
 		console.log("신고 상세 내역 조회 ajax 실행");
 			
 					$.ajax({    
-				        
+				   
 			            url : "/getReportDetail.do",
 			            data : {
 			            		 report_num : getReportNum
@@ -315,12 +314,75 @@ input::placeholder{
 				  	          $(data).each(function(){
 				  	        	  
 				  	        	div += "<div class= 'modal_detail_report'>"; 
-				  	        	div += "<span class = 'num_text'>" + this.report_num + "</span>"
-				  	        	div += "<span class = 'mem1_email'>" + this.mem_email2 + "</span>"
-				  	        	div += "<span class = 'mem1_nick'>" + this.mem_nick2 + "</span>"
-				  	        	div += "<span class = 'why_text'>" + this.report_why + "</span>"
-				  	        	div += "</div>";            
 				  	        	
+				  	        	div += "<div class = wrap_div'>" //전체 div
+				  	  
+				  	        	div += "<div class = 'num_box'>"
+				  	        	div += "<span class ='num_text'> 접수번호 </span>"
+					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"; 
+				  	        	div += "</div>";	//num_box end
+				  	        	
+				  	        	div += "<div class = 'dis_box'>";
+				  	        	div += "<span class = 'dis_text'> 구분 </span>";
+											if ('' == this.s_num){
+												div += "<span>댓글</span>";
+											}else{
+												div += "<span>글</span>";
+											}
+                 				div += "</div>";	//dis_div end
+				  	        	
+                 				div += "<div class = 'mem2_box'>" //신고자
+                 				div += "<span class = 'mem2_text'> 신고자 </span>"
+				  	        	div += "<input type='text' readonly name='mem2_email' class = 'ajax_text' value='"+this.mem_email2 +"'>"; 
+				  	        	div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'>"; 
+				  	      		div += "</div>";	//mem2_box end
+				  	        	
+								div += "<div class = 'mem1_box'>" //피신고자
+	                 			div += "<span class = 'mem1_text'> 신고자 </span>"					  	        
+				  	        	div += "<input type='text' readonly name='mem_email1' class = 'ajax_text' value='"+this.mem_email1 +"'>"; 
+				  	        	div += "<input type='text' readonly name='mem_nick1' class = 'ajax_text' value='"+this.mem_nick1 +"'>"; 
+					  	        
+					  	      	div += "</div>";	//mem1_box end
+					  	        	
+				  	        	div += "<div class = 'why_box'>"
+				  	        	div += "<span class = 'why_text' > 신고사유 </span>"
+				  	        	div += "<input type='text' readonly name='report_why' class = 'ajax_text' value='"+this.report_why +"'>"; 
+				  	        	div += "</div>"; //why_box end     
+				  	        	
+				  	        	div += "<div class ='return_box'>"
+						  	        		if (undefined == this.report_return){
+								  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유 </span>"
+								  	        	div += "<textarea class = 'return_val' style ='display:none'>"+ this.report_return  +"</textarea>"
+											}else{
+								  	        	div += "<span class = 'return_text'> 반려 사유 </span>"
+								  	        	div += "<textarea class = 'return_val' readonly>"+ this.report_return  +"</textarea>"
+											}
+				  	        	div += "</div>" //return_box end
+				  	        	//버튼을 누르기 전까지는 display none
+				  	        	div += "<div class = 'return_insert_box' style ='display:none'>";
+				  	        	div += "<span class = 'return_text'> 반려 사유 </span>";
+				  	        	div += "<textarea name='report_return' class='return_insert_val' placeholder='반려사유를 필수적으로 입력해주세요.'></textarea>"
+					  	        div += "	<div class='modal-footer' id='two_modal'>";
+				  	        	div += "<button class='cancelBtn' type = 'button'>취소</button>";
+				  	        	div += "<button class='subminBtn' type = 'submit'>등록</button>";
+				  	        	div += "</div>"; //two_modal end
+				  	        	div += "</div>"; //return_insert_box end      
+				  	        	
+				  	        	//승인 상태가 n이나 y라면 푸터가 보이지 않도록 처리
+				  	        	if (('n' == this.report_ynCode) || ('y' == this.report_ynCode)){
+					  	        	div += "	<div class='modal-footer' id='one_modal' style ='display:none'>";
+					  	        	div += "<button class='btn' id='modalY' type='button'>승인</button>";
+					  	        	div += "<button class='btn' id='modalN' type='button'>반려</button>";
+					  	        	div += "</div>";
+				  	        	}else{
+					  	        	div += "	<div class='modal-footer' id='one_modal'>";
+					  	        	div += "<button class='btn' id='modalY' type='button'>승인</button>";
+					  	        	div += "<button class='btn' id='modalN' type='button'>반려</button>";
+					  	        	div += "</div>";
+				  	        	}
+			  	        		
+				  	        	div += "</div>"; //wrap_div end     
+				  	        	div += "</div>"; //modal_detail_report end
 				  	          })//each end
 				  	          
 				  	        $(".modal-body").html(div);
@@ -329,13 +391,45 @@ input::placeholder{
 			            
 			            error : function(data) {
 			            	console.log("상세정보 조회 오류");
-			            	alert("상세 정보 조회에 실패했습니다. 다시 시도해주세요.222");
+			            	alert("상세 정보 조회에 실패했습니다. 다시 시도해주세요.");
 			            
 			            }//error end
 			            
 			         }); //ajax end
 		
 	}); //전체 함수 end
+	
+	
+	//modalN(반려) 클릭 시 창 생성 + 버튼 글자 변경
+	 $(document).on("click", "#modalN", function () {
+		 $('.return_insert_box').css('display', 'block');	 
+		$('#one_modal').css('display','none');
+		$("[name=report_return]").attr("required" , true);
+	});
+	
+	//modalN(반려) 클릭 후 취소 버튼 클릭 시
+	 $(document).on("click", ".cancelBtn", function () {
+		 $(".return_insert_val").val("");
+		 $("[name=report_return]").attr("required" , false);
+		 $('.return_insert_box').css('display', 'none');	 
+		$('#one_modal').css('display','block');
+	});
+	
+	//승인 클릭 시 이벤트
+	 $(document).on("click", "#modalY", function () {
+		 if("취소" != $("#modalY").html()){
+				
+			    if (!confirm("해당 신고를 승인 처리하시겠습니까?")) {
+			       alert("승인 처리가 취소되었습니다.");
+			    } else {
+					$("#modalY").prop("type", "submit");
+			    }
+			
+		 }else{
+			 alert("오류가 발생했습니다. 다시 시도해주세요.");
+		 }
+	});
+	
 
 </script>
 

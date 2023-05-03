@@ -167,4 +167,44 @@
 		WHERE mem_num = #{mem_num2}
   	</select>
   	
+  	
+  	<!-- 0503 최은지 회원 신고 승인 / 피신고회원 신고횟수 누적 및 조건 충족 시 정지 -->
+  	<update id="acceptMemberReport" parameterType="memberVO" >
+	  	UPDATE 
+	  		member 
+		SET
+			 mem_report_cnt = mem_report_cnt + 1,
+			 mem_admin_auth = CASE 
+	 	 WHEN
+	 	 	 mem_report_cnt % 3 = 0 THEN 2 
+	 	 ELSE 
+	 	 	mem_admin_auth 
+		END 
+		WHERE
+			 mem_email = #{mem_email}
+  	</update>
+  	
+
+  	<!-- 0503 최은지 회원 신고 승인 시 ynCode컬럼 업데이트  -->
+  	  	<update id="changeYncode" parameterType="int">
+  		UPDATE 
+	  		report 
+		SET 
+			report_ynCode = 'y'
+		WHERE
+  			 report_num = #{report_num}
+  	</update>
+  	
+  	
+  	<!-- 0503 최은지 회원 신고 반려 처리 / 반려 사유 업데이트 -->
+  	<update id="denidedMemberReport" parameterType="reportVO">
+  		UPDATE 
+	  		report 
+		SET 
+			report_return = #{report_return},
+			report_ynCode = 'n'
+		WHERE
+  			 report_num = #{report_num}
+  	</update>
+  	
 </mapper>
