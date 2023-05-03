@@ -83,43 +83,6 @@
   	
   	<!-- <0428 최은지 신고글 리스트 출력 -->
   	<select id="getReportAdminList" parameterType="map" resultType="reportVO">
-<<<<<<< HEAD
- 	SELECT 
-	  		report_num,
-  			mem_num,
-  			mem_num2,
-  			report_why,
-  			report_ynCode,
-  			s_num,
-  			cmt_num,
-  			report_return
-		FROM(
-			SELECT
-				@rownum:=@rownum+1 AS rn,
-				  			report_num,
-  			mem_num,
-  			mem_num2,
-  			report_why,
-  			report_ynCode,
-  			s_num,
-  			cmt_num,
-  			report_return
-			FROM eatstamp.report , (SELECT @rownum:=0) TMP
-	        <where>
-	            <if test="search_keyword != '' and search_keyword != ''">
-	                <choose>
-	                    <when test="search_keyword == 'mem_num'">
-	                        AND mem_num LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                    <when test="search_keyword == 'mem_num2'">
-	                        AND mem_num2 LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                </choose>
-	             </if>
-	        </where>
-			) t1
-		WHERE rn BETWEEN #{start} and #{end}
-=======
 	 	SELECT 
 		  		report_num,
 	  			mem_num,
@@ -203,7 +166,6 @@
 		FROM 
 			member
 		WHERE mem_num = #{mem_num2}
->>>>>>> branch 'master' of http://192.168.200.70/git/ojtproject.git/
   	</select>
   	
 </mapper>
