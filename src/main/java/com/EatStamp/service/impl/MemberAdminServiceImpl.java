@@ -43,9 +43,30 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 
 	//0428 최은지 관리자 신고 내역 개수 구하기
 	@Override
-	public int selectReportRowCount(Map<String, Object> map) {
+	public int selectReportRowCount(Map<String, Object> map)throws Exception {
 
 		return memberMapper.selectReportRowCount(map);
+	}
+	
+	//0502 최은지 관리자 신고 세부 내역 확인
+	@Override
+	public ReportVO getReportDetailContent(ReportVO vo) throws Exception {
+
+		return memberMapper.selectReportDetailContent(vo);
+	}
+
+	//0502 최은지 신고회원 닉네임, 이메일 조회
+	@Override
+	public ReportVO getMemselectOne(int mem_num) throws Exception {
+			
+		return memberMapper.getMemberOne(mem_num);
+	}
+
+	//0502 최은지 피신고회원 닉네임, 이메일 조회
+	@Override
+	public ReportVO getMemselectTwo(int mem_num2) throws Exception {
+
+		return memberMapper.getMemberTwo(mem_num2);
 	}
 
 }

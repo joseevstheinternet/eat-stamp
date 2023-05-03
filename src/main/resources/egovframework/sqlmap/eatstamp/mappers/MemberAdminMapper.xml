@@ -82,41 +82,89 @@
   	
   	<!-- <0428 최은지 신고글 리스트 출력 -->
   	<select id="getReportAdminList" parameterType="map" resultType="reportVO">
- 	SELECT 
-	  		report_num,
-  			mem_num,
-  			mem_num2,
-  			report_why,
-  			report_ynCode,
-  			s_num,
-  			cmt_num,
-  			report_return
-		FROM(
-			SELECT
-				@rownum:=@rownum+1 AS rn,
-				  			report_num,
-  			mem_num,
-  			mem_num2,
-  			report_why,
-  			report_ynCode,
-  			s_num,
-  			cmt_num,
-  			report_return
-			FROM eatstamp.report , (SELECT @rownum:=0) TMP
-	        <where>
-	            <if test="search_keyword != '' and search_keyword != ''">
-	                <choose>
-	                    <when test="search_keyword == 'mem_num'">
-	                        AND mem_num LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                    <when test="search_keyword == 'mem_num2'">
-	                        AND mem_num2 LIKE CONCAT('%', #{searchKeyword}, '%')
-	                    </when>
-	                </choose>
-	             </if>
-	        </where>
-			) t1
-		WHERE rn BETWEEN #{start} and #{end}
+	 	SELECT 
+		  		report_num,
+	  			mem_num,
+	  			mem_num2,
+	  			report_why,
+	  			report_ynCode,
+	  			s_num,
+	  			cmt_num,
+	  			report_return
+			FROM(
+				SELECT @rownum:=@rownum+1 AS rn,
+				report_num,
+	  			mem_num,
+	  			mem_num2,
+	  			report_why,
+	  			report_ynCode,
+	  			s_num,
+	  			cmt_num,
+	  			report_return
+				FROM eatstamp.report , (SELECT @rownum:=0) TMP
+		        <where>
+		            <if test="search_keyword != '' and search_keyword != ''">
+		                <choose>
+		                    <when test="search_keyword == 'mem_num'">
+		                        AND mem_num LIKE CONCAT('%', #{searchKeyword}, '%')
+		                    </when>
+		                    <when test="search_keyword == 'mem_num2'">
+		                        AND mem_num2 LIKE CONCAT('%', #{searchKeyword}, '%')
+		                    </when>
+		                </choose>
+		             </if>
+		        </where>
+				) t1
+			WHERE rn BETWEEN #{start} and #{end}
+  	</select>
+  	
+  	
+  	<!-- 0502 최은지 관리자 신고 내역 상세 확인-->
+		<select id="selectReportDetailContent" parameterType="reportVO" resultType="reportVO">
+		  SELECT 
+		    r.report_num,
+		    r.mem_num,
+		    r.mem_num2,
+		    r.report_why,
+		    r.report_ynCode,
+		    r.s_num,
+		    r.cmt_num,
+		    r.report_return,
+		    m1.mem_email AS mem_email1,
+		    m1.mem_nick AS mem_nick1,
+		    m2.mem_email AS mem_email2,
+		    m2.mem_nick AS mem_nick2
+		    
+		  FROM
+		    eatstamp.report r
+		    
+		    JOIN member m1 ON r.mem_num = m1.mem_num
+		    JOIN member m2 ON r.mem_num2 = m2.mem_num
+		    
+		  WHERE 
+		    r.report_num = #{report_num}
+		</select>
+		
+  	
+  	<!--  0502 최은지 관리자 신고 회원 닉네임, 이메일 조회-->
+  	<select id="getMemberOne" parameterType="int" resultType="reportVO">
+		  SELECT 
+			mem_nick,
+			mem_email
+		FROM 
+			member
+		WHERE mem_num = #{mem_num}
+  	</select>
+  	
+  	
+  	 <!--  0502 최은지 관리자 피신고 회원 닉네임, 이메일 조회-->
+  	<select id="getMemberTwo" parameterType="int" resultType="reportVO">
+		  SELECT 
+			mem_nick,
+			mem_email
+		FROM 
+			member
+		WHERE mem_num = #{mem_num2}
   	</select>
   	
 </mapper>
