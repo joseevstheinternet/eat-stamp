@@ -18,7 +18,7 @@ public interface MemberAdminService {
 	public List<ReportVO> getReportAdminList(Map<String, Object> map)throws Exception;
 
 	//0428 최은지 관리자 신고 내역 총 개수 구하기
-	public int selectReportRowCount(Map<String,Object> map)throws Exception; //찜한 식당 개수 구하기
+	public int selectReportRowCount(Map<String,Object> map)throws Exception; 
 	
 	//0502 최은지 관리자 신고 내역 세부 확인
 	public ReportVO getReportDetailContent(ReportVO vo)throws Exception;
@@ -38,4 +38,9 @@ public interface MemberAdminService {
 	//0503 최은지 회원 신고 반려
 	public int denidedReport(ReportVO vo)throws Exception;
 	
+	//0504 최은지 회원 신고 리스트 검색
+	public List<ReportVO> getSearchReportAdminList(Map<String, Object> map)throws Exception;
+	
+	//0504 최은지 회원 신고 리스트 검색 카운트
+	public int selectReportSearchRowCount(Map<String,Object> map)throws Exception;
 }

@@ -28,5 +28,9 @@ public class ReportVO {
 	//db조회용
 	private String mem_nick1; //피신고자 닉네임
 	private String mem_email1; //피신고자 이메일
+	private int mem_num1; //피신고자 이메일
+	//검색용
+	private String field;
+	private String search_keyword;
 	
 }

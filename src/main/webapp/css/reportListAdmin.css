@@ -40,6 +40,13 @@ div.mypage-div02{
 .ajax_text{
 	border: none;
 	color: #666666;
+	font-size: 13px;
+	flex:8;
+}
+
+.modal_detail_report span{
+	font-size: 14px;
+	margin-right: 10px;
 }
 
 a.menu-list{
@@ -202,4 +209,41 @@ div.page{
     background-color: #ffc06c;
     color: white;
     margin-right: 5px;
+}
+
+.why_box{
+	display: flex;
+}
+
+.return_text{
+	flex: 1;
+}
+
+.ajax_area{
+	flex: 1;
+	border: none;
+	color: #666666;
+	white-space: normal;
+	width: 500px;
+	font-size: 13px;
+}
+
+.return_val{
+	resize: none;
+}
+.return_insert_val{
+	resize: none;
+	width: 570px;
+	border-color: #666666;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding: 10px;
+}
+
+#two_modal{
+	font-size: 15px;
+}
+
+.cancelBtn{
+	margin-right: 20px;
 }

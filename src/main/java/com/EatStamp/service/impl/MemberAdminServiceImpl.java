@@ -90,4 +90,18 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 		return memberMapper.denidedMemberReport(vo);
 	}
 
+	//0504 최은지 회원 신고 리스트 검색
+	@Override
+	public List<ReportVO> getSearchReportAdminList(Map<String, Object> map) throws Exception {
+
+		return memberMapper.getSearchReportAdminList(map);
+	}
+
+	//0504 최은지 회원 신고 리스트 검색 카운트
+	@Override
+	public int selectReportSearchRowCount(Map<String, Object> map) throws Exception {
+
+		return memberMapper.countReportAdminList(map);
+	}
+
 }

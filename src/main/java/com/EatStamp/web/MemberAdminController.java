@@ -265,4 +265,88 @@ public class MemberAdminController {
 		
 		}//신고 상세 end
 		
+		
+		//0504 최은지 신고내역 검색
+		@RequestMapping("/goReportSearchAdmin.do")
+		public ModelAndView searchReport(HttpServletResponse response,
+														@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+														@RequestParam(value = "search_keyword") String search_keyword,
+														@RequestParam(value = "field") String field) throws Exception {
+			
+			ModelAndView mav = new ModelAndView();
+			List<ReportVO> list = null;
+			Map<String,Object> map = new HashMap<>();
+			
+			map.put("field", field);
+			map.put("search_keyword", search_keyword);
+			
+			int count = memberService.selectReportSearchRowCount(map);
+			
+			//페이징 처리
+			PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,"/goReportSearchAdmin.do");
+			
+			if(count > 0) {
+				map.put("start", page.getStartRow());
+				map.put("end", page.getEndRow());
+				
+				//리스트 조회
+				list = memberService.getSearchReportAdminList(map);
+				
+				map.put("list", list);
+
+			}
+			
+			//업데이트 리스트
+			List<ReportVO> updatedList = new ArrayList<>();
+					
+			//회원 닉네임+이메일 추가 조회
+				for (ReportVO reportVO : list) {
+					   int mem_num1 = reportVO.getMem_num(); //신고자
+					   int mem_num2 = reportVO.getMem_num2(); //피신고자
+					   
+					    //기존 vo조회값 백업
+					    int report_num = reportVO.getReport_num();
+					    String report_why = reportVO.getReport_why();
+					    String report_ynCode = reportVO.getReport_ynCode();
+					    int s_num = reportVO.getS_num();
+					    int cmt_num = reportVO.getCmt_num();
+					    String report_return = reportVO.getReport_return();
+					    
+					   //신고 회원 조회
+					    reportVO = memberService.getMemselectOne(mem_num1);
+					   String mem_nick = reportVO.getMem_nick();
+					   String mem_email = reportVO.getMem_email();				   
+					   
+					   //피신고 회원 조회
+					   ReportVO reportVO2 = new ReportVO();
+					   reportVO2.setMem_num2(mem_num2);
+					   
+					   reportVO2 = memberService.getMemselectTwo(mem_num2);
+					   String mem_nick2 = reportVO2.getMem_nick();
+					   
+					   //다시 값 세팅
+					   	reportVO.setMem_num(mem_num1);
+					   	reportVO.setMem_num2(mem_num2);
+					    reportVO.setMem_nick(mem_nick);
+					    reportVO.setMem_nick2(mem_nick2);
+					    reportVO.setReport_num(report_num);
+					    reportVO.setReport_why(report_why);
+					    reportVO.setReport_ynCode(report_ynCode);
+					    reportVO.setS_num(s_num);
+					    reportVO.setCmt_num(cmt_num);
+					    reportVO.setReport_return(report_return);
+					    
+					    updatedList.add(reportVO);
+					    
+					}
+					
+					mav.addObject("count", count);
+					mav.addObject("list", list);
+					mav.addObject("list", updatedList);
+					mav.addObject("page", page.getPage());
+					mav.setViewName("reportListAdmin");
+			
+					return mav;
+		}//신고 검색 end
+		
 }

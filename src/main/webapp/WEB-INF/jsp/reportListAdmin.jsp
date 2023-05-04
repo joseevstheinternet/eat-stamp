@@ -156,11 +156,11 @@ input::placeholder{
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/memberListAdmin.do" style="color: #9d9d9d;">회원 정보 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="${pageContext.request.contextPath}/restListAdmin.do">식당 관리</a></p>
+						href="${pageContext.request.contextPath}/restListAdmin.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/stampListAdmin.do"  style="color: #9d9d9d;">게시글 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="${pageContext.request.contextPath}/reportListAdmin.do"  style="color: #9d9d9d;">신고 내역 관리</a></p>
+						href="${pageContext.request.contextPath}/reportListAdmin.do" >신고 내역 관리</a></p>
 				</div>
 				<!-- 좌측 메뉴바 종료 -->
 				
@@ -177,13 +177,13 @@ input::placeholder{
 					    <form method="post"  action="/goReportSearchAdmin.do">
 					        <select name="field">			    
 							    <c:set var = "field" value = "${field }" />
-									<option value="r_num"
+									<option value="mem_num"
 										<c:if test="${field == 'mem_num'}">selected</c:if>>피신고자</option>			
-									<option value="r_name"
-										<c:if test="${field == 'mem_num2'}">selected</c:if>>신고자</option>		
+									<option value="mem_num2"
+										<c:if test="${field == 'mem_num'}">selected</c:if>>신고자</option>		
 							  </select>
 					        <button type="submit" class="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></button>
-					        <input class='search_text' type="text" name="search_keyword" placeholder="검색어를 입력하세요">
+					        <input class='search_text' type="text" name="search_keyword" placeholder="회원의 이메일을 입력하세요.">
 					    </form>
 					</div>
 					<!-- 검색창 끝 -->
@@ -257,7 +257,7 @@ input::placeholder{
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">신고 상세 내역</h5>
+							<h4 class="modal-title" id="exampleModalLabel">신고 상세 내역</h4>
 							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">X</span>
 							</button>
@@ -318,49 +318,51 @@ input::placeholder{
 				  	        	div += "<div class = wrap_div'>" //전체 div
 				  	  
 				  	        	div += "<div class = 'num_box'>"
-				  	        	div += "<span class ='num_text'> 접수번호 </span>"
+				  	        	div += "<span class ='num_text'> 접수번호</span> <span class='line_text'> | </span>"
 					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"; 
 				  	        	div += "</div>";	//num_box end
 				  	        	
 				  	        	div += "<div class = 'dis_box'>";
-				  	        	div += "<span class = 'dis_text'> 구분 </span>";
+				  	        	div += "<span class = 'dis_text'>구분</span> <span class='line_text'> | </span>";
 											if ('' == this.s_num){
 												div += "<span>댓글</span>";
+												div += "<span class='ajax_text'> &nbsp; </span>"
 											}else{
 												div += "<span>글</span>";
+												div += "<span class='ajax_text'> &nbsp; </span>"
 											}
                  				div += "</div>";	//dis_div end
 				  	        	
                  				div += "<div class = 'mem2_box'>" //신고자
-                 				div += "<span class = 'mem2_text'> 신고자 </span>"
+                 				div += "<span class = 'mem2_text'>신고자</span> <span class='line_text'> | </span>"
 				  	        	div += "<input type='text' readonly name='mem2_email' class = 'ajax_text' value='"+this.mem_email2 +"'>"; 
 				  	        	div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'>"; 
 				  	      		div += "</div>";	//mem2_box end
 				  	        	
 								div += "<div class = 'mem1_box'>" //피신고자
-	                 			div += "<span class = 'mem1_text'> 신고자 </span>"					  	        
+	                 			div += "<span class = 'mem1_text'> 피신고자</span> <span class='line_text'> | </span>"					  	        
 				  	        	div += "<input type='text' readonly name='mem_email1' class = 'ajax_text' value='"+this.mem_email1 +"'>"; 
 				  	        	div += "<input type='text' readonly name='mem_nick1' class = 'ajax_text' value='"+this.mem_nick1 +"'>"; 
 					  	        
 					  	      	div += "</div>";	//mem1_box end
 					  	        	
 				  	        	div += "<div class = 'why_box'>"
-				  	        	div += "<span class = 'why_text' > 신고사유 </span>"
-				  	        	div += "<input type='text' readonly name='report_why' class = 'ajax_text' value='"+this.report_why +"'>"; 
+				  	        	div += "<span class = 'why_text' > 신고사유</span> <span class='line_text'> | </span>"
+				  	        	div += "<textarea readonly name='report_why' class = 'ajax_area'>"+ this.report_why + "</textarea>"; 
 				  	        	div += "</div>"; //why_box end     
 				  	        	
 				  	        	div += "<div class ='return_box'>"
 						  	        		if (undefined == this.report_return){
-								  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유 </span>"
+								  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유</span>"
 								  	        	div += "<textarea class = 'return_val' style ='display:none'>"+ this.report_return  +"</textarea>"
 											}else{
-								  	        	div += "<span class = 'return_text'> 반려 사유 </span>"
+								  	        	div += "<span class = 'return_text'> 반려 사유</span>"
 								  	        	div += "<textarea class = 'return_val' readonly>"+ this.report_return  +"</textarea>"
 											}
 				  	        	div += "</div>" //return_box end
 				  	        	//버튼을 누르기 전까지는 display none
 				  	        	div += "<div class = 'return_insert_box' style ='display:none'>";
-				  	        	div += "<span class = 'return_text'> 반려 사유 </span>";
+				  	        	div += "<span class = 'return_text'> 반려 사유</span>";
 				  	        	div += "<textarea name='report_return' class='return_insert_val' placeholder='반려사유를 필수적으로 입력해주세요.'></textarea>"
 					  	        div += "	<div class='modal-footer' id='two_modal'>";
 				  	        	div += "<button class='cancelBtn' type = 'button'>취소</button>";
