@@ -132,6 +132,8 @@ button#pw_restet_checkBtn{
 			<p class="menu-list"><a class="menu-list" 
 				href="${pageContext.request.contextPath}/rest_list.do" style="color: #9d9d9d;">찜한 가게</a></p>
 			<p class="menu-list"><a class="menu-list"
+				href="${pageContext.request.contextPath}/check_report.do" style="color: #9d9d9d">신고 내역</a></p>
+			<p class="menu-list"><a class="menu-list"
 				href="${pageContext.request.contextPath}/withdraw.do" style="color: #c5c5c5">회원 탈퇴</a></p>
 		</div>
 		<!-- 좌측 메뉴바 종료 -->

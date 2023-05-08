@@ -319,7 +319,7 @@ input::placeholder{
 				  	  
 				  	        	div += "<div class = 'num_box'>"
 				  	        	div += "<span class ='num_text'> 접수번호</span> <span class='line_text'> | </span>"
-					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"; 
+					  	    	div += "<input type='button' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"; 
 				  	        	div += "</div>";	//num_box end
 				  	        	
 				  	        	div += "<div class = 'dis_box'>";
