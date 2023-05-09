@@ -100,4 +100,9 @@ public class StampServiceImpl implements StampService {
 		stampMapper.deleteCmtBySNum(s_num);
 	}
 
+	@Override
+	public int selectAllRowCount(Map<String, Object> map) throws Exception {
+		return stampMapper.selectAllRowCount(map);
+	}
+
 }

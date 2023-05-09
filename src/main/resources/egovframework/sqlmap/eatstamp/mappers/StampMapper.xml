@@ -174,6 +174,28 @@
 		WHERE rn BETWEEN #{start} and #{end}
 	</select>
 	
+	<!-- 전체 글 개수 -->
+	<select id="selectAllRowCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM eatstamp.stamp s
+		JOIN eatstamp.member m ON s.mem_num = m.mem_num
+		WHERE (s_publicCode = 0 OR s.mem_num = #{mem_num})
+		<if test="searchType != '' and searchKeyword != ''">
+		    <choose>
+		        <when test="searchType == 'title'">
+					AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'writer'">
+					AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'rname'">
+					AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="updateViewCnt" parameterType="int">
 		UPDATE eatstamp.stamp

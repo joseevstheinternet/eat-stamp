@@ -163,6 +163,7 @@ i.header_user {
 					<div class="dropdown">
 						<i class="fa-regular fa-user header_user"></i>
 						<div class="dropdown-content">
+							<a href="${pageContext.request.contextPath}/stamp/allList.do">전체글보기</a>
 							<a href="${pageContext.request.contextPath}/mypage.do">마이페이지</a>
 							<a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
 						</div>

@@ -25,6 +25,8 @@ public interface StampMapper {
 	
 	public List<StampVO> selectAllList(Map<String, Object> map); //전체 글 목록
 	
+	public int selectAllRowCount(Map<String, Object> map); //전체 글 목록 개수 구하기
+	
 	public void updateViewCnt(Integer s_num); //조회수 증가
 	
 	

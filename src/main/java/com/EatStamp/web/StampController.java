@@ -493,4 +493,47 @@ public class StampController {
 		}
 	}
 	
+	
+	//=========전체 글 목록========//
+	@RequestMapping("/stamp/allList.do")
+	public ModelAndView allList(
+			HttpSession session, 
+			@RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) throws Exception {
+		
+		MemberVO user = (MemberVO)session.getAttribute("member");
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("searchType", searchType);
+		map.put("searchKeyword", searchKeyword);
+		map.put("mem_num", user.getMem_num());
+		
+		//글의 총개수(검색된 글의 개수)
+		int count = stampService.selectAllRowCount(map);
+		logger.debug("<<count>> : " + count);
+		
+		//페이지 처리
+		PagingUtil page =
+				new PagingUtil(currentPage, count, rowCount, pageCount, "/stamp/allList.do");
+		
+		List<StampVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = stampService.selectAllList(map);
+			
+			map.put("list", list);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("stamp/allList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		
+		return mav;
+	}
+	
 }
