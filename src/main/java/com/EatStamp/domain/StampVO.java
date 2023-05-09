@@ -50,4 +50,6 @@ public class StampVO {
 	
 	private int s_view_cnt; //조회수
 	private int s_publicCode; //공개여부
+	
+	//??
 }
