@@ -6,8 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/stamp.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
 	
 <style>
@@ -44,6 +44,20 @@ div.box-title{
     margin-left: 20px;
 }
 
+div.box-title2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.box-icons{
+	color: lightgrey;
+	display: flex;
+    align-items: center;
+    width: 90px;
+    justify-content: space-between;
+}
+
 span.font-set1{
     font-size: 25px;
     letter-spacing: -1;
@@ -54,6 +68,10 @@ span.font-set1{
 div.box-date{
     margin-top: 5px;
     color: lightgrey;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
 }
 
 div.section1-1{
@@ -65,6 +83,11 @@ div.section1-1{
 i.mapIcon{
     font-size: 20px;
     color: #ffc06c;
+}
+
+i.icon-set{
+	font-size: 16px;
+	color: lightgray;
 }
 
 div.section1-1-2{
@@ -135,10 +158,82 @@ button.delete_btn{
 }
 
 button.list_btn{
-	background-color: ffd274;
+	background-color: #ffd274;
 }
 /* section3 (버튼) 끝 */
 
+
+/* 댓글 */
+div#com_first{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div#com_second{
+    margin-bottom: 20px;
+}
+
+span.letter-count{
+	margin-left: 5px;
+    color: lightgray;
+}
+
+textarea.form-control{
+	width: 90%;
+	resize: none;
+	border-radius: 20px;
+	padding: 5px 15px;
+}
+
+button.cmtBtn{
+    background-color: #ffd274;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+div.cmt_title{
+	display: flex;
+	justify-content: space-between;
+}
+
+div.cmt_title_1{
+	display: flex;
+	align-items: center;
+}
+
+h4.cmt_writer{
+	margin-right: 5px;
+}
+
+p.cmt_text{
+    font-size: 10px;
+    color: lightgray;
+}
+
+div.sub-item{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+hr{
+    background: lightgray;
+    height: 1px;
+    border: 0;
+    margin: 10px 0;
+}
+
+input.cmtBtn{
+    height: 25px;
+    width: 40px;
+    background-color: #b7b7b7;
+    border: 0;
+    color: white;
+    border-radius: 20px;
+}
+/*댓글 끝*/
 </style>
 
 <!DOCTYPE html>
@@ -173,8 +268,23 @@ button.list_btn{
 					</c:choose>
 				</div>
 				<div class="box-title">
-					<span class="font-set1">${stamp.s_title}</span>
+					<div class="box-title2">
+						<span class="font-set1">${stamp.s_title}</span>
+						<div class="box-icons">
+							<i class="fa-solid fa-eye icon-set"></i><span class="font-set2">${stamp.s_view_cnt}</span>
+							<i class="fa-solid fa-comment-dots icon-set"></i><span class="font-set2">${cmt}</span>
+							<c:choose>
+								<c:when test="${stamp.s_publicCode == '0'}">
+									<i class="fa-solid fa-unlock icon-set"></i>
+								</c:when>
+								<c:when test="${stamp.s_publicCode == '1'}">
+									<i class="fa-solid fa-lock icon-set"></i>
+								</c:when>
+							</c:choose>
+						</div>
+					</div>
 					<div class="box-date">
+						<span class="font-set2">${stamp.mem_nick}(${stamp.mem_email})</span>
 						<fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${stamp.reg_date}"/>
 					</div>
 				</div>
@@ -205,7 +315,7 @@ button.list_btn{
 					<c:if test="${!empty stamp.s_fileName}">
 						<img class="fileImg" 
 							src="${pageContext.request.contextPath}/images/imageUpload/upload${stamp.s_fileLoca}/${stamp.s_fileName}" 
-        					onerror="this.src='${pageContext.request.contextPath}/images/egovframework/common/loading.gif'">
+        					onerror="this.src='${pageContext.request.contextPath}/images/common/loading.gif'">
 					</c:if>
 				</div>
 				
@@ -237,8 +347,124 @@ button.list_btn{
 			</div>
 		</div>
 	</div>
+	<!-- 댓글창 -->
+	<br>
+	<div class="view-box">
+	
+		<form id="com_form">
+			<input type="hidden" name="s_num" value="${stamp.s_num}" id="s_num">
+			<div id="com_first">
+				<textarea class="form-control" rows="2" name="cmt_content" id="cmt_content" placeholder="댓글을 입력하세요" 
+					onfocus="this.placeholder=''" onblur="this.placeholder='댓글을 입력하세요'" autocomplete="off" 
+					<c:if test="${empty member}">disabled="disabled"</c:if>><c:if test="${empty member}">로그인해야 작성할 수 있습니다.</c:if></textarea>
+				<button type="button" class="cmtBtn" id="cmtBtn">등록</button>
+			</div>
+			
+			<c:if test="${!empty member}">
+				<div id="com_second">
+					<span class="letter-count">0/140</span>
+				</div>
+			</c:if>
+		</form>
+		
+		<!-- 댓글 목록 출력 -->
+		<div class="outputs">
+			<div id="output"></div>
+			<div id="loading" style="display: none;">
+				<img src="${pageContext.request.contextPath}/images/common/loading.gif" width="100" height="100">
+			</div>
+		</div>
+		
+	</div>
 </div>
 
+
+<script type="text/javascript">
+
+//========글자수 카운트========//
+//제목 textarea에 내용 입력시 글자수 체크
+$(document).on('keyup','#cmt_content',function(){
+	//입력한 글자수 구하기
+	let inputLength = $(this).val().length;
+	
+	if(inputLength<=140){ //60자 이하인 경우
+	    //남은 글자수 구하기
+	    let remain = inputLength;
+	    let text = remain + '/140';
+	    //글자수 카운트 업데이트
+	    $('#com_second .letter-count').text(text);
+	  }else{ //60자를 넘어선 경우
+	    $(this).val($(this).val().substring(0,140));
+	  }
+});
+
+//========댓글 목록========//
+$(function(){
+	//댓글 목록
+	function selectList(){
+		//로딩 이미지 노출
+		$('#loading').show();
+		
+		$.ajax({
+			url: 'listCmt.do',
+			type: 'post',
+			data: {s_num : $('#s_num').val()},
+			dataType: 'json',
+			cache: false,
+			timeout: 30000,
+			success: function(data){
+				//로딩 이미지 감추기
+				$('#loading').hide();
+				
+				console.log(data);
+				
+				//댓글 목록 작업
+				$(data.cmtList).each(function(index,item){
+					let output = '<div class="item">';
+					output += '<div class="cmt_title">';
+					output += '<div class="cmt_title_1">';
+					output += '<h4 class="cmt_writer">';
+					output += item.mem_nick + '</h4>';
+					output += '<p class="cmt_text">' + item.cmt_ip + '</p>';
+					output += '</div>';
+					output += '<p class="cmt_text">' + item.reg_date.substring(0,16) + '</p>';
+					output += '</div>';
+					
+					output += '<div class="sub-item">';
+					output += '<p>' + item.cmt_content.replace(/\r\n/g,'<br>') + '</p>';
+					
+					output += '<div class="sub-item-btn">';
+					if(data.mem_num == item.mem_num){
+						//로그인한 회원번호와 댓글 작성자 회원번호가 일치
+						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="수정" class="modify-btn cmtBtn">';
+						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="삭제" class="delete-btn cmtBtn">';
+					}else{
+						//로그인한 회원번호와 댓글 작성자 회원번호가 불일치
+						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="신고" class="report-btn cmtBtn">';
+					}
+					
+					output += '</div>';
+					output += '</div>';
+					output += '<hr size="1" noshade>';
+					output += '</div>'; 
+					
+					//문서 객체에 추가
+					$('#output').append(output);
+				});
+			},
+			error: function(){
+				//로딩 이미지 감추기
+				$('#loading').hide();
+				alert('댓글 불러오기 오류 발생');
+			}
+		});
+	}
+	
+
+	
+	selectList();
+});
+</script>
 
 <%@ include file="/WEB-INF/jsp/egovframework/common/footer.jsp" %>
 </body>

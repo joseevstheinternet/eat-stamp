@@ -18,6 +18,8 @@
 			s_rate, 
 			reg_date, 
 			r_name, 
+			s_view_cnt, 
+			s_publicCode,
 			mem_num
 		FROM(
 			SELECT
@@ -33,6 +35,8 @@
 				s_rate,
 				reg_date,
 				r_name,
+				s_view_cnt, 
+				s_publicCode,
 				s.mem_num
 			FROM eatstamp.stamp s
 			JOIN eatstamp.member m ON s.mem_num = m.mem_num
@@ -94,6 +98,8 @@
 			s.r_name,
 			s.mem_num,
 			s_tag,
+			s_view_cnt, 
+			s_publicCode,
 			m.mem_nick,
 			m.mem_email,
 			m.mem_profileCode, 

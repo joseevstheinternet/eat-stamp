@@ -4,8 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="com.EatStamp.mapper.StampMapper">  
 
-<!-- 일단 가게 정보 XX
- -->
 	<!-- 글목록 -->
 	<select id="selectList" parameterType="map" resultType="stampVO">
 		SELECT 
@@ -18,6 +16,8 @@
 			s_fileRealName, 
 			s_rate, 
 			reg_date, 
+			s_view_cnt, 
+			s_publicCode, 
 			r_name, 
 			mem_num
 		FROM(
@@ -32,6 +32,8 @@
 				s_fileRealName, 
 				s_rate,
 				reg_date,
+				s_view_cnt, 
+				s_publicCode, 
 				r_name,
 				mem_num
 			FROM eatstamp.stamp, (SELECT @rownum:=0) TMP
@@ -53,7 +55,8 @@
   		    s_uploadPath=#{s_uploadPath}, 
 			s_fileLoca=#{s_fileLoca}, 
 			s_fileName=#{s_fileName}, 
-			s_fileRealName=#{s_fileRealName}
+			s_fileRealName=#{s_fileRealName}, 
+			s_publicCode=#{s_publicCode} 
   		WHERE s_num=#{s_num}
   	</update>
   	
@@ -79,7 +82,8 @@
 	  		s_rate, 
 	  		r_name, 
 			mem_num,
-			s_tag
+			s_tag,
+			s_publicCode
 		) 
 			VALUES 
 		(
@@ -93,7 +97,8 @@
 			#{s_rate}, 
 			#{r_name}, 
 			#{mem_num},
-			#{s_tag}
+			#{s_tag},
+			#{s_publicCode}
 		)
   	</insert>
   	
@@ -111,5 +116,190 @@
   			FROM stamp 
   			WHERE s_num=#{s_num}
   	</delete>
+
+
+	<!-- 전체 글 목록 (전체 이용자가 작성한 글 목록 (공개거나 내가 작성)) -->
+	<select id="selectAllList" parameterType="map" resultType="stampVO">
+		SELECT 
+			mem_nick,
+			s_num, 
+			s_title, 
+			s_content, 
+			s_uploadPath,
+			s_fileLoca, 
+			s_fileName, 
+			s_fileRealName, 
+			s_rate, 
+			reg_date, 
+			r_name, 
+			s_view_cnt, 
+			s_publicCode, 
+			mem_num
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				m.mem_nick, 
+				s_num,
+				s_title,
+				s_content,
+				s_uploadPath,
+				s_fileLoca, 
+				s_fileName, 
+				s_fileRealName, 
+				s_rate,
+				reg_date,
+				s_view_cnt, 
+				s_publicCode, 
+				r_name,
+				s.mem_num
+			FROM eatstamp.stamp s
+			JOIN eatstamp.member m ON s.mem_num = m.mem_num
+			JOIN (SELECT @rownum:=0) TMP
+			WHERE (s_publicCode = 0 OR s.mem_num = #{mem_num})
+			<if test="searchType != '' and searchKeyword != ''">
+			    <choose>
+			        <when test="searchType == 'title'">
+						AND s.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'writer'">
+						AND m.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'rname'">
+						AND s.r_name LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+				</choose>
+			</if>
+			ORDER BY s_num DESC
+			) t1
+		WHERE rn BETWEEN #{start} and #{end}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE eatstamp.stamp
+		SET s_view_cnt = s_view_cnt + 1
+		WHERE s_num = #{s_num}
+	</update>
+	
+	
+	<!-- 댓글 -->
+	
+	<!-- 글에 달린 댓글 개수 구하기 -->
+	<select id="selectCmtCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM eatstamp.cmt c 
+		JOIN eatstamp.stamp s ON c.s_num = s.s_num 
+		WHERE c.s_num = #{s_num}
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertCmt" useGeneratedKeys="true" keyProperty="cmt_num" keyColumn="cmt_num" parameterType="cmtVO">
+		INSERT INTO cmt 
+  		(
+			cmt_content, 
+			reg_date, 
+	  		cmt_ip, 
+	  		s_num, 
+			mem_num
+		) 
+			VALUES 
+		(
+			#{cmt_content}, 
+			#{reg_date}, 
+			#{cmt_ip}, 
+			#{s_num}, 
+			#{mem_num}
+		)
+	</insert>
+	
+	<!-- 내가 작성한 댓글 목록 -->
+	<select id="selectCmtAllList" parameterType="map" resultType="cmtVO">
+		SELECT
+			cmt_num,
+			cmt_content,
+			reg_date,
+			s_num,
+			s_title,
+			s_uploadPath,
+			s_fileLoca, 
+			s_fileName, 
+			s_fileRealName,
+			mem_num,
+			mem_nick
+		FROM(
+			SELECT
+				@rownum:=@rownum+1 AS rn,
+				cmt_num,
+				cmt_content,
+				c.reg_date,
+				c.s_num,
+				s.s_title,
+				s.s_uploadPath,
+				s.s_fileLoca, 
+				s.s_fileName, 
+				s.s_fileRealName,
+				m.mem_nick,
+				s.mem_num 
+			FROM eatstamp.cmt c 
+			JOIN eatstamp.stamp s ON c.s_num = s.s_num 
+			JOIN eatstamp.member m ON s.mem_num = m.mem_num 
+			JOIN (SELECT @rownum:=0) TMP 
+			WHERE c.mem_num = #{mem_num} 
+			ORDER BY cmt_num DESC
+		)t1 
+		WHERE rn BETWEEN #{start} and #{end} 
+	</select>
+	
+	<!-- 글에 달린 댓글 목록 -->
+	<select id="selectCmtList" parameterType="int" resultType="cmtVO">
+		SELECT
+			cmt_num,
+			cmt_content,
+			c.reg_date,
+			cmt_ip,
+			c.s_num,
+			c.mem_num,
+			mem_nick
+		FROM eatstamp.cmt c 
+		JOIN eatstamp.stamp s ON c.s_num = s.s_num 
+		JOIN eatstamp.member m ON c.mem_num = m.mem_num 
+		WHERE c.s_num = #{s_num}
+	</select>
+	
+	<!-- 댓글 선택 -->
+	<select id="selectCmt" parameterType="int" resultType="cmtVO">
+		SELECT
+			cmt_num,
+			cmt_content,
+			reg_date,
+			cmt_ip,
+			s_num,
+			mem_num
+		FROM cmt
+		WHERE cmt_num=#{cmt_num}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateCmt" parameterType="int">
+		UPDATE cmt SET
+			cmt_content=#{cmt_content},
+			reg_date=#{reg_date}
+		WHERE cmt_num=#{cmt_num}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteCmt" parameterType="int">
+		DELETE
+		FROM cmt 
+		WHERE cmt_num=#{cmt_num}
+	</delete>
+	
+	<!-- 부모글 삭제 시 댓글 삭제 -->
+	<delete id="deleteCmtBySNum" parameterType="int">
+		DELETE
+		FROM cmt
+		WHERE s_num=#{s_num}
+	</delete>
 
 </mapper>
