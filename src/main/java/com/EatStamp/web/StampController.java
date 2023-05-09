@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
+import org.apache.logging.log4j.core.appender.rolling.FileExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.EatStamp.service.MemberService;
 import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.TagService;
 import com.EatStamp.domain.StampVO;
 import com.common.utils.PagingUtil;
+import com.common.utils.ResultUtil;
 import com.common.utils.StringUtil;
 import com.google.gson.Gson;
-import com.EatStamp.domain.CmtVO;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.RestVO;
 
@@ -69,14 +75,14 @@ public class StampController {
 	
 	//등록 폼
 	@GetMapping("/stamp/write2.do")
-	public String writeForm() throws Exception {
+	public String writeForm() {
 		return "stamp/write";
 	}
 	
 	//등록 폼에서 전송된 데이터 처리
 	@PostMapping("/stamp/upload_ok.do")
 	@ResponseBody
-	public String upload(MultipartFile file, String s_title, String s_content, int s_rate, String r_name, String s_tag, HttpSession session) throws Exception {
+	public String upload(MultipartFile file, String s_title, String s_content, int s_rate, String r_name, String s_tag, HttpSession session) {
 		try {
 			int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
 			
@@ -218,7 +224,7 @@ public class StampController {
 			@RequestParam(value="pageNum",defaultValue="1")
 			int currentPage,
 			@RequestParam(value="keyfield",defaultValue="")
-			String keyfield) throws Exception {
+			String keyfield) {
 		
 		MemberVO user = (MemberVO)session.getAttribute("member");
 		
@@ -255,13 +261,10 @@ public class StampController {
 	
 	//========글상세===========//
 	@RequestMapping("/stamp/detail.do")
-	public ModelAndView detail(@RequestParam int s_num, HttpSession session) throws Exception {
+	public ModelAndView detail(@RequestParam int s_num, HttpSession session) {
 
 		logger.debug("<<s_num>> : " + s_num);
 		StampVO stamp = stampService.selectStamp(s_num);
-		stampService.updateViewCnt(s_num);
-		int cmt = stampService.selectCmtCount(s_num);
-		
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
@@ -274,50 +277,15 @@ public class StampController {
 		mav.setViewName("stamp/detail");
 		mav.addObject("stamp", stamp);
 		mav.addObject("member", member);
-		mav.addObject("cmt", cmt);
 		
 		return mav;
-	}
-	
-	//===========댓글 목록=============//
-	@RequestMapping("/stamp/listCmt.do")
-	@ResponseBody
-	public String listCmt(@RequestParam int s_num, HttpSession session) throws Exception {
-		
-		logger.debug("<<s_num>>: " + s_num);
-		
-		int cmt = stampService.selectCmtCount(s_num);
-		
-		List<CmtVO> list = null;
-		if(cmt > 0) {
-			list = stampService.selectCmtList(s_num);
-			
-		}else {
-			list = Collections.emptyList();
-		}
-		
-		Map<String, Object> mapAjax = new HashMap<>();
-		mapAjax.put("cmt", cmt);
-		mapAjax.put("cmtList", list);
-		
-		//로그인한 회원정보 세팅
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		if(user!=null) {
-			mapAjax.put("mem_num", user.getMem_num());
-		}
-		
-		String jsonData = new Gson().toJson(mapAjax);
-		
-		System.out.println("댓글: " + jsonData);
-				
-		return jsonData;
 	}
 
 	
 	//===========게시판 글수정===========//
 	//수정 폼
 	@GetMapping("/stamp/update={s_num}.do")
-	public String editForm(@PathVariable int s_num, Model model) throws Exception {
+	public String editForm(@PathVariable int s_num, Model model) {
 	    StampVO stamp = stampService.selectStamp(s_num);
 	    model.addAttribute("stamp", stamp);
 	    return "stamp/update";
@@ -326,14 +294,14 @@ public class StampController {
 	//수정 폼에서 전송된 데이터 처리
 	@PostMapping("/stamp/update_ok.do")
 	@ResponseBody
-	public String update(MultipartFile file, int s_num, String s_title, String s_content, int s_rate, String r_name, String s_tag, HttpSession session) throws Exception {
+	public String update(MultipartFile file, int s_num, String s_title, String s_content, int s_rate, String r_name, String s_tag, HttpSession session) {
 	    try {
 	        int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
 	        StampVO stamp = stampService.selectStamp(s_num);
 
 	        // 기존 파일 정보 가져오기
 	        String oldUploadPath = stamp.getS_uploadPath();
-	        //String oldFileLoca = stamp.getS_fileLoca();
+	        String oldFileLoca = stamp.getS_fileLoca();
 	        String oldFileName = stamp.getS_fileName();
 
 	        if (file != null && !file.isEmpty()) {
@@ -396,15 +364,12 @@ public class StampController {
 	public String submitDelete(
 			       @RequestParam int s_num,
 			       Model model,
-			       HttpServletRequest request) throws Exception {
+			       HttpServletRequest request) {
 		
 		logger.debug("<<글 삭제>> : " + s_num);
 		
 		//s_num을 기반으로 관련 태그 정보 삭제
 		tagService.deleteTagPost(s_num);
-		
-		//댓글이 존재하면 댓글 삭제
-		stampService.deleteCmtBySNum(s_num);
 		
 		//글삭제
 		stampService.deleteStamp(s_num);
@@ -417,85 +382,5 @@ public class StampController {
 		return "common/resultView";
 	}
 	
-	
-	//===========댓글 등록===========//
-	@RequestMapping("/stamp/writeCmt.do")
-	@ResponseBody
-	public Map<String,String> writeCmt(CmtVO cmt, HttpSession session, HttpServletRequest request) throws Exception {
-		
-		logger.debug("<<댓글 등록>>: " + cmt);
-		
-		Map<String, String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		
-		if(user == null) { //로그인 안 됨 
-			mapAjax.put("result", "logout");
-		}else { //로그인 상태
-			//회원번호 등록
-			cmt.setMem_num(user.getMem_num());
-			//댓글 등록
-			stampService.insertCmt(cmt);
-			mapAjax.put("result", "success");
-		}
-		
-		return mapAjax;
-	}
-	
-	
-	//===========댓글 수정===========//
-	@RequestMapping("/stamp/updateCmt.do")
-	@ResponseBody
-	public Map<String,String> modifyCmt(CmtVO cmt, @RequestParam int cmt_num, HttpSession session, HttpServletRequest request) throws Exception {
-		
-		logger.debug("<<댓글 수정>>: " + cmt);
-		
-		Map<String,String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		CmtVO db_cmt = stampService.selectCmt(cmt_num);
-		
-		if(user==null) { //로그인 X
-			mapAjax.put("result", "logout");
-		}else if(user!=null && user.getMem_num() == db_cmt.getMem_num()) {
-			//로그인 회원번호와 작성자 회원번호 일치
-			
-			//댓글 수정
-			stampService.updateCmt(cmt_num);
-			mapAjax.put("result", "success");
-		}else {
-			//로그인 회원번호와 작성자 회원번호 불일치
-			mapAjax.put("result", "wrongAccess");
-		}
-		
-		return mapAjax;
-	}
-	
-	
-	//===========댓글 삭제===========//
-	@RequestMapping("/stamp/deleteCmt.do")
-	@ResponseBody
-	public Map<String,String> deleteCmt(@RequestParam int cmt_num, HttpSession session) throws Exception {
-		
-		Map<String,String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		CmtVO db_cmt = stampService.selectCmt(cmt_num);
-		
-		if(user==null) { //로그인 X
-			mapAjax.put("result", "logout");
-		}else if(user!=null && user.getMem_num() == db_cmt.getMem_num()) {
-			//로그인이 되어 있고 로그인한 회원번호와 작성자 회원번호 일치
-			//댓글 삭제
-			stampService.deleteCmt(cmt_num);
-			
-			mapAjax.put("result", "success");
-		}else {
-			//로그인한 회원번호와 작성자 회원번호 불일치
-			mapAjax.put("result", "wrongAccess");
-		}
-				
-		return mapAjax;
-	}
 	
 }

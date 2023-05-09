@@ -47,7 +47,4 @@ public class StampVO {
 	private String mem_profileCode; //회원 프로필코드
 	
 	private int r_num; //식당번호
-	
-	private int s_view_cnt; //조회수
-	private int s_publicCode; //공개여부
 }
