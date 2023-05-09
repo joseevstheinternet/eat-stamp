@@ -150,6 +150,12 @@ textarea#s_tag.form-control::placeholder{
 }
 /* section5 (태그) 끝 */
 
+div.section5-1{
+	display: flex;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
 /* section6 (등록/취소 버튼) */
 div.section6{
 	margin-top: 30px;

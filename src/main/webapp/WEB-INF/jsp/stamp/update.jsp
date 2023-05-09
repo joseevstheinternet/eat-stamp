@@ -102,6 +102,19 @@
 	            <textarea class="form-control" rows="1" name="s_tag" id="s_tag" placeholder="#태그입력">${stamp.s_tag}</textarea>
 	        </div>
 	        
+	        <!-- 공개여부 -->
+			<div class="section5-1">			
+				<!-- 체크박스 -->
+				<div class="section3-1">				
+					<input type="checkbox" name="s_publicCode" id="s_publicCode0" value=0 onclick='checkOnlyOne(this)' style="display: none;"/>
+					<label for="s_publicCode0" class="check-text"><i class="fa-solid fa-unlock"></i>  전체 공개</label>				
+				</div>
+				<div class="section3-2">
+					<input type="checkbox" name="s_publicCode" id="s_publicCode1" value=1 onclick='checkOnlyOne(this)' style="display: none;"/>
+					<label for="s_publicCode1" class="check-text"><i class="fa-solid fa-lock"></i>  나만 보기</label>
+				</div>
+			</div>
+	        
 	        <div class="section6">
 	            <!-- 수정/취소 버튼 -->
 	            <button type="button" class="btn uploadBtn" id="updateBtn">수정</button>
@@ -172,7 +185,7 @@ tagInput.addEventListener("input", function() {
   }
 });
 
-//========체크박스========//
+//========체크박스 (s_rate)========//
 //중복 체크 불가능
 function checkOnlyOne(element) {
   
@@ -195,6 +208,30 @@ $(document).ready(function() {
 	    $('#s_rate1').prop('checked', true);
 	  } else {
 	    $('#s_rate0').prop('checked', true);
+	  }
+	});
+
+//========체크박스 (s_publicCode)========//
+//중복 체크 불가능
+function checkOnlyOne(element) {
+  
+  const checkboxes 
+      = document.getElementsByName("s_publicCode");
+  
+  checkboxes.forEach((cb) => {
+    cb.checked = false;
+  })
+  
+  element.checked = true;
+}
+
+//초기 체크 상태 불러오기
+$(document).ready(function() {
+	  let s_publicCode = ${stamp.s_publicCode};
+	  if (s_publicCode == 0) {
+	    $('#s_publicCode0').prop('checked', true);
+	  } else {
+	    $('#s_publicCode1').prop('checked', true);
 	  }
 	});
 
@@ -252,6 +289,17 @@ $(function(){
 	        s_rate += el.value + ' ';
 	    });
 	    
+	 	//=====체크박스에서 선택된 값(value) 출력=====//
+		//선택된 목록 가져오기
+		const query2 = 'input[name="s_publicCode"]:checked';
+		const selectedEls2 = document.querySelectorAll(query2);
+		
+		//선택된 목록에서 value 찾기
+		let s_publicCode = '';
+		selectedEls2.forEach((el) => {
+			s_publicCode += el.value + ' ';
+		});
+	    
 	    formData.append('file', data[0].files[0]);
 	    const s_content = $('#s_content').val();
 	    const s_tag = $('#s_tag').val();
@@ -263,6 +311,7 @@ $(function(){
 	    formData.append('s_title', s_title);
 	    formData.append('s_rate', s_rate);
 	    formData.append('r_name', r_name);
+	    formData.append('s_publicCode', s_publicCode);
 	    
 	    //비동기 방식으로 파일 업로드 및 게시글 수정 진행
 	    $.ajax({

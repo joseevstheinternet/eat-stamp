@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 public class StampVO {
 	public StampVO(String s_title, String s_content, String s_uploadPath, String s_fileLoca, String s_fileName,
-			String s_fileRealName, Date reg_date, int s_rate, String r_name, int mem_num, String s_tag) {
+			String s_fileRealName, Date reg_date, int s_rate, String r_name, int mem_num, String s_tag, int s_privateCode) {
 	}
 	
 

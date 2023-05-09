@@ -93,6 +93,19 @@
 				<textarea class="form-control" rows="1" name="s_tag" id="s_tag" placeholder="#태그입력"></textarea>
 			</div>
 			
+			<!-- 공개여부 -->
+			<div class="section5-1">			
+				<!-- 체크박스 -->
+				<div class="section3-1">				
+					<input type="checkbox" name="s_publicCode" id="s_publicCode0" value=0 onclick='checkOnlyOne(this)' style="display: none;"/>
+					<label for="s_publicCode0" class="check-text"><i class="fa-solid fa-unlock"></i>  전체 공개</label>				
+				</div>
+				<div class="section3-2">
+					<input type="checkbox" name="s_publicCode" id="s_publicCode1" value=1 onclick='checkOnlyOne(this)' style="display: none;"/>
+					<label for="s_publicCode1" class="check-text"><i class="fa-solid fa-lock"></i>  나만 보기</label>
+				</div>
+			</div>
+			
 			<div class="section6">
 				<!-- 등록/취소 버튼 -->
 				<button type="button" class="btn uploadBtn" id="uploadBtn">등록</button>
@@ -154,6 +167,19 @@
 		  
 		  const checkboxes 
 		      = document.getElementsByName("s_rate");
+		  
+		  checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+		}
+		
+		//중복 체크 불가능
+		function checkOnlyOne(element) {
+		  
+		  const checkboxes 
+		      = document.getElementsByName("s_publicCode");
 		  
 		  checkboxes.forEach((cb) => {
 		    cb.checked = false;
@@ -231,6 +257,17 @@
 					s_rate += el.value + ' ';
 				});
 				
+				//=====체크박스에서 선택된 값(value) 출력=====//
+				//선택된 목록 가져오기
+				const query2 = 'input[name="s_publicCode"]:checked';
+				const selectedEls2 = document.querySelectorAll(query2);
+				
+				//선택된 목록에서 value 찾기
+				let s_publicCode = '';
+				selectedEls2.forEach((el) => {
+					s_publicCode += el.value + ' ';
+				});
+				
 			    
 			    //FormData 객체에 사용자가 업로드한 파일의 정보들이 들어 있는 객체 전달
 			    formData.append('file',data[0].files[0]);
@@ -245,8 +282,9 @@
 			    formData.append('s_title',s_title);
 			    formData.append('s_rate',s_rate);
 			    formData.append('r_name',r_name);
+			    formData.append('s_publicCode',s_publicCode);
 			    
-			    console.log('r_name: ' + r_name);
+			    console.log('s_publicCode: ' + s_publicCode);
 			    
 			    /* key 확인하기 
 			    for (let key of formData.keys()) {

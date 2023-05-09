@@ -77,7 +77,7 @@ public class StampController {
 	@PostMapping("/stamp/upload_ok.do")
 	@ResponseBody
 	public String upload(MultipartFile file, String s_title, String s_content, 
-						int s_rate, String r_name, String s_tag, HttpSession session) throws Exception {
+						int s_rate, String r_name, String s_tag, int s_publicCode, HttpSession session) throws Exception {
 		try {
 			int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
 			
@@ -87,7 +87,7 @@ public class StampController {
 			String fileLoca = sdf.format(date);
 			
 			//저장할 폴더 경로
-			String uploadPath = "D:/java/workspace/EatStamp3/src/main/webapp/images/imageUpload/upload" + fileLoca;
+			String uploadPath = "C:/Users/prend/git/ojtproject/src/main/webapp/images/imageUpload/upload" + fileLoca;
 			
 			File folder = new File(uploadPath);
 			if(!folder.exists()) {
@@ -132,6 +132,7 @@ public class StampController {
 			stamp.setR_name(r_name);
 			stamp.setMem_num(mem_num);
 			stamp.setS_tag(s_tag);
+			stamp.setS_publicCode(s_publicCode);
 			
 			System.out.println(stamp);
 			
@@ -157,7 +158,7 @@ public class StampController {
 		System.out.println("fileName: " + fileName);
 		System.out.println("fileLoca: " + fileLoca);
 		
-		File file = new File("/EatStamp3/src/main/webapp/images/imageUpload" + fileLoca + "\\" + fileName);
+		File file = new File("C:/Users/prend/git/ojtproject/src/main/webapp/images/imageUpload/upload" + fileLoca + "\\" + fileName);
 		System.out.println(file);
 		
 		ResponseEntity<byte[]> result = null;
@@ -326,7 +327,8 @@ public class StampController {
 	//수정 폼에서 전송된 데이터 처리
 	@PostMapping("/stamp/update_ok.do")
 	@ResponseBody
-	public String update(MultipartFile file, int s_num, String s_title, String s_content, int s_rate, String r_name, String s_tag, HttpSession session) {
+	public String update(MultipartFile file, int s_num, String s_title, String s_content, int s_rate, String r_name, 
+							String s_tag, int s_publicCode, HttpSession session) {
 	    try {
 	        int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
 	        StampVO stamp = stampService.selectStamp(s_num);
@@ -349,7 +351,7 @@ public class StampController {
 	            Date date = new Date();
 	            String fileLoca = sdf.format(date);
 
-	            String uploadPath = "D:/java/workspace/EatStamp3/src/main/webapp/images/imageUpload/upload" + fileLoca;
+	            String uploadPath = "C:/Users/prend/git/ojtproject/src/main/webapp/images/imageUpload/upload" + fileLoca;
 
 	            File folder = new File(uploadPath);
 	            if (!folder.exists()) {
@@ -380,6 +382,7 @@ public class StampController {
 	        stamp.setR_name(r_name);
 	        stamp.setMem_num(mem_num);
 	        stamp.setS_tag(s_tag);
+	        stamp.setS_publicCode(s_publicCode);
 
 	        stampService.updateStamp(stamp);
 

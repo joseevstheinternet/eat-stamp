@@ -294,14 +294,16 @@ input.com-mod{
 						<div class="box-icons">
 							<i class="fa-solid fa-eye icon-set"></i><span class="font-set2">${stamp.s_view_cnt}</span>
 							<i class="fa-solid fa-comment-dots icon-set"></i><span class="font-set2">${cmtCnt}</span>
-							<c:choose>
-								<c:when test="${stamp.s_publicCode == '0'}">
-									<i class="fa-solid fa-unlock icon-set"></i>
-								</c:when>
-								<c:when test="${stamp.s_publicCode == '1'}">
-									<i class="fa-solid fa-lock icon-set"></i>
-								</c:when>
-							</c:choose>
+							<c:if test="${member.mem_num == stamp.mem_num}">
+								<c:choose>
+									<c:when test="${stamp.s_publicCode == '0'}">
+										<i class="fa-solid fa-unlock icon-set"></i>
+									</c:when>
+									<c:when test="${stamp.s_publicCode == '1'}">
+										<i class="fa-solid fa-lock icon-set"></i>
+									</c:when>
+								</c:choose>
+							</c:if>
 						</div>
 					</div>
 					<div class="box-date">
@@ -351,8 +353,13 @@ input.com-mod{
 			</c:if>
 			</div>
 			<div class="section3"> <!-- 수정, 삭제, 목록 -->
-				<button type="button" onclick="location.href='/stamp/update=${stamp.s_num}.do'" class="box-button delete_btn">수정</button>
-				<button type="button" class="box-button delete_btn" id="delete_btn">삭제</button>
+				<c:if test="${member.mem_num == stamp.mem_num}">
+					<button type="button" onclick="location.href='/stamp/update=${stamp.s_num}.do'" class="box-button delete_btn">수정</button>
+					<button type="button" class="box-button delete_btn" id="delete_btn">삭제</button>
+				</c:if>
+				<c:if test="${member.mem_num != stamp.mem_num}">
+					<button type="button" class="box-button delete_btn" id="report_btn">신고</button>
+				</c:if>
 				<button type="button" onclick="location.href='list.do'" class="box-button list_btn">목록</button>
 			
 			<script type="text/javascript">
