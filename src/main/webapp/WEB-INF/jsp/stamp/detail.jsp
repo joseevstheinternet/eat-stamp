@@ -458,7 +458,7 @@ $(function(){
 					if(data.mem_num == item.mem_num){
 						//로그인한 회원번호와 댓글 작성자 회원번호가 일치
 						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="수정" class="modify-btn cmtBtn">';
-						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="삭제" class="delete-btn cmtBtn" onclick="tkrwp()">';
+						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="삭제" class="delete-btn cmtBtn">';
 					}else{
 						//로그인한 회원번호와 댓글 작성자 회원번호가 불일치
 						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="신고" class="report-btn cmtBtn">';
@@ -530,7 +530,7 @@ $(function(){
 	    let modifyUI = '<form id="mcom_form" data-num="'+ cmt_num +'">';
 	    modifyUI += '<input type="hidden" name="cmt_num" id="mcom_num" value="'+ cmt_num +'">';
 	    modifyUI += '<textarea rows="2" name="cmt_content" id="mcom_content" class="form-control2">'+ cmt_content +'</textarea>';
-	    modifyUI += '<div id="mcom_first"><span class="letter-count">300/300</span>';
+	    modifyUI += '<div id="mcom_first"><span class="letter-count">0/140</span>';
 	    modifyUI += '<div id="mcom_second" class="updel-btn">';
 	    modifyUI += '<input type="submit" value="수정" id="sub-btn-1" class="com-mod cmtbtn">';
 	    modifyUI += ' <input type="button" value="취소" class="com-reset cmtbtn" id="sub-btn-1">';
@@ -544,14 +544,30 @@ $(function(){
 	    //수정 폼을 수정하고자 하는 데이터가 있는 div에 노출
 	    $(this).closest('.sub-item').after(modifyUI);
 
-	    //입력한 글자수 셋팅
-	    let inputLength = $('#mcom_content').val().length;
-	    let remain = 300 - inputLength;
-	    remain += '/300';
+		// 페이지 로드 시 초기 글자 수 가져오기
+	    $(document).ready(function() {
+	      let initialLength = $('#mcom_content').val().length;
+	      let initialText = initialLength + '/140';
+	      $('#mcom_first .letter-count').text(initialText);
+	    }); //초기 글자수 end
 
-	    //문서 객체에 반영
-	    $('#mcom_first .letter-count').text(remain);
-	});
+	    //내용 textarea에 내용 입력시 글자수 체크
+	    $(document).on('keyup','#mcom_content',function(){
+	    	//입력한 글자수 구하기
+	    	let inputLength = $(this).val().length;
+	    	
+	    	if(inputLength<=140){ //140자 이하인 경우
+	    	    //남은 글자수 구하기
+	    	    let remain = inputLength;
+	    	    let text = remain + '/140';
+	    	    //글자수 카운트 업데이트
+	    	    $('#mcom_first .letter-count').text(text);
+	    	  }else{ //140자를 넘어선 경우
+	    	    $(this).val($(this).val().substring(0,140));
+	    	  }
+	    }); //글자수 체크 end
+	    
+	}); //수정 버튼 클릭 이벤트 end
 
 	//수정 폼에서 취소 버튼 클릭시 수정 폼 초기화
 	$(document).on('click','.com-reset',function(){
@@ -594,7 +610,40 @@ $(function(){
 			}
 		}); //end ajax
 		
-	})
+	}); //댓글 수정 end
+	
+	//댓글 삭제
+	$(document).on('click','.delete-btn',function(){
+		//댓글 번호
+		const cmt_num = $(this).data('num');
+		
+		console.log("댓글 삭제 cmt_num: " + cmt_num);
+		
+		let choice = confirm('댓글을 삭제하시겠습니까?');
+		
+		if(choice){
+			$.ajax({
+				url:'deleteCmt.do',
+				type:'post',
+				data:{
+					cmt_num : cmt_num
+				},
+				cache:false,
+				timeout:30000,
+				success:function(result){
+					if(result == 'success'){
+						alert('댓글을 삭제하였습니다.');
+						location.reload();
+					}else {
+						alert('댓글 삭제에 실패하였습니다.');
+					}
+				},
+				error:function(){
+					alert('댓글 삭제에 실패하였습니다.2');
+				}
+			}); //end ajax
+		}
+	});
 	
  	selectList();
 });

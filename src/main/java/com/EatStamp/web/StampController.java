@@ -477,27 +477,17 @@ public class StampController {
 	//===========댓글 삭제===========//
 	@RequestMapping("/stamp/deleteCmt.do")
 	@ResponseBody
-	public Map<String,String> deleteCmt(@RequestParam int cmt_num, HttpSession session) throws Exception {
+	public String deleteCmt(@RequestParam int cmt_num, HttpSession session) throws Exception {
 		
-		Map<String,String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		CmtVO db_cmt = stampService.selectCmt(cmt_num);
-		
-		if(user==null) { //로그인 X
-			mapAjax.put("result", "logout");
-		}else if(user!=null && user.getMem_num() == db_cmt.getMem_num()) {
-			//로그인이 되어 있고 로그인한 회원번호와 작성자 회원번호 일치
-			//댓글 삭제
+		try {
 			stampService.deleteCmt(cmt_num);
 			
-			mapAjax.put("result", "success");
-		}else {
-			//로그인한 회원번호와 작성자 회원번호 불일치
-			mapAjax.put("result", "wrongAccess");
+			return "success";
+			
+		} catch (Exception e) {
+			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
+	        return "fail";
 		}
-				
-		return mapAjax;
 	}
 	
 }
