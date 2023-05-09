@@ -36,7 +36,7 @@ public interface StampService {
 	
 	public CmtVO selectCmt(Integer cmt_num) throws Exception; //댓글 선택
 	
-	public void updateCmt(Integer cmt_num) throws Exception; //댓글 수정
+	public void updateCmt(CmtVO cmt) throws Exception; //댓글 수정
 	
 	public void deleteCmt(Integer cmt_num) throws Exception; //댓글 삭제
 	

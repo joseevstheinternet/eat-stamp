@@ -86,8 +86,8 @@ public class StampServiceImpl implements StampService {
 	}
 
 	@Override
-	public void updateCmt(Integer cmt_num) throws Exception {
-		stampMapper.updateCmt(cmt_num);
+	public void updateCmt(CmtVO cmt) throws Exception {
+		stampMapper.updateCmt(cmt);
 	}
 
 	@Override

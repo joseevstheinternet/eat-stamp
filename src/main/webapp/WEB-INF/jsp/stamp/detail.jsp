@@ -234,6 +234,27 @@ input.cmtBtn{
     border-radius: 20px;
 }
 /*댓글 끝*/
+
+/* 댓글 수정 */
+textarea.form-control2{
+	width: 100%;
+	resize: none;
+	border-radius: 20px;
+	padding: 5px 15px;
+	margin: 5px 0;
+}
+
+div#mcom_first{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+input.com-mod{
+	background-color: #ffd274;
+}
+
+/* 댓글 수정 끝 */
 </style>
 
 <!DOCTYPE html>
@@ -272,7 +293,7 @@ input.cmtBtn{
 						<span class="font-set1">${stamp.s_title}</span>
 						<div class="box-icons">
 							<i class="fa-solid fa-eye icon-set"></i><span class="font-set2">${stamp.s_view_cnt}</span>
-							<i class="fa-solid fa-comment-dots icon-set"></i><span class="font-set2">${cmt}</span>
+							<i class="fa-solid fa-comment-dots icon-set"></i><span class="font-set2">${cmtCnt}</span>
 							<c:choose>
 								<c:when test="${stamp.s_publicCode == '0'}">
 									<i class="fa-solid fa-unlock icon-set"></i>
@@ -431,13 +452,13 @@ $(function(){
 					output += '</div>';
 					
 					output += '<div class="sub-item">';
-					output += '<p>' + item.cmt_content.replace(/\r\n/g,'<br>') + '</p>';
+					output += '<p>' + (item.cmt_content ? item.cmt_content.replace(/\r\n/g,'<br>') : '') + '</p>';
 					
 					output += '<div class="sub-item-btn">';
 					if(data.mem_num == item.mem_num){
 						//로그인한 회원번호와 댓글 작성자 회원번호가 일치
 						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="수정" class="modify-btn cmtBtn">';
-						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="삭제" class="delete-btn cmtBtn">';
+						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="삭제" class="delete-btn cmtBtn" onclick="tkrwp()">';
 					}else{
 						//로그인한 회원번호와 댓글 작성자 회원번호가 불일치
 						output += ' <input type="button" data-num="'+ item.cmt_num +'" value="신고" class="report-btn cmtBtn">';
@@ -445,8 +466,8 @@ $(function(){
 					
 					output += '</div>';
 					output += '</div>';
-					output += '<hr size="1" noshade>';
 					output += '</div>'; 
+					output += '<hr size="1" noshade>';
 					
 					//문서 객체에 추가
 					$('#output').append(output);
@@ -460,9 +481,122 @@ $(function(){
 		});
 	}
 	
+	//등록하기 버튼 클릭 이벤트
+	$('#cmtBtn').click(function(){
+		regist();
+	});
+	
+	//등록을 담당하는 함수
+	function regist(){
+		// 세션에서 현재 로그인 중인 사용자 정보(mem_num)을 얻어옴
+		const member = '${sessionScope.member.mem_num}';
+		const s_num = '${stamp.s_num}';
+		const cmt_content = $('#cmt_content').val();
+		
+		//데이터 전송
+		$.ajax({
+			url: 'writeCmt.do',
+			type: 'post',
+			data: {
+				"cmt_content" : cmt_content,
+				"s_num" : s_num
+			},
+			success: function(result){
+				if(result == 'success'){
+					$('#cmt_content').val(''); //내용 비우기
+					$('#com_first .letter-count').text('0/140'); //글자수 체크 초기화
+					location.reload();
+				}else {
+					alert('댓글 등록에 실패하였습니다.');
+				}
+			},
+			error:function(){
+				alert('댓글 등록에 실패하였습니다.2');
+			}
+		}); //end ajax
+	} //end regist()
 
 	
-	selectList();
+	$(document).on('click','.modify-btn',function(){		
+		//이전에 이미 수정하는 댓글이 있을 경우 수정 버튼을 클릭하면 숨김 sub-item을 환원시키고 수정폼을 초기화
+	    initModifyForm();
+
+	    //댓글 글번호
+	    let cmt_num = $(this).attr('data-num');
+	    //댓글 내용
+	    let cmt_content = $(this).parent().siblings('p').html().replace(/<br>/g,'\r\n');
+	    
+	    //댓글 수정폼 UI
+	    let modifyUI = '<form id="mcom_form" data-num="'+ cmt_num +'">';
+	    modifyUI += '<input type="hidden" name="cmt_num" id="mcom_num" value="'+ cmt_num +'">';
+	    modifyUI += '<textarea rows="2" name="cmt_content" id="mcom_content" class="form-control2">'+ cmt_content +'</textarea>';
+	    modifyUI += '<div id="mcom_first"><span class="letter-count">300/300</span>';
+	    modifyUI += '<div id="mcom_second" class="updel-btn">';
+	    modifyUI += '<input type="submit" value="수정" id="sub-btn-1" class="com-mod cmtbtn">';
+	    modifyUI += ' <input type="button" value="취소" class="com-reset cmtbtn" id="sub-btn-1">';
+	    modifyUI += '</div>';
+	    modifyUI += '</div>';
+	    modifyUI += '</form>';
+
+	    //지금 클릭해서 수정하고자 하는 데이터는 감추기
+	    $(this).closest('.sub-item').hide();
+
+	    //수정 폼을 수정하고자 하는 데이터가 있는 div에 노출
+	    $(this).closest('.sub-item').after(modifyUI);
+
+	    //입력한 글자수 셋팅
+	    let inputLength = $('#mcom_content').val().length;
+	    let remain = 300 - inputLength;
+	    remain += '/300';
+
+	    //문서 객체에 반영
+	    $('#mcom_first .letter-count').text(remain);
+	});
+
+	//수정 폼에서 취소 버튼 클릭시 수정 폼 초기화
+	$(document).on('click','.com-reset',function(){
+	    initModifyForm();
+	});
+	//수정 폼 초기화
+	function initModifyForm(){
+	    $('.sub-item').show();
+	    $('#mcom_form').remove();
+	}
+	
+	//댓글 수정
+	$(document).on('submit','#mcom_form',function(event){
+		
+		// 기본 동작을 막기 위해 추가
+	    event.preventDefault();
+		
+		const member = '${sessionScope.member.mem_num}';
+		const cmt_num = $(this).data('num');
+		const cmt_content = $('#mcom_content').val();
+		
+		//데이터 전송
+		$.ajax({
+			url: 'updateCmt.do',
+			type: 'post',
+			data: {
+				"cmt_content" : cmt_content,
+				"cmt_num" : cmt_num
+			},
+			success: function(result){
+				if(result == 'success'){
+					alert('댓글을 수정하였습니다.');
+					location.reload();
+				}else {
+					alert('댓글 수정에 실패하였습니다.');
+				}
+			},
+			error:function(){
+				alert('댓글 수정에 실패하였습니다.2');
+			}
+		}); //end ajax
+		
+	})
+	
+ 	selectList();
 });
 </script>
 

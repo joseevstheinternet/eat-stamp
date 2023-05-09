@@ -261,7 +261,8 @@ public class StampController {
 		logger.debug("<<s_num>> : " + s_num);
 		StampVO stamp = stampService.selectStamp(s_num);
 		stampService.updateViewCnt(s_num);
-		int cmt = stampService.selectCmtCount(s_num);
+		int cmtCnt = stampService.selectCmtCount(s_num);
+		//CmtVO cmt = (CmtVO) stampService.selectCmtList(s_num);
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
@@ -274,7 +275,8 @@ public class StampController {
 		mav.setViewName("stamp/detail");
 		mav.addObject("stamp", stamp);
 		mav.addObject("member", member);
-		mav.addObject("cmt", cmt);
+		mav.addObject("cmtCnt", cmtCnt);
+		//mav.addObject("cmt", cmt);
 		
 		return mav;
 	}
@@ -419,54 +421,56 @@ public class StampController {
 	//===========댓글 등록===========//
 	@RequestMapping("/stamp/writeCmt.do")
 	@ResponseBody
-	public Map<String,String> writeCmt(CmtVO cmt, HttpSession session, HttpServletRequest request) throws Exception {
+	public String writeCmt(@RequestParam int s_num, String cmt_content, 
+				HttpSession session, HttpServletRequest request) throws Exception {
 		
-		logger.debug("<<댓글 등록>>: " + cmt);
-		
-		Map<String, String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		
-		if(user == null) { //로그인 안 됨 
-			mapAjax.put("result", "logout");
-		}else { //로그인 상태
-			//회원번호 등록
-			cmt.setMem_num(user.getMem_num());
-			//댓글 등록
+		try {
+			int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
+			
+			CmtVO cmt = new CmtVO();
+			
+			cmt.setCmt_content(cmt_content);
+			cmt.setReg_date(null);
+			cmt.setCmt_ip(request.getRemoteAddr());
+			cmt.setS_num(s_num);
+			cmt.setMem_num(mem_num);
+			
+			System.out.println("cmt: " + cmt);
+			
 			stampService.insertCmt(cmt);
-			mapAjax.put("result", "success");
+			
+			return "success";
+		} catch (Exception e) {
+			
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
+			return "fail";
 		}
-		
-		return mapAjax;
 	}
 	
 	
 	//===========댓글 수정===========//
 	@RequestMapping("/stamp/updateCmt.do")
 	@ResponseBody
-	public Map<String,String> modifyCmt(CmtVO cmt, @RequestParam int cmt_num, HttpSession session, HttpServletRequest request) throws Exception {
+	public String modifyCmt(@RequestParam int cmt_num, String cmt_content, 
+				HttpSession session, HttpServletRequest request) throws Exception {
 		
-		logger.debug("<<댓글 수정>>: " + cmt);
-		
-		Map<String,String> mapAjax = new HashMap<>();
-		
-		MemberVO user = (MemberVO)session.getAttribute("member");
-		CmtVO db_cmt = stampService.selectCmt(cmt_num);
-		
-		if(user==null) { //로그인 X
-			mapAjax.put("result", "logout");
-		}else if(user!=null && user.getMem_num() == db_cmt.getMem_num()) {
-			//로그인 회원번호와 작성자 회원번호 일치
+		try {
+			//int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
+			CmtVO cmt = stampService.selectCmt(cmt_num);
 			
-			//댓글 수정
-			stampService.updateCmt(cmt_num);
-			mapAjax.put("result", "success");
-		}else {
-			//로그인 회원번호와 작성자 회원번호 불일치
-			mapAjax.put("result", "wrongAccess");
+			cmt.setCmt_content(cmt_content);
+			cmt.setReg_date(null);
+			
+			stampService.updateCmt(cmt);
+			
+			return "success";
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
+	        return "fail";
 		}
-		
-		return mapAjax;
 	}
 	
 	

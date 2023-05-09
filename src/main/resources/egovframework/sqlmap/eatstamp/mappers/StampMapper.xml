@@ -281,7 +281,7 @@
 	</select>
 	
 	<!-- 댓글 수정 -->
-	<update id="updateCmt" parameterType="int">
+	<update id="updateCmt" parameterType="cmtVO">
 		UPDATE cmt SET
 			cmt_content=#{cmt_content},
 			reg_date=#{reg_date}
