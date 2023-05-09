@@ -112,6 +112,23 @@ i.header_user {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
+/*0508 최은지 세션 연장 타이머 css*/
+.btn_bgtd_timeout{
+	font-size: 13px;'
+	color: #ffd274;
+}
+
+.timer_div{
+	background-color: #ffd274;
+	border-radius: 20px;
+	box-shadow: 3px 3px 30px 1px #ebebeb70;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	height: 20px;
+}
 </style>
 <body>
 	<!-- header 시작 -->
@@ -143,6 +160,15 @@ i.header_user {
 			</div>
 			<div id="header_third">
 				<c:if test="${!empty admin}">
+					<!--  0508 최은지 세션 로그인 연장  -->
+						<div class="btn_bgtd_timeout" align="right">
+		              	<script type="text/javascript" charset="utf-8"></script>
+				         	   	<span id="timer"  style='font-size: 15px;'></span>
+				            <div class = "timer_div">
+				             	<a href="javascript:refreshTimer();"><i class="fa-solid fa-clock"></i>&nbsp;시간 연장</a>
+			             	</div>
+						</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a><i id="logoutBtn" class="fa-solid fa-right-to-bracket header_search"></i></a>
 				</c:if>
 				<c:if test="${empty admin}">
@@ -161,6 +187,85 @@ i.header_user {
 			}
 		}); //onclick end
 				    
+</script>
+
+<!-- 0508 최은지 로그인 시 헤더에 남은 세션 시간 표기 -->
+<script type="text/javascript">
+
+//초단위 사용
+var iSecond; 
+var timerchecker = null;
+
+//윈도우 리로드시마다 실행시키기>>>
+window.onload = function() {
+    fncClearTime();
+    initTimer();
+}
+ 
+ //세션(타이머) 유효 시간 설정
+function fncClearTime() {
+    iSecond = 1800;
+}
+ 
+//시간 표기 양식
+Lpad = function(str, len) {
+    str = str + "";
+    while (str.length < len) { //0보다 작을 때까지 문자열 추가 
+        str = "0" + str;
+    }
+    return str;
+}
+ 
+ //타이머 체크
+initTimer = function() {
+    var timer = document.getElementById("timer");
+    rHour = parseInt(iSecond / 3600);
+    rHour = rHour % 60;
+ 
+    rMinute = parseInt(iSecond / 60);
+    rMinute = rMinute % 60;
+ 
+    rSecond = iSecond % 60;
+ 
+    if (iSecond > 0) {
+        timer.innerHTML = "&nbsp;" + Lpad(rMinute, 2)
+                + "분 " + Lpad(rSecond, 2) + "초 ";
+        iSecond--;
+        timerchecker = setTimeout("initTimer()", 1000); // 1초 간격 체크
+    } else {
+    	alert("세션이 만료되어 자동 로그아웃됩니다.");
+        logoutUser();
+    }
+}
+ 
+//타이머 갱신용 요청
+function refreshTimer() {
+    var xhr = initAjax();
+    xhr.open("POST", "/window_reload.do", false);
+    xhr.send();
+    fncClearTime();
+}
+ 
+ //세션 만료 시 로그아웃 진행
+function logoutUser() {
+	console.log("로그아웃 진행>>>>>");
+    clearTimeout(timerchecker);
+    var xhr = initAjax();
+    xhr.open("GET", "/mainAdminLogout.do", false);
+    xhr.send();
+    location.reload();
+}
+ 
+// 브라우저에 따른 AjaxObject 인스턴스 분기 처리
+function initAjax() { 
+    var xmlhttp;
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {// code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return xmlhttp;
+}
 </script>
 
 </html>

@@ -1,10 +1,13 @@
 package com.EatStamp.mapper;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 import com.EatStamp.domain.StampVO;
 
 @Mapper("memberMapper")
@@ -63,6 +66,17 @@ public interface MemberMapper {
 	
 	//<0428 최은지> 관리자 이메일 확인
 	public int selectAdminOkay(String mem_email);
+	
+	//<0508 최은지 회원 신고 리스트 조회
+	public List<ReportVO>selectMemberReportList(Map<String, Object> map)throws Exception;
+	
+	//<0508 최은지 회원 신고 리스트 개수 세기
+	public int selectMemberReportRowCount(Map<String, Object> map)throws Exception;
 	 
+	//<0508 최은지 회원 신고 취소>
+	public int deleteReportMember(ReportVO vo)throws Exception;
+	
+	//<0508 최은지 정지회원 검사>
+	public int checkBlockMember(String mem_email)throws Exception;
 }
 

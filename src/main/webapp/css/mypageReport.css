@@ -6,47 +6,22 @@ div#wrap{
 	display: flex;
     justify-content: center;
     padding: 50px 0;
-    width: 1000px;
     width: 1300px;
     margin: 0 auto;
 }
 
 div.mypage-menu {
     width: 150px;
-    height: 150px;
     height: 200px;
     background: white;
     border-radius: 25px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     padding: 20 0 20 30px;
-    flex: 2;
-}
-
-select{
-    height: 30px;
-    padding: 0 0 0 5px;
-    width: 80px;
-    border: 1px solid #ffc06c;
-    border-radius: 20px;
-    color: #ffc06c;
-/*     text-align: center; */
 }
 
 div.mypage-div02{
 	flex: 4;
     margin-left: 100px;
-}
-
-.ajax_text{
-	border: none;
-	color: #666666;
-	font-size: 13px;
-	flex:8;
-}
-
-.modal_detail_report span{
-	font-size: 14px;
-	margin-right: 10px;
 }
 
 a.menu-list{
@@ -56,26 +31,6 @@ a.menu-list{
 
 p.menu-list{
 	margin: 10px 0 10px 10px;
-}
-
-div.no-admin{
-	background-color: white;
-    text-align: center;
-    padding: 50px;
-    width: 500px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    margin: 100px auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-span.no-admin{
-	font-size: 16px;
-    font-weight: bold;
-    color: #d90000;
-    margin: 3px 0;
 }
 
 /* 우측 list */
@@ -117,6 +72,7 @@ ul.list-ul{
     border-radius: 20px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     padding: 30px;
+    width: 850px;
 }
 
 li.list-list{
@@ -125,7 +81,6 @@ li.list-list{
 
 div.box-parent{
     display: grid;
-    grid-template-columns: 1fr 10fr;
     align-items: center;
     cursor: pointer;
 }
@@ -134,20 +89,18 @@ div.box-section1{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
     margin-bottom: 5px;
 }
 
 i.imageIcon{
-    font-size: 40px;
+    font-size: 60px;
     color: ddd9cb;
 }
 
 img#imgfile{
-	height: 40px;
-    width: 40px;
-    border-radius: 5px;
-    object-fit: cover;
+	height: 60px;
+    width: 60px;
+    border-radius: 10px;
 }
 
 div.list-span01{
@@ -155,9 +108,9 @@ div.list-span01{
 	margin-top: 3px;
 }
 
-/* div.box-date{ */
-/* 	color: #ddd9cb; */
-/* } */
+div.box-date{
+	color: #ddd9cb;
+}
 
 span.font-set1{
 	font-size: 16px;
@@ -168,16 +121,6 @@ span.font-set1{
 span.font-set2{
 	font-size: 14px;
 	color: gray;
-}
-
-span.font-set4{
-	font-size: 14px;
-	color: gray;
-}
-
-span.font-set3{
-	font-size: 12px;
-    color: gray;
 }
 
 i.restIcon{
@@ -196,10 +139,6 @@ div.page{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.searchIcon{
-	color: #ffc06c;
 }
 
 .insert_btn{
@@ -226,17 +165,10 @@ div.page{
 	white-space: normal;
 	width: 500px;
 	font-size: 13px;
-	resize: none;
 }
 
 .return_val{
 	resize: none;
-	flex: 1;
-	border: none;
-	color: #666666;
-	white-space: normal;
-	width: 500px;
-	font-size: 13px;
 }
 .return_insert_val{
 	resize: none;
@@ -253,4 +185,27 @@ div.page{
 
 .cancelBtn{
 	margin-right: 20px;
+}
+
+
+.ajax_text{
+	border: none;
+	color: #666666;
+	font-size: 13px;
+	flex:8;
+}
+
+.modal_detail_report span{
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.return_val{
+	resize: none;
+	flex: 1;
+	border: none;
+	color: #666666;
+	white-space: normal;
+	width: 500px;
+	font-size: 13px;
 }

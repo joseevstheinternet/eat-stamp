@@ -1,5 +1,6 @@
 package com.EatStamp.web;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,7 +36,9 @@ import com.EatStamp.service.MemberService;
 import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.WordAnalysisService;
+import com.common.utils.PagingUtil;
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.StampVO;
 
@@ -57,6 +60,9 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
 	
+	private final int rowCount = 10;
+	private final int pageCount = 10;
+	private String message = null;
 
 	// 메인 페이지 작동
 	@RequestMapping(value = "main.do", produces = "application/text; charset=utf8")
@@ -223,48 +229,66 @@ public class MemberController {
 		            out.flush();
 		            
 		            return "login/login";
-				}
-			
-
-		   //카카오 회원의 일반 로그인 시도 검사
-		    int kakao_result = service.login_kakaoCheck(vo.getMem_email());
-		     	if(kakao_result == 1) {
-
-		     		return "/login/kakaoLoginAlert";
-		    	}   
-	        
-		  //이메일 여부 조회	
-			int result = service.find_pwEmail(vo.getMem_email());
-				
-			String sResult = Integer.toString(result);
-			int finalResult = Integer.parseInt(sResult);
-			if(finalResult != 1) {
-				 return "/login/doNotFindEmail";
-			}
-				   	
-		     	
-		  //이메일 인증 했는지 확인
-				if (service.email_auth_fail(vo.getMem_email()) != 1 ) {
-				    return "/login/emailAuthFail";
-				}		
-				
-
-		  //null값 확인  + 비밀번호 암호화 매치  + jsp에 정보 전송
-			  if(login != null) { 
-				  pwdMatch = pwEncoder.matches(vo.getMem_pw(), login.getMem_pw());
-			  
-			  } else { 
-				  pwdMatch = false; 
-			  }
-
-				if(login != null && pwdMatch == true) {
-					session.setAttribute("member", login);
+				}else { //일반 회원 로그인일 시 
 					
-				} else { //비밀번호 불일치
-					return "/login/passwordNotEqualAlert";
-				}
-				
-				return "redirect:/";
+				 //카카오 회원의 일반 로그인 시도 검사
+				    int kakao_result = service.login_kakaoCheck(vo.getMem_email());
+				     	if(1 == kakao_result) {
+				     		return "/login/kakaoLoginAlert";
+				     		
+				    	}else { //일반 회원이라면
+				    		
+				    		 //이메일 여부 조회	
+							int result = service.find_pwEmail(vo.getMem_email());
+							String sResult = Integer.toString(result);
+							int finalResult = Integer.parseInt(sResult);
+							
+							if(finalResult != 1) {
+								 return "/login/doNotFindEmail";
+								 
+							}else {
+								//이메일 인증 했는지 확인
+								if (1 != service.email_auth_fail(vo.getMem_email())) {
+									return "/login/emailAuthFail";
+									
+								}else {
+									//정지회원 여부 확인
+									String mem_blockYn = vo.getMem_email();
+									if(1 ==  service.check_block_member(mem_blockYn)) {
+										
+										message = "정지된 회원입니다. 문의사항은 하단의 관리자 이메일로 접수해주시기 바랍니다.";
+							            response.setContentType("text/html; charset=UTF-8");
+							            PrintWriter out = response.getWriter();
+							            out.println("<script>alert('"+ message +"');</script>");
+							            out.flush();
+										
+							            return "login/login";
+									}else {//정지회원이 아니라면
+										
+										  //null값 확인  + 비밀번호 암호화 매치  + jsp에 정보 전송
+											  if(null != login) { 
+												  pwdMatch = pwEncoder.matches(vo.getMem_pw(), login.getMem_pw());
+											  } else { 
+												  pwdMatch = false; 
+											  }
+												if(login != null && pwdMatch == true) {
+													session.setAttribute("member", login);
+													
+												} else { //비밀번호 불일치
+													return "/login/passwordNotEqualAlert";
+												}
+												return "redirect:/";
+		
+									}//정지회원 여부 확인 end
+									
+							}//이메일 인증 여부 end
+										
+						}//이메일 여부 조회 end
+				    		
+				   	}//카카오회원 로그인 end
+					
+				}//관리자 검사 end
+			
 	 
 	}//로그인 end
 	
@@ -650,5 +674,94 @@ public class MemberController {
 	        }
 
 		}
+	
+	
+	//<0508 최은지 회원 개인 신고내역 확인>
+	@RequestMapping(value = "/check_report.do", method = RequestMethod.GET)
+	public ModelAndView mypage_report_list(@RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
+																HttpSession session, HttpServletResponse response) throws Exception{
+		
+		ModelAndView mav = new ModelAndView();
+		List<ReportVO> list = null;
+		Map<String,Object> map = new HashMap<>();
+		
+		//세션에서 멤버값 가져오기
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		int mem_num = member.getMem_num();
+		
+		//맵에 값 넣기
+		map.put("mem_num", mem_num);
+		map.put("start", 1);
+		map.put("end", 2);
+		
+		//글 개수 세기
+		int count = service.selectMemberReportListRowCount(map); 
+		
+		//페이징 처리
+		PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,"/check_report.do");
+		
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			//리스트 조회
+			list = service.selectMemberReport(map);
+			
+			map.put("list", list);
+		}
+		
+		mav.setViewName("myReportList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		
+		return mav;
+		
+	}//신고내역 확인 end
+	
+	
+	//<0508 최은지 회원 신고내역 취소>
+	@RequestMapping(value = "/cancelReportMember.do", method = RequestMethod.POST)
+	public ModelAndView mypage_report_cancel(@RequestParam(value = "report_num") int report_num,
+																	HttpSession session, HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		ReportVO vo = new ReportVO();
+		vo.setReport_num(report_num);
+		
+		int result = service.deleteReportMember(vo);
+		
+		if(1 == result) {
+			
+			message = "해당 신고 요청이 취소 처리되었습니다.";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('"+ message +"');</script>"); 
+            out.println("<script>location.replace('/check_report.do');</script>");
+            out.flush();
+			
+		}else {
+			message = "취소 요청 중 오류가 발생했습니다. 다시 시도해주세요.";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('"+ message +"');</script>"); 
+            out.println("<script>location.replace('/check_report.do');</script>");
+            out.flush();
+			
+		}
+		
+		return mav;
+		
+	}
+	
+	// <0508 최은지>세션 갱신용 요청
+	@RequestMapping(value = "/window_reload.do")
+		public ModelAndView reload() {
+			ModelAndView mav = new ModelAndView();
+			
+			return mav;
+	}
+	
 
 }//전체 컨트롤러단 end

@@ -269,5 +269,73 @@
 			AND 
 				mem_email = #{mem_email}
 		</select>
+		
+		<!-- 0508 최은지 회원 신고 내역 조회  -->
+		<select id="selectMemberReportList" parameterType="map" resultType="reportVO">	
+		  SELECT 
+		      report_num,
+		      m1.mem_email AS mem_email1,
+		      m1.mem_nick AS mem_nick1,
+		      m2.mem_email AS mem_email2,
+		      m2.mem_nick AS mem_nick2,
+		      report_why,
+		      report_ynCode,
+		      s_num,
+		      cmt_num,
+		      report_return
+		  FROM(
+		    SELECT
+		      @rownum:=@rownum+1 AS rn,
+		      report_num,
+		      mem_num,
+		      mem_num2,
+		      report_why,
+		      report_ynCode,
+		      s_num,
+		      cmt_num,
+		      report_return
+		    FROM 
+		        report, (SELECT @rownum:=0) TMP	
+		    WHERE
+		      mem_num2 = #{mem_num}
+		    ORDER BY report_num DESC
+		  ) t1
+		  JOIN member m1 ON t1.mem_num = m1.mem_num
+		  JOIN member m2 ON t1.mem_num2 = m2.mem_num
+		  WHERE rn BETWEEN #{start} and #{end}
+		</select>
+			
+		
+		<!-- 0508 최은지 회원 신고 내역 개수 세기  -->
+		<select id="selectMemberReportRowCount" parameterType="map" resultType="int">	
+			SELECT 
+				COUNT(*)
+			FROM
+				report
+			WHERE
+				mem_num2 = #{mem_num}
+		</select>
 
+		
+		<!-- 0508 최은지 회원 신고 취소 -->
+		<delete id="deleteReportMember" parameterType="reportVO">
+			DELETE 
+				FROM 
+					report
+			WHERE
+				 report_num=#{report_num}
+		</delete>
+		
+		
+		<!-- 0508 최은지 회원 정지여부 검사 -->
+		<select id="checkBlockMember" parameterType="String" resultType="int">
+			SELECT
+				COUNT(*)
+			FROM
+				member
+			WHERE
+				mem_email = #{mem_email}
+			AND
+			  	mem_admin_auth = 2
+		</select>
 </mapper>

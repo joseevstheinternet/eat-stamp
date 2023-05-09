@@ -9,6 +9,8 @@ import java.lang.reflect.Member;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 import com.EatStamp.mapper.MemberMapper;
 import com.EatStamp.service.MemberService;
 import com.google.gson.JsonElement;
@@ -352,6 +355,34 @@ public class MemberServiceImpl implements MemberService{
 	public int selectAdminOkay(String mem_email) {
 
 		return memberMapper.selectAdminOkay(mem_email);
+	}
+
+	//<0508 최은지 회원 신고 리스트 조회>
+	@Override
+	public List<ReportVO> selectMemberReport(Map<String, Object> map) throws Exception {
+
+		return memberMapper.selectMemberReportList(map);
+	}
+
+	//<0508 최은지 회원 신고 리스트 개수 세기
+	@Override
+	public int selectMemberReportListRowCount(Map<String, Object> map) throws Exception {
+		
+		return memberMapper.selectMemberReportRowCount(map);
+	}
+
+	//<0508 최은지 회원 신고 취소>
+	@Override
+	public int deleteReportMember(ReportVO vo) throws Exception {
+
+		return memberMapper.deleteReportMember(vo);
+	}
+
+	//<0508 최은지 정지회원 여부 검사>
+	@Override
+	public int check_block_member(String mem_email) throws Exception {
+		
+		return memberMapper.checkBlockMember(mem_email);
 	}
 
 

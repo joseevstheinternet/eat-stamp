@@ -1,8 +1,11 @@
 package com.EatStamp.service;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 
 public interface MemberService {
 
@@ -62,4 +65,16 @@ public interface MemberService {
 	
 	//<0428 최은지> 관리자 조회
 	public int selectAdminOkay(String mem_email);
+	
+	//<0508 최은지 개인 신고 리스트 조회
+	public List<ReportVO> selectMemberReport(Map<String, Object> map)throws Exception;
+	
+	//<0508 최은지 신고 리스트 개수 세기
+	public int selectMemberReportListRowCount(Map<String,Object> map)throws Exception;
+	
+	//<0508 최은지 회원 신고 취소>
+	public int deleteReportMember(ReportVO vo)throws Exception;
+	
+	//<0508 최은지 정지 회원 여부 확인>
+	 public int check_block_member(String mem_email) throws Exception;
 }
