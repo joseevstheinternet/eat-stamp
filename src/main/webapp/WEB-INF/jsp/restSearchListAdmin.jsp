@@ -160,6 +160,8 @@ select{
 						href="${pageContext.request.contextPath}/restListAdmin.do">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/stampListAdmin.do"  style="color: #9d9d9d;">게시글 관리</a></p>
+					<p class="menu-list"><a class="menu-list" 
+						href="${pageContext.request.contextPath}/reportListAdmin.do"  style="color: #9d9d9d;">신고 내역 관리</a></p>
 				</div>
 				<!-- 좌측 메뉴바 종료 -->
 				

@@ -99,6 +99,13 @@ input::placeholder{
     width: 500px;
 }
 
+#adminMessageBox{
+	display: inline-block;
+	align-items: right;
+    position: relative;
+    width: 500px;
+}
+
 #sentence_box{
 	display: inline-block;
 	align-items: right;
@@ -138,6 +145,21 @@ input::placeholder{
 }
 
 #findPwdMsg:hover {
+	color: #ffd274;
+	text-decoration: underline;
+	cursor: hand;
+}
+
+#adminMsg{
+	margin-top: 10px;
+	padding-right: 20px;
+	text-align: right;
+	font-size: 15px;
+	float: right;
+	color: #929292;
+}
+
+#adminMsg:hover {
 	color: #ffd274;
 	text-decoration: underline;
 	cursor: hand;

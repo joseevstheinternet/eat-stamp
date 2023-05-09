@@ -405,9 +405,6 @@ public class RestControllerAdmin {
 																@RequestParam(value = "update_add_semi") String update_add_semi, //확인
 																MultipartHttpServletRequest request,
 																HttpServletResponse response) throws Exception{
-					
-					
-			System.out.println("컨트롤러>>>>>>>>>>>>>>>>");
 			
 					ModelAndView mav = new ModelAndView();
 					RestVO vo = new RestVO();

@@ -7,11 +7,11 @@ div#wrap{
     justify-content: center;
     padding: 50px 0;
     width: 1300px;
-    margin: 0 auto;
+    margin-left: 350px;
 }
 
 div.mypage-menu {
-    width: 150px;
+    width: 180px;
     height: 200px;
     background: white;
     border-radius: 25px;
@@ -150,33 +150,30 @@ div.page{
     margin-right: 5px;
 }
 
-.why_box{
-	display: flex;
-}
-
 .return_text{
 	flex: 1;
 }
 
 .ajax_area{
+	resize: none;
 	flex: 1;
 	border: none;
 	color: #666666;
-	white-space: normal;
 	width: 500px;
 	font-size: 13px;
+	white-space: pre-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-left: 20px;
+	background-color: #ddd9cb;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    margin-bottom: 10px;
 }
 
 .return_val{
 	resize: none;
-}
-.return_insert_val{
-	resize: none;
-	width: 570px;
-	border-color: #666666;
-	border-radius: 5px;
-	margin-top: 10px;
-	padding: 10px;
 }
 
 #two_modal{
@@ -195,17 +192,79 @@ div.page{
 	flex:8;
 }
 
-.modal_detail_report span{
-	font-size: 14px;
-	margin-right: 10px;
-}
-
 .return_val{
 	resize: none;
 	flex: 1;
 	border: none;
 	color: #666666;
-	white-space: normal;
 	width: 500px;
+	height: 40%;
 	font-size: 13px;
+	white-space: pre-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-left: 20px;
+	background-color: #ffc06c;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+#ajax_text_mem1{
+	margin-left: 75px;
+}
+
+#ajax_text_mem2{
+	margin-left: 75px;
+}
+
+.mem2_text{
+	margin-right: 33px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.mem1_text{
+	margin-right: 16px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.num_text{
+	margin-right: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.dis_text{
+	margin-right: 50px;
+	font-size: 15px;
+	font-weight: bold;	
+}
+
+.why_text{
+	margin-right: 20px;
+	font-size: 15px;
+	font-weight: bold;		
+}
+
+.return_text{
+	margin-right: 20px;
+	font-size: 15px;
+	font-weight: bold;	
+}
+
+.modal_detail_report div{
+	margin-bottom: 5px;
+}
+
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    font-weight: bold;
 }

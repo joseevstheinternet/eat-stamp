@@ -87,3 +87,19 @@ input{
 	float: right;
 	box-shadow: 3px 3px 30px 1px #ebebeb70;
 }
+
+#message_box{
+	display: inline-block;
+	align-items: right;
+    position: relative;
+    width: 500px;
+}
+
+#findPwdMsg {
+    margin-top: 10px;
+    padding-right: 20px;
+    text-align: right;
+    font-size: 15px;
+    float: right;
+    color: #929292;
+}

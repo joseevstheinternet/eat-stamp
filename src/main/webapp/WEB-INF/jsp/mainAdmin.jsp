@@ -48,6 +48,11 @@
  				<input type="password" class="admin_pwd" name="mem_pw" placeholder="Password">
  				<button type="submit" class="admin_login_btn">Login</button>
  			</form>
+ 			
+	 		<div id="message_box">
+				<a id="findPwdMsg" href="<%=request.getContextPath() %>/login.do">
+				<i class="fa-solid fa-arrow-right" ></i> 회원 로그인으로 돌아가기</a>  
+			</div>	
 	 	
 	 	</div> <!--  admin_login_wrap end-->
 	 
