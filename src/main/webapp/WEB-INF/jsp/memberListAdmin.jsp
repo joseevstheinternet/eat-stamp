@@ -171,6 +171,15 @@ select{
 /*     margin-left: -20px; */
 /* } */
 
+div.mypage-menu-second{
+    width: 150px;
+    height: 190px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 20 0 20 30px;
+}
+
 </style>
 
 <!DOCTYPE html>
@@ -216,7 +225,7 @@ select{
 		<c:when test="${!empty admin}">
 			<div id="wrap">
 				<!-- 좌측 메뉴바 -->
-				<div class="mypage-menu">
+				<div class="mypage-menu-second">
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/mypageAdmin.do" style="color: #9d9d9d;">관리자 정보</a></p>
 					<p class="menu-list"><a class="menu-list" 
@@ -225,6 +234,8 @@ select{
 						href="${pageContext.request.contextPath}/restListAdmin.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/stampListAdmin.do" style="color: #9d9d9d;">게시글 관리</a></p>
+					<p class="menu-list"><a class="menu-list" 
+						href="${pageContext.request.contextPath}/reportListAdmin.do"  style="color: #9d9d9d;">신고 내역 관리</a></p>
 				</div>
 				<!-- 좌측 메뉴바 종료 -->
 				

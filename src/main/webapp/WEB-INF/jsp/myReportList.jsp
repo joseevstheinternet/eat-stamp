@@ -260,48 +260,49 @@ div.list-image01{
 				  	        	div += "<div class = wrap_div'>" //전체 div
 				  	  
 				  	        	div += "<div class = 'num_box'>"
-				  	        	div += "<span class ='num_text'> 접수번호</span> <span class='line_text'> | </span>"
-					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"; 
-				  	        	div += "</div>";	//num_box end
-				  	        	
-				  	        	div += "<div class = 'dis_box'>";
-				  	        	div += "<span class = 'dis_text'>구분</span> <span class='line_text'> | </span>";
-											if ('' == this.s_num){
-												div += "<span>댓글</span>";
-												div += "<span class='ajax_text'> &nbsp; </span>"
-											}else{
-												div += "<span>글</span>";
-												div += "<span class='ajax_text'> &nbsp; </span>"
-											}
-                 				div += "</div>";	//dis_div end
-				  	        	
-                 				div += "<div class = 'mem2_box'>" //신고자
-                 				div += "<span class = 'mem2_text'>신고자</span> <span class='line_text'> | </span>"
-				  	        	div += "<input type='text' readonly name='mem2_email' class = 'ajax_text' value='"+this.mem_email2 +"'>"; 
-				  	        	div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'>"; 
-				  	      		div += "</div>";	//mem2_box end
-				  	        	
-								div += "<div class = 'mem1_box'>" //피신고자
-	                 			div += "<span class = 'mem1_text'> 피신고자</span> <span class='line_text'> | </span>"					  	        
-				  	        	div += "<input type='text' readonly name='mem_email1' class = 'ajax_text' value='"+this.mem_email1 +"'>"; 
-				  	        	div += "<input type='text' readonly name='mem_nick1' class = 'ajax_text' value='"+this.mem_nick1 +"'>"; 
-					  	        
-					  	      	div += "</div>";	//mem1_box end
+						  	        div += "<span class ='num_text'> 접수번호</span>"
+							  	    div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"
+						  	        div += "</div>";	//num_box end
+						  	        	
+						  	        div += "<div class = 'dis_box'>";
+						  	        div += "<span class = 'dis_text'>구분</span>";
+												if ('' == this.s_num){
+													div += "<span class='ajax_text'>댓글</span>";
+													div += "<span class='ajax_text'> &nbsp; </span>"
+												}else{
+													div += "<span class='ajax_text'>글</span>";
+													div += "<span class='ajax_text'> &nbsp; </span>"
+												}
+		                 			div += "</div>";	//dis_div end
+						  	        	
+		                 			div += "<div class = 'mem2_box'>" //신고자
+		                 			div += "<span class = 'mem2_text'>신고자</span>"
+		    				  	    div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'><br>"; 
+						  	        div += "<input type='text' readonly name='mem2_email'  id='ajax_text_mem2' class = 'ajax_text' value='"+this.mem_email2 +"'>"; 
+						  	      	div += "</div>";	//mem2_box end
+						  	        	
+									div += "<div class = 'mem1_box'>" //피신고자
+			                 		div += "<span class = 'mem1_text'> 피신고자</span>";
+						  	        div += "<input type='text' readonly name='mem_nick1' class = 'ajax_text' value='"+this.mem_nick1 +"'><br>"; 
+						  	        div += "<input type='text' readonly name='mem_email1' id='ajax_text_mem1' class = 'ajax_text' value='"+this.mem_email1 +"'>"; 
+							  	        
+							  	   	div += "</div>";	//mem1_box end
+
 					  	        	
-				  	        	div += "<div class = 'why_box'>"
-				  	        	div += "<span class = 'why_text' > 신고사유</span> <span class='line_text'> | </span>"
-				  	        	div += "<textarea readonly name='report_why' class = 'ajax_area'>"+ this.report_why + "</textarea>"; 
-				  	        	div += "</div>"; //why_box end     
-				  	        	
-				  	        	div += "<div class ='return_box'>"
-						  	        		if (undefined == this.report_return){
-								  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유</span>"
-								  	        	div += "<textarea class = 'return_val' style ='display:none'>"+ this.report_return  +"</textarea>"
-											}else{
-								  	        	div += "<span class = 'return_text'> 반려 사유</span>"
-								  	        	div += "<textarea class = 'return_val' readonly>"+ this.report_return  +"</textarea>"
-											}
-				  	        	div += "</div>" //return_box end 
+							  		div += "<div class = 'why_box'>"
+						  	        	div += "<span class = 'why_text' > 신고사유</span><br><br>"
+						  	        	div += "<textarea readonly name='report_why' class = 'ajax_area'>"+ this.report_why + "</textarea>"; 
+						  	        	div += "</div>"; //why_box end     
+						  	        	
+						  	        	div += "<div class ='return_box'>"
+								  	        		if (undefined == this.report_return){
+										  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유</span><br>"
+										  	        	div += "<textarea class = 'return_val' style ='display:none'>"+ this.report_return  +"</textarea>"
+													}else{
+										  	        	div += "<span class = 'return_text'> 반려 사유</span><br><br>"
+										  	        	div += "<textarea class = 'return_val' readonly>"+ this.report_return  +"</textarea>"
+													}
+						  	      div += "</div>" //return_box end
 				  	        	
 				  	        	//승인 상태가 n이나 y라면 푸터가 보이지 않도록 처리
 				  	        	if (('n' == this.report_ynCode) || ('y' == this.report_ynCode)){
