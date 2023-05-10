@@ -604,5 +604,5 @@ public class StampController {
 		return jsonData;
 	}
 	
-	//
+	//======댓글 신고하기 창(모달)=======//
 }
