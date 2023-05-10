@@ -129,6 +129,8 @@ input::placeholder{
 <html>
 <head>
 <meta charset="UTF-8">
+<%-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> --%>
 <title>EatStamp - 신고내역 관리</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
@@ -286,6 +288,13 @@ input::placeholder{
 </body>
 
 <script>
+//<0510 최은지>
+//서버 렌더링 시 meta태그에 토큰 추가
+//스프링 시큐리티 설정 시 <csrf disabled = "false" />, CsrfFilter를 활성화시켜 토큰값을 비교
+var token = $("meta[name='_csrf']").attr('content');
+var header = $("meta[name='_csrf_header']").attr('content');
+
+
 //모달창 띄우기
 	$('.box-parent').click(function(e){
 		e.preventDefault();
@@ -306,6 +315,14 @@ input::placeholder{
 			            dataType : "json",
 			            type     : "post",
 			            async    : true,
+			            beforeSend : function(xhr){
+			    							//null값 체크
+			    							if(token && header) {
+			    						        $(document).ajaxSend(function(event, xhr, options) {
+			    						            xhr.setRequestHeader(header, token);
+			    						    	  });
+			    								}//if end	
+					    			  		}, //beforeSend end
 			            success  : function(data) {	            	
 			            	
 			            	  var div = "";
@@ -396,7 +413,7 @@ input::placeholder{
 			            
 			            }//error end
 			            
-			         }); //ajax end
+			 }); //ajax end
 		
 	}); //전체 함수 end
 	
