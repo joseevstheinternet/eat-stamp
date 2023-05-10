@@ -339,14 +339,13 @@
 			  	mem_admin_auth = 2
 		</select>
 		
-		<!-- 0510 이예지 회원 신고 접수 -->
-		<insert id="insertReportMember" parameterType="reportVO">
+		<!-- 0510 이예지 회원 신고 접수 (글 신고) -->
+		<insert id="insertStampReport" useGeneratedKeys="true" keyProperty="report_num" keyColumn="report_num" parameterType="reportVO">
 			INSERT INTO report
 			(
 				mem_num,
 				report_why,
 				s_num,
-				cmt_num,
 				mem_num2
 			)
 				VALUES
@@ -354,10 +353,43 @@
 				#{mem_num},
 				#{report_why},
 				#{s_num},
+				#{mem_num2}
+			)
+		</insert>
+		
+		<!-- 0510 이예지 회원 신고 접수 (댓글 신고) -->
+		<insert id="insertCmtReport" useGeneratedKeys="true" keyProperty="report_num" keyColumn="report_num" parameterType="reportVO">
+			INSERT INTO report
+			(
+				mem_num,
+				report_why,
+				cmt_num,
+				mem_num2
+			)
+				VALUES
+			(
+				#{mem_num},
+				#{report_why},
 				#{cmt_num},
 				#{mem_num2}
 			)
 		</insert>
+		
+		<!-- 0510 이예지 s_num으로 mem_num2 구하기 -->
+		<select id="mem_numByS_num" parameterType="int">
+			SELECT 
+				mem_num as mem_num2
+			FROM stamp
+			WHERE s_num = #{s_num}
+		</select>
+		
+		<!-- 0510 이예지 cmt_num으로 mem_num2 구하기 -->
+		<select id="mem_numByCmt_num" parameterType="int">
+			SELECT 
+				mem_num as mem_num2
+			FROM cmt
+			WHERE cmt_num = #{cmt_num}
+		</select>
 		
 		<!-- 0510 이예지 회원 신고 선택 (글 신고) -->
 		<select id="selectStampReportInfo" parameterType="map" resultType="reportVO">
@@ -383,7 +415,9 @@
 		<select id="selectCmtReportInfo" parameterType="map" resultType="reportVO">
 		    SELECT 
 		        reporter.mem_nick AS reporter_nick, 
+		        reporter.mem_email AS reporter_email, 
 		        reported.mem_nick AS reported_nick, 
+		        reported.mem_email AS reported_email, 
 		        cmt.cmt_num, 
 		        cmt.cmt_content
 		    FROM 

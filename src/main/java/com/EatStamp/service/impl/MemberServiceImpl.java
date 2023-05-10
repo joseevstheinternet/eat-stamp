@@ -385,11 +385,6 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.checkBlockMember(mem_email);
 	}
 
-	//<0510 이예지 회원 신고 접수>
-	@Override
-	public int insertReportMember(ReportVO reportVO) throws Exception {
-		return memberMapper.insertReportMember(reportVO);
-	}
 
 	@Override
 	public ReportVO selectStampReportInfo(Map<String, Object> map) throws Exception {
@@ -399,6 +394,26 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public ReportVO selectCmtReportInfo(Map<String, Object> map) throws Exception {
 		return memberMapper.selectCmtReportInfo(map);
+	}
+
+	@Override
+	public void insertStampReport(ReportVO reportVO) throws Exception {
+		memberMapper.insertStampReport(reportVO);
+	}
+
+	@Override
+	public void insertCmtReport(ReportVO reportVO) throws Exception {
+		memberMapper.insertCmtReport(reportVO);
+	}
+
+	@Override
+	public int mem_numByS_num(int s_num) throws Exception {
+		return memberMapper.mem_numByS_num(s_num);
+	}
+
+	@Override
+	public int mem_numByCmt_num(int cmt_num) throws Exception {
+		return memberMapper.mem_numByCmt_num(cmt_num);
 	}
 
 

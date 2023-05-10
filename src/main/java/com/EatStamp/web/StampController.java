@@ -605,4 +605,31 @@ public class StampController {
 	}
 	
 	//======댓글 신고하기 창(모달)=======//
+	@RequestMapping("/stamp/selectCmtReportInfo.do")
+	@ResponseBody
+	public String cmtReport(@RequestParam int cmt_num, HttpSession session) throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("cmt_num", cmt_num);
+		
+		//로그인한 회원정보 세팅
+		MemberVO user = (MemberVO)session.getAttribute("member");
+		if(user!=null) {
+			map.put("mem_num", user.getMem_num());
+		}
+		
+		ReportVO report = memberService.selectCmtReportInfo(map);
+		
+		String jsonData = new Gson().toJson(report);
+		
+		return jsonData;
+	}
+	
+	//======댓글 신고하기 등록=======//
+	@RequestMapping("/stamp/reportMember.do")
+	@ResponseBody
+	public String reportMember(@RequestParam int cmt_num, HttpSession session) throws Exception{
+		
+		return null;
+	}
 }

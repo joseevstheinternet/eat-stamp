@@ -78,8 +78,17 @@ public interface MemberMapper {
 	//<0508 최은지 정지회원 검사>
 	public int checkBlockMember(String mem_email)throws Exception;
 	
-	//<0510 이예지> 회원 신고 접수
-	public int insertReportMember(ReportVO reportVO) throws Exception;
+	//<0510 이예지> 회원 신고 접수 (글 신고)
+	public void insertStampReport(ReportVO reportVO) throws Exception;
+	
+	//<0510 이예지> 회원 신고 접수 (댓글 신고)
+	public void insertCmtReport(ReportVO reportVO) throws Exception;
+	
+	//<0510 이예지> s_num에 해당하는 mem_num 불러오기
+	public int mem_numByS_num(int s_num) throws Exception;
+	
+	//<0510 이예지> cmt_num에 해당하는 mem_num 불러오기
+	public int mem_numByCmt_num(int cmt_num) throws Exception;
 	
 	//<0510 이예지> 회원 신고 선택 (글 신고)
 	public ReportVO selectStampReportInfo(Map<String, Object> map) throws Exception;

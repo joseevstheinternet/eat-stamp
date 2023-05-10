@@ -283,7 +283,94 @@ $('#report_btn').click(function(e){
         
         }//error end
 	})
-})
+}) //글 신고 모달 end
+
+//========댓글 신고 모달========//
+//모달창 띄우기
+$(document).on('click','.report-btn',function(e){
+	e.preventDefault();
+	$('#testModal').modal("show");
+	
+	//댓글 글번호
+    let cmt_num = $(this).attr('data-num');
+	
+	//ajax 실행
+	$.ajax({
+		url: "selectCmtReportInfo.do",
+		data: {
+			cmt_num : cmt_num
+		},
+		dataType: "json",
+		type: "post",
+		async: true,
+		success: function(data){
+    	  var div = "";
+	          
+        $(data).each(function(){
+      	  
+      	div += "<div class= 'modal_detail_report'>"; 
+      	
+      	div += "<div class = wrap_div'>" //전체 div
+
+      	div += "<div class = 'num_box'>"
+	        div += "<span class ='num_text menu_text'> 댓글 번호</span>"
+	  	    div += "<input type='text' readonly name='cmt_num' class = 'ajax_text' value='"+ this.cmt_num +"'>"
+	        div += "</div>";	//num_box end
+	        	
+	        div += "<div class = 'dis_box'>";
+	        div += "<span class = 'dis_text menu_text'>구분</span>";
+						if ('' == this.s_num){
+							div += "<span class='ajax_text'>댓글</span>";
+							div += "<span class='ajax_text'> &nbsp; </span>"
+						}else{
+							div += "<span class='ajax_text'>글</span>";
+							div += "<span class='ajax_text'> &nbsp; </span>"
+						}
+  			div += "</div>";	//dis_div end
+	        	
+  			div += "<div class = 'mem2_box'>" //신고자
+  			div += "<span class = 'mem2_text menu_text'>신고자</span>"
+	  	    div += "<input type='text' readonly name='reporter_nick' class = 'ajax_text' value='"+ this.reporter_nick +"'><br>"; 
+	  	  div += "<input type='text' readonly name='reporter_email' id='ajax_text_mem2' class = 'ajax_text' value='"+this.reporter_email +"'>"; 
+	  	    div += "</div>";	//mem2_box end
+	        	
+			div += "<div class = 'mem1_box'>" //피신고자
+      		div += "<span class = 'mem1_text menu_text'> 신고 대상</span>";
+	        div += "<input type='text' readonly name='reported_nick' class = 'ajax_text' value='"+ this.reported_nick +"'><br>"; 
+ 	  	    div += "<input type='text' readonly name='reported_email' id='ajax_text_mem2' class = 'ajax_text' value='"+ this.reported_email +"'>"; 
+	        div += "</div>";	//mem1_box end
+	        
+	        div += "<div class = 'con-box'>" //신고 내용
+	        	div += "<span class = 'mem1_text menu_text'> 신고 내용</span>";
+	        	div += "<textarea readonly name='s_content' class='ajax_text1'>" + this.cmt_content + "</textarea>";
+	        div += "</div>"
+	        
+      	div += "<div class = 'why-box'>" //신고 내용
+	        	div += "<span class = 'mem1_text menu_text'> 신고 사유</span>";
+	        	div += "<textarea name='report_why' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
+	        div += "</div>"
+	        
+	        div += "<div class = 'btn-box'>" //버튼
+	        	div += "<button type='button' class='btn' id='sub-btn'>등록</button>";
+	        	div += "<button type='button' class='btn' id='can-btn'>취소</button>";
+	        div += "</div>";
+   		
+      	div += "</div>"; //wrap_div end     
+      	
+      	div += "</div>"; //modal_detail_report end
+	          })//each end
+	          
+	          
+	        $(".modal-body").html(div);
+		}, //success end
+		
+		error : function(data) {
+      	console.log("신고하기 오류");
+      	alert("신고하기 창을 불러오는 데 실패했습니다. 다시 시도해주세요.");
+      
+      }//error end
+	})
+}) //댓글 신고 모달 end
 
 //제목 textarea에 내용 입력시 글자수 체크
 $(document).on('keyup','#cmt_content',function(){
