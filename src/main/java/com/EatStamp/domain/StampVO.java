@@ -51,5 +51,5 @@ public class StampVO {
 	private int s_view_cnt; //조회수
 	private int s_publicCode; //공개여부
 	
-	//??
+	private int comment_count; //글에 달린 댓글 수
 }

@@ -150,6 +150,11 @@ span.font-set3{
     color: gray;
 }
 
+span.font-set4{
+	font-size: 14px;
+	color: lightgray;
+}
+
 i.restIcon{
 	margin-right: 5px;
     color: #b1b1b1;

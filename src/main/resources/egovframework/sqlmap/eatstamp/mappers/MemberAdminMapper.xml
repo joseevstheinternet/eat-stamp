@@ -13,7 +13,8 @@
 			mem_birth,
 			mem_genderCode,
 			mem_branchCode,
-			mem_admin_auth
+			mem_admin_auth,
+			mem_report_cnt
 		FROM(
 			SELECT
 				@rownum:=@rownum+1 AS rn,
@@ -23,7 +24,8 @@
 				mem_birth,
 				mem_genderCode,
 				mem_branchCode,
-				mem_admin_auth
+				mem_admin_auth,
+				mem_report_cnt
 			FROM eatstamp.member, (SELECT @rownum:=0) TMP
 	        <where>
 	        	AND mem_admin_auth != 1

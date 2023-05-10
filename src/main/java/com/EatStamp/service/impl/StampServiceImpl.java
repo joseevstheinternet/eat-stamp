@@ -105,4 +105,9 @@ public class StampServiceImpl implements StampService {
 		return stampMapper.selectAllRowCount(map);
 	}
 
+	@Override
+	public int selectMyCmtCount(Integer mem_num) throws Exception {
+		return stampMapper.selectMyCmtCount(mem_num);
+	}
+
 }

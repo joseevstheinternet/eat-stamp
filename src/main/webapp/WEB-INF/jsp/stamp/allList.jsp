@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ include file="/WEB-INF/jsp/common/header.jsp" %>
+<%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/stampListAdmin.css'/>" />
 <!-- 아이콘 사용 -->
@@ -17,6 +17,14 @@
 
 ul.list-ul{
 	margin: 15px 0;
+}
+
+div.box-section1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
 
 div.stamp-table-name{
@@ -54,7 +62,21 @@ span.table{
 }
 
 div.box-title{
-	width: 200px;
+	width: 225px;
+	display: flex;
+    justify-content: space-between;
+}
+
+div.box-cnt{
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 60px;
+}
+
+i.icon-set{
+    color: lightgray;
+    margin-top: 2px;
 }
 
 div.box-rname{
@@ -141,12 +163,12 @@ select{
 		<div class="mypage-div02">
 			<!-- 상단 타이틀 -->
 			<div class="mypage-section1">
-				<span class="mypage-title">전체 글 보기</span>
+				<span class="mypage-title">전체 글 보기 (${count} 건)</span>
 			</div>
 			<!-- 상단 타이틀 끝 -->
 			<!-- 검색창 -->
 			<div class="mypage-section1-search">
-			    <form action="stampListAdmin.do" method="get">
+			    <form action="allList.do" method="get">
 			        <select name="searchType">
 			            <option value="title">제목</option>
 			            <option value="writer">작성자</option>
@@ -175,7 +197,7 @@ select{
 						<hr class="line2"/>
 						<c:forEach var="stamp" items="${list}" varStatus="status">
 							<li class="list-list">
-								<div class="box-parent" onclick="location.href='stampDetailAdmin.do?s_num=${stamp.s_num}'">
+								<div class="box-parent" onclick="location.href='detail.do?s_num=${stamp.s_num}'">
 									<input type="hidden" value="${stamp.mem_num}">
 									
 									<div class="list-image01">
@@ -192,6 +214,10 @@ select{
 										<div class="box-section1">
 											<div class="box-title">
 												<span class="font-set2">${stamp.s_title}</span>
+												<div class="box-cnt">
+													<i class="fa-solid fa-eye icon-set"></i><span class="font-set4">${stamp.s_view_cnt}</span>
+													<i class="fa-solid fa-comment-dots icon-set"></i><span class="font-set4">${stamp.comment_count}</span>
+												</div>
 											</div>
 											<div class="box-rname">
 												<span class="font-set2">${stamp.r_name}</span>

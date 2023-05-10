@@ -42,6 +42,7 @@ public class MemberVO {
 	private int mem_auth_pwEmail;
 	
 	private int mem_admin_auth;
-
+	
+	private int mem_report_cnt;
 	
 }

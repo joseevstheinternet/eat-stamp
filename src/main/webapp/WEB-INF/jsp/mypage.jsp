@@ -130,6 +130,8 @@ button#pw_restet_checkBtn{
 			<p class="menu-list"><a class="menu-list" 
 				href="${pageContext.request.contextPath}/stamp/list.do" style="color: #9d9d9d;">내 식사 기록</a></p>
 			<p class="menu-list"><a class="menu-list" 
+				href="${pageContext.request.contextPath}/stamp/myCmtList.do" style="color: #9d9d9d;">내가 쓴 댓글</a></p>
+			<p class="menu-list"><a class="menu-list" 
 				href="${pageContext.request.contextPath}/rest_list.do" style="color: #9d9d9d;">찜한 가게</a></p>
 			<p class="menu-list"><a class="menu-list"
 				href="${pageContext.request.contextPath}/check_report.do" style="color: #9d9d9d">신고 내역</a></p>

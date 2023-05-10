@@ -27,7 +27,11 @@
 			<p class="menu-list"><a class="menu-list" 
 				href="${pageContext.request.contextPath}/stamp/list.do" style="color: #9d9d9d;">내 식사 기록</a></p>
 			<p class="menu-list"><a class="menu-list" 
+				href="${pageContext.request.contextPath}/stamp/myCmtList.do" style="color: #9d9d9d;">내가 쓴 댓글</a></p>
+			<p class="menu-list"><a class="menu-list" 
 				href="${pageContext.request.contextPath}/rest_list.do">찜한 가게</a></p>
+			<p class="menu-list"><a class="menu-list"
+				href="${pageContext.request.contextPath}/check_report.do" style="color: #9d9d9d">신고 내역</a></p>
 			<p class="menu-list"><a class="menu-list"
 				href="${pageContext.request.contextPath}/withdraw.do" style="color: #c5c5c5">회원 탈퇴</a></p>
 		</div>
@@ -47,7 +51,7 @@
 				</c:if>
 				<c:if test="${count > 0}">
 					<ul class="list-ul">
-						<c:forEach var="rest" items="${list}">
+						<c:forEach var="rest" items="${list}" varStatus="status">
 							<li class="list-list">
 								<div class="box-parent" onclick="location.href='rest_detail.do?r_num=${rest.r_num}'">
 									<div class="list-image01">
@@ -76,7 +80,9 @@
 										<span class="font-set2"><i class="fa-solid fa-location-dot restIcon"></i>${rest.r_add}</span>
 									</div>
 								</div>
-								<hr class="line">
+								<c:if test="${not status.last}">
+									<hr class="line"/>
+								</c:if>
 							</li>
 						</c:forEach>
 					</ul>

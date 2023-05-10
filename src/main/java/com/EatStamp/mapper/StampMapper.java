@@ -37,6 +37,8 @@ public interface StampMapper {
 	
 	public List<CmtVO> selectCmtAllList(Map<String, Object> map); //내가 작성한 댓글 목록
 	
+	public int selectMyCmtCount(Integer mem_num); //내가 작성한 댓글 개수
+	
 	public List<CmtVO> selectCmtList(Integer s_num); //글에 달린 댓글 목록
 	
 	public CmtVO selectCmt(Integer cmt_num); //댓글 선택

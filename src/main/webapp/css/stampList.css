@@ -12,7 +12,7 @@ div#wrap{
 
 div.mypage-menu {
     width: 150px;
-    height: 150px;
+    height: 215px;
     background: white;
     border-radius: 25px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
@@ -102,6 +102,7 @@ img#imgfile{
 	height: 60px;
     width: 60px;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 div.list-span01{
@@ -127,6 +128,10 @@ span.font-set2{
 i.restIcon{
 	margin-right: 5px;
     color: #b1b1b1;
+}
+
+i.replyIcon{
+	margin-right: 5px;
 }
 
 hr.line{

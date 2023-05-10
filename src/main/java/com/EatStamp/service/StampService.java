@@ -34,6 +34,8 @@ public interface StampService {
 	
 	public List<CmtVO> selectCmtAllList(Map<String, Object> map) throws Exception; //내가 작성한 댓글 목록
 	
+	public int selectMyCmtCount(Integer mem_num) throws Exception; //내가 작성한 댓글 개수
+	
 	public List<CmtVO> selectCmtList(Integer s_num) throws Exception; //글에 달린 댓글 목록
 	
 	public CmtVO selectCmt(Integer cmt_num) throws Exception; //댓글 선택

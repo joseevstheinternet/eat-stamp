@@ -134,7 +134,8 @@
 			r_name, 
 			s_view_cnt, 
 			s_publicCode, 
-			mem_num
+			mem_num,
+			(SELECT COUNT(*) FROM eatstamp.cmt c WHERE c.s_num = t1.s_num) as comment_count
 		FROM(
 			SELECT
 				@rownum:=@rownum+1 AS rn,
@@ -240,13 +241,12 @@
 		SELECT
 			cmt_num,
 			cmt_content,
-			reg_date,
+			reg_date as reg_date2,
 			s_num,
 			s_title,
 			s_uploadPath,
 			s_fileLoca, 
 			s_fileName, 
-			s_fileRealName,
 			mem_num,
 			mem_nick
 		FROM(
@@ -260,7 +260,6 @@
 				s.s_uploadPath,
 				s.s_fileLoca, 
 				s.s_fileName, 
-				s.s_fileRealName,
 				m.mem_nick,
 				s.mem_num 
 			FROM eatstamp.cmt c 
@@ -271,6 +270,14 @@
 			ORDER BY cmt_num DESC
 		)t1 
 		WHERE rn BETWEEN #{start} and #{end} 
+	</select>
+	
+	<!-- 내가 작성한 댓글 개수 구하기 -->
+	<select id="selectMyCmtCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM eatstamp.cmt 
+		WHERE mem_num = #{mem_num}
 	</select>
 	
 	<!-- 글에 달린 댓글 목록 -->

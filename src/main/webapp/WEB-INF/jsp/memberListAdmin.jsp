@@ -30,7 +30,7 @@ span.table-image{
 }
 
 span.table-title{
-    width: 200px;
+    width: 170px;
     text-align: center;
 }
 
@@ -50,6 +50,11 @@ span.table-writer{
 }
 
 span.table-branch{
+    width: 60px;
+    text-align: center;
+}
+
+span.table-report{
     width: 60px;
     text-align: center;
 }
@@ -78,7 +83,7 @@ div.box-no{
 }
 
 div.box-title{
-	width: 190px;
+	width: 155px;
     padding-left: 10px;
 }
 
@@ -93,12 +98,17 @@ div.box-date{
 }
 
 div.box-mem{
-    width: 60px;
+    width: 50px;
     text-align: center;
 }
 
 div.box-mem2{
 	width: 68px;
+    text-align: center;
+}
+
+div.box-mem2-1{
+    width: 60px;
     text-align: center;
 }
 
@@ -273,6 +283,7 @@ div.mypage-menu-second{
 									<span class="table-regdate table">생년월일</span>
 									<span class="table-writer table">성별</span>
 									<span class="table-branch table">가입방식</span>
+									<span class="table-report table">신고누적</span>
 									<span class="table-auth table">회원상태</span>
 									<span class="table-suspend table">상태변경</span>
 								</div>
@@ -308,6 +319,9 @@ div.mypage-menu-second{
 														    <c:when test="${member.mem_branchCode == 'K'}">카카오</c:when>
 														</c:choose>
 													</span>
+												</div>
+												<div class="box-mem2-1">
+													<span class="font-set2">${member.mem_report_cnt} 회</span>
 												</div>
 												<div class="box-mem3">
 													<span class="font-set2">
