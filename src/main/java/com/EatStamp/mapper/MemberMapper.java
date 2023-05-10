@@ -8,7 +8,6 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.ReportVO;
-import com.EatStamp.domain.StampVO;
 
 @Mapper("memberMapper")
 public interface MemberMapper {
@@ -78,5 +77,14 @@ public interface MemberMapper {
 	
 	//<0508 최은지 정지회원 검사>
 	public int checkBlockMember(String mem_email)throws Exception;
+	
+	//<0510 이예지> 회원 신고 접수
+	public int insertReportMember(ReportVO reportVO) throws Exception;
+	
+	//<0510 이예지> 회원 신고 선택 (글 신고)
+	public ReportVO selectStampReportInfo(Map<String, Object> map) throws Exception;
+	
+	//<0510 이예지> 회원 신고 선택 (댓글 신고)
+	public ReportVO selectCmtReportInfo(Map<String, Object> map) throws Exception;
 }
 

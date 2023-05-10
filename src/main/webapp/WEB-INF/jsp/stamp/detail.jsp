@@ -9,252 +9,22 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.4.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampDetail.css'/>" />
+<!-- 부트스트랩 사용  -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
 <style>
-
-div.page-main{
-	padding: 80px 0;
+body {
+	margin:0; 
+	padding:0; 
+	font-family:'Noto Sans KR', sans-serif; 
+	font-size:12px; 
+	color:#666; 
+	scroll:auto; 
+	background:#fffbef;
 }
-
-div.view-box{
-	background-color: white;
-    border-radius: 20px;
-    padding: 50px;
-    width: 600px;
-    margin: 0 auto;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-}
-
-div.box-wrap{
-	padding: 0 20px;
-}
-
-/* section1 (프로필, 제목, 작성일시) */
-div.section1{
-    display: flex;
-    align-items: center;
-}
-
-i.pIcon{
-    font-size: 40px;
-    color: #ffc06c;
-}
-
-div.box-title{
-    margin-left: 20px;
-}
-
-div.box-title2{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-div.box-icons{
-	color: lightgrey;
-	display: flex;
-    align-items: center;
-    width: 90px;
-    justify-content: space-between;
-}
-
-span.font-set1{
-    font-size: 25px;
-    letter-spacing: -1;
-    font-weight: bold;
-    color: #ffc06c;
-}
-
-div.box-date{
-    margin-top: 5px;
-    color: lightgrey;
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 500px;
-}
-
-div.section1-1{
-    display: flex;
-    align-items: center;
-    margin: 30px 0;
-}
-
-i.mapIcon{
-    font-size: 20px;
-    color: #ffc06c;
-}
-
-i.icon-set{
-	font-size: 16px;
-	color: lightgray;
-}
-
-div.section1-1-2{
-    flex: 1;
-    margin: 0 20px;
-    font-size: 14px;
-    color: #9d9d9d;
-    font-weight: bold;
-}
-
-div.section1-1-3{
-    background-color: ffd274;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 13px;
-    color: white;
-    font-weight: bold;
-}
-/* section1 (프로필, 제목, 작성일시) 끝 */
-
-/* section2 (이미지, 내용) */
-div.box-img{
-    display: flex;
-    justify-content: center;
-}
-
-img.fileImg{
-    border-radius: 20px;
-    max-width: 600px;
-}
-
-div.box-content{
-    margin: 30px 0;
-}
-
-span.font-set2{
-    font-size: 16px;
-    letter-spacing: -1;
-}
-
-span.font-set3{
-	font-size: 15px;
-    font-weight: bold;
-}
-
-span.font-set4{
-    font-size: 15px;
-    color: 5da6ff;
-    margin: 0 20px;
-}
-/* section2 (이미지, 내용) 끝 */
-
-/* section3 (버튼) */
-div.section3{
-    display: flex;
-    justify-content: flex-end;
-}
-
-button.box-button{
-	padding: 10px 25px;
-    border-radius: 20px;
-    color: white;
-}
-
-button.delete_btn{
-	background-color: #b7b7b7;
-    margin: 0 10px 0 0;
-}
-
-button.list_btn{
-	background-color: #ffd274;
-}
-/* section3 (버튼) 끝 */
-
-
-/* 댓글 */
-div#com_first{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-div#com_second{
-    margin-bottom: 20px;
-}
-
-span.letter-count{
-	margin-left: 5px;
-    color: lightgray;
-}
-
-textarea.form-control{
-	width: 90%;
-	resize: none;
-	border-radius: 20px;
-	padding: 5px 15px;
-}
-
-button.cmtBtn{
-    background-color: #ffd274;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-}
-
-div.cmt_title{
-	display: flex;
-	justify-content: space-between;
-}
-
-div.cmt_title_1{
-	display: flex;
-	align-items: center;
-}
-
-h4.cmt_writer{
-	margin-right: 5px;
-}
-
-p.cmt_text{
-    font-size: 10px;
-    color: lightgray;
-}
-
-div.sub-item{
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-hr{
-    background: lightgray;
-    height: 1px;
-    border: 0;
-    margin: 10px 0;
-}
-
-input.cmtBtn{
-    height: 25px;
-    width: 40px;
-    background-color: #b7b7b7;
-    border: 0;
-    color: white;
-    border-radius: 20px;
-}
-/*댓글 끝*/
-
-/* 댓글 수정 */
-textarea.form-control2{
-	width: 100%;
-	resize: none;
-	border-radius: 20px;
-	padding: 5px 15px;
-	margin: 5px 0;
-}
-
-div#mcom_first{
-	display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-input.com-mod{
-	background-color: #ffd274;
-}
-
-/* 댓글 수정 끝 */
 </style>
 
 <!DOCTYPE html>
@@ -402,14 +172,119 @@ input.com-mod{
 				<img src="${pageContext.request.contextPath}/images/common/loading.gif" width="100" height="100">
 			</div>
 		</div>
-		
 	</div>
 </div>
 
+<!-- 모달창 띄우기-->
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" 
+													aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">회원 신고하기</h4>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true" class="modal-x">X</span>
+				</button>
+			</div>
+			
+				<!-- <form method='post' action='/cancelReportMember.do'> -->
+			<!-- 상세내역 출력 div -->
+			<div class="modal-body"></div>
+		</form>
+		
+		</div>
+	</div>
+</div> 
+<!-- 모달 end  -->
 
 <script type="text/javascript">
+//========글 신고 모달========//
+//모달창 띄우기
+$('#report_btn').click(function(e){
+	e.preventDefault();
+	$('#testModal').modal("show");
+	
+	const s_num = '${stamp.s_num}';
+	
+	//ajax 실행
+	$.ajax({
+		url: "selectStampReportInfo.do",
+		data: {
+			s_num : s_num
+		},
+		dataType: "json",
+		type: "post",
+		async: true,
+		success: function(data){
+      	  var div = "";
+	          
+          $(data).each(function(){
+        	  
+        	div += "<div class= 'modal_detail_report'>"; 
+        	
+        	div += "<div class = wrap_div'>" //전체 div
+  
+        	div += "<div class = 'num_box'>"
+  	        div += "<span class ='num_text menu_text'> 글 번호</span>"
+	  	    div += "<input type='text' readonly name='s_num' class = 'ajax_text' value='"+ this.s_num +"'>"
+  	        div += "</div>";	//num_box end
+  	        	
+  	        div += "<div class = 'dis_box'>";
+  	        div += "<span class = 'dis_text menu_text'>구분</span>";
+						if ('' == this.s_num){
+							div += "<span class='ajax_text'>댓글</span>";
+							div += "<span class='ajax_text'> &nbsp; </span>"
+						}else{
+							div += "<span class='ajax_text'>글</span>";
+							div += "<span class='ajax_text'> &nbsp; </span>"
+						}
+    			div += "</div>";	//dis_div end
+  	        	
+    			div += "<div class = 'mem2_box'>" //신고자
+    			div += "<span class = 'mem2_text menu_text'>신고자</span>"
+	  	    div += "<input type='text' readonly name='reporter_nick' class = 'ajax_text' value='"+ this.reporter_nick +"'><br>"; 
+	  	  div += "<input type='text' readonly name='reporter_email' id='ajax_text_mem2' class = 'ajax_text' value='"+this.reporter_email +"'>"; 
+	  	    div += "</div>";	//mem2_box end
+  	        	
+			div += "<div class = 'mem1_box'>" //피신고자
+        		div += "<span class = 'mem1_text menu_text'> 신고 대상</span>";
+  	        div += "<input type='text' readonly name='reported_nick' class = 'ajax_text' value='"+ this.reported_nick +"'><br>"; 
+   	  	    div += "<input type='text' readonly name='reported_email' id='ajax_text_mem2' class = 'ajax_text' value='"+ this.reported_email +"'>"; 
+  	        div += "</div>";	//mem1_box end
+  	        
+  	        div += "<div class = 'con-box'>" //신고 내용
+  	        	div += "<span class = 'mem1_text menu_text'> 신고 내용</span>";
+  	        	div += "<input type='text' readonly name='s_title' class = 'ajax_text' value='"+ this.s_title +"'><br>"; 
+  	        	div += "<textarea readonly name='s_content' class='ajax_text'>" + this.s_content + "</textarea>";
+  	        div += "</div>"
+  	        
+        	div += "<div class = 'why-box'>" //신고 내용
+  	        	div += "<span class = 'mem1_text menu_text'> 신고 사유</span>";
+  	        	div += "<textarea name='report_why' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
+  	        div += "</div>"
+  	        
+  	        div += "<div class = 'btn-box'>" //버튼
+  	        	div += "<button type='button' class='btn' id='sub-btn'>등록</button>";
+  	        	div += "<button type='button' class='btn' id='can-btn'>취소</button>";
+  	        div += "</div>";
+     		
+        	div += "</div>"; //wrap_div end     
+        	
+        	div += "</div>"; //modal_detail_report end
+	          })//each end
+	          
+	          
+	        $(".modal-body").html(div);
+		}, //success end
+		
+		error : function(data) {
+        	console.log("신고하기 오류");
+        	alert("신고하기 창을 불러오는 데 실패했습니다. 다시 시도해주세요.");
+        
+        }//error end
+	})
+})
 
-//========글자수 카운트========//
 //제목 textarea에 내용 입력시 글자수 체크
 $(document).on('keyup','#cmt_content',function(){
 	//입력한 글자수 구하기

@@ -338,4 +338,61 @@
 			AND
 			  	mem_admin_auth = 2
 		</select>
+		
+		<!-- 0510 이예지 회원 신고 접수 -->
+		<insert id="insertReportMember" parameterType="reportVO">
+			INSERT INTO report
+			(
+				mem_num,
+				report_why,
+				s_num,
+				cmt_num,
+				mem_num2
+			)
+				VALUES
+			(
+				#{mem_num},
+				#{report_why},
+				#{s_num},
+				#{cmt_num},
+				#{mem_num2}
+			)
+		</insert>
+		
+		<!-- 0510 이예지 회원 신고 선택 (글 신고) -->
+		<select id="selectStampReportInfo" parameterType="map" resultType="reportVO">
+		    SELECT 
+		        reporter.mem_nick AS reporter_nick, 
+		        reporter.mem_email AS reporter_email, 
+		        reported.mem_nick AS reported_nick, 
+		        reported.mem_email AS reported_email, 
+		        stamp.s_num, 
+		        stamp.s_title,
+				stamp.s_content
+		    FROM 
+		        member AS reporter,
+		        member AS reported,
+		        stamp
+		    WHERE 
+		        reporter.mem_num = #{mem_num} 
+		        AND reported.mem_num = stamp.mem_num 
+		        AND stamp.s_num = #{s_num}
+		</select>
+		
+		<!-- 0510 이예지 회원 신고 선택 (댓글 신고) -->
+		<select id="selectCmtReportInfo" parameterType="map" resultType="reportVO">
+		    SELECT 
+		        reporter.mem_nick AS reporter_nick, 
+		        reported.mem_nick AS reported_nick, 
+		        cmt.cmt_num, 
+		        cmt.cmt_content
+		    FROM 
+		        member AS reporter,
+		        member AS reported,
+		        cmt
+		    WHERE 
+		        reporter.mem_num = #{mem_num} 
+		        AND reported.mem_num = cmt.mem_num 
+		        AND cmt.cmt_num = #{cmt_num}
+		</select>
 </mapper>

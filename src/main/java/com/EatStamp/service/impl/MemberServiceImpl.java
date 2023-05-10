@@ -385,7 +385,22 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.checkBlockMember(mem_email);
 	}
 
+	//<0510 이예지 회원 신고 접수>
+	@Override
+	public int insertReportMember(ReportVO reportVO) throws Exception {
+		return memberMapper.insertReportMember(reportVO);
+	}
 
-	
+	@Override
+	public ReportVO selectStampReportInfo(Map<String, Object> map) throws Exception {
+		return memberMapper.selectStampReportInfo(map);
+	}
+
+	@Override
+	public ReportVO selectCmtReportInfo(Map<String, Object> map) throws Exception {
+		return memberMapper.selectCmtReportInfo(map);
+	}
+
+
 	
 	} //서비스단 전체end

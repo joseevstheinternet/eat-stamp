@@ -77,4 +77,13 @@ public interface MemberService {
 	
 	//<0508 최은지 정지 회원 여부 확인>
 	 public int check_block_member(String mem_email) throws Exception;
+	 
+	//<0510 이예지> 회원 신고 접수
+	public int insertReportMember(ReportVO reportVO) throws Exception;
+	
+	//<0510 이예지> 회원 신고 선택 (글 신고)
+	public ReportVO selectStampReportInfo(Map<String, Object> map) throws Exception;
+	
+	//<0510 이예지> 회원 신고 선택 (댓글 신고)
+	public ReportVO selectCmtReportInfo(Map<String, Object> map) throws Exception;
 }

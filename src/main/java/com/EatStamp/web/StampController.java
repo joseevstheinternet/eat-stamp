@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.EatStamp.service.MemberService;
 import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.TagService;
@@ -42,6 +43,7 @@ import com.common.utils.StringUtil;
 import com.google.gson.Gson;
 import com.EatStamp.domain.CmtVO;
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.ReportVO;
 import com.EatStamp.domain.RestVO;
 
 @Controller
@@ -58,6 +60,9 @@ public class StampController {
 	
 	@Autowired
 	private TagService tagService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	//자바빈(VO) 초기화
 	@ModelAttribute
@@ -577,5 +582,27 @@ public class StampController {
 		
 		return mav;
 	}
+	
+	//<0510 이예지> 글 신고하기 창 (모달)
+	@RequestMapping("/stamp/selectStampReportInfo.do")
+	@ResponseBody
+	public String stampReport(@RequestParam int s_num, HttpSession session) throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("s_num", s_num);
+		
+		//로그인한 회원정보 세팅
+		MemberVO user = (MemberVO)session.getAttribute("member");
+		if(user!=null) {
+			map.put("mem_num", user.getMem_num());
+		}
+		
+		ReportVO report = memberService.selectStampReportInfo(map);
+		
+		String jsonData = new Gson().toJson(report);
+		
+		return jsonData;
+	}
+	
 	
 }

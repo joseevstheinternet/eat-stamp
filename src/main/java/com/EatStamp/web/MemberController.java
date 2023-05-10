@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskRejectedException;
@@ -37,6 +38,7 @@ import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.WordAnalysisService;
 import com.common.utils.PagingUtil;
+import com.google.gson.Gson;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.ReportVO;
 import com.EatStamp.domain.RestVO;
@@ -762,6 +764,8 @@ public class MemberController {
 			
 			return mav;
 	}
+	
+
 	
 
 }//전체 컨트롤러단 end
