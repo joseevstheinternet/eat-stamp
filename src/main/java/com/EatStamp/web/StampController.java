@@ -583,7 +583,7 @@ public class StampController {
 		return mav;
 	}
 	
-	//<0510 이예지> 글 신고하기 창 (모달)
+	//======글 신고하기 창(모달)=======//
 	@RequestMapping("/stamp/selectStampReportInfo.do")
 	@ResponseBody
 	public String stampReport(@RequestParam int s_num, HttpSession session) throws Exception{
@@ -604,5 +604,5 @@ public class StampController {
 		return jsonData;
 	}
 	
-	
+	//
 }
