@@ -336,7 +336,7 @@ div.list-image01{
 	
 	//취소 클릭 시 이벤트
 	 $(document).on("click", "#modalN", function () {		
-			    if (!confirm("해당 신고 내역을 취소하시겠습니까? 취소 후에는 내역 복구가 불가능하며, 다시 신고 접수를 진행해주셔야 합니다.")) {
+			    if (!confirm("해당 신고 내역을 취소하시겠습니까?\n취소 후에는 내역 복구가 불가능하며, 다시 신고 접수를 진행해주셔야 합니다.")) {
 
 			    } else {
 					$("#modalN").prop("type", "submit");

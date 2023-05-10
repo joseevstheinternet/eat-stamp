@@ -294,6 +294,12 @@ public class MemberAdminController {
 				
 				map.put("list", list);
 
+			}else {//검색값이 없을 시
+
+	        	mav.addObject("count", count);
+	        	mav.setViewName("reportListAdmin");
+	        	
+				return mav;
 			}
 			
 			//업데이트 리스트
