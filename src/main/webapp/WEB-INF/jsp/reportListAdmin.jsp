@@ -335,7 +335,8 @@ var header = $("meta[name='_csrf_header']").attr('content');
 				  	  
 				  	        	div += "<div class = 'num_box'>"
 				  	        	div += "<span class ='num_text'> 접수번호</span>"
-					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>"
+					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>";
+								div += "<a class='direct_link' href='"+ this.report_link + "'>상세내역 확인</a>";
 				  	        	div += "</div>";	//num_box end
 				  	        	
 				  	        	div += "<div class = 'dis_box'>";

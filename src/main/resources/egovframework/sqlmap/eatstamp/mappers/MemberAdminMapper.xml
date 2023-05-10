@@ -120,6 +120,7 @@
 		    r.s_num,
 		    r.cmt_num,
 		    r.report_return,
+		    r.report_link,
 		    m1.mem_email AS mem_email1,
 		    m1.mem_nick AS mem_nick1,
 		    m2.mem_email AS mem_email2,
@@ -208,7 +209,8 @@
 			    report_ynCode,
 			    s_num,
 			    cmt_num,
-			    report_return
+			    report_return,
+			    report_link
 			FROM (
 			    SELECT @rownum:=@rownum+1 AS rn,
 			    report_num,
@@ -218,7 +220,8 @@
 			    report_ynCode,
 			    s_num,
 			    cmt_num,
-			    report_return
+			    report_return,
+			    report_link
 			    FROM report r, (SELECT @rownum:=0) TMP
 			    <if test="field != '' and search_keyword != ''">
 			       <choose>
