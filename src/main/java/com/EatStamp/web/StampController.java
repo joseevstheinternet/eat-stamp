@@ -38,6 +38,7 @@ import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.TagService;
 import com.EatStamp.domain.StampVO;
+import com.EatStamp.mapper.MemberMapper;
 import com.common.utils.PagingUtil;
 import com.common.utils.StringUtil;
 import com.google.gson.Gson;
@@ -268,8 +269,10 @@ public class StampController {
 		StampVO stamp = stampService.selectStamp(s_num);
 		stampService.updateViewCnt(s_num);
 		int cmtCnt = stampService.selectCmtCount(s_num);
+		//CmtVO cmt = (CmtVO) stampService.selectCmtList(s_num);
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
+
 
 		// 제목에 태그를 허용하지 않음
 		stamp.setS_title(StringUtil.useBrNoHtml(stamp.getS_title()));
@@ -280,6 +283,7 @@ public class StampController {
 		mav.addObject("stamp", stamp);
 		mav.addObject("member", member);
 		mav.addObject("cmtCnt", cmtCnt);
+		//mav.addObject("cmt", cmt);
 		
 		return mav;
 	}
@@ -288,12 +292,18 @@ public class StampController {
 	@RequestMapping("/stamp/listCmt.do")
 	@ResponseBody
 	public String listCmt(@RequestParam int s_num, HttpSession session) throws Exception {
-				
-		//해당 글에 달린 댓글 개수 조회
+		
+		logger.debug("<<s_num>>: " + s_num);
+		
 		int cmt = stampService.selectCmtCount(s_num);
 		
-		// 댓글의 개수가 0보다 크다면 댓글 목록을 조회, 그렇지 않다면 빈 목록을 반환
-        List<CmtVO> list = (cmt > 0) ? stampService.selectCmtList(s_num) : Collections.emptyList();
+		List<CmtVO> list = null;
+		if(cmt > 0) {
+			list = stampService.selectCmtList(s_num);
+			
+		}else {
+			list = Collections.emptyList();
+		}
 		
 		Map<String, Object> mapAjax = new HashMap<>();
 		mapAjax.put("cmt", cmt);
@@ -433,12 +443,15 @@ public class StampController {
 			cmt.setCmt_ip(request.getRemoteAddr());
 			cmt.setS_num(s_num);
 			cmt.setMem_num(mem_num);
-						
+			
+			System.out.println("cmt: " + cmt);
+			
 			stampService.insertCmt(cmt);
 			
 			return "success";
 		} catch (Exception e) {
-			logger.error("댓글 등록 중 에러 발생: ", e);
+			
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
 			return "fail";
 		}
 	}
@@ -451,6 +464,7 @@ public class StampController {
 				HttpSession session, HttpServletRequest request) throws Exception {
 		
 		try {
+			//int mem_num = ((MemberVO)session.getAttribute("member")).getMem_num();
 			CmtVO cmt = stampService.selectCmt(cmt_num);
 			
 			cmt.setCmt_content(cmt_content);
@@ -459,8 +473,11 @@ public class StampController {
 			stampService.updateCmt(cmt);
 			
 			return "success";
+			
+			
 		} catch (Exception e) {
-			logger.error("댓글 수정 중 에러 발생: ", e);
+			
+			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
 	        return "fail";
 		}
 	}
@@ -469,14 +486,15 @@ public class StampController {
 	//===========댓글 삭제===========//
 	@RequestMapping("/stamp/deleteCmt.do")
 	@ResponseBody
-	public String deleteCmt(@RequestParam int cmt_num) throws Exception {
+	public String deleteCmt(@RequestParam int cmt_num, HttpSession session) throws Exception {
 		
 		try {
 			stampService.deleteCmt(cmt_num);
 			
 			return "success";
+			
 		} catch (Exception e) {
-			logger.error("댓글 삭제 중 에러 발생: ", e);
+			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
 	        return "fail";
 		}
 	}
@@ -527,7 +545,7 @@ public class StampController {
 		return mav;
 	}
 	
-	//======내가 쓴 댓글 목록=======//
+	//======글 목록=======//
 	@RequestMapping("/stamp/myCmtList.do")
 	public ModelAndView cmtList(
 			HttpSession session,
@@ -539,7 +557,7 @@ public class StampController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("mem_num", user.getMem_num());
 		
-		//내가 쓴 댓글의 총개수
+		//글의 총개수(검색된 글의 개수)
 		int count = stampService.selectMyCmtCount(user.getMem_num());
 		logger.debug("<<count>> : " + count);
 		
@@ -602,7 +620,9 @@ public class StampController {
 			report.setReport_why(report_why);
 			report.setMem_num2(mem_num2);
 			report.setReport_link(link);
-						
+			
+			System.out.println("report: " + report);
+			
 			memberService.insertStampReport(report);
 			
 			return "success";
@@ -648,7 +668,9 @@ public class StampController {
 			report.setReport_why(report_why);
 			report.setMem_num2(mem_num2);
 			report.setReport_link(link);
-						
+			
+			System.out.println("report: " + report);
+			
 			memberService.insertCmtReport(report);
 			
 			return "success";

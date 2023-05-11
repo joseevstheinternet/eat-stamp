@@ -3,6 +3,9 @@ package com.EatStamp.service;
 import java.util.List;
 import java.util.Map;
 
+import com.EatStamp.domain.StampVO;
+import com.EatStamp.domain.KeywordVO;
+
 public interface WordAnalysisService {
 	
 	//자연어 처리 - 형태소 분석 (명사만 추출하기)

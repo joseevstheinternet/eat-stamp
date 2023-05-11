@@ -8,12 +8,24 @@
 <%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.4.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampDetail.css'/>" />
+<!-- 부트스트랩 사용  -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampDetail.css'/>" />
-
+	
+<style>
+body {
+	margin:0; 
+	padding:0; 
+	font-family:'Noto Sans KR', sans-serif; 
+	font-size:12px; 
+	color:#666; 
+	scroll:auto; 
+	background:#fffbef;
+}
+</style>
 
 <!DOCTYPE html>
 <html>
@@ -118,7 +130,7 @@
 				<c:if test="${member.mem_num != stamp.mem_num}">
 					<button type="button" class="box-button delete_btn" id="report_btn">신고</button>
 				</c:if>
-				<button type="button" onclick="history.back();" class="box-button list_btn">목록</button>
+				<button type="button" onclick="location.href='list.do'" class="box-button list_btn">목록</button>
 			
 			<script type="text/javascript">
 				let delete_btn = document.getElementById('delete_btn');
@@ -150,9 +162,6 @@
 				<div id="com_second">
 					<span class="letter-count">0/140</span>
 				</div>
-			</c:if>
-			<c:if test="${empty member}">
-				<br>
 			</c:if>
 		</form>
 		
