@@ -144,7 +144,7 @@ $(document).on('click','.report-btn',function(e){
 	$.ajax({
 		url: "selectCmtReportInfo.do",
 		data: {
-			cmt_num : cmt_num
+			cmt_num : cmt_num,
 		},
 		dataType: "json",
 		type: "post",
