@@ -255,16 +255,16 @@ $('#report_btn').click(function(e){
   	        div += "<div class = 'con-box'>" //신고 내용
   	        	div += "<span class = 'mem1_text menu_text'> 신고 내용</span>";
   	        	div += "<input type='text' readonly name='s_title' class = 'ajax_text' value='"+ this.s_title +"'><br>"; 
-  	        	div += "<textarea readonly name='s_content' class='ajax_text'>" + this.s_content + "</textarea>";
   	        div += "</div>"
+  	        	div += "<textarea readonly name='s_content' class='ajax_text'>" + this.s_content + "</textarea>";
   	        
         	div += "<div class = 'why-box'>" //신고 내용
   	        	div += "<span class = 'mem1_text menu_text'> 신고 사유</span>";
-  	        	div += "<textarea name='report_why' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
+  	        	div += "<textarea name='report_why' id='report_why_2' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
   	        div += "</div>"
   	        
   	        div += "<div class = 'btn-box'>" //버튼
-  	        	div += "<button type='button' class='btn' id='sub-btn'>등록</button>";
+	        	div += '<input type="button" data-num="'+ this.s_num +'" data-mem_num="'+ this.mem_num +'" value="등록" class="btn" id="sub-btn-stamp">';
   	        	div += "<button type='button' class='btn' id='can-btn'>취소</button>";
   	        div += "</div>";
      		
@@ -284,6 +284,43 @@ $('#report_btn').click(function(e){
         }//error end
 	})
 }) //글 신고 모달 end
+
+//글 신고 등록하기
+$(document).on('click','#sub-btn-stamp',function(){
+	
+	const mem_num2 = '${sessionScope.member.mem_num}';
+	const s_num = $(this).attr('data-num');
+	const mem_num = $(this).data('mem_num');
+	const report_why = $('#report_why_2').val();
+	
+	console.log('신고당한 사람: ' + mem_num);
+	console.log('신고한 사람: ' + mem_num2);
+	console.log('s_num: ' + s_num);
+	console.log('report_why: ' + report_why);
+	
+	//데이터 전송
+	$.ajax({
+		url: 'reportStamp.do',
+		type: 'post',
+		data: {
+			"s_num" : s_num,
+			"report_why" : report_why,
+			"mem_num" : mem_num
+		},
+		success: function(result){
+			if(result == 'success'){
+				alert('신고를 등록하였습니다.\n신고 처리 전까지 마이페이지-신고 내역에서 신고를 취소할 수 있습니다.');
+				$('#testModal').modal("hide");
+			}else{
+				alert('신고 등록에 실패하였습니다.');
+			}
+		},
+		error: function(){
+			alert('신고 등록에 실패하였습니다.2');
+		}
+	}); //end ajax
+	
+}) //글 신고 등록 버튼 클릭 이벤트 end
 
 //========댓글 신고 모달========//
 //모달창 띄우기
@@ -347,11 +384,11 @@ $(document).on('click','.report-btn',function(e){
 	        
       	div += "<div class = 'why-box'>" //신고 내용
 	        	div += "<span class = 'mem1_text menu_text'> 신고 사유</span>";
-	        	div += "<textarea name='report_why' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
+	        	div += "<textarea name='report_why' id='report_why' class='ajax_text2' placeholder='신고 사유를 작성해 주세요.'></textarea>";
 	        div += "</div>"
 	        
 	        div += "<div class = 'btn-box'>" //버튼
-	        	div += "<button type='button' class='btn' id='sub-btn'>등록</button>";
+	        	div += '<input type="button" data-num="'+ this.cmt_num +'" data-mem_num="'+ this.mem_num +'" value="등록" class="btn" id="sub-btn-cmt">';
 	        	div += "<button type='button' class='btn' id='can-btn'>취소</button>";
 	        div += "</div>";
    		
@@ -371,6 +408,48 @@ $(document).on('click','.report-btn',function(e){
       }//error end
 	})
 }) //댓글 신고 모달 end
+
+//댓글 신고 등록하기
+$(document).on('click','#sub-btn-cmt',function(){
+	
+	const mem_num2 = '${sessionScope.member.mem_num}';
+	const cmt_num = $(this).attr('data-num');
+	const mem_num = $(this).data('mem_num');
+	const report_why = $('#report_why').val();
+	
+	console.log('신고당한 사람: ' + mem_num);
+	console.log('신고한 사람: ' + mem_num2);
+	console.log('cmt_num: ' + cmt_num);
+	console.log('report_why: ' + report_why);
+	
+	//데이터 전송
+	$.ajax({
+		url: 'reportCmt.do',
+		type: 'post',
+		data: {
+			"cmt_num" : cmt_num,
+			"report_why" : report_why,
+			"mem_num" : mem_num
+		},
+		success: function(result){
+			if(result == 'success'){
+				alert('신고를 등록하였습니다.\n신고 처리 전까지 마이페이지-신고 내역에서 신고를 취소할 수 있습니다.');
+				$('#testModal').modal("hide");
+			}else{
+				alert('신고 등록에 실패하였습니다.');
+			}
+		},
+		error: function(){
+			alert('신고 등록에 실패하였습니다.2');
+		}
+	}); //end ajax
+	
+}) //댓글 신고 등록 버튼 클릭 이벤트 end
+
+//모달창 닫기 이벤트
+$(document).on('click','#can-btn',function(){
+	$('#testModal').modal("hide");
+})//모달창 닫기 이벤트 end
 
 //제목 textarea에 내용 입력시 글자수 체크
 $(document).on('keyup','#cmt_content',function(){

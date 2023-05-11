@@ -398,6 +398,7 @@
 		        reporter.mem_email AS reporter_email, 
 		        reported.mem_nick AS reported_nick, 
 		        reported.mem_email AS reported_email, 
+		        reported.mem_num AS mem_num,
 		        stamp.s_num, 
 		        stamp.s_title,
 				stamp.s_content
@@ -418,6 +419,7 @@
 		        reporter.mem_email AS reporter_email, 
 		        reported.mem_nick AS reported_nick, 
 		        reported.mem_email AS reported_email, 
+		        reported.mem_num AS mem_num,
 		        cmt.cmt_num, 
 		        cmt.cmt_content
 		    FROM 

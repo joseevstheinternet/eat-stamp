@@ -405,17 +405,5 @@ public class MemberServiceImpl implements MemberService{
 	public void insertCmtReport(ReportVO reportVO) throws Exception {
 		memberMapper.insertCmtReport(reportVO);
 	}
-
-	@Override
-	public int mem_numByS_num(int s_num) throws Exception {
-		return memberMapper.mem_numByS_num(s_num);
-	}
-
-	@Override
-	public int mem_numByCmt_num(int cmt_num) throws Exception {
-		return memberMapper.mem_numByCmt_num(cmt_num);
-	}
-
-
 	
 	} //서비스단 전체end

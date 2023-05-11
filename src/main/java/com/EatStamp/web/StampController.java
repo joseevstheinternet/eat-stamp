@@ -38,6 +38,7 @@ import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.TagService;
 import com.EatStamp.domain.StampVO;
+import com.EatStamp.mapper.MemberMapper;
 import com.common.utils.PagingUtil;
 import com.common.utils.StringUtil;
 import com.google.gson.Gson;
@@ -604,6 +605,32 @@ public class StampController {
 		return jsonData;
 	}
 	
+	//======글 신고하기 등록=======//
+	@RequestMapping("/stamp/reportStamp.do")
+	@ResponseBody
+	public String reportStamp(@RequestParam int s_num, int mem_num, String report_why, HttpSession session) throws Exception{
+		
+		try {
+			int mem_num2 = ((MemberVO)session.getAttribute("member")).getMem_num();
+			
+			ReportVO report = new ReportVO();
+			
+			report.setMem_num(mem_num);
+			report.setS_num(s_num);
+			report.setReport_why(report_why);
+			report.setMem_num2(mem_num2);
+			
+			System.out.println("report: " + report);
+			
+			memberService.insertStampReport(report);
+			
+			return "success";
+		} catch (Exception e) {
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
+			return "fail";
+		}
+	}
+	
 	//======댓글 신고하기 창(모달)=======//
 	@RequestMapping("/stamp/selectCmtReportInfo.do")
 	@ResponseBody
@@ -626,10 +653,28 @@ public class StampController {
 	}
 	
 	//======댓글 신고하기 등록=======//
-	@RequestMapping("/stamp/reportMember.do")
+	@RequestMapping("/stamp/reportCmt.do")
 	@ResponseBody
-	public String reportMember(@RequestParam int cmt_num, HttpSession session) throws Exception{
+	public String reportMember(@RequestParam int cmt_num, int mem_num, String report_why, HttpSession session) throws Exception{
 		
-		return null;
+		try {
+			int mem_num2 = ((MemberVO)session.getAttribute("member")).getMem_num();
+			
+			ReportVO report = new ReportVO();
+			
+			report.setMem_num(mem_num);
+			report.setCmt_num(cmt_num);
+			report.setReport_why(report_why);
+			report.setMem_num2(mem_num2);
+			
+			System.out.println("report: " + report);
+			
+			memberService.insertCmtReport(report);
+			
+			return "success";
+		} catch (Exception e) {
+			System.out.println("업로드 중 에러 발생: " + e.getMessage());
+			return "fail";
+		}
 	}
 }
