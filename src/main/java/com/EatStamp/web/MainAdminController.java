@@ -38,10 +38,11 @@ public class MainAdminController {
 	public String logout(HttpSession session, HttpServletResponse response) throws Exception{
 		
 		if( null != session.getAttribute("admin")) {
-					
 			//세션 무효화 메서드
+			
 			session.invalidate();
-			return "mainAdmin";
+			
+			return "redirect:/";
 			
 		}else {
 			message = "이미 만료된 세션입니다. 다시 로그인해주세요.";
@@ -50,7 +51,7 @@ public class MainAdminController {
             out.println("<script>alert('"+ message +"');</script>");
             out.flush();
 			
-			return "mainAdmin";
+            return "redirect:/";
 		}
 		
 	}//로그아웃 end

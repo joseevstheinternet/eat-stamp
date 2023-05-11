@@ -241,7 +241,7 @@ public class RestControllerAdmin {
 	            response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
 	            out.println("<script>alert('"+ message +"');</script>");
-	            out.println("<script>history.back(-3)</script>");
+	            out.println("<script>location.replace('/restListAdmin.do');</script>");
 	            out.flush();
 	            
 				return mav;
@@ -361,7 +361,7 @@ public class RestControllerAdmin {
 	            response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
 	            out.println("<script>alert('"+ message +"');</script>");
-	            out.println("<script>location.replace('restAdminDetail.do?r_num=" + r_num + "');</script>");
+	            out.println("<script>location.replace('/restAdminDetail.do?r_num="+r_num+"');</script>");
 	            out.flush();
 		
 				return mav;
@@ -440,11 +440,13 @@ public class RestControllerAdmin {
 					
 					if(1 == result) {//등록에 성공했다면
 
+						int r_num = vo.getR_num(); 
+						
 						message = "가게 정보 등록에 성공했습니다.";
 			            response.setContentType("text/html; charset=UTF-8");
 			            PrintWriter out = response.getWriter();
 			            out.println("<script>alert('"+ message +"');</script>");
-			            out.println("<script>location.href('/restListAdmin.do');</script>");
+			            out.println("<script>location.replace('/restListAdmin.do');</script>");
 			            out.flush();
 			            
 						return mav;

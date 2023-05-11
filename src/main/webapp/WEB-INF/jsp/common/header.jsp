@@ -240,28 +240,33 @@ initTimer = function() {
  
 //타이머 갱신용 요청
 function refreshTimer() {
-    var xhr = initAjax();
+    var xhr = initAjax(); 
     xhr.open("POST", "/window_reload.do", false);
     xhr.send();
     fncClearTime();
 }
  
- //세션 만료 시 로그아웃 진행
+ 
 function logoutUser() {
-	console.log("로그아웃 진행>>>>>");
+    console.log("로그아웃 진행>>>>>");
     clearTimeout(timerchecker);
     var xhr = initAjax();
     xhr.open("GET", "/mainAdminLogout.do", false);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            location.reload();
+        }
+    };
     xhr.send();
-    location.reload();
 }
+
  
-// 브라우저에 따른 AjaxObject 인스턴스 분기 처리
+// 브라우저에 따른 AjaxObject 인스턴스 분기 처리, 초기화
 function initAjax() { 
     var xmlhttp;
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari >>최신버전 브라우저
         xmlhttp = new XMLHttpRequest();
-    } else {// code for IE6, IE5
+    } else {// code for IE6, IE5 >>구버전 브라우저
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     return xmlhttp;

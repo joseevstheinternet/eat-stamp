@@ -33,6 +33,8 @@ public class ReportVO {
 	private String field;
 	private String search_keyword;
 	
+	private String report_link;//신고와 관련된 게시물 링크
+	
 	//<0510 이예지>
 	private String reporter_nick; //신고자 닉네임
 	private String reporter_email; //피신고자 이메일
