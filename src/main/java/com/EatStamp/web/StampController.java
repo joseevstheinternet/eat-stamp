@@ -608,7 +608,7 @@ public class StampController {
 	//======글 신고하기 등록=======//
 	@RequestMapping("/stamp/reportStamp.do")
 	@ResponseBody
-	public String reportStamp(@RequestParam int s_num, int mem_num, String report_why, HttpSession session) throws Exception{
+	public String reportStamp(@RequestParam int s_num, int mem_num, String report_why, String link, HttpSession session) throws Exception{
 		
 		try {
 			int mem_num2 = ((MemberVO)session.getAttribute("member")).getMem_num();
@@ -619,6 +619,7 @@ public class StampController {
 			report.setS_num(s_num);
 			report.setReport_why(report_why);
 			report.setMem_num2(mem_num2);
+			report.setReport_link(link);
 			
 			System.out.println("report: " + report);
 			
@@ -655,7 +656,7 @@ public class StampController {
 	//======댓글 신고하기 등록=======//
 	@RequestMapping("/stamp/reportCmt.do")
 	@ResponseBody
-	public String reportMember(@RequestParam int cmt_num, int mem_num, String report_why, HttpSession session) throws Exception{
+	public String reportMember(@RequestParam int cmt_num, int mem_num, String report_why, String link, HttpSession session) throws Exception{
 		
 		try {
 			int mem_num2 = ((MemberVO)session.getAttribute("member")).getMem_num();
@@ -666,6 +667,7 @@ public class StampController {
 			report.setCmt_num(cmt_num);
 			report.setReport_why(report_why);
 			report.setMem_num2(mem_num2);
+			report.setReport_link(link);
 			
 			System.out.println("report: " + report);
 			

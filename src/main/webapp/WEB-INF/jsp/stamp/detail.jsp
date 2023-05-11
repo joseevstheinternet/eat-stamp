@@ -206,6 +206,9 @@ $('#report_btn').click(function(e){
 	
 	const s_num = '${stamp.s_num}';
 	
+	//<0511 최은지 링크저장용 변수 선언>
+	var link =  document.location.href;
+	
 	//ajax 실행
 	$.ajax({
 		url: "selectStampReportInfo.do",
@@ -285,6 +288,7 @@ $('#report_btn').click(function(e){
 	})
 }) //글 신고 모달 end
 
+
 //글 신고 등록하기
 $(document).on('click','#sub-btn-stamp',function(){
 	
@@ -293,10 +297,14 @@ $(document).on('click','#sub-btn-stamp',function(){
 	const mem_num = $(this).data('mem_num');
 	const report_why = $('#report_why_2').val();
 	
+	 //<0511 최은지 링크저장용 변수 선언>
+	 var link = window.location.href;
+	
 	console.log('신고당한 사람: ' + mem_num);
 	console.log('신고한 사람: ' + mem_num2);
 	console.log('s_num: ' + s_num);
 	console.log('report_why: ' + report_why);
+	console.log('link: ' + link);
 	
 	//데이터 전송
 	$.ajax({
@@ -305,7 +313,8 @@ $(document).on('click','#sub-btn-stamp',function(){
 		data: {
 			"s_num" : s_num,
 			"report_why" : report_why,
-			"mem_num" : mem_num
+			"mem_num" : mem_num,
+			"link" : link
 		},
 		success: function(result){
 			if(result == 'success'){
@@ -330,12 +339,12 @@ $(document).on('click','.report-btn',function(e){
 	
 	//댓글 글번호
     let cmt_num = $(this).attr('data-num');
-	
+
 	//ajax 실행
 	$.ajax({
 		url: "selectCmtReportInfo.do",
 		data: {
-			cmt_num : cmt_num
+			cmt_num : cmt_num,
 		},
 		dataType: "json",
 		type: "post",
@@ -417,6 +426,9 @@ $(document).on('click','#sub-btn-cmt',function(){
 	const mem_num = $(this).data('mem_num');
 	const report_why = $('#report_why').val();
 	
+	 //<0511 최은지 링크저장용 변수 선언>
+	 var link = window.location.href;
+	
 	console.log('신고당한 사람: ' + mem_num);
 	console.log('신고한 사람: ' + mem_num2);
 	console.log('cmt_num: ' + cmt_num);
@@ -429,7 +441,8 @@ $(document).on('click','#sub-btn-cmt',function(){
 		data: {
 			"cmt_num" : cmt_num,
 			"report_why" : report_why,
-			"mem_num" : mem_num
+			"mem_num" : mem_num,
+			"link" : link
 		},
 		success: function(result){
 			if(result == 'success'){

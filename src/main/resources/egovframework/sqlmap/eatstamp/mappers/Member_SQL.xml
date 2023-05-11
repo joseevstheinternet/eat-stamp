@@ -346,14 +346,16 @@
 				mem_num,
 				report_why,
 				s_num,
-				mem_num2
+				mem_num2,
+				report_link
 			)
 				VALUES
 			(
 				#{mem_num},
 				#{report_why},
 				#{s_num},
-				#{mem_num2}
+				#{mem_num2},
+				#{report_link}
 			)
 		</insert>
 		
@@ -364,14 +366,16 @@
 				mem_num,
 				report_why,
 				cmt_num,
-				mem_num2
+				mem_num2,
+				report_link
 			)
 				VALUES
 			(
 				#{mem_num},
 				#{report_why},
 				#{cmt_num},
-				#{mem_num2}
+				#{mem_num2},
+				#{report_link}
 			)
 		</insert>
 		

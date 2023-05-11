@@ -216,12 +216,12 @@ public class MemberAdminController {
 				
 				int result = memberService.acceptReport(vo);
 				
-				if(1==result) { //1차 업뎃 성공 시
+				if(1==result) { //1차 업뎃 성공 시 >>피신고회원 신고횟수 누적, 조건 충족 시 정지
 					
-					//2차 코드 업뎃
+					//2차 코드 업뎃 > (report테이블 report_ynCode컬럼) 업데이트
 					int result2 = memberService.changeCode(report_num);
 					
-					if(1 == result2) {//코드 업뎃까지 성공 시
+					if(1 == result2) {//2차 코드 업뎃까지 성공 시
 						
 						message = "해당 신고 요청이 승인 처리되었습니다.";
 			            response.setContentType("text/html; charset=UTF-8");
