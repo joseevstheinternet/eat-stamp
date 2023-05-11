@@ -379,22 +379,6 @@
 			)
 		</insert>
 		
-		<!-- 0510 이예지 s_num으로 mem_num2 구하기 -->
-		<select id="mem_numByS_num" parameterType="int">
-			SELECT 
-				mem_num as mem_num2
-			FROM stamp
-			WHERE s_num = #{s_num}
-		</select>
-		
-		<!-- 0510 이예지 cmt_num으로 mem_num2 구하기 -->
-		<select id="mem_numByCmt_num" parameterType="int">
-			SELECT 
-				mem_num as mem_num2
-			FROM cmt
-			WHERE cmt_num = #{cmt_num}
-		</select>
-		
 		<!-- 0510 이예지 회원 신고 선택 (글 신고) -->
 		<select id="selectStampReportInfo" parameterType="map" resultType="reportVO">
 		    SELECT 
