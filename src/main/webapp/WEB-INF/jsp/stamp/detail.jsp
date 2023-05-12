@@ -198,6 +198,7 @@ body {
 <!-- 모달 end  -->
 
 <script type="text/javascript">
+
 //========글 신고 모달========//
 //모달창 띄우기
 $('#report_btn').click(function(e){

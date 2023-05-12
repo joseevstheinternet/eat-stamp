@@ -129,13 +129,13 @@
 				</div>
 				
 				
-				<!-- 상세정보  >>개행문자 안내 -->
+				<!-- 상세정보 -->
 				<div class ="detail_box">
 					<div class="detail_text">
 						<span class="detail_span"><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
 						<span class="detail_semi_span">가게 정보는 내용 하나당 줄바꿈으로 입력해주세요.</span>
 					</div>
-					<textarea class="detail_input" name="r_detail"  placeholder="가게 상세 정보를 입력해주세요."> </textarea>
+					<textarea class="detail_input" name="r_detail"  placeholder="가게 상세 정보를 입력해주세요."></textarea>
 				</div>
 				
 			</div> <!-- top_semi_warp end -->

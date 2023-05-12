@@ -115,7 +115,7 @@
 						<span class="detail_span"><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
 						<span class="detail_semi_span">가게 정보는 내용 하나당 줄바꿈으로 입력해주세요.</span>
 					</div>
-					<textarea class="detail_input" name="r_detail"  placeholder="가게 상세 정보를 입력해주세요.">${list.r_detail } </textarea>
+					<textarea class="detail_input" name="r_detail"  placeholder="가게 상세 정보를 입력해주세요.">${list.r_detail }</textarea>
 				</div>
 				
 			</div> <!-- top_semi_warp end -->
