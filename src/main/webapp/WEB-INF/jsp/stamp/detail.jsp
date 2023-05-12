@@ -130,7 +130,8 @@ body {
 				<c:if test="${member.mem_num != stamp.mem_num}">
 					<button type="button" class="box-button delete_btn" id="report_btn">신고</button>
 				</c:if>
-				<button type="button" onclick="location.href='list.do'" class="box-button list_btn">목록</button>
+				<button type="button" onclick="history.back();" class="box-button list_btn">목록</button>
+
 			
 			<script type="text/javascript">
 				let delete_btn = document.getElementById('delete_btn');
