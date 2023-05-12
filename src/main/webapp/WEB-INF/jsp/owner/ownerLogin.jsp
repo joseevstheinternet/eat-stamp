@@ -38,19 +38,35 @@ History: 최은지, 2023.05.12 최초 작성
 	 <div class="div_page">
 
 		<div class = "div_all_wrap">
+		
+			 <div id = "div_logoWrap">
+				<span class="txt_ownerLogin">사장님 로그인</span>
+				<img class="img_mainLogo" src="${pageContext.request.contextPath}/images/common/logo_full.png">
+			</div>
 			
-			<form class = "frm_owner_login"  method="post" action="ownerLoginCheck.do">
-				<div class = "div_login_input_wrap">
-					<input class = "txt_email_input" placeholder="EMAIL">
-					<input class = "pwd_password_input"  type="password" placeholder="PASSWORD">
+			<form class = "frm_ownerLogin"  method="post" action="ownerLoginCheck.do">
+				<div class = "div_loginInputWrap">
+					<input class = "txt_emailInput" placeholder="EMAIL">
+					<input class = "pwd_passwordInput"  type="password" placeholder="PASSWORD">
 				</div> <!-- div_login_wrap end  -->
 				
-				<div class ="div_login_btn_wrap">
-					<button class = "sbm_owner_login" type="submit">LOGIN</button>
-					<button class = "btn_owner_join">JOIN</button>
+				<div class ="div_btnWrap">
+					<button class = "sbm_ownerLogin" type="submit">LOGIN</button>
+					<button class = "btn_ownerJoin" type="button" onclick="location.href='/ownerSignUp.do'">SignUp</button>
 				</div> <!-- div_login_btn_wrap end  -->
 			</form>
-		
+				 			
+			<div class = "div_messageWrap">
+		 		<div class="div_messageBox">
+					<a class="goMessage" href="<%=request.getContextPath() %>/login.do">
+					<i class="fa-solid fa-arrow-right" ></i> 회원 로그인으로 돌아가기</a>  
+				</div>		
+		 		<div class="div_messageBox">
+					<a class="goMessage" href="<%=request.getContextPath() %>/mainAdmin.do">
+					<i class="fa-solid fa-arrow-right" ></i> 관리자 로그인으로 돌아가기</a>  
+				</div>	
+			</div>
+			
 		</div><!-- div_all_wrap end -->	
 		
 	</div><!-- div_page end -->	

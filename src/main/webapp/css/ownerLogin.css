@@ -16,7 +16,26 @@
 	margin: 40px 0;
 }
 
-.div_login_input_wrap input {
+.div_logoWrap{
+    display: flex;
+    align-items: flex-end;
+}
+
+.img_mainLogo{
+ 	height: 150px;
+	margin-bottom: 10px;
+	margin-left: 120px;
+}
+
+.txt_ownerLogin{
+	font-size: 30px;
+	font-weight: bold;
+	color: #ffd274;	
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.div_loginInputWrap input {
     display: block;
     width: 500px;
     height: 50px;
@@ -37,7 +56,7 @@ input::placeholder{
 	color: #c6c1b1;
 }
 
-.div_login_btn_wrap button {
+.div_btnWrap button {
     width: 230px;
     height: 50px;
     border-radius: 30px;
@@ -48,4 +67,20 @@ input::placeholder{
     font-weight: bold;
     float: right;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.div_messageWrap{
+	display: inline-block;
+	align-items: right;
+    position: relative;
+    width: 500px;
+}
+
+.div_messageBox a{
+    margin-top: 10px;
+    padding-right: 20px;
+    text-align: right;
+    font-size: 15px;
+    float: right;
+    color: #929292;
 }
