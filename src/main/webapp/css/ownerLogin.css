@@ -4,10 +4,16 @@
  outline: none !important ;
 }
 
-.div_all_wrap{
+.div_page{
 	width: 70%;
 	margin: 0 auto;
 	padding: 80px;
+}
+
+.div_all_wrap{
+	display: grid;
+	justify-items: center;
+	margin: 40px 0;
 }
 
 .div_login_input_wrap input {
@@ -23,6 +29,12 @@
     font-weight: bold;
     height: 60px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding-left: 30px;
+}
+
+/* placeholder 지정  */
+input::placeholder{
+	color: #c6c1b1;
 }
 
 .div_login_btn_wrap button {

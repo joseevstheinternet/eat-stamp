@@ -1,10 +1,8 @@
 package com.EatStamp.service.impl;
 
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
-import com.EatStamp.mapper.MemberMapper;
+import com.EatStamp.mapper.OwnerMapper;
 import com.EatStamp.service.OwnerService;
 
 /**
@@ -17,8 +15,8 @@ import com.EatStamp.service.OwnerService;
 public class OwnerServiceImpl implements OwnerService {
 	
 	/* 매퍼 빈 주입 */
-	@Resource(name = "memberMapper")
-	private MemberMapper memberMapper;
+	@Resource(name = "ownerMapper")
+	private OwnerMapper ownerMapper;
 	
 	
 }
