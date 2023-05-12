@@ -18,7 +18,7 @@ import com.EatStamp.service.OwnerService;
 public class OwnerController {
 	
 	/* logger 사용*/
-	private static final Logger logger = LoggerFactory.getLogger(MemberAdminController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OwnerController.class);
 	/*한 페이지에 출력되는 게시물 수*/
 	private final int ROW_COUNT = 10;
 	/*한 페이지에 보여줄 페이지 수*/
