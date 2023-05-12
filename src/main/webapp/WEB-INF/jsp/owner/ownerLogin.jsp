@@ -44,10 +44,10 @@ History: 최은지, 2023.05.12 최초 작성
 				<img class="img_mainLogo" src="${pageContext.request.contextPath}/images/common/logo_full.png">
 			</div>
 			
-			<form class = "frm_ownerLogin"  method="post" action="ownerLoginCheck.do">
+			<form class = "frm_ownerLogin"  method="post" action="selectOwnerInfoLoginCheck.do">
 				<div class = "div_loginInputWrap">
-					<input class = "txt_emailInput" placeholder="EMAIL">
-					<input class = "pwd_passwordInput"  type="password" placeholder="PASSWORD">
+					<input class = "txt_emailInput" placeholder ="EMAIL" name = "mem_email">
+					<input class = "pwd_passwordInput"  type ="password" name ="mem_pw" placeholder ="PASSWORD">
 				</div> <!-- div_login_wrap end  -->
 				
 				<div class ="div_btnWrap">

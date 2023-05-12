@@ -62,7 +62,7 @@
 					
 			<div id="adminMessageBox">
 				<!-- 사장님 로그인 -->
-				 <a id="adminMsg" href="<%=request.getContextPath() %>/loginOwner.do">
+				 <a id="adminMsg" href="<%=request.getContextPath() %>/ownerLogin.do">
 				  <i class="fa-solid fa-arrow-right" ></i>가게 사장님이신가요?</a>
 			</div>
 			
