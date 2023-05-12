@@ -15,7 +15,7 @@
 		<typeAlias  alias="tagPostMappingVO" type="com.EatStamp.domain.TagPostMappingVO"/>
 		<typeAlias  alias="reportVO" type="com.EatStamp.domain.ReportVO"/>
 		<typeAlias  alias="cmtVO" type="com.EatStamp.domain.CmtVO"/>
-
+		<typeAlias  alias="ownerVO" type="com.EatStamp.domain.OwnerInfoVO"/>
 		
     </typeAliases>
 </configuration>

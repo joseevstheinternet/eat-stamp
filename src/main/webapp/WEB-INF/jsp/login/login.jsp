@@ -59,6 +59,12 @@
 				 <a id="findPwdMsg" href="<%=request.getContextPath() %>/findPassword.do">
 				  <i class="fa-solid fa-arrow-right" ></i> 비밀번호를 잊으셨나요?</a>
 			</div>		
+					
+			<div id="adminMessageBox">
+				<!-- 사장님 로그인 -->
+				 <a id="adminMsg" href="<%=request.getContextPath() %>/loginOwner.do">
+				  <i class="fa-solid fa-arrow-right" ></i>가게 사장님이신가요?</a>
+			</div>
 			
 			<div id="adminMessageBox">
 				<!-- 관리자 로그인 -->

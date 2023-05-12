@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.div_all_wrap{
+	width: 70%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+.div_login_input_wrap input {
+    display: block;
+    width: 500px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 18px;
+    margin: 15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.div_login_btn_wrap button {
+    width: 230px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin: 15px 10px 0 0;
+    font-weight: bold;
+    float: right;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
