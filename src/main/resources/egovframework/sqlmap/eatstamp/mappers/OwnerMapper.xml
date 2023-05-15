@@ -8,14 +8,14 @@
 	<!-- 사장 로그인 정보 조회 -->
  	<!-- ownerMapper.selectLoginOwnerInforCheck  -->
 	<select id="selectLoginOwnerInforCheck" resultType="memberVO"  parameterType="memberVO">	
-			SELECT	mem_num,
-						mem_email, 
-						mem_pw,
-						mem_nick,
-						mem_profileCode,
-						mem_admin_auth
-			FROM	member
-			WHERE	mem_email = #{mem_email}
+		SELECT	mem_num,
+					mem_email, 
+					mem_pw,
+					mem_nick,
+					mem_profileCode,
+					mem_admin_auth
+		FROM	member
+		WHERE	mem_email = #{mem_email}
 	</select>
 	
 	<!-- 0515 이예지 최초 생성  -->
@@ -37,5 +37,60 @@
 		SET		mem_pw = #{mem_pw}
 		WHERE	mem_email=#{mem_email}
 	</update>
+	
+	<!-- 0515 최은지 최초 생성  -->
+	<!-- 상호명 검색결과 개수 조회 -->
+ 	<!-- ownerMapper.selectLoginOwnerInforCheck  -->
+	<select id="selectCountOwnerSignUpRestResult" resultType="int"  parameterType="map">	
+		SELECT	COUNT(*)
+		FROM	rest
+		WHERE	r_name LIKE CONCAT('%', #{search_keyword}, '%')
+	</select>
+	
+	<!-- 0515 최은지 최초 생성  -->
+	<!-- 상호명 검색결과 조회 -->
+ 	<!-- ownerMapper.selectOwnerSignUpRestResult  -->
+	<select id="selectOwnerSignUpRestResult" resultType="searchVO"  parameterType="map">	
+		SELECT	r_name,
+					r_add,
+					r_tel,
+					r_num,
+					r_category,
+					r_food
+		FROM	rest
+		WHERE	r_name LIKE CONCAT('%', #{search_keyword}, '%')
+	</select>
+	
+	<!-- 0515 최은지 최초 생성  -->
+	<!-- 사장 회원 회원가입 처리 -->
+ 	<!-- ownerMapper.insertOwnerSignUpInfo  -->
+	<select id="insertOwnerSignUpInfo" resultType="memberVO"  parameterType="map">	
+		INSERT INTO member
+			( mem_email
+				, mem_pw
+				, mem_birth
+				, mem_nick
+				, mem_genderCode
+				, mem_profileCode
+				, mem_branchCode
+				, mem_mail_key
+				, mem_mail_auth
+				, mem_auth_pwEmail
+				, mem_admin_auth
+				, mem_report_cnt)
+		VALUES( #{mem_email}
+				, #{mem_pw}
+				, ''
+				, #{mem_nick}
+				, ''
+				, ''
+				, 'O'
+				, ''
+				, 0
+				, 0
+				, 3
+				, 0 )
+	</select>
+	
 			
 </mapper>

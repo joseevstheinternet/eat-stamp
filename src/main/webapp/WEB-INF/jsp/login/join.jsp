@@ -322,20 +322,6 @@
 				}
 
 		 } //checks end
-		 
-	
-	//아이콘 클릭 시 비밀번호 표시 >> 아이콘 추가 + 변수명 변경하기
-		  $('.eyes').on('click',function(){
-			    $('#pass-form').toggleClass('active');
-			    	if( $('#pass-form').hasClass('active') == true ){
-			    		$(this).find('.fa-eye').attr('class',"fas fa-eye-slash").parents('.input').find('#pass-form').attr('type',"text"); //타입 전환
-			    }
-			   	 else{
-			    		$(this).find('.fa-eye-slash').attr('class',"fas fa-eye").parents('.input').find('#pass-form').attr('type','password');
-			    }
-		  });
-	
-	
 		
 		// 생년월일	birthJ 유효성 검사
 		var birthCheck = false;

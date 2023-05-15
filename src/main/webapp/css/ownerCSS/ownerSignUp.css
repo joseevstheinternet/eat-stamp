@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+*{
+ outline: none !important ;
+}
+
+.div_page{
+	width: 50%;
+	margin: 0 auto;
+	padding: 80px;
+	margin-bottom: 40px;
+}
+
+div{
+	margin-bottom: 15px;
+}
+
+.div_allWrap span {
+    color: gray;
+    font-weight: bold;
+    margin-left: 0;
+}
+
+i{
+	margin-right: 10px;
+	font-size: 25px;
+	color: #ffd274;
+}
+
+.txt_textLogo{
+	font-weight: bold;
+	font-size: 24px !important;
+	color: #ffd274;	
+	margin-left: 10px;
+	margin-bottom: 30px !important;
+}
+
+.div_allWrap input {
+    display: block;
+    width: 500px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    background-color: #f6ecdb;
+    color: white;
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    font-weight: bold;
+    height: 60px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding-left: 30px;
+    margin-right: 20px;
+}
+
+.div_allWrap span{
+	font-size: 18px;
+	color: gray;
+	font-weight: bold;
+}
+
+/* placeholder 지정  */
+input::placeholder{
+	color: #c6c1b1;
+}
+
+.sbm_ownerSignUp {
+    width: 230px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin: 15px 10px 0 0;
+    font-weight: bold;
+    float: right;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.btn_checkDuplEmail {
+    width: 150px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin: 15px 10px 0 0;
+    font-weight: bold;
+    float: right;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.btn_searchRestName{
+	width: 150px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin: 15px 10px 0 0;
+    font-weight: bold;
+    float: right;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.btn_addSearch{
+	width: 150px;
+    border-radius: 30px;
+    background-color: #ffd274;
+    color: white;
+    font-size: 20px;
+    margin: 15px 10px 0 0;
+    font-weight: bold;
+    float: right;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;	
+}
+
+.div_inputEmailBox{
+	display: flex;
+}
+
+.div_SearchRestName{
+	display: flex;
+}
+
+.div_wrapPwdOneBox i{
+    position: absolute;
+    left: 60%;
+    top: 70px;
+    color: #ffd274;
+    font-size: 20px;
+}
+
+.div_wrapPwdOneBox {
+	position: relative;
+	align-items: center;	
+}
+.div_wrapPwdTwoBox {
+	position: relative;
+	align-items: center;
+}
+
+.div_wrapPwdTwoBox i{
+    position: absolute;
+    left: 60%;
+    top: 70px;
+    color: #ffd274;
+    font-size: 20px;
+}
+
+.div_wrapSemiAdd{
+	display: flex;
+}

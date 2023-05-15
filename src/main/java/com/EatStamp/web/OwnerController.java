@@ -2,6 +2,9 @@ package com.EatStamp.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.SearchVO;
 import com.EatStamp.service.OwnerService;
 
 /**
@@ -43,6 +49,10 @@ public class OwnerController {
 	/*서비스 빈 주입 */
 	@Resource(name = "ownerService")
 	public OwnerService ownerService;
+	
+	/*비밀번호 암호화용 클래스 빈 주입 */
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
 	
 	
 	/**
@@ -78,7 +88,9 @@ public class OwnerController {
 	 * 2023.05.12					최은지					최초작성
 	 *  ------------------------------------------------------------------------
 	 *  @param	mem_email,
-	 *  			 	mem_pw
+ 	 *					mem_pw
+	 * @return
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/selectOwnerInfoLoginCheck.do", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public ModelAndView selectLoginOwnerInfo(MemberVO vo, 
@@ -146,7 +158,8 @@ public class OwnerController {
 	                mav.setViewName( "/login/login" );
 	                return mav;
 	            
-	            case 4: // 승인 사장 로그인 시도, 이 경우에만 로그인 허용, 회원가입 페이지 작성 후 비밀번호 매치 로직 추가
+	            case 4: // 승인 사장 로그인 시도, 이 경우에만 로그인 허용, 
+	            			//비밀번호 매치 로직 추가
 	            	
 	            	session.setAttribute("owner", login); //로그인 정보 전달
 	            	
@@ -191,6 +204,8 @@ public class OwnerController {
 	 * ------------------------------------------------------------------------
 	 * 2023.05.15					최은지					최초작성
 	 *  ------------------------------------------------------------------------
+ 	*  @return
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/ownerLogout.do")
 	public String ownerLogout(HttpSession session, HttpServletResponse response) throws IOException {
@@ -228,6 +243,7 @@ public class OwnerController {
 	 * ------------------------------------------------------------------------
 	 * 2023.05.15					최은지					최초작성
 	 *  ------------------------------------------------------------------------
+	 * @return
 	 */
 	@RequestMapping(value = "/ownerMypage.do")
 	public String ownerMypage() {
@@ -324,6 +340,7 @@ public class OwnerController {
 			return "/owner/ownerLoginView";
 		}
 	
+	
 	/**
 	 * <pre>
 	 * 처리내용: 가게 사장 회원가입 페이지로 이동
@@ -336,6 +353,8 @@ public class OwnerController {
 	 * ------------------------------------------------------------------------
 	 * 2023.05.15					최은지					최초작성
 	 *  ------------------------------------------------------------------------
+	 * @return 
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/ownerSignUp.do")
 	public String ownerSignUp() {
@@ -343,6 +362,74 @@ public class OwnerController {
 		return "/owner/ownerSignUpView";
 	}
 	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 가게 사장 회원가입 중 상호명 검색 팝업 페이지 이동
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 최은지
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.15					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/goRestSearchPopUp.do")
+	public String goRestNameSearchPopUp() throws Exception {
+		
+		return "/owner/ownerRestSearchPopup";
+	}
+	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 가게 사장 회원가입 중 상호명 검색 처리
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 최은지
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.15					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 *  @param : search_keyword //검색 키워드
+	 * @throws Exception
+	 * @return
+	 */
+	@RequestMapping(value = "/selectSearchRestName.do",  method = RequestMethod.POST)
+	public ModelAndView selectRestList(@RequestParam("search_keyword") String search_keyword) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		Map<String,Object> map = new HashMap<>();
+		List<SearchVO> list = null;
+	
+		/* 검색 키워드 set */
+		map.put("search_keyword", search_keyword);
+		
+		/* 검색된 결과물 수 조회 */
+		int count = ownerService.selectRestRowCount(map);
+		logger.debug("<<count>> : " + count);
+		
+		if ( 0 < count ) {
+			/* 검색 결과 조회 */
+			list = ownerService.selectRestList(map);
+			
+			mav.addObject("count", count);
+			mav.addObject("list", list);
+			
+		} else {
+			mav.addObject("count", count);
+		}
+		
+		mav.setViewName("/owner/ownerRestSearchPopup");
+		
+		return mav;
+	}
 	
 	
 	/**
@@ -357,21 +444,47 @@ public class OwnerController {
 	 * ------------------------------------------------------------------------
 	 * 2023.05.15					최은지					최초작성
 	 *  ------------------------------------------------------------------------
-	 *  @param	
-	 */
-	public ModelAndView insertOwnerSignUpInfo(
-			
+	 *  @param	mem_email //회원 입력 이메일
+	 *  				mem_pw //회원 입력 비밀번호
+	 *  				mem_pwCheck //회원 입력 비밀번호 확인
+	 *  				mem_nick //회원 닉네임(기존 db 등록 상호명)
+	 *  				mem_new_nick //회원 닉네임(기존 db 미등록 신규 상호명)
+	 *  				r_add //회원 입력 가게 주소
+	 *  				r_semi_add //회원 입력 가게 세부주소
+	 * @throws Exception
+	 * @return
+	 */	
+	@RequestMapping(value = "/insertOwnerSignUpInfo.do",  method = RequestMethod.POST)
+	public ModelAndView insertOwnerSignUpInfo(@RequestParam("mem_email") String mem_email, 
+																	@RequestParam("mem_pw") String mem_pw, 
+																	@RequestParam("mem_pwCheck") String mem_pwCheck, 
+																	@RequestParam("mem_nick") String mem_nick,
+																	@RequestParam("mem_new_nick") String mem_new_nick,
+																	@RequestParam("r_add") String r_add,
+																	@RequestParam("r_semi_add") String r_semi_add
 		) throws Exception {
 		
-		/* mav 객체 생성 */
+		/* ModelAndView 객체 생성 */
 	    ModelAndView mav = new ModelAndView();
-		
+	   
+	    if ( mem_new_nick.equals( "" ) ) { //신규 상호명 입력값이 공백일 경우(기존 db데이터 등록 가게)
+	    	//r_name으로 사전 가입여부 조회
+	    	//가입이 되지 않았을 경우에만 비밀번호 암호화 후 회원가입 insert 진행
+	    	//rest 테이블에 r_num을 통해 조회, r_block = 1, r_resveCode =N 컬럼 update
+	    	//이메일 인증코드 전송
+	    	//알림 메시지 출력 
+	    	
+	    } else { //신규 상호명 입력값이 있을 경우 (기존 db 데이터 미등록 가게)
+	    	//비밀번호 암호화 후 회원가입 insert 진행 
+	    	//rest 테이블에 r_num, r_name 컬럼만 넣어 insert 진행
+	    	//이메일 인증코드 전송
+	    	//알림메시지 출력
+	    }
+	    
+	    
 	    return mav;
 	}
 	
 
-	/*
-	 * 커밋용 주석
-	 */
 	
 }

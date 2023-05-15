@@ -1,9 +1,13 @@
 package com.EatStamp.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.SearchVO;
 import com.EatStamp.mapper.OwnerMapper;
 import com.EatStamp.service.OwnerService;
 
@@ -50,6 +54,18 @@ public class OwnerServiceImpl implements OwnerService {
 	@Override
 	public int updateOwnerPW(MemberVO memberVO) throws Exception {
 		return ownerMapper.updateOwnerPW(memberVO);
+	}
+
+
+	@Override
+	public int selectRestRowCount(Map<String, Object> map) throws Exception {
+		return ownerMapper.selectCountOwnerSignUpRestResult(map);
+	}
+
+
+	@Override
+	public List<SearchVO> selectRestList(Map<String, Object> map) throws Exception {
+		return ownerMapper.selectOwnerSignUpRestResult(map);
 	}
 	
 	
