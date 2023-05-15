@@ -51,7 +51,7 @@
   			COUNT(*) 
   		FROM eatstamp.member 
 	    <where>
-	    	AND mem_admin_auth != 1
+	    	AND mem_admin_auth IN (0, 2)
 	        <if test="searchType != '' and searchKeyword != ''">
 	            <choose>
 	                <when test="searchType == 'email'">
@@ -276,5 +276,72 @@
 			    </choose> 
 			</if>
 	</select>
+	
+	<!-- 0515 이예지 최초 생성  -->
+	<!-- 관리자 - 사장님 관리 목록 조회 -->
+ 	<!-- memberAdminMapper.selectListOwner  -->
+ 	<select id="selectListOwner" parameterType="map" resultType="memberVO">
+ 		SELECT	mem_num,
+				mem_email,
+				mem_nick,
+				mem_admin_auth
+		FROM(
+				SELECT	@rownum:=@rownum+1 AS rn,
+						mem_num,
+						mem_email,
+						mem_nick,
+						CASE 
+							WHEN mem_admin_auth = '3' THEN 1
+							ELSE 2
+						END AS status_order,
+						mem_admin_auth
+				FROM 	eatstamp.member, (SELECT @rownum:=0) TMP
+		        <where>
+			        	AND mem_admin_auth IN (3, 4, 5)
+			            <if test="searchType != '' and searchKeyword != ''">
+			                <choose>
+			                    <when test="searchType == 'email'">
+			                        AND mem_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			                    </when>
+			                    <when test="searchType == 'nick'">
+			                        AND mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+			                    </when>
+			                </choose>
+			            </if>
+		        </where>
+				ORDER BY status_order ASC, mem_num DESC
+			) t1
+		WHERE rn BETWEEN #{start} and #{end}
+ 	</select>
+ 	
+ 	<!-- 0515 이예지 최초 생성  -->
+	<!-- 관리자 - 사장님 관리 목록 개수 조회 -->
+ 	<!-- memberAdminMapper.selectListOwnerCnt  -->
+ 	<select id="selectListOwnerCnt" resultType="int">
+ 	  	SELECT	COUNT(*) 
+  		FROM 	eatstamp.member 
+	    <where>
+	    		AND	mem_admin_auth IN (3, 4, 5)
+		        <if test="searchType != '' and searchKeyword != ''">
+		            <choose>
+		                <when test="searchType == 'email'">
+		                    AND mem_email LIKE CONCAT('%', #{searchKeyword}, '%')
+		                </when>
+		                <when test="searchType == 'nick'">
+		                    AND mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+		                </when>
+		            </choose>
+		        </if>
+	    </where>
+ 	</select>
+ 	
+ 	<!-- 0515 이예지 최초 생성  -->
+	<!-- 관리자 - 사장님 상태 업데이트 -->
+ 	<!-- memberAdminMapper.updateOwnerStatus  -->
+ 	<update id="updateOwnerStatus" parameterType="map">
+ 	  	UPDATE	eatstamp.member
+  		SET		mem_admin_auth = #{mem_admin_auth}
+  		WHERE	mem_num = #{mem_num}
+ 	</update>
   	
 </mapper>

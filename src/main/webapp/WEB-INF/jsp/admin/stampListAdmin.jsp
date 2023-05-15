@@ -153,6 +153,8 @@ select{
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/memberListAdmin.do" style="color: #9d9d9d;">회원 정보 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
+						href="${pageContext.request.contextPath}/adminOwnerList.do" style="color: #9d9d9d;">사장님 정보 관리</a></p>
+					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/restListAdmin.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/stampListAdmin.do">게시글 관리</a></p>

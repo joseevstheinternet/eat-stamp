@@ -74,7 +74,7 @@ public class MemberAdminController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("memberListAdmin");
+		mav.setViewName("admin/memberListAdmin");
 		mav.addObject("count", count);
 		mav.addObject("list", list);
 		mav.addObject("page", page.getPage());
@@ -173,7 +173,7 @@ public class MemberAdminController {
 				mav.addObject("list", list);
 				mav.addObject("list", updatedList);
 				mav.addObject("page", page.getPage());
-				mav.setViewName("reportListAdmin");
+				mav.setViewName("admin/reportListAdmin");
 		
 		return mav;
 		
@@ -297,7 +297,7 @@ public class MemberAdminController {
 			}else {//검색값이 없을 시
 
 	        	mav.addObject("count", count);
-	        	mav.setViewName("reportListAdmin");
+	        	mav.setViewName("admin/reportListAdmin");
 	        	
 				return mav;
 			}
@@ -354,5 +354,59 @@ public class MemberAdminController {
 			
 					return mav;
 		}//신고 검색 end
-		
+	
+		/**
+		 * <pre>
+		 * 관리자 - 사장님 관리: 관리자 페이지의 사장님 관리 목록을 출력한다
+		 * </pre>
+		 * @date : 2023. 05. 15
+		 * @author : 이예지
+		 * @history :
+		 * -------------------------------------------------
+		 * 변경일                  변경자            변경내용
+		 * -------------------------------------------------
+		 * 2023. 05. 15          이예지            최초작성
+		 * -------------------------------------------------
+		 * @param currentPage
+		 * @param searchType
+		 * @param searchKeyword
+		 * @return
+		 * @throws Exception
+		 */
+		@RequestMapping("/adminOwnerList.do")
+		public ModelAndView adminOwnerList (@RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
+											@RequestParam(value = "searchType", defaultValue = "") String searchType,
+											@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) 
+											throws Exception {
+			
+			Map<String,Object> map = new HashMap<>();
+			map.put("searchType", searchType);
+			map.put("searchKeyword", searchKeyword);
+			
+			//글의 총개수(검색된 글의 개수)
+			int count = memberService.selectListOwnerCnt(map);
+			logger.debug("<<count>> : " + count);
+			
+			//페이지 처리
+			PagingUtil page =
+					new PagingUtil(currentPage, count, rowCount, pageCount, "/owner/adminOwnerList.do");
+			
+			List<MemberVO> list = null;
+			if(count > 0) {
+				map.put("start", page.getStartRow());
+				map.put("end", page.getEndRow());
+				
+				list = memberService.selectListOwner(map);
+				
+				map.put("list", list);
+			}
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("admin/adminOwnerList");
+			mav.addObject("count", count);
+			mav.addObject("list", list);
+			mav.addObject("page", page.getPage());
+			
+			return mav;
+		}
 }
