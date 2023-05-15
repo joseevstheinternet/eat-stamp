@@ -28,7 +28,7 @@
 				mem_report_cnt
 			FROM eatstamp.member, (SELECT @rownum:=0) TMP
 	        <where>
-	        	AND mem_admin_auth != 1
+	        	AND mem_admin_auth IN (0, 2)
 	            <if test="searchType != '' and searchKeyword != ''">
 	                <choose>
 	                    <when test="searchType == 'email'">

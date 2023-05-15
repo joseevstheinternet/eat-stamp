@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStamp.mapper.StampOwnerMapper">
+
+	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 가게 리뷰 불러오기 -->
+ 	<!-- stampOwnerMapper.selectOwnerStampList  -->
+ 	<select id="selectOwnerStampList" parameterType="map" resultType="stampVO">
+		SELECT	mem_nick,
+				s_num, 
+				s_title, 
+				s_content, 
+				s_uploadPath,
+				s_fileLoca, 
+				s_fileName, 
+				s_fileRealName, 
+				s_rate, 
+				reg_date, 
+				r_name, 
+				s_view_cnt, 
+				s_publicCode,
+				mem_num
+		FROM(
+		    	SELECT	@rownum:=@rownum+1 AS rn,
+						member.mem_nick, 
+						s_num,
+						s_title,
+						s_content,
+						s_uploadPath,
+						s_fileLoca, 
+						s_fileName, 
+						s_fileRealName, 
+						s_rate,
+						reg_date,
+						r_name,
+						s_view_cnt, 
+						s_publicCode,
+						stamp.mem_num 
+				FROM 	eatstamp.stamp stamp 
+				JOIN 	eatstamp.member member 
+				ON		stamp.mem_num = member.mem_num 
+				JOIN 	(SELECT @rownum:=0) TMP 
+				WHERE 	stamp.r_name = #{mem_nick} 
+				AND		stamp.s_publicCode = 0 
+					    <if test="searchType != '' and searchKeyword != ''">
+					        <choose>
+					            <when test="searchType == 'title'">
+					                AND stamp.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+					            </when>
+					            <when test="searchType == 'writer'">
+					                AND member.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+					            </when>
+					        </choose>
+					    </if> 
+				ORDER BY s_num DESC
+		    ) t1
+		WHERE	rn BETWEEN #{start} and #{end}
+ 	</select>
+ 	
+ 	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 가게 리뷰 개수 구하기 -->
+ 	<!-- stampOwnerMapper.selectOwnerStampCnt  -->
+ 	<select id="selectOwnerStampCnt" resultType="int">
+	 	SELECT	COUNT(*) 
+	    FROM 	eatstamp.stamp stamp 
+	    JOIN 	eatstamp.member member 
+	    ON 		stamp.mem_num = member.mem_num 
+	    WHERE 	stamp.r_name = #{mem_nick} 
+	    AND 	stamp.s_publicCode = 0 
+			    <if test="searchType != '' and searchKeyword != ''">
+			        <choose>
+			            <when test="searchType == 'title'">
+			                AND stamp.s_title LIKE CONCAT('%', #{searchKeyword}, '%')
+			            </when>
+			            <when test="searchType == 'writer'">
+			                AND member.mem_nick LIKE CONCAT('%', #{searchKeyword}, '%')
+			            </when>
+			        </choose>
+			    </if>
+ 	</select>
+
+</mapper>

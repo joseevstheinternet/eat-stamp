@@ -32,7 +32,7 @@ import com.common.utils.PagingUtil;
 public class ResveController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ResveController.class);
-	private int rowCount = 5;
+	private int rowCount = 10;
 	private int pageCount = 10;
 	
 	@Autowired

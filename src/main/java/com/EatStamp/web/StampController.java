@@ -545,7 +545,7 @@ public class StampController {
 		return mav;
 	}
 	
-	//======글 목록=======//
+	//======내가 쓴 댓글 목록=======//
 	@RequestMapping("/stamp/myCmtList.do")
 	public ModelAndView cmtList(
 			HttpSession session,

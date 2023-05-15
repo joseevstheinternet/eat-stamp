@@ -158,7 +158,7 @@ button#pw_restet_checkBtn{
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/owner/ownerResveList.do" style="color: #9d9d9d;">예약 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="#" style="color: #9d9d9d;">식당 리뷰</a></p>
+						href="${pageContext.request.contextPath}/owner/ownerStampList.do" style="color: #9d9d9d;">식당 리뷰</a></p>
 				</div>
 				<!-- 좌측 메뉴바 종료 -->
 				
