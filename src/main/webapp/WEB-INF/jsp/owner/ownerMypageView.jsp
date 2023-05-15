@@ -181,7 +181,7 @@ button#pw_restet_checkBtn{
 							<h2 class="pw">사장님 비밀번호 변경</h2>
 						</div>
 						<div class="section4">
-							<form action="/mypageAdmin_pw.do" method="post" onsubmit="return checks();">
+							<form action="/ownerPW.do" method="post" onsubmit="return checks();">
 							<input type ="hidden" id="mem_num"  name="mem_num" value ="${owner.mem_num}">
 							<input type ="hidden" id="mem_email"  name="mem_email" value ="${owner.mem_email}">
 							

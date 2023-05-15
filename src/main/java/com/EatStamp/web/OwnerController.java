@@ -235,6 +235,94 @@ public class OwnerController {
 		return "/owner/ownerMypageView";
 	}
 	
+	/**
+	 * <pre>
+	 * 처리내용: 가게 사장 비밀번호 변경
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 이예지
+	 * @history :
+	 * -----------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * -----------------------------------------------------------
+	 * 2023.05.15				이예지					최초작성
+	 * -----------------------------------------------------------
+	 * @param mem_num
+	 * @param mem_email
+	 * @param mem_pwCheck
+	 * @param new_mem_pw
+	 * @param session
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/ownerPW.do", method = RequestMethod.POST)
+	public String mypageAdmin_pw (@RequestParam("mem_num") int mem_num, 
+								  @RequestParam("mem_email") String mem_email,
+								  @RequestParam("mem_pwCheck") String mem_pwCheck, 
+								  @RequestParam("new_mem_pw") String new_mem_pw,
+								  HttpSession session, HttpServletResponse response) throws Exception {
+		
+		MemberVO owner = (MemberVO) session.getAttribute("owner");
+		
+		//vo에 값 세팅>>service단으로 넘겨주기
+		MemberVO vo = new MemberVO();	
+		vo.setMem_num(mem_num);
+		vo.setMem_email(mem_email);
+		vo.setMem_pw(new_mem_pw);
+		
+		//멤버 비밀번호 받아오기
+    	MemberVO result = ownerService.selectOwnerPW(vo);
+		
+    	//입력값과 확인값 일치하나 확인
+    	//탈퇴 페이지에서 입력한 비밀번호 확인값 
+    	String pw1 = mem_pwCheck;
+    	
+		//db에 저장된 멤버 비밀번호
+    	String pw2 = result.getMem_pw();
+    	System.out.println("입력한 비밀번호: " + pw1);
+    	System.out.println("현재 비밀번호: " + pw2);
+    	
+    	String newPW = new_mem_pw;
+    	
+    	if(null != owner) {
+	        //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 떄
+	        if(!pw1.equals(pw2)) {
+	        	String message = "현재 비밀번호가 일치하지 않습니다.";
+	            response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('"+ message +"');</script>");
+	            out.flush();
+	            return "/owner/ownerMypageView";
+	        } else {
+	        	 //비밀번호 재설정
+	    	    vo.setMem_pw(newPW);
+	    		
+	    		//db에 수정된 비밀번호 업뎃시키기
+	    	    int result1 = ownerService.updateOwnerPW(vo);
+	    		
+	    	  //업데이트에 성공하지 못한다면
+	    	    if(0 == result1){
+	    	    	return "/owner/ownerMypageView";
+	    	    }
+	    	    
+	    	    //업데이트에 성공시
+			 	session.setAttribute("owner", owner);
+			 	
+			 	//0426 최은지 신규 jsp 페이지 이동 후 이동 페이지에서 세션 제거하는 방식으로 변경
+	            return "/owner/ownerPWChangeAlert";
+	        }
+	        
+    	}//세션값 else end
+
+    		message = "이미 만료된 세션입니다. 다시 로그인해주세요.";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('"+ message +"');</script>");
+            out.flush();
+			
+			return "/owner/ownerLoginView";
+		}
 	
 	/**
 	 * <pre>
