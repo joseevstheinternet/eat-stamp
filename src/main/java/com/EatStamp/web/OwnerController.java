@@ -1,5 +1,6 @@
 package com.EatStamp.web;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.annotation.Resource;
@@ -174,6 +175,44 @@ public class OwnerController {
 	        mav.setViewName( "/login/login" );
 	        return mav;
 	    }
+	}
+	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 가게 사장 로그아웃 처리
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 최은지
+	 * @throws IOException 
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.15					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 */
+	@RequestMapping(value = "/ownerLogout.do")
+	public String ownerLogout(HttpSession session, HttpServletResponse response) throws IOException {
+		
+		if( null != session.getAttribute ( "owner" ) ) {
+			session.invalidate();
+			
+			return "redirect:/";
+			
+		} else {
+		    /* 인코딩 타입 설정 */
+	    	response.setContentType( "text/html; charset=UTF-8" );
+	    	response.setCharacterEncoding( "UTF-8" );
+	    	
+			message = "이미 만료된 세션입니다. 다시 로그인해주세요.";
+            response.setContentType( "text/html; charset=UTF-8" );
+            PrintWriter out = response.getWriter();
+            out.println( "<script>alert('"+ message +"');</script>" );
+            out.flush();
+			
+            return "redirect:/";
+		}
 	}
 	
 	

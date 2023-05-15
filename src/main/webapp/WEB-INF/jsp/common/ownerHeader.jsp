@@ -181,7 +181,7 @@ i.header_user {
 				    
 	$(document).on("click", "#logoutBtn", function(){
 		 if( confirm("정말 로그아웃 하시겠습니까?") ) {
-			 location.href = "/mainAdminLogout.do";
+			 location.href = "/ownerLogout.do";
 			}
 		}); //onclick end
 				    
@@ -249,7 +249,7 @@ function logoutUser() {
     console.log("로그아웃 진행>>>>>");
     clearTimeout(timerchecker);
     var xhr = initAjax();
-    xhr.open("GET", "/mainAdminLogout.do", false);
+    xhr.open("GET", "/ownerLogout.do", false);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             location.reload();
