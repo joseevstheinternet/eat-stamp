@@ -150,7 +150,7 @@ button#pw_restet_checkBtn{
 				<!-- 좌측 메뉴바 -->
 				<div class="mypage-menu">
 					<p class="menu-list"><a class="menu-list" 
-						href="${pageContext.request.contextPath}/owner/ownerMypageView.do">사장님 정보</a></p>
+						href="${pageContext.request.contextPath}/ownerMypage.do">사장님 정보</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="#" style="color: #9d9d9d;">식당 정보 수정</a></p>
 					<p class="menu-list"><a class="menu-list" 

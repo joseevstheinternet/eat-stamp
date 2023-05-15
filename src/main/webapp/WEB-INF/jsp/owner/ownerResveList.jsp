@@ -150,7 +150,7 @@ div.mypage-menu-second{
 				<!-- 좌측 메뉴바 -->
 				<div class="mypage-menu second">
 					<p class="menu-list"><a class="menu-list" 
-						href="${pageContext.request.contextPath}/owner/ownerMypageView.do" style="color: #9d9d9d;">사장님 정보</a></p>
+						href="${pageContext.request.contextPath}/ownerMypage.do" style="color: #9d9d9d;">사장님 정보</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="#" style="color: #9d9d9d;">식당 정보 수정</a></p>
 					<p class="menu-list"><a class="menu-list" 
