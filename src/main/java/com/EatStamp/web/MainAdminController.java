@@ -29,7 +29,7 @@ public class MainAdminController {
 	@RequestMapping(value = "/mainAdmin.do")
 	public String mainGo() {
 			
-		return "mainAdmin";
+		return "admin/mainAdmin";
 	} //메인 페이지 이동 end
 	
 	
@@ -65,7 +65,7 @@ public class MainAdminController {
 		
 		model.addAttribute("admin", member);
 		
-		return "mypageAdmin";
+		return "admin/mypageAdmin";
 	} //메인 페이지 이동 end
 
 	// <0412 이예지> 회원정보 페이지에서 비밀번호 변경
@@ -123,7 +123,7 @@ public class MainAdminController {
 			 	session.setAttribute("admin", member);
 			 	
 			 	//0426 최은지 신규 jsp 페이지 이동 후 이동 페이지에서 세션 제거하는 방식으로 변경
-	            return "pwdChangeAlert";
+	            return "admin/pwdChangeAlert";
 	        }
 	        
     	}//세션값 else end
@@ -171,7 +171,7 @@ public class MainAdminController {
 		            out.println("<script>alert('"+ message +"');</script>");
 		            out.flush();
 		            
-			 		return "mainAdmin"; 
+			 		return "admin/mainAdmin"; 
 			 		
 			 	}else { //로그인 성공
 			 		
@@ -185,7 +185,7 @@ public class MainAdminController {
 		            PrintWriter out = response.getWriter();
 		            out.println("<script>alert('"+ message +"');</script>");
 		            out.flush();
-					return "mypageAdmin"; 
+					return "admin/mypageAdmin"; 
 			 	}
 		
 		//돌아온 값이 비어있다면(존재하지 않는 이메일, 비밀번호 오류, db조회 오류)
@@ -196,7 +196,7 @@ public class MainAdminController {
 	            out.println("<script>alert('"+ message +"');</script>");
 	            out.flush();
 			 	//다시 로그인 페이지로 리턴
-				return "mainAdmin"; 
+				return "admin/mainAdmin"; 
 		 }
 	}
 	

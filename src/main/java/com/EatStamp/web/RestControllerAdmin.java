@@ -63,7 +63,7 @@ public class RestControllerAdmin {
 			}
 		
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("restListAdmin");
+			mav.setViewName("admin/restListAdmin");
 			mav.addObject("count", count);
 			mav.addObject("list", list);
 			mav.addObject("page", page.getPage());
@@ -103,7 +103,7 @@ public class RestControllerAdmin {
 			}
 			
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("restSearchListAdmin"); 
+			mav.setViewName("admin/restSearchListAdmin"); 
 			mav.addObject("count", count);
 			mav.addObject("list", list);
 			mav.addObject("field", field);
@@ -129,7 +129,7 @@ public class RestControllerAdmin {
 			
 			mav.addObject("r_num", r_num);
 			mav.addObject("list", list);
-			mav.setViewName("restDetailAdmin"); 
+			mav.setViewName("admin/restDetailAdmin"); 
 			
 			return mav;
 		}//restSearchGo end
@@ -156,7 +156,7 @@ public class RestControllerAdmin {
 				
 				mav.addObject("r_num", r_num);
 				mav.addObject("list", list);
-	        	mav.setViewName("restDetailAdmin"); 
+	        	mav.setViewName("admin/restDetailAdmin"); 
 				
 				message = "해당 가게가 비공개 처리되었습니다.";
 	            response.setContentType("text/html; charset=UTF-8");
@@ -173,7 +173,7 @@ public class RestControllerAdmin {
 	            out.println("<script>alert('"+ message +"');</script>");
 	            out.flush();
 	            
-	        	mav.setViewName("restDetailAdmin"); 
+	        	mav.setViewName("admin/restDetailAdmin"); 
 	        	
 				return mav;
 			}
@@ -201,7 +201,7 @@ public class RestControllerAdmin {
 				
 				mav.addObject("r_num", r_num);
 				mav.addObject("list", list);
-	        	mav.setViewName("restDetailAdmin"); 
+	        	mav.setViewName("admin/restDetailAdmin"); 
 				
 				message = "해당 가게가 공개 처리되었습니다.";
 	            response.setContentType("text/html; charset=UTF-8");
@@ -218,7 +218,7 @@ public class RestControllerAdmin {
 	            out.println("<script>alert('"+ message +"');</script>");
 	            out.flush();
 	            
-	        	mav.setViewName("restDetailAdmin"); 
+	        	mav.setViewName("admin/restDetailAdmin"); 
 	        	
 				return mav;
 			}
@@ -277,7 +277,7 @@ public class RestControllerAdmin {
 			mav.addObject("r_num", r_num);
 			mav.addObject("list", list);
 		
-			mav.setViewName("restUpdateAdmin"); 
+			mav.setViewName("admin/restUpdateAdmin"); 
 			
 			return mav;
 		}//update end
@@ -385,7 +385,7 @@ public class RestControllerAdmin {
 		@RequestMapping(value = "/restInsert.do")
 		public String restInsertGo(HttpServletResponse response) throws Exception{
 			
-			return "restInsertAdmin";
+			return "admin/restInsertAdmin";
 		}//restSearchGo end
 
 		
@@ -458,7 +458,7 @@ public class RestControllerAdmin {
 			            out.println("<script>alert('"+ message +"');</script>");
 			            out.flush();
 			            
-			            mav.setViewName("restInsertAdmin");
+			            mav.setViewName("admin/restInsertAdmin");
 						
 						return mav;
 					}

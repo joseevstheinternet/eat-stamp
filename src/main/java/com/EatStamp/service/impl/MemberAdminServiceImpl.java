@@ -12,6 +12,13 @@ import com.EatStamp.domain.ReportVO;
 import com.EatStamp.mapper.MemberAdminMapper;
 import com.EatStamp.service.MemberAdminService;
 
+/**
+ * memberAdmin serviceimpl
+ * @version 2.0
+ * @since 2023.05.15
+ * @author 이예지
+ */
+
 @Service
 @Transactional
 public class MemberAdminServiceImpl implements MemberAdminService {
@@ -102,6 +109,16 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 	public int selectReportSearchRowCount(Map<String, Object> map) throws Exception {
 
 		return memberMapper.countReportAdminList(map);
+	}
+
+	@Override
+	public List<MemberVO> selectListOwner(Map<String, Object> map) throws Exception {
+		return memberMapper.selectListOwner(map);
+	}
+
+	@Override
+	public int selectListOwnerCnt(Map<String, Object> map) throws Exception {
+		return memberMapper.selectListOwnerCnt(map);
 	}
 
 }

@@ -6,13 +6,23 @@ import java.util.Map;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.ReportVO;
 
+/**
+ * memberAdmin controller
+ * @version 2.0
+ * @since 2023.05.15
+ * @author 이예지
+ */
+
 public interface MemberAdminService {
 
-	public List<MemberVO> selectMemList(Map<String, Object> map)throws Exception; //회원목록
+	//이예지 관리자 회원 관리 목록
+	public List<MemberVO> selectMemList(Map<String, Object> map)throws Exception;
 	
-	public int selectMemRowCount(Map<String,Object> map)throws Exception; //검색결과 개수 구하기
+	//이예지 관리자 회원 관리 목록 개수 구하기
+	public int selectMemRowCount(Map<String,Object> map)throws Exception;
 	
-	public int updateMemberStatus(Map<String, Object> map)throws Exception; //회원 상태 업데이트
+	//이예지 관리자 회원 상태 업데이트
+	public int updateMemberStatus(Map<String, Object> map)throws Exception;
 	
 	//0428 최은지 관리자 신고 리스트 불러오기
 	public List<ReportVO> getReportAdminList(Map<String, Object> map)throws Exception;
@@ -43,4 +53,40 @@ public interface MemberAdminService {
 	
 	//0504 최은지 회원 신고 리스트 검색 카운트
 	public int selectReportSearchRowCount(Map<String,Object> map)throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용: 관리자 - 사장님 관리 목록 선택
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MemberVO> selectListOwner(Map<String, Object> map) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용: 관리자 - 사장님 관리 목록 개수 선택
+	 * </pre>
+	 * @date : 2023.05.15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectListOwnerCnt(Map<String,Object> map) throws Exception;
 }

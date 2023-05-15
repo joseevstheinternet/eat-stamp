@@ -71,7 +71,7 @@ public class StampAdminController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("stampListAdmin");
+		mav.setViewName("admin/stampListAdmin");
 		mav.addObject("count", count);
 		mav.addObject("list", list);
 		mav.addObject("page", page.getPage());
@@ -90,7 +90,7 @@ public class StampAdminController {
 		stamp.setS_title(StringUtil.useBrNoHtml(stamp.getS_title()));
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("stampDetailAdmin");
+		mav.setViewName("admin/stampDetailAdmin");
 		mav.addObject("stamp", stamp);
 		
 		return mav;

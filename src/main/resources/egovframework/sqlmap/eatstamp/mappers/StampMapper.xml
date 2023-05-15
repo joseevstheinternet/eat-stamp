@@ -105,7 +105,7 @@
   	<!-- 글 상세 -->
   	<select id="selectStamp" parameterType="int" resultType="stampVO">
   		SELECT 
-  			* 
+  			*
   		FROM stamp s JOIN member m USING(mem_num) 
 		WHERE s.s_num=#{s_num}
   	</select>

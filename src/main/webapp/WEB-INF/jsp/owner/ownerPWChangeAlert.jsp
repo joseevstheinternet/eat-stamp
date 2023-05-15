@@ -1,3 +1,12 @@
+<%--
+시스템명 : 가게 사장 비밀번호 변경 완료 페이지
+파일명: ownerPWChangeAlert.jsp
+작성자: 이예지
+작성일자: 2023.05.15
+처리내용: 가게 사장 전용 비밀번호 변경 완료 페이지이다.
+History: 이예지, 2023.05.15 최초 작성
+ --%>
+
 <%@ page import="com.EatStamp.domain.MemberVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

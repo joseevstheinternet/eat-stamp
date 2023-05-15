@@ -8,14 +8,24 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.ReportVO;
 
+/**
+ * memberAdmin mapper
+ * @version 2.0
+ * @since 2023.05.15
+ * @author 이예지
+ */
+
 @Mapper("memberAdminMapper")
 public interface MemberAdminMapper {
 
-	public List<MemberVO> selectMemList(Map<String, Object> map)throws Exception; //회원목록
+	//이예지 관리자 회원 관리 목록
+	public List<MemberVO> selectMemList(Map<String, Object> map)throws Exception;
 	
-	public int selectMemRowCount(Map<String,Object> map)throws Exception; //검색결과 개수 구하기
+	//이예지 관리자 회원 관리 목록 개수 구하기
+	public int selectMemRowCount(Map<String,Object> map)throws Exception;
 	
-	public int updateMemberStatus(Map<String, Object> map)throws Exception; //회원 상태 업데이트
+	//이예지 관리자 회원 상태 업데이트
+	public int updateMemberStatus(Map<String, Object> map)throws Exception;
 
 	//0428 최은지 관리자 신고 내역 불러오기
 	public List<ReportVO> getReportAdminList(Map<String, Object> map)throws Exception;
@@ -46,4 +56,10 @@ public interface MemberAdminMapper {
 	
 	//0504 최은지 회원 신고 리스트 카운트
 	public int countReportAdminList(Map<String,Object> map)throws Exception; 
+	
+	//0515 이예지 관리자 - 사장님 관리 목록
+	public List<MemberVO> selectListOwner(Map<String, Object> map) throws Exception;
+	
+	//0515 이예지 관리자 - 사장님 관리 목록 개수 구하기
+	public int selectListOwnerCnt(Map<String,Object> map) throws Exception;
 }

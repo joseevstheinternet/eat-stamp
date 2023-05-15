@@ -12,7 +12,7 @@ div#wrap{
 
 div.mypage-menu {
     width: 150px;
-    height: 190px;
+    height: 220px;
     background: white;
     border-radius: 25px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
@@ -21,7 +21,7 @@ div.mypage-menu {
 
 div.mypage-div02{
 	flex: 4;
-    margin-left: 100px;
+    margin-left: 86px;
 }
 
 a.menu-list{

@@ -25,37 +25,17 @@ div.stamp-table-name{
 }
 
 span.table-image{
-	width: 30px;
+	width: 50px;
     text-align: center;
 }
 
 span.table-title{
-    width: 170px;
+    width: 250px;
     text-align: center;
 }
 
 span.table-rname{
-    width: 80px;
-    text-align: center;
-}
-
-span.table-regdate{
-    width: 80px;
-    text-align: center;
-}
-
-span.table-writer{
-    width: 60px;
-    text-align: center;
-}
-
-span.table-branch{
-    width: 60px;
-    text-align: center;
-}
-
-span.table-report{
-    width: 60px;
+    width: 150px;
     text-align: center;
 }
 
@@ -65,7 +45,7 @@ span.table-auth{
 }
 
 span.table-suspend{
-    width: 50px;
+    width: 120px;
     text-align: center;
 }
 
@@ -77,39 +57,23 @@ div.list-span01{
 	margin-left: 0px;
 }
 
+div.box-section1{
+	justify-content: space-between;
+}
+
 div.box-no{
-	width: 30px;
+	width: 50px;
     text-align: center;
 }
 
 div.box-title{
-	width: 155px;
-    padding-left: 10px;
+	width: 250px;
+    text-align: center;
 }
 
 div.box-rname{
-	width: 90px;
+	width: 150px;
 	text-align: center;
-}
-
-div.box-date{
-	width: 80px;
-    text-align: center;
-}
-
-div.box-mem{
-    width: 50px;
-    text-align: center;
-}
-
-div.box-mem2{
-	width: 68px;
-    text-align: center;
-}
-
-div.box-mem2-1{
-    width: 60px;
-    text-align: center;
 }
 
 div.box-mem3{
@@ -118,7 +82,7 @@ div.box-mem3{
 }
 
 div.box-mem4{
-	width: 50px;
+	width: 120px;
 	text-align: center;
 }
 
@@ -172,22 +136,6 @@ select{
     border: 1px solid #ffc06c;
     border-radius: 20px;
     color: #ffc06c;
-/*     text-align: center; */
-}
-
-/* select option{ */
-/*     text-align: center; */
-/*     border-radius: 0; */
-/*     margin-left: -20px; */
-/* } */
-
-div.mypage-menu-second{
-    width: 150px;
-    height: 190px;
-    background: white;
-    border-radius: 25px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    padding: 20 0 20 30px;
 }
 
 </style>
@@ -196,7 +144,7 @@ div.mypage-menu-second{
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 회원 정보 관리</title>
+<title>EatStamp - 사장님 정보 관리</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");
@@ -235,11 +183,13 @@ div.mypage-menu-second{
 		<c:when test="${!empty admin}">
 			<div id="wrap">
 				<!-- 좌측 메뉴바 -->
-				<div class="mypage-menu-second">
+				<div class="mypage-menu">
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/mypageAdmin.do" style="color: #9d9d9d;">관리자 정보</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="${pageContext.request.contextPath}/memberListAdmin.do">회원 정보 관리</a></p>
+						href="${pageContext.request.contextPath}/memberListAdmin.do" style="color: #9d9d9d;">회원 정보 관리</a></p>
+					<p class="menu-list"><a class="menu-list" 
+						href="${pageContext.request.contextPath}/adminOwnerList.do">사장님 정보 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/restListAdmin.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
@@ -253,19 +203,18 @@ div.mypage-menu-second{
 				<div class="mypage-div02">
 					<!-- 상단 타이틀 -->
 					<div class="mypage-section1">
-						<span class="mypage-title">회원 정보 관리</span>
+						<span class="mypage-title">사장님 정보 관리</span>
 					</div>
 					<!-- 상단 타이틀 끝 -->
 					<!-- 검색창 -->
 					<div class="mypage-section1-search">
-					    <form action="memberListAdmin.do" method="get">
+					    <form action="adminOwnerList.do" method="get">
 					        <select name="searchType">
 					            <option value="email">이메일</option>
-					            <option value="nick">닉네임</option>
+					            <option value="nick">상호명</option>
 					        </select>
 					        <span class="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
 					        <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요">
-					        <!-- <button type="submit" class="searchBtn">검색</button> -->
 					    </form>
 					</div>
 					<!-- 검색창 끝 -->
@@ -279,65 +228,44 @@ div.mypage-menu-second{
 								<div class="stamp-table-name">
 									<span class="table-image table">no.</span>
 									<span class="table-title table">이메일</span>
-									<span class="table-rname table">닉네임</span>
-									<span class="table-regdate table">생년월일</span>
-									<span class="table-writer table">성별</span>
-									<span class="table-branch table">가입방식</span>
-									<span class="table-report table">신고누적</span>
-									<span class="table-auth table">회원상태</span>
+									<span class="table-rname table">상호명</span>
+									<span class="table-auth table">상태</span>
 									<span class="table-suspend table">상태변경</span>
 								</div>
 								<hr class="line2"/>
-								<c:forEach var="member" items="${list}" varStatus="status">
+								<c:forEach var="owner" items="${list}" varStatus="status">
 									<li class="list-list">
 										<div class="list-span01">
 											<div class="box-section1">
 												<div class="box-no">
-													<span class="font-set2" style="color:#b5b5b5;">${member.mem_num}</span>
+													<span class="font-set2" style="color:#b5b5b5;">${owner.mem_num}</span>
 												</div>
 												<div class="box-title">
-													<span class="font-set2">${member.mem_email}</span>
+													<span class="font-set2">${owner.mem_email}</span>
 												</div>
 												<div class="box-rname">
-													<span class="font-set2">${member.mem_nick}</span>
-												</div>
-												<div class="box-date">
-													<span class="font-set3">${member.mem_birth}</span>
-												</div>
-												<div class="box-mem">
-													<span class="font-set2">
-														<c:choose>
-														    <c:when test="${member.mem_genderCode == 'F'}">여</c:when>
-														    <c:when test="${member.mem_genderCode == 'M'}">남</c:when>
-														</c:choose>
-													</span>
-												</div>
-												<div class="box-mem2">
-													<span class="font-set2">
-														<c:choose>
-														    <c:when test="${member.mem_branchCode == 'C'}">일반</c:when>
-														    <c:when test="${member.mem_branchCode == 'K'}">카카오</c:when>
-														</c:choose>
-													</span>
-												</div>
-												<div class="box-mem2-1">
-													<span class="font-set2">${member.mem_report_cnt} 회</span>
+													<span class="font-set2">${owner.mem_nick}</span>
 												</div>
 												<div class="box-mem3">
 													<span class="font-set2">
 														<c:choose>
-														    <c:when test="${member.mem_admin_auth == '0'}">일반회원</c:when>
-														    <c:when test="${member.mem_admin_auth == '2'}">정지회원</c:when>
+														    <c:when test="${owner.mem_admin_auth == '3'}">미승인</c:when>
+														    <c:when test="${owner.mem_admin_auth == '4'}">승인</c:when>
+														    <c:when test="${owner.mem_admin_auth == '5'}">정지</c:when>
 														</c:choose>
 													</span>
 												</div>
 												<div class="box-mem4">
 												    <c:choose>
-												        <c:when test="${member.mem_admin_auth == 0}">
-												            <button class="update-btn" onclick="updateMemberStatus(${member.mem_num}, 2)" style="background-color:#b5b5b5">정지</button>
+												        <c:when test="${owner.mem_admin_auth == 3}">
+												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 4)">승인</button>
+												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 5)" style="background-color:#b5b5b5">거절</button>
 												        </c:when>
-												        <c:when test="${member.mem_admin_auth == 2}">
-												            <button class="update-btn" onclick="updateMemberStatus(${member.mem_num}, 0)">일반</button>
+												        <c:when test="${owner.mem_admin_auth == 4}">
+												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 5)" style="background-color:#b5b5b5">정지</button>
+												        </c:when>
+												        <c:when test="${owner.mem_admin_auth == 5}">
+												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 4)">일반</button>
 												        </c:when>
 												    </c:choose>
 												</div>

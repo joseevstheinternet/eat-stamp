@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.EatStamp.mapper.ResveMapper">
 
-	<!-- 사장님 - 예약 목록 -->
+	<!-- 0512 이예지 최초 생성  -->
+	<!-- 사장님 - 예약 목록 조회 -->
+ 	<!-- resveMapper.selectListResve  -->
 	<select id="selectListResve" parameterType="map" resultType="resveVO">
 		SELECT  resve_num,
 				r_num,
@@ -38,7 +40,9 @@
 		WHERE	rn BETWEEN #{start} and #{end}
 	</select>
 	
+	<!-- 0512 이예지 최초 생성  -->
 	<!-- 사장님 - 예약 개수 선택 -->
+ 	<!-- resveMapper.selectResveCnt  -->
 	<select id="selectResveCnt" parameterType="map" resultType="int">
 		SELECT	COUNT(*) 
 		FROM 	eatstamp.resve resve 
@@ -49,7 +53,9 @@
 		WHERE 	member.mem_nick = #{mem_nick}
 	</select>
 
+	<!-- 0512 이예지 최초 생성  -->
 	<!-- 사장님 - 예약 상태 업데이트 -->
+ 	<!-- resveMapper.updateResveStatus  -->
 	<update id="updateResveStatus" parameterType="map">
 		UPDATE	eatstamp.resve 
 		SET 	resve_sttus = #{resve_sttus}
