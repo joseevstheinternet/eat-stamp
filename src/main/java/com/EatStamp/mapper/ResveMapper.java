@@ -21,5 +21,5 @@ public interface ResveMapper {
 	
 	public int selectResveCnt(Map<String, Object> map) throws Exception; //예약 개수 구하기
 	
-	public String updateResveStatus(Map<String, Object> map)throws Exception; //회원 상태 업데이트
+	public int updateResveStatus(Map<String, Object> map) throws Exception; //회원 상태 업데이트
 }

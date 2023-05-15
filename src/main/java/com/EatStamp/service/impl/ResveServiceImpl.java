@@ -36,7 +36,7 @@ public class ResveServiceImpl implements ResveService {
 	}
 
 	@Override
-	public String updateResveStatus(Map<String, Object> map) throws Exception {
+	public int updateResveStatus(Map<String, Object> map) throws Exception {
 		return resveMapper.updateResveStatus(map);
 	}
 
