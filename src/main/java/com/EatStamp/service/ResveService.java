@@ -43,12 +43,13 @@ public interface ResveService {
 	 * 변경일                  변경자            변경내용
 	 * -------------------------------------------------
 	 * 2023. 05. 12          이예지            최초작성
+	 * 2023. 05. 15			 이예지			 Type 변경
 	 * -------------------------------------------------
-	 * @param r_num
+	 * @param map
 	 * @return
 	 * @throws Exception
 	 */
-	public int selectResveCnt(String mem_nick) throws Exception;
+	public int selectResveCnt(Map<String, Object> map) throws Exception;
 	
 	/**
 	 * <pre>

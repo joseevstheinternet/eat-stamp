@@ -19,7 +19,7 @@ public interface ResveMapper {
 
 	public List<ResveVO> selectListResve(Map<String, Object> map) throws Exception; //예약 목록
 	
-	public int selectResveCnt(String mem_nick) throws Exception; //예약 개수 구하기
+	public int selectResveCnt(Map<String, Object> map) throws Exception; //예약 개수 구하기
 	
 	public String updateResveStatus(Map<String, Object> map)throws Exception; //회원 상태 업데이트
 }

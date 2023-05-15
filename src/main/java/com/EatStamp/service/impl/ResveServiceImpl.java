@@ -31,8 +31,8 @@ public class ResveServiceImpl implements ResveService {
 	}
 
 	@Override
-	public int selectResveCnt(String mem_nick) throws Exception {
-		return resveMapper.selectResveCnt(mem_nick);
+	public int selectResveCnt(Map<String, Object> map) throws Exception {
+		return resveMapper.selectResveCnt(map);
 	}
 
 	@Override

@@ -5,7 +5,6 @@
 	<!-- 사장님 - 예약 목록 -->
 	<select id="selectListResve" parameterType="map" resultType="resveVO">
 		SELECT  resve_num,
-				mem_num,
 				r_num,
 				resve_date,
 				resve_memCnt,
@@ -16,22 +15,31 @@
 		FROM(
 			SELECT	@rownum:=@rownum+1 AS rn,
 					resve_num,
-					mem_num,
-					r_num,
+					resve.r_num,
 					resve_date,
 					resve_memCnt,
 					resve_chk,
+					CASE 
+						WHEN resve_sttus = 'W' THEN 1
+						ELSE 2
+					END AS status_order,
 					resve_sttus,
 					resve_name,
 					resve_phoneNum
-			FROM	eatstamp.resve, (SELECT @rownum:=0) TMP
-			WHERE	r_num = #{r_num}
-			ORDER	BY resve_date DESC
+			FROM	eatstamp.resve resve 
+			JOIN 	eatstamp.rest rest 
+			ON		resve.r_num = rest.r_num 
+			JOIN 	eatstamp.member member 
+			ON 		rest.r_name = member.mem_nick 
+			JOIN	(SELECT @rownum:=0) TMP 
+			WHERE	member.mem_nick = #{mem_nick} 
+			ORDER	BY status_order ASC, resve_date DESC
 			) t1
 		WHERE	rn BETWEEN #{start} and #{end}
 	</select>
 	
-	<select id="selectResveCnt" parameterType="String" resultType="int">
+	<!-- 사장님 - 예약 개수 선택 -->
+	<select id="selectResveCnt" parameterType="map" resultType="int">
 		SELECT	COUNT(*) 
 		FROM 	eatstamp.resve resve 
 		JOIN 	eatstamp.rest rest 
@@ -41,6 +49,7 @@
 		WHERE 	member.mem_nick = #{mem_nick}
 	</select>
 
+	<!-- 사장님 - 예약 상태 업데이트 -->
 	<update id="updateResveStatus" parameterType="map">
 		UPDATE	eatstamp.resve 
 		SET 	resve_sttus = #{resve_sttus}

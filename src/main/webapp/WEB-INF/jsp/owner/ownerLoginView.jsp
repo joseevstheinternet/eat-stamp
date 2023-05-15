@@ -10,7 +10,7 @@ History: 최은지, 2023.05.12 최초 작성
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" 								prefix="c" %>
 <%-- 헤더 삽입 --%>
-<%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/ownerHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@ History: 최은지, 2023.05.12 최초 작성
 
 <%-- css 링크 연결 --%>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/css//ownerLogin.css'/>" />	
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/ownerLogin.css'/>" />	
 
 <%-- fontawsome 아이콘 사용 CDN --%>
 <link rel="stylesheet"

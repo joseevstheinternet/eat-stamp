@@ -10,7 +10,7 @@ History: 최은지, 2023.05.15 최초 작성
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" 								prefix="c" %>
 <%-- 헤더 삽입 --%>
-<%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/ownerHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
