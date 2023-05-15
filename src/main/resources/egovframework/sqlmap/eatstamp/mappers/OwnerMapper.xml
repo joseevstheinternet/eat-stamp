@@ -17,6 +17,25 @@
 			FROM	member
 			WHERE	mem_email = #{mem_email}
 	</select>
-			
 	
+	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 비밀번호 변경용 비밀번호 받아오기 -->
+	<!-- ownerMapper.selectOwnerPW  -->
+	<select id="selectOwnerPW" parameterType="memberVO"  resultType="memberVO">
+		SELECT	mem_num,
+				mem_email,
+				mem_pw
+		FROM 	member
+		WHERE	mem_num= #{mem_num}
+	</select>
+		
+	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 비밀번호 재설정 -->
+	<!-- ownerMapper.updateOwnerPW  -->
+	<update id="updateOwnerPW" parameterType="memberVO">
+		UPDATE	member
+		SET		mem_pw = #{mem_pw}
+		WHERE	mem_email=#{mem_email}
+	</update>
+			
 </mapper>

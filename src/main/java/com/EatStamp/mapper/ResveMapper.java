@@ -17,9 +17,12 @@ import com.EatStamp.domain.ResveVO;
 @Mapper("resveMapper")
 public interface ResveMapper {
 
-	public List<ResveVO> selectListResve(Map<String, Object> map) throws Exception; //예약 목록
+	//0512 이예지 사장님 - 예약 목록
+	public List<ResveVO> selectListResve(Map<String, Object> map) throws Exception;
 	
-	public int selectResveCnt(Map<String, Object> map) throws Exception; //예약 개수 구하기
+	//0512 이예지 사장님 - 예약 개수 구하기
+	public int selectResveCnt(Map<String, Object> map) throws Exception;
 	
-	public String updateResveStatus(Map<String, Object> map)throws Exception; //회원 상태 업데이트
+	//0512 이예지 사장님 - 예약 상태 업데이트
+	public int updateResveStatus(Map<String, Object> map) throws Exception;
 }

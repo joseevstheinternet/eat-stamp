@@ -137,11 +137,11 @@ i.header_user {
 			<div id="header_first">
 				<c:choose>
 					<c:when test="${!empty owner}">
-						<a href="${pageContext.request.contextPath}/owner/ownerMypageView.do">
+						<a href="${pageContext.request.contextPath}/ownerMypage.do">
 						<img src="${pageContext.request.contextPath}/images/common/logo.png" id="header_logo"></a>
 					</c:when>
 					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/owner/ownerLoginView.do">
+						<a href="${pageContext.request.contextPath}/ownerLogin.do">
 						<img src="${pageContext.request.contextPath}/images/common/logo.png" id="header_logo"></a>
 					</c:otherwise>
 				</c:choose>
@@ -149,10 +149,10 @@ i.header_user {
 			<div id="header_second">
 				<c:choose>
 					<c:when test="${!empty owner}">
-						<a href="${pageContext.request.contextPath}/owner/ownerMypageView.do" id="header_title">EAT STAMP REST</a>
+						<a href="${pageContext.request.contextPath}/ownerMypage.do" id="header_title">EAT STAMP REST</a>
 					</c:when>
 					<c:otherwise>
-						<a href="${pageContext.request.contextPath}/owner/ownerLoginView.do" id="header_title">EAT STAMP REST</a>
+						<a href="${pageContext.request.contextPath}/ownerLogin.do" id="header_title">EAT STAMP REST</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -170,7 +170,7 @@ i.header_user {
 					<a><i id="logoutBtn" class="fa-solid fa-right-to-bracket header_search"></i></a>
 				</c:if>
 				<c:if test="${empty owner}">
-					<a href="${pageContext.request.contextPath}/owner/ownerLoginView.do"><i class="fa-solid fa-right-from-bracket header_search"></i></a>
+					<a href="${pageContext.request.contextPath}/ownerLogin.do"><i class="fa-solid fa-right-from-bracket header_search"></i></a>
 				</c:if>
 			</div>
 		</div>

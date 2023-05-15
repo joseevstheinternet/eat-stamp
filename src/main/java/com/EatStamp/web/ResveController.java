@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.EatStamp.domain.MemberVO;
@@ -43,6 +44,23 @@ public class ResveController {
 		return new ResveVO();
 	}
 	
+	/**
+	 * <pre>
+	 * 예약목록: 사장님 페이지의 예약 목록을 출력한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param session
+	 * @param currentPage
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/ownerResveList.do")
 	public ModelAndView resveOwner (HttpSession session, 
 									@RequestParam(value="pageNum",defaultValue="1") int currentPage) throws Exception {
@@ -78,7 +96,23 @@ public class ResveController {
 		return mav;
 	}
 	
-	
+	//=========회원 상태 변경========//
+	@RequestMapping("/owner/updateResveStatus.do")
+	@ResponseBody
+	public String updateResveStatus (@RequestParam(value = "resve_num") int resve_num, 
+									 @RequestParam(value = "resve_sttus") String resve_sttus) throws Exception {
+		
+		//파라미터를 Map에 저장
+		Map<String, Object> map = new HashMap<>();
+		map.put("resve_num", resve_num);
+		map.put("resve_sttus", resve_sttus);
+		
+		//회원 상태 업데이트 서비스 호출
+		int result = resveService.updateResveStatus(map);
+		
+		//업데이트 결과에 따라 성공/실패 문자열 반환
+		return (result > 0) ? "success" : "failure";
+	}
 	
 	
 	

@@ -39,6 +39,18 @@ public class OwnerServiceImpl implements OwnerService {
 			
 		return ownerMapper.selectLoginOwnerInforCheck(vo);
 	}
+
+
+	@Override
+	public MemberVO selectOwnerPW(MemberVO memberVO) throws Exception {
+		return ownerMapper.selectOwnerPW(memberVO);
+	}
+
+
+	@Override
+	public int updateOwnerPW(MemberVO memberVO) throws Exception {
+		return ownerMapper.updateOwnerPW(memberVO);
+	}
 	
 	
 }
