@@ -5,12 +5,13 @@ import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
 
 /**
  * resve mapper
- * @version 1.0
- * @since 2023.05.12
+ * @version 1.1
+ * @since 2023.05.15
  * @author 이예지
  */
 
@@ -25,4 +26,11 @@ public interface ResveMapper {
 	
 	//0512 이예지 사장님 - 예약 상태 업데이트
 	public int updateResveStatus(Map<String, Object> map) throws Exception;
+	
+	//0515 이예지 사장님 - 식당 관리(예약 정보) 선택
+	public RestVO selectOwnerSetting(String r_name) throws Exception;
+	
+	//0515 이예지 사장님 - 식당 관리(예약 정보) 업데이트
+	public void updateOwnerSetting(RestVO rest) throws Exception;
+
 }

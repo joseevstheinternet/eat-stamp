@@ -1,3 +1,12 @@
+<%--
+시스템명 : 관리자 - 사장님 관리 화면
+파일명: adminOwnerList.jsp
+작성자: 이예지
+작성일자: 2023.05.15
+처리내용: 관리자 전용 사장님 관리 페이지이다.
+History: 이예지, 2023.05.15 최초 작성
+ --%>
+
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -55,6 +64,7 @@ span.table{
 
 div.list-span01{
 	margin-left: 0px;
+	cursor: pointer;
 }
 
 div.box-section1{
@@ -235,7 +245,7 @@ select{
 								<hr class="line2"/>
 								<c:forEach var="owner" items="${list}" varStatus="status">
 									<li class="list-list">
-										<div class="list-span01">
+										<div class="list-span01" onclick="location.href='/restAdminDetail.do?r_num=${owner.r_num}'">
 											<div class="box-section1">
 												<div class="box-no">
 													<span class="font-set2" style="color:#b5b5b5;">${owner.mem_num}</span>

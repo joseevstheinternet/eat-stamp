@@ -61,5 +61,31 @@
 		SET 	resve_sttus = #{resve_sttus}
 		WHERE 	resve_num = #{resve_num}
 	</update>
+	
+	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 - 예약 설정 조회 -->
+ 	<!-- resveMapper.selectRestResve  -->
+ 	<select id="selectOwnerSetting" parameterType="String" resultType="restVO">
+	 	SELECT	r_resveCode,
+				r_resveTime,
+				r_resveDay,
+				r_resveMemCnt,
+				r_resveTableCnt
+		FROM	rest
+		WHERE	r_name = #{r_name}
+ 	</select>
+ 	
+ 	<!-- 0515 이예지 최초 생성  -->
+	<!-- 사장님 - 예약 설정 업데이트 -->
+ 	<!-- resveMapper.updateRestResve  -->
+ 	<update id="updateOwnerSetting" parameterType="restVO">
+ 		UPDATE	rest
+ 		SET		r_resveCode = #{r_resveCode}, 
+				r_resveTime = #{r_resveTime},  
+				r_resveDay = #{r_resveDay}, 
+				r_resveMemCnt = #{r_resveMemCnt}, 
+				r_resveTableCnt = #{r_resveTableCnt}
+  		WHERE	r_name = #{r_name}
+ 	</update>
 
 </mapper>

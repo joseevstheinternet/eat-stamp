@@ -284,18 +284,22 @@
  		SELECT	mem_num,
 				mem_email,
 				mem_nick,
-				mem_admin_auth
+				mem_admin_auth,
+				r_num
 		FROM(
 				SELECT	@rownum:=@rownum+1 AS rn,
-						mem_num,
-						mem_email,
-						mem_nick,
+						member.mem_num,
+						member.mem_email,
+						member.mem_nick,
+						rest.r_num,
 						CASE 
-							WHEN mem_admin_auth = '3' THEN 1
+							WHEN member.mem_admin_auth = '3' THEN 1
 							ELSE 2
 						END AS status_order,
-						mem_admin_auth
-				FROM 	eatstamp.member, (SELECT @rownum:=0) TMP
+						member.mem_admin_auth 
+				FROM 	eatstamp.member 
+				JOIN	eatstamp.rest ON member.mem_nick = rest.r_name 
+				JOIN	(SELECT @rownum:=0) TMP 
 		        <where>
 			        	AND mem_admin_auth IN (3, 4, 5)
 			            <if test="searchType != '' and searchKeyword != ''">
@@ -334,14 +338,5 @@
 		        </if>
 	    </where>
  	</select>
- 	
- 	<!-- 0515 이예지 최초 생성  -->
-	<!-- 관리자 - 사장님 상태 업데이트 -->
- 	<!-- memberAdminMapper.updateOwnerStatus  -->
- 	<update id="updateOwnerStatus" parameterType="map">
- 	  	UPDATE	eatstamp.member
-  		SET		mem_admin_auth = #{mem_admin_auth}
-  		WHERE	mem_num = #{mem_num}
- 	</update>
   	
 </mapper>

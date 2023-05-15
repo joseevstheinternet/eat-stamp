@@ -3,12 +3,13 @@ package com.EatStamp.service;
 import java.util.List;
 import java.util.Map;
 
+import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
 
 /**
  * resve service
- * @version 1.0
- * @since 2023.05.12
+ * @version 1.1
+ * @since 2023.05.15
  * @author 이예지
  */
 
@@ -70,4 +71,39 @@ public interface ResveService {
 	 */
 	public int updateResveStatus(Map<String, Object> map) throws Exception;
 	
+	/**
+	 * <pre>
+	 * 식당설정: 사장님의 식당 예약 설정을 선택한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public RestVO selectOwnerSetting(String r_name) throws Exception;
+
+	/**
+	 * <pre>
+	 * 식당설정변경: 사장님의 식당 예약 설정을 업데이트한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateOwnerSetting(RestVO rest) throws Exception;
 }

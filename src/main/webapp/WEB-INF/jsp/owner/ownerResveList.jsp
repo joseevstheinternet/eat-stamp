@@ -23,6 +23,11 @@ History: 이예지, 2023.05.15 최초 작성
 	    referrerpolicy="no-referrer" />	
 	    
 <style>
+
+div.mypage-menu{
+	height: 190px;
+}
+
 div.stamp-table-name{
 	display: flex;
     justify-content: space-between;
@@ -154,7 +159,7 @@ div.mypage-menu-second{
 					<p class="menu-list"><a class="menu-list" 
 						href="#" style="color: #9d9d9d;">식당 정보 수정</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="#" style="color: #9d9d9d;">식당 관리</a></p>
+						href="${pageContext.request.contextPath}/ownerRestSetting.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/owner/ownerResveList.do">예약 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 

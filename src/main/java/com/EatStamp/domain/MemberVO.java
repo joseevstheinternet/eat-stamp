@@ -45,4 +45,6 @@ public class MemberVO {
 	
 	private int mem_report_cnt;
 	
+	private int r_num; //식당 번호
+	
 }

@@ -19,6 +19,10 @@ History: 이예지, 2023.05.15 최초 작성
 
 <style>
 
+div.mypage-menu{
+	height: 190px;
+}
+
 ul.list-ul{
 	margin: 15px 0;
 }
@@ -177,7 +181,7 @@ select{
 					<p class="menu-list"><a class="menu-list" 
 						href="#" style="color: #9d9d9d;">식당 정보 수정</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="#" style="color: #9d9d9d;">식당 관리</a></p>
+						href="${pageContext.request.contextPath}/ownerRestSetting.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/owner/ownerResveList.do" style="color: #9d9d9d;">예약 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 

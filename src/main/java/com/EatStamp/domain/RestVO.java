@@ -27,4 +27,10 @@ public class RestVO {
 	
 	private int r_like_num; //가게 좋아요 번호
 	private int mem_num; //회원번호
+	
+	private String r_resveCode; //가게 예약 여부
+	private int r_resveTime; //가게 예약 시간 주기
+	private int r_resveDay; //가게 예약 날짜 주기
+	private int r_resveMemCnt; //가게 예약 최대 수용 인원
+	private int r_resveTableCnt; //가게 예약 최대 수용 테이블 수
 }

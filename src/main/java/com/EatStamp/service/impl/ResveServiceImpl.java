@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
 import com.EatStamp.mapper.ResveMapper;
 import com.EatStamp.service.ResveService;
 
 /**
  * resve serviceimpl
- * @version 1.0
- * @since 2023.05.12
+ * @version 1.1
+ * @since 2023.05.15
  * @author 이예지
  */
 
@@ -38,6 +39,16 @@ public class ResveServiceImpl implements ResveService {
 	@Override
 	public int updateResveStatus(Map<String, Object> map) throws Exception {
 		return resveMapper.updateResveStatus(map);
+	}
+
+	@Override
+	public RestVO selectOwnerSetting(String r_name) throws Exception {
+		return resveMapper.selectOwnerSetting(r_name);
+	}
+
+	@Override
+	public void updateOwnerSetting(RestVO rest) throws Exception {
+		resveMapper.updateOwnerSetting(rest);
 	}
 
 }

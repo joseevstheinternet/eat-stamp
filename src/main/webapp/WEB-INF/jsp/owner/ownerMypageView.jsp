@@ -9,7 +9,7 @@ History: 최은지, 2023.05.15 최초 작성
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" 								prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%-- 헤더 삽입 --%>
 <%@ include file="/WEB-INF/jsp/common/ownerHeader.jsp" %>
 <!DOCTYPE html>
@@ -35,6 +35,10 @@ History: 최은지, 2023.05.15 최초 작성
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 
 <style>
+div.mypage-menu{
+	height: 190px;
+}
+
 div.mypage-wrap{
 	display: grid;
     justify-items: center;
@@ -154,7 +158,7 @@ button#pw_restet_checkBtn{
 					<p class="menu-list"><a class="menu-list" 
 						href="#" style="color: #9d9d9d;">식당 정보 수정</a></p>
 					<p class="menu-list"><a class="menu-list" 
-						href="#" style="color: #9d9d9d;">식당 관리</a></p>
+						href="${pageContext.request.contextPath}/ownerRestSetting.do" style="color: #9d9d9d;">식당 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/owner/ownerResveList.do" style="color: #9d9d9d;">예약 관리</a></p>
 					<p class="menu-list"><a class="menu-list" 

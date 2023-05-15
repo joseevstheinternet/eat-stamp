@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.OwnerInfoVO;
+import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
 import com.EatStamp.service.ResveService;
 import com.common.utils.PagingUtil;
@@ -96,7 +99,23 @@ public class ResveController {
 		return mav;
 	}
 	
-	//=========회원 상태 변경========//
+	/**
+	 * <pre>
+	 * 예약상태변경: 사장님 페이지의 예약 상태를 업데이트한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param resve_num
+	 * @param resve_sttus
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/updateResveStatus.do")
 	@ResponseBody
 	public String updateResveStatus (@RequestParam(value = "resve_num") int resve_num, 
@@ -114,7 +133,34 @@ public class ResveController {
 		return (result > 0) ? "success" : "failure";
 	}
 	
-	
+	/**
+	 * <pre>
+	 * 식당관리: 사장님 페이지의 식당 관리 설정을 불러온다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ownerRestSetting.do")
+	public String ownerSettingForm (HttpSession session, Model model) throws Exception{
+		
+		MemberVO owner = (MemberVO)session.getAttribute("owner");
+		String r_name = owner.getMem_nick();
+		RestVO rest = resveService.selectOwnerSetting(r_name);
+		
+		model.addAttribute("rest", rest);
+		
+		return "owner/ownerRestSetting";
+	}
 	
 	
 	
