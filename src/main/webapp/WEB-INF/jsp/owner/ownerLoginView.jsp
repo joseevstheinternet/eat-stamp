@@ -1,6 +1,6 @@
 <%--
 시스템명 : 가게 사장 로그인 화면
-파일명: ownerLogin.jsp
+파일명: ownerLoginView.jsp
 작성자: 최은지
 작성일자: 2023.05.12
 처리내용: 가게 사장 전용 로그인 페이지이다.
@@ -51,8 +51,8 @@ History: 최은지, 2023.05.12 최초 작성
 				</div> <!-- div_login_wrap end  -->
 				
 				<div class ="div_btnWrap">
-					<button class = "sbm_ownerLogin" type="submit">LOGIN</button>
 					<button class = "btn_ownerJoin" type="button" onclick="location.href='/ownerSignUp.do'">SignUp</button>
+					<button class = "sbm_ownerLogin" type="submit">LOGIN</button>
 				</div> <!-- div_login_btn_wrap end  -->
 			</form>
 				 			
