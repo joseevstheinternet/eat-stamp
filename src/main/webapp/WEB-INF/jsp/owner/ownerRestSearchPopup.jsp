@@ -46,6 +46,7 @@ History: 최은지, 2023.05.15 최초 작성
 				<c:forEach var="list" items="${list}" varStatus="status">
 					<div class = "div_restResultList">
 						<span class="txt_r_name" >${list.r_name}</span>
+						<span class="txt_r_num" >${list.r_num}</span>
 						<button type="button" class = "btn_choiceRest">선택</button>
 					</div>
 				</c:forEach>
@@ -56,11 +57,15 @@ History: 최은지, 2023.05.15 최초 작성
 </body>
 
 <script type="text/javascript">
-	  $(document).on( "click", ".btn_choiceRest", function () {
-	    var selectedText = $( this ).prev( ".txt_r_name" ).text();
-	    opener.document.getElementsByClassName( "txt_restNameInput" )[0].value = selectedText;
+	  $(document).on("click", ".btn_choiceRest", function() {
+	    var selectedText = $(this).siblings(".txt_r_name").text();
+	    opener.document.getElementById("txt_restNameInput").value = selectedText;
+	    
+	    var selectedText2 = $(this).siblings(".txt_r_num").text();
+	    opener.document.getElementById("hdn_restNumInput").value = selectedText2;
 	  });
 </script>
+
 
 
 </html>

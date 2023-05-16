@@ -26,7 +26,7 @@
 				mem_email,
 				mem_pw
 		FROM 	member
-		WHERE	mem_num= #{mem_num}
+		WHERE	mem_num = #{mem_num}
 	</select>
 		
 	<!-- 0515 이예지 최초 생성  -->
@@ -35,7 +35,7 @@
 	<update id="updateOwnerPW" parameterType="memberVO">
 		UPDATE	member
 		SET		mem_pw = #{mem_pw}
-		WHERE	mem_email=#{mem_email}
+		WHERE	mem_email = #{mem_email}
 	</update>
 	
 	<!-- 0515 최은지 최초 생성  -->
@@ -60,11 +60,11 @@
 		FROM	rest
 		WHERE	r_name LIKE CONCAT('%', #{search_keyword}, '%')
 	</select>
-	
+		
 	<!-- 0515 최은지 최초 생성  -->
 	<!-- 사장 회원 회원가입 처리 -->
  	<!-- ownerMapper.insertOwnerSignUpInfo  -->
-	<select id="insertOwnerSignUpInfo" resultType="memberVO"  parameterType="map">	
+	<insert id="insertOwnerSignUpInfo" parameterType="memberVO">	
 		INSERT INTO member
 			( mem_email
 				, mem_pw
@@ -79,18 +79,81 @@
 				, mem_admin_auth
 				, mem_report_cnt)
 		VALUES( #{mem_email}
-				, #{mem_pw}
-				, ''
-				, #{mem_nick}
-				, ''
-				, ''
-				, 'O'
-				, ''
-				, 0
-				, 0
-				, 3
-				, 0 )
-	</select>
+					, #{mem_pw}
+					, '1900-01-01'
+					, #{mem_nick}
+					, ''
+					, ''
+					, 'O'
+					, ''
+					, 0
+					, 0
+					, 3
+					, 0 )
+	</insert>
 	
-			
+	<!-- 0516 최은지 최초 생성  -->
+	<!-- 사장 회원 회원가입 처리 중 기존 가입여부 확인 -->
+ 	<!-- ownerMapper.getDuplSignUpCheck  -->
+	<select id="getDuplSignUpCheck" resultType="restVO"  parameterType="String">	
+		  SELECT r_num,
+		  			r_name
+		  FROM rest r
+		  JOIN member m ON m.mem_nick = r.r_name
+		  WHERE r_name = #{r_name}
+	</select>	
+	
+	<!-- 0516 최은지 최초 생성  -->
+	<!-- 사장 회원 회원가입 처리 중 기존 가게 정보 업데이트 -->
+ 	<!-- ownerMapper.getDuplSignUpCheck  -->
+	<update id="updateRestInfoSignUp"  parameterType="restVO">	
+		 UPDATE rest
+		 SET  r_block = 0, 
+		 		r_resveCode = 'n'
+		 WHERE r_num = #{r_num}
+	</update>	
+	
+	<!-- 0516 최은지 최초 생성  -->
+	<!-- 사장 회원 회원가입 시 신규 가게 등록 -->
+ 	<!-- ownerMapper.selectOwnerSignUpRestResult  -->
+	<insert id="insertOwnerSignUpNewRestInfo" parameterType="restVO">	
+		INSERT INTO rest
+			( r_name
+				, r_add
+				, r_food
+				, r_tel
+				, r_fileName
+				, r_fileRoot
+				, r_detail
+				, r_menu
+				, r_open
+				, r_close
+				, r_rate
+				, r_category
+				, r_block
+				, r_resveCode
+				, r_resveTime
+				, r_resveDay
+				, r_resveMemCnt
+				, r_resveTableCnt )
+			VALUES( #{r_name}
+						, #{r_add}
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, ''
+						, 0
+						, ''
+						, 1
+						, 'n'
+						, 120
+						, 14
+						, 6
+						, 1 )
+	</insert>
+	
 </mapper>

@@ -42,7 +42,7 @@ History: 최은지, 2023.05.15 최초 작성
 		
 		<div class ="div_allWrap">
 		
-		<form action="insertOwnerSignUpInfo.do" method="post" class ="frm_ownerSignUp" name ="ownerSignUpInfo" onsubmit="return checks();">
+		<form action="insertOwnerSignUpInfo.do" method="post" class ="frm_ownerSignUp" onsubmit="return checks();">
 				<div class = "div_txtWrap">
 					<span class ="txt_textLogo"><i class="fa-solid fa-utensils adminIcon"></i>사장님 회원가입</span>
 				</div> <!--div_txtWrap end  -->
@@ -71,13 +71,14 @@ History: 최은지, 2023.05.15 최초 작성
 						<span class = "txt_restName">상호명 검색</span>
 					<div class = "div_searchRestName">
 						<input class ="txt_restNameInput"  name ="mem_nick" id ="txt_restNameInput" type="text" placeholder="우측 버튼을 클릭해 상호명을 검색해주세요." readonly="readonly">
+						<input class ="hdn_restNumInput"  name ="r_num" id ="hdn_restNumInput" type="hidden" readonly="readonly">
 						<button class = "btn_searchRestName" type="button"> 검색 </button>
 					</div>
 				</div>
 				
 				<div class = "div_wrapInsertRestName">
 					<span class = "txt_restName"><i class="fa-solid fa-arrow-right" ></i> 검색된 상호명이 없나요? (1/2)</span>
-					<input class ="txt_restNameInputInsert"  name ="mem_new_nick" type="text" placeholder="직접 상호명을 입력해주세요.">
+					<input class ="txt_restNameInputInsert"  name ="mem_newNick"  type="text" placeholder="직접 상호명을 입력해주세요.">
 				</div>
 			
 				<div class = "div_wrapAdd">
@@ -199,7 +200,7 @@ function checks() {
 	 
 	 //이메일 중복 여부 검사
 	 if ( false == checkEmail ) {
-		 alert ( "이미 가입 내역이 존재하는 이메일입니다." );
+		 alert ( "이메일 중복 여부를 확인해주세요." );
 		 $( ".txt_emailInput" ).focus();
 		  return false;
 	 }

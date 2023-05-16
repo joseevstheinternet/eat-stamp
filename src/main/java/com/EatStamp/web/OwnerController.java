@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.EatStamp.domain.MemberVO;
+import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.SearchVO;
 import com.EatStamp.service.OwnerService;
 
@@ -86,6 +87,7 @@ public class OwnerController {
 	 * 변경일						작성자					변경내용
 	 * ------------------------------------------------------------------------
 	 * 2023.05.12					최은지					최초작성
+	 * 2023.05.16 					최은지					spring security 통한 비밀번호 매치 로직 추가
 	 *  ------------------------------------------------------------------------
 	 *  @param	mem_email,
  	 *					mem_pw
@@ -128,7 +130,7 @@ public class OwnerController {
 	                out.println( "<script>location.replace('/login.do');</script>" );
 	                out.flush();
 
-	                mav.setViewName( "redirect:/login.do" );
+	                mav.setViewName( "/login.do" );
 	                return mav;
 
 	            case 1: // 관리자 로그인 시도
@@ -137,13 +139,13 @@ public class OwnerController {
 	                out.println( "<script>location.replace('/mainAdmin.do');</script>" );
 	                out.flush();
 
-	                mav.setViewName("redirect:/mainAdmin.do");
+	                mav.setViewName( "/mainAdmin.do" );
 	                return mav;
 
 	            case 2: // 정지 회원 로그인 시도
 	                message = "정지회원입니다. 문의사항은 하단의 관리자 이메일을 통해 접수해주세요.";
-	                out.println("<script>alert('" + message + "');</script>");
-	                out.println("<script>location.replace('/login.do');</script>");
+	                out.println( "<script>alert('" + message + "');</script>" );
+	                out.println( "<script>location.replace('/login.do');</script>" );
 	                out.flush();
 	                mav.setViewName( "/login/login" );
 
@@ -159,22 +161,40 @@ public class OwnerController {
 	                return mav;
 	            
 	            case 4: // 승인 사장 로그인 시도, 이 경우에만 로그인 허용, 
-	            			//비밀번호 매치 로직 추가
+	            			//회원가입 후 비밀번호 매치 로직 추가
 	            	
-	            	session.setAttribute("owner", login); //로그인 정보 전달
-	            	
-	            	/*해당 가게 사장 닉네임(상호명) 문자 */
-	            	String ownerNick;
-	            	ownerNick = login.getMem_nick();
+	        		/*비밀번호 매치용 변수  */
+	        		boolean pwdMatch;
+	        		
+	        			pwdMatch = pwEncoder.matches(vo.getMem_pw(), login.getMem_pw());
+	        			
+	        			System.out.println("비번매치>>>>>>>>>" + pwdMatch);
 
-	                message = ownerNick + "사장님, 반갑습니다.";
-	                out.println( "<script>alert('" + message + "');</script>" );
-	                out.println( "<script>location.replace('/ownerMypage.do');</script>" );
-	                out.flush();
-	            	
-	                mav.setViewName( "/owner/ownerMypageView" );
-	                return mav;
-	            
+						if(null != login && pwdMatch == true) { //조회정보 누락 여부, 비밀번호 일치 여부 확인
+							
+							session.setAttribute("owner", login); //로그인 정보 전달
+			            	
+			            	/*해당 가게 사장 닉네임(상호명) 문자 */
+			            	String ownerNick;
+			            	ownerNick = login.getMem_nick();
+
+			                message = ownerNick + "사장님 반갑습니다.";
+			                out.println( "<script>alert('" + message + "');</script>" );
+			                out.println( "<script>location.replace('/ownerMypage.do');</script>" );
+			                out.flush();
+			            	
+			                mav.setViewName( "/owner/ownerMypageView" );
+			                return mav;
+							
+						} else { //비밀번호 불일치
+							message = "비밀번호가 일치하지 않습니다. 다시 확인해주세요.";
+				            out.println( "<script>alert('" + message + "');</script>" );
+				            out.println( "<script>location.replace('/ownerLogin.do');</script>" );
+				            out.flush();
+							mav.setViewName( "/owner/ownerLoginView" );
+							return mav;
+						}
+
 	            default:
 	                throw new RuntimeException( "해당 유저 권한등급 정보 없음" );
 	        }
@@ -451,6 +471,7 @@ public class OwnerController {
 	 *  				mem_new_nick //회원 닉네임(기존 db 미등록 신규 상호명)
 	 *  				r_add //회원 입력 가게 주소
 	 *  				r_semi_add //회원 입력 가게 세부주소
+	 *  				r_num //가게 고유 번호
 	 * @throws Exception
 	 * @return
 	 */	
@@ -459,32 +480,117 @@ public class OwnerController {
 																	@RequestParam("mem_pw") String mem_pw, 
 																	@RequestParam("mem_pwCheck") String mem_pwCheck, 
 																	@RequestParam("mem_nick") String mem_nick,
-																	@RequestParam("mem_new_nick") String mem_new_nick,
+																	@RequestParam("mem_newNick") String mem_newNick,
 																	@RequestParam("r_add") String r_add,
-																	@RequestParam("r_semi_add") String r_semi_add
+																	@RequestParam("r_semi_add") String r_semi_add,
+																	@RequestParam("r_num") int r_num,
+																	HttpServletResponse response
 		) throws Exception {
 		
-		/* ModelAndView 객체 생성 */
+		/* ModelAndView 객체 */
 	    ModelAndView mav = new ModelAndView();
-	   
-	    if ( mem_new_nick.equals( "" ) ) { //신규 상호명 입력값이 공백일 경우(기존 db데이터 등록 가게)
-	    	//r_name으로 사전 가입여부 조회
-	    	//가입이 되지 않았을 경우에만 비밀번호 암호화 후 회원가입 insert 진행
-	    	//rest 테이블에 r_num을 통해 조회, r_block = 1, r_resveCode =N 컬럼 update
-	    	//이메일 인증코드 전송
-	    	//알림 메시지 출력 
+		/* memberVO 객체 */
+	    MemberVO memberVO = new MemberVO();
+		/* restVO 객체 */
+	    RestVO restVO = new RestVO();
+	    /* 사전 가입 여부 확인 */
+	    RestVO duplSignUpCheckRnum = new RestVO();
+	    /* 식당 정보 업데이트 성공 여부 확인용 숫자 */
+	    int restSignUpUpdateCheck = 0;
+	    /* 암호화 비밀번호 저장용 문자 */
+	    String pwEncoding = null;
+	    /* 주소 + 세부주소 통합 문자 */
+	    String plusAdd = null;
+	    
+	    String text = "";
+	    String blank = null;
+
+	    
+	    if ( mem_newNick.equals(text) ) { //신규 상호명 입력값이 비어있을 경우(기존 db데이터 등록 가게)
+	    	
+	    	String r_name = mem_nick;
+	    	
+	    	duplSignUpCheckRnum =  ownerService.getDuplSignUpCheck( r_name ); //r_name으로 사전 가입여부 조회
+	    	
+	    	if ( null == duplSignUpCheckRnum) { //가입이 되어있지 않을 경우에만
+
+					pwEncoding = pwEncoder.encode( mem_pw ); //비밀번호 암호화
+	      
+	            	memberVO.setMem_email( mem_email ); //회원 이메일
+	            	memberVO.setMem_nick( mem_nick ); //회원 닉네임(상호명)
+	            	memberVO.setMem_pw( pwEncoding ); //암호화된 회원 비밀번호
+	            	
+	            	int ownerSignUpinsertCheck = ownerService.insertOwnerSignUpInfo( memberVO ); //회원 정보 insert
+
+	            	if ( 1 == ownerSignUpinsertCheck) { //insert에 성공 시
+	            		
+	            		restVO.setR_num( r_num ); //식당 고유 번호
+	            		
+	            		restSignUpUpdateCheck = ownerService.updateRestInfoSignUp( restVO ) ; //기존 식당 정보 update
+	            		
+	            		//ownerService.ownerOriginSignUpEmailSend(memberVO); //인증링크 담긴 이메일 전송
+	            		
+	            		//알림메시지 출력
+	            		message = "회원가입 신청이 완료되었습니다.\n작성하신 이메일로 전송된 인증 링크를 확인해주세요.";
+	            		mav.addObject( "message", message );
+			            mav.setViewName( "main" );
+		            	return mav;	
+	            		
+	            	} else {
+	            		logger.debug( "기존 식당 사장 회원가입 중 insert오류 발생" );
+	            	}
+	 
+	    		
+	    	} else { //가입이 되어있는 경우
+	    		message = "이미 가입된 회원입니다. 기존 아이디로 로그인을 진행해주세요.";
+	            response.setContentType( "text/html; charset=UTF-8" );
+	            PrintWriter out = response.getWriter();
+	            out.println( "<script>alert('"+ message +"');</script>" );
+	            out.flush();
+				
+	            mav.setViewName( "owner/ownerLoginView" );
+				return mav;
+	    	}
 	    	
 	    } else { //신규 상호명 입력값이 있을 경우 (기존 db 데이터 미등록 가게)
-	    	//비밀번호 암호화 후 회원가입 insert 진행 
-	    	//rest 테이블에 r_num, r_name 컬럼만 넣어 insert 진행
-	    	//이메일 인증코드 전송
-	    	//알림메시지 출력
-	    }
-	    
-	    
-	    return mav;
+	   
+	            	pwEncoding = pwEncoder.encode( mem_pw ); //비밀번호 암호화
+	      
+	            	memberVO.setMem_email( mem_email ); //회원 이메일
+	            	memberVO.setMem_nick( mem_newNick ); //회원 닉네임(상호명)
+	            	memberVO.setMem_pw( pwEncoding ); //암호화된 회원 비밀번호
+	            	
+	            	int ownerSignUpinsertCheck = ownerService.insertOwnerSignUpInfo( memberVO ); //회원 정보 insert
+	            	
+	            	if ( 1 == ownerSignUpinsertCheck) { //insert에 성공 시
+	            		
+	            		plusAdd = r_add + r_semi_add; //주소 합치기
+	            		
+	            		restVO.setR_name( mem_newNick ); //신규 식당 이름 정보 set
+	            		restVO.setR_add( plusAdd ); //신규 식당 주소 정보 set
+	            		
+	            		int insertownerSignUpNewRestInfo = ownerService.insertOwnerSignUpNewRestInfo( restVO ); //신규 식당 정보 임시 insert
+	            		
+	            			if ( 1 == insertownerSignUpNewRestInfo ) { //insert 성공 시
+	            				ownerService.ownerOriginSignUpEmailSend( memberVO ); //인증링크 담긴 이메일 전송
+	    	            		
+	    	            		//알림메시지 출력
+	    	            		message = "회원가입 신청이 완료되었습니다.\n작성하신 이메일로 전송된 인증 링크를 확인해주세요.";
+	    	            		mav.addObject( "message", message );
+	    			            mav.setViewName( "main" );
+	    		            	return mav;	
+	    		            	
+	            			} else {
+	            				logger.debug( "신규 식당 사장 회원가입 중 식당 정보 insert오류 발생" );
+	            			}
+	            		
+	            	} else {
+	            		logger.debug( "신규 식당 사장 회원가입 중 insert오류 발생" );
+	            	}
+	           }
+		return mav;
+
 	}
 	
-
 	
 }
