@@ -49,7 +49,7 @@ div.mypage-wrap{
 div.section1{
     display: flex;
     align-items: center;
-    width: 600;
+    width: 570;
 }
 
 div.section1-1{

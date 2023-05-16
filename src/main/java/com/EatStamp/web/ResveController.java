@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.EatStamp.domain.CmtVO;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.OwnerInfoVO;
 import com.EatStamp.domain.RestVO;
@@ -160,6 +162,57 @@ public class ResveController {
 		model.addAttribute("rest", rest);
 		
 		return "owner/ownerRestSetting";
+	}
+	
+	/**
+	 * <pre>
+	 * 식당설정변경: 사장님 페이지의 식당 관리 설정을 업데이트한다
+	 * </pre>
+	 * @date : 2023. 05. 16
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 16          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param r_resveCode
+	 * @param r_resveTime
+	 * @param r_resveDay
+	 * @param r_resveMemCnt
+	 * @param r_resveTableCnt
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ownerRestSettingUpdate.do")
+	@ResponseBody
+	public String ownerSettingUpdate (String r_resveCode, int r_resveTime, int r_resveDay, int r_resveMemCnt, 
+								int r_resveTableCnt, HttpSession session, HttpServletRequest request) throws Exception {
+		
+		try {
+			MemberVO owner = (MemberVO)session.getAttribute("owner");
+			String r_name = owner.getMem_nick();
+			
+			RestVO rest = resveService.selectOwnerSetting(r_name);
+			
+			rest.setR_resveCode(r_resveCode);
+			rest.setR_resveDay(r_resveDay);
+			rest.setR_resveTime(r_resveTime);
+			rest.setR_resveMemCnt(r_resveMemCnt);
+			rest.setR_resveTableCnt(r_resveTableCnt);
+			
+			resveService.updateOwnerSetting(rest);
+			
+			return "success";
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
+	        return "fail";
+		}
 	}
 	
 	
