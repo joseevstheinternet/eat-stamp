@@ -93,4 +93,9 @@ public class RestServiceImpl implements RestService{
 		
 		return restMapper.get_plus_rLike(vo);
 	}
+
+	@Override
+	public List<RestVO> selectRestLikeMapList(Map<String, Object> map) {
+		return restMapper.selectRestLikeMapList(map);
+	}
 }

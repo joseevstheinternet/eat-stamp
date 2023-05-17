@@ -41,5 +41,8 @@ public interface RestMapper {
 	//<0411 최은지 가게 찜 추가 시 ajax삭제용 r_like_num받아오기
 	public String get_plus_rLike(RestVO vo);
 
+	//<0517 최은지 맵 출력용>
+	public List<RestVO> selectRestLikeMapList(Map<String,Object> map);
+
 	
 }

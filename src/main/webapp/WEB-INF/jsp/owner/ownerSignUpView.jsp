@@ -42,7 +42,7 @@ History: 최은지, 2023.05.15 최초 작성
 		
 		<div class ="div_allWrap">
 		
-		<form action="insertOwnerSignUpInfo.do" method="post" class ="frm_ownerSignUp" onsubmit="return checks();">
+		<form action="/insertOwnerSignUpInfo.do" method="post" class ="frm_ownerSignUp" onsubmit="return checks();">
 				<div class = "div_txtWrap">
 					<span class ="txt_textLogo"><i class="fa-solid fa-utensils adminIcon"></i>사장님 회원가입</span>
 				</div> <!--div_txtWrap end  -->
@@ -70,8 +70,8 @@ History: 최은지, 2023.05.15 최초 작성
 				<div class = "div_wrapSearchRestName">
 						<span class = "txt_restName">상호명 검색</span>
 					<div class = "div_searchRestName">
-						<input class ="txt_restNameInput"  name ="mem_nick" id ="txt_restNameInput" type="text" placeholder="우측 버튼을 클릭해 상호명을 검색해주세요." readonly="readonly">
-						<input class ="hdn_restNumInput"  name ="r_num" id ="hdn_restNumInput" type="hidden" readonly="readonly">
+						<input class ="txt_restNameInput"  name ="mem_nick" id ="txt_restNameInput" type="text" placeholder="우측 버튼을 클릭해 상호명을 검색해주세요." readonly>
+						<input class ="hdn_restNumInput"  name ="r_num" id ="hdn_restNumInput" type="hidden" readonly>
 						<button class = "btn_searchRestName" type="button"> 검색 </button>
 					</div>
 				</div>
@@ -246,7 +246,6 @@ function checks() {
 		    $( ".txt_restNameInput" ).focus();
 		    return false;
 		 }
-	 
 	 
 } //return check() end
 

@@ -32,4 +32,7 @@ public interface RestService {
 	//<0411 최은지 가게 찜 추가 시 ajax삭제용 r_like_num받아오기
 	public String get_plusRlike(RestVO vo);
 	
+	//<0517 최은지>
+	public List<RestVO> selectRestLikeMapList(Map<String,Object> map); //찜한 식당 리스트
+	
 }
