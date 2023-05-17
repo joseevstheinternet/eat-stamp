@@ -162,8 +162,6 @@ public class RestController {
 		
 		String list = restService.get_plusRlike(vo);
 		
-		System.out.println("추가로받아오기1!!!!!!!!!!!!!!!!!!!!!" + list);
-		
 		String json = new Gson().toJson(list);
 		
 		return json;
@@ -175,8 +173,6 @@ public class RestController {
 		public String delete_like(@RequestParam("r_num") int r_num, 
 											@RequestParam("r_like_num") int r_like_num, 
 											HttpSession session) throws Exception{
-		
-		System.out.println("가게찜 삭제 컨트롤러실행!!!!!!!!!!!!!!!!");
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		
@@ -195,8 +191,44 @@ public class RestController {
 		
 		return sResult;
 	}
+	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 회원 찜 식당 지도 형식으로 출력하기
+	 * </pre>
+	 * @date : 2023.05.17
+	 * @author : 최은지
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.17					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 */
+	@RequestMapping(value = "/selectRestLikeMapList.do")
+	public ModelAndView selectRestLikeMapList( HttpSession session ) {
 		
+		/* ModelAndView 객체 */
+	    ModelAndView mav = new ModelAndView();
+	    /* db조회 결과값 담기 list */
+		List<RestVO> list = null;
+		 /* db조회용 map */
+		Map<String, Object> map = new HashMap<String, Object>();
+
+	    MemberVO user = (MemberVO)session.getAttribute("member"); //session에서 로그인 회원 정보 받아오기
+	    int mem_num = user.getMem_num();
+	    
+		map.put("mem_num", mem_num); // 조회할 mem_num값 세팅
+
+		list = restService.selectRestLikeMapList(map); 
+
+		mav.addObject("add_list", list);
+	    mav.setViewName( "/rest/memberRestListMapView" );
 		
+		return mav;		
+	}
+	
 	
 	
 }

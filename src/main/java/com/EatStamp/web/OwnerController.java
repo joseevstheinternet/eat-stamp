@@ -475,15 +475,15 @@ public class OwnerController {
 	 * @throws Exception
 	 * @return
 	 */	
-	@RequestMapping(value = "/insertOwnerSignUpInfo.do",  method = RequestMethod.POST)
-	public ModelAndView insertOwnerSignUpInfo(@RequestParam("mem_email") String mem_email, 
-																	@RequestParam("mem_pw") String mem_pw, 
-																	@RequestParam("mem_pwCheck") String mem_pwCheck, 
-																	@RequestParam("mem_nick") String mem_nick,
-																	@RequestParam("mem_newNick") String mem_newNick,
-																	@RequestParam("r_add") String r_add,
-																	@RequestParam("r_semi_add") String r_semi_add,
-																	@RequestParam("r_num") int r_num,
+	@RequestMapping(value = "/insertOwnerSignUpInfo.do",  method = RequestMethod.POST )
+	public ModelAndView insertOwnerSignUpInfo(@RequestParam( "mem_email" ) String mem_email, 
+																	@RequestParam( "mem_pw" ) String mem_pw, 
+																	@RequestParam( "mem_pwCheck" ) String mem_pwCheck, 
+																	@RequestParam(value = "mem_nick", required = false) String mem_nick,
+																	@RequestParam( value = "mem_newNick", required = false) String mem_newNick,
+																	@RequestParam( value = "r_add", required = false) String r_add,
+																	@RequestParam( value = "r_semi_add", required = false) String r_semi_add,
+																	@RequestParam( value = "r_num", required = false) int r_num,
 																	HttpServletResponse response
 		) throws Exception {
 		
@@ -501,12 +501,14 @@ public class OwnerController {
 	    String pwEncoding = null;
 	    /* 주소 + 세부주소 통합 문자 */
 	    String plusAdd = null;
-	    
-	    String text = "";
-	    String blank = null;
 
+	    int test = 0;
 	    
-	    if ( mem_newNick.equals(text) ) { //신규 상호명 입력값이 비어있을 경우(기존 db데이터 등록 가게)
+	    if(mem_newNick.equals("") && !mem_nick.equals("")){ //신규 상호명이 비어있고 기존 상호명이 비어있지 않을 경우
+	    	test = 1;
+	    }
+	    
+	    if ( 1 == test ) { //(기존 db데이터 등록 가게)
 	    	
 	    	String r_name = mem_nick;
 	    	
@@ -562,7 +564,7 @@ public class OwnerController {
 	            	
 	            	int ownerSignUpinsertCheck = ownerService.insertOwnerSignUpInfo( memberVO ); //회원 정보 insert
 	            	
-	            	if ( 1 == ownerSignUpinsertCheck) { //insert에 성공 시
+	            	if ( 1 == ownerSignUpinsertCheck ) { //insert에 성공 시
 	            		
 	            		plusAdd = r_add + r_semi_add; //주소 합치기
 	            		

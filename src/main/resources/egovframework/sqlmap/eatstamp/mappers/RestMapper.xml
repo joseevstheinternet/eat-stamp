@@ -287,4 +287,15 @@
   	
   	</select>
   	
+  	  <!-- 찜한 식당 목록 맵받아오기 -->
+	<select id="selectRestLikeMapList" parameterType="map" resultType="restVO">
+		SELECT 
+			r_add,
+			r_name,
+			r.r_num
+			FROM rest r
+			JOIN r_like rl ON r.r_num = rl.r_num 
+			WHERE rl.mem_num = #{mem_num} 
+  	</select>
+  	
 </mapper>
