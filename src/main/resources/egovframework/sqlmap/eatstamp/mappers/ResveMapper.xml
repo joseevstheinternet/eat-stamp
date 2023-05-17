@@ -117,6 +117,7 @@
 		  		(mem_num, 
 				r_num, 
 			  	resve_date, 
+			  	resve_time,
 			  	resve_memCnt,
 			  	resve_name,
 			  	resve_phoneNum) 
@@ -124,9 +125,22 @@
 				(#{mem_num}, 
 				#{r_num}, 
 				#{resve_date}, 
+				#{resve_time}, 
 				#{resve_memCnt}, 
 				#{resve_name},
 				#{resve_phoneNum})
  	</insert>
+ 	
+ 	<!-- 0517 이예지 최초 생성  -->
+	<!-- 날짜에 따른 타임별 예약 수 구하기 -->
+ 	<!-- resveMapper.selectResveCntByDate  -->
+ 	<select id="selectResveCntByDate" resultType="java.util.HashMap" parameterType="java.lang.String">
+	    SELECT      resve_time, 
+	    			COUNT(*) as count
+	    FROM        resve
+	    WHERE       resve_date = #{resve_date}
+	    GROUP BY    resve_time
+	</select>
+ 	
 
 </mapper>

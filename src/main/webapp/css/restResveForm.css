@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+div.mypage-div02 {
+	flex: 0.8;
+	margin: 0;
+}
+
+/* 진행 상황 */
+div.progress {
+    text-align: center;
+    font-size: 14px;
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.step {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.completed, .current {
+    color: #ffc06c;
+}
+
+.current {
+	font-weight: bold;
+}
+/* 진행 상황 끝 */
+
+/* 예약가능여부 */
+div.resve_yn {
+    width: 430px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 10 auto;
+}
+
+span.resve_y {
+    color: #c3c3c3;
+    margin-right: 10px;
+}
+
+span.resve_n {
+    color: #6e6e6e;
+}
+/* 예약가능여부 끝 */
+
+/* table */
+table.calender {
+	display: flex;
+    justify-content: center;
+}
+
+tbody {
+    border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #d3d3d3;
+}
+
+th {
+	background-color: #e2e2e2;
+	color: #585858;
+}
+
+th.date {
+	width: 250px;
+}
+
+th.time {
+	width : 180px;
+}
+
+div#datepicker {
+	text-align: -webkit-center;
+    margin: 15px 0;
+}
+
+#timePicker div.selected {
+    background-color: #ffc06c;
+    color: white;
+}
+
+#timePicker div.selected i {
+    color: white;
+}
+
+div.timeSlots {
+    width: 70%;
+    background-color: #e7e7e7;
+    padding: 10px;
+    margin: 10 auto;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+i.timeIcon {
+	color: gray;
+    margin: 0 10px;
+}
+
+span.time {
+	margin-left: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+/* table 끝 */
+
+/* 버튼 */
+div.div_btn {
+	display: flex;
+    justify-content: center;
+    margin: 50px 0 20px 0;
+}
+
+button.box-button {
+	background-color: #ffc06c;
+    padding: 7px 0;
+    width: 100px;
+    color: white;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 0 5px;
+}
+
+button.btn_cancel {
+	background-color: #c9c9c9;
+}
+/* 버튼 끝 */
+
+/* 예약 정보 입력 페이지 */
+th.th-resveInfo {
+	width: 100px;
+    height: 40px;
+}
+
+td.td-resveInfo {
+	width: 400px;
+    padding-left: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+td.td-memCnt {
+	height: 70px;
+}
+
+input.input-box {
+	width: 100px;
+    text-align: center;
+}
+
+div.div_memCnt {
+	margin-bottom: 5px;
+}
+
+span.resve-font-ex{
+	font-size: 12px;
+    color: #afafaf;
+    font-weight: 100;
+}
+
+/* numBox */
+div.box-plus{
+	flex: 3;
+}
+
+input.numBox{
+	background-color: transparent;
+    border: 0;
+    text-align: center;
+    font-weight: bold;
+    width: 30px;
+    font-size: 15px;
+    color: #2a2a2a;
+}
+
+button.minus{
+	color: #ffc06c;
+}
+
+button.plus{
+	color: #ffc06c;
+}
+
+span.margin{
+	margin-left: 5px;
+}
+/* numBox 끝 */
+/* 예약 정보 입력 페이지 끝 */
+
+/* 예약 완료 페이지 */
+span.success-msg {
+	text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 30px;
+}
+/* 예약 완료 페이지 끝 */

@@ -61,4 +61,9 @@ public class ResveServiceImpl implements ResveService {
 		resveMapper.insertRestResve(resve);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectResveCntByDate(String resve_date) throws Exception {
+		return resveMapper.selectResveCntByDate(resve_date);
+	}
+
 }

@@ -7,6 +7,7 @@
 <%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/stampListAdmin.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/restResveForm.css'/>" />
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -21,116 +22,6 @@
 <!-- 시간 연산을 위한 Moment 라이브러리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-	    
-<style>
-div.mypage-div02 {
-	flex: 0.8;
-	margin: 0;
-}
-
-/* 진행 상황 */
-div.progress {
-	text-align: center;
-	font-size: 14px;
-}
-
-.step {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-.completed, .current {
-    color: #ffc06c;
-}
-
-.current {
-	font-weight: bold;
-}
-/* 진행 상황 끝 */
-
-/* 예약가능여부 */
-div.resve_yn {
-    width: 430px;
-    display: flex;
-    justify-content: flex-end;
-    margin: 10 auto;
-}
-
-span.resve_y {
-    color: #c3c3c3;
-    margin-right: 10px;
-}
-
-span.resve_n {
-    color: #6e6e6e;
-}
-/* 예약가능여부 끝 */
-
-/* table */
-table.calender {
-	display: flex;
-    justify-content: center;
-}
-
-tbody {
-    border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #d3d3d3;
-}
-
-th {
-	background-color: #e2e2e2;
-	color: #585858;
-}
-
-th.date {
-	width: 250px;
-}
-
-th.time {
-	width : 180px;
-}
-
-div#datepicker {
-	text-align: -webkit-center;
-    margin: 15px 0;
-}
-
-#timePicker div.selected {
-    background-color: #ffc06c;
-    color: white;
-}
-
-#timePicker div.selected i {
-    color: white;
-}
-
-div.timeSlots {
-    width: 70%;
-    background-color: #e7e7e7;
-    padding: 10px;
-    margin: 10 auto;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-i.timeIcon {
-	color: gray;
-    margin: 0 10px;
-}
-
-span.time {
-	margin-left: 10px;
-    font-size: 12px;
-    font-weight: bold;
-}
-/* table 끝 */
-
-</style>
 
 <!DOCTYPE html>
 <html>
@@ -143,15 +34,13 @@ span.time {
 
 <div class="page-main">
 	<div id="wrap">
-		
-		<!-- 전체글 보기 폼 시작 -->
 		<div class="mypage-div02">
 			<!-- 상단 타이틀 -->
 			<div class="mypage-section1">
 				<span class="mypage-title">${rest.r_name} 예약하기</span>
 			</div>
 			<!-- 상단 타이틀 끝 -->
-			<!-- 리스트 -->
+			<!-- 예약 폼 시작 -->
 			<div class="mypage-section2">
 				<c:if test="${rest.r_resveCode == 'n'}">
 					<div class="no-list"><span class="no-list">예약이 불가능한 식당입니다.</span></div>
@@ -183,10 +72,21 @@ span.time {
 						        </td>
 						    </tr>
 						</table>
-
+						<div class="div_btn">
+							<form id="reservationForm" method="post">
+							    <input type="hidden" id="selectedDate" name="selectedDate" value="">
+							    <input type="hidden" id="selectedTime" name="selectedTime" value="">
+							    <input type="hidden" id="selectedDay" name="selectedDay" value="">
+							    <input type="hidden" id="r_num" name="r_num" value="${rest.r_num}">
+							    <input type="hidden" id="mem_num" name="mem_num" value="${member.mem_num}">
+							    <button type="button" class="box-button btn_resve" id="btn_resve">예약하기</button>
+							</form>
+							<button type="button" onclick="history.back();" class="box-button btn_cancel">취소</button>
+						</div>
 					</ul>
 				</c:if>
 			</div>
+			<!-- 예약 폼 끝 -->
 		</div>
 	</div>
 </div>
@@ -197,19 +97,24 @@ span.time {
     var r_close = "${rest.r_close}";
     var r_resveTime = ${rest.r_resveTime};
     var r_resveDay = ${rest.r_resveDay};
+    
+    var selectedDate; //선택한 날짜를 저장하기 위한 전역 변수 선언
+    var selectedTime; //선택한 시간을 저장하기 위한 전역 변수 선언
+    var selectedDay; //선택한 요일을 저장하기 위한 전역 변수 선언
 
     $(document).ready(function () {
         $("#datepicker").datepicker({
-            dateFormat : 'yymmdd',
+            dateFormat : 'yy-mm-dd',
             showMonthAfterYear : true,
             changeMonth : true,
             changeYear : true,
             numberOfMonths : 1,
             dayNamesMin : ['일','월','화','수','목','금','토'],
             monthNamesShort : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-            minDate : 0, //오늘날짜부터 설정
-            maxDate : r_resveDay, // r_resveDay일 후까지 설정
+            minDate : 1, //오늘 날짜부터 설정
+            maxDate : r_resveDay, // r_resveDay 일 후까지 설정
             onSelect: function(dateText) {
+            	selectedDate = dateText; //사용자가 선택한 날짜 저장
                 generateTimeSlots();
             },
             beforeShow : function(input){
@@ -220,6 +125,7 @@ span.time {
             }
         });
 
+        //시간 슬롯 생성 함수
         function generateTimeSlots () {
             var start = moment(r_open, "HH:mm");
             var end = moment(r_close, "HH:mm");
@@ -237,18 +143,43 @@ span.time {
     });
     
     $(document).ready(function(){
-        // 'div' 요소를 클릭할 때마다 실행되는 이벤트 핸들러 설정
+    	//시간 슬롯 클릭 이벤트 핸들러
         $('#timePicker').on('click', 'div', function(){
             // 이전에 선택한 시간 슬롯에서 'selected' 클래스 제거
             $('#timePicker div.selected').removeClass('selected');
             
             // 클릭한 시간 슬롯에 'selected' 클래스 추가
             $(this).addClass('selected');
-            
+
             // 선택한 시간 슬롯 출력
-            console.log("선택한 시간 슬롯: " + $(this).text());
+            selectedTime = $(this).text().trim();
+            
+            console.log("날짜: " + selectedDate);
+            console.log("시간: " + selectedTime);
         });
     });
+    
+    $(document).ready(function(){
+    	//예약하기 버튼 클릭 이벤트 핸들러
+        $('#btn_resve').click(function(){
+        	// 선택한 날짜로부터 요일을 계산
+            var days = ['일', '월', '화', '수', '목', '금', '토'];
+            var date = new Date(selectedDate);
+            var day = date.getDay();
+            selectedDay = days[day];
+        	
+            // 선택한 날짜와 시간을 hidden input 필드에 설정
+            $('#selectedDate').val(selectedDate);
+            $('#selectedTime').val(selectedTime);
+            $('#selectedDay').val(selectedDay);
+            // form의 action 속성 설정
+            var r_num = $('#r_num').val();
+            $('#reservationForm').attr('action', '/restResveFormInfo=' + r_num + '.do');
+            // form 제출
+            $('#reservationForm').submit();
+        });
+    });
+
 
 </script>
 

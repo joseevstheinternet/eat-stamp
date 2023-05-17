@@ -249,7 +249,7 @@
 						<div class="inner">
 							<div class="swiper-wrapper card-box-wrap">
 							<c:forEach var="rest" items="${rest}">
-								<div class="swiper-slide card-box" onclick="location.href='rest/detail.do?r_num=${rest.r_num}'">
+								<div class="swiper-slide card-box">
 									<c:if test="${rest.r_fileName == null}">
 										<i class="fa-solid fa-image card-box-image"></i>
 									</c:if>

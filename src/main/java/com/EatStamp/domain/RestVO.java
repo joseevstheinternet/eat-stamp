@@ -1,7 +1,5 @@
 package com.EatStamp.domain;
 
-import java.sql.Time;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
