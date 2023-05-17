@@ -215,9 +215,9 @@ button#pw_restet_checkBtn{
 			</div>
 		</c:when>
 			<c:otherwise>
-				<div class="div_noOwnerSession">
-					<span class="txt_noOwnerSession">잘못된 접근입니다.</span>
-					<span class="txt_noOwnerSession">사장님 ID로 로그인하세요.</span>
+				<div class="no-admin">
+					<span class="no-admin">잘못된 접근입니다.</span>
+					<span class="no-admin">사장님 ID로 로그인하세요.</span>
 				</div>
 			</c:otherwise>
 	</c:choose>	

@@ -14,8 +14,8 @@ import com.EatStamp.service.ResveService;
 
 /**
  * resve serviceimpl
- * @version 1.1
- * @since 2023.05.15
+ * @version 1.2
+ * @since 2023.05.16
  * @author 이예지
  */
 
@@ -49,6 +49,16 @@ public class ResveServiceImpl implements ResveService {
 	@Override
 	public void updateOwnerSetting(RestVO rest) throws Exception {
 		resveMapper.updateOwnerSetting(rest);
+	}
+
+	@Override
+	public RestVO selectRestSetting(int r_num) throws Exception {
+		return resveMapper.selectRestSetting(r_num);
+	}
+
+	@Override
+	public void insertRestResve(ResveVO resve) throws Exception {
+		resveMapper.insertRestResve(resve);
 	}
 
 }

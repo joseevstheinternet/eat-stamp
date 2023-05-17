@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 식당 상세 페이지</title>
 </head>
 
 <!-- css 링크 사용 -->
@@ -31,192 +31,182 @@
 
 <body>
 	
-	<div class ="page-main" >
-				<!-- 해당 가게를 찜하지 않았다면 -->
-				<c:if test="${null == like_list.r_like_num}">
-				
-					<div class ="title_box">
-						<span> ${list.r_name } 의 정보입니다.</span>		
-					</div>	
-								
-					<!-- ajax용 r_num, r_rlike_num  -->
-					<input type="hidden"  id="r_num"  value="${list.r_num }"/> 
-					<input type="hidden"  id="r_like_num" /> 
-			
-				<div class="flex_wrap1">  
-					<div class = "img_box">
-						<!-- <i class='fa-solid fa-image imageIcon'></i> -->
-						<c:if test="${null != list.r_fileName}">
-							<img src="${pageContext.request.contextPath}/images/restImage/${list.r_fileName}" class="rest_img">	
-						</c:if>
+<div class ="page-main" >
+	<div class="view-box">
+		<!-- 해당 가게를 찜하지 않았다면 -->
+		<c:if test="${null == like_list.r_like_num}">
+		
+			<div class ="title_box">
+				<span> ${list.r_name} 정보입니다.</span>		
+			</div>	
 						
-						<c:if test="${null == list.r_fileName}">
-							<img src="${pageContext.request.contextPath}/images/egovframework/common/logo.png" class="rest_img">
-							
-						</c:if>
+			<!-- ajax용 r_num, r_rlike_num  -->
+			<input type="hidden"  id="r_num"  value="${list.r_num}"/> 
+			<input type="hidden"  id="r_like_num" /> 
+	
+			<div class="flex_wrap1">  
+				<div class = "img_box">
+					<!-- <i class='fa-solid fa-image imageIcon'></i> -->
+					<c:if test="${null != list.r_fileName}">
+						<img src="${pageContext.request.contextPath}/images/restImage/${list.r_fileName}" class="rest_img">	
+					</c:if>
+					
+					<c:if test="${null == list.r_fileName}">
+						<img src="${pageContext.request.contextPath}/images/egovframework/common/logo.png" class="rest_img">
+						
+					</c:if>
+				</div>
+			
+				<div class ="detail_wrap"> 
+					<div class ="detail_semi_wrap">
+						<div class ="food_box">
+							<span> ${list.r_food }</span>		
+						</div>
+						
+						<div class ="heart_box">	
+							<p id="empty_heart"> <i class="fa-regular fa-heart"></i> </p>
+						</div>
+					</div> <!-- detail_semi_wrap  end-->
+					
+					<div class ="tel_box">
+						<span><i class="fa-solid fa-phone restIcon"></i> ${list.r_tel}</span>		
 					</div>
 					
+					<span><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
+											
+					<div class ="open_box">
+						<span>OPEN :  ${list.r_open}</span>		
+					</div>
 					
-					<div class ="detail_wrap"> 
+					<div class ="close_box">
+						<span>CLOSE : ${list.r_close}</span>			
 					
-							<div class ="detail_semi_wrap">
-								<div class ="food_box">
-									<span> ${list.r_food }</span>		
-								</div>
-								
-								<div class ="heart_box">	
-									<p id="empty_heart"> <i class="fa-regular fa-heart"></i> </p>
-								</div>
-						</div> <!-- detail_semi_wrap  end-->
-						
-						<div class ="tel_box">
-							<span><i class="fa-solid fa-phone restIcon"></i> ${list.r_tel }</span>		
-						</div>
-						
-						<span><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
-												
-						<div class ="open_box">
-							<span>OPEN :  ${list.r_open }</span>		
-						</div>
-						
-						<div class ="close_box">
-							<span>CLOSE : ${list.r_close }</span>			
-						
-						<div class ="detail_box">
-							<span> ${list.r_detail }</span>		
-						</div>
-
-						</div>
-					</div> <!--detail_wrap  end -->
-					
-				</div>	 <!--flex_wrap1  end -->
-					
+					<div class ="detail_box">
+						<span> ${list.r_detail}</span>		
+					</div>
+	
+					</div>
+				</div> <!--detail_wrap  end -->
+			</div>	 <!--flex_wrap1  end -->
+			
 			<div class ="text_box">
 				<span class="menu_span"> <i class="fa-solid fa-bars"></i> 메뉴 </span>	
 				<span class="add_span"> <i class="fa-solid fa-location-dot"></i> 주소 </span>	
 			</div>	
-			
-				<div class="flex_wrap2"> 
-					<div class ="menu_box">
-						<span> ${list.r_menu }</span>	
-					</div>
-						
-					<div class ="add_wrap"> 		
-						<div class = "add_box">
-							<input type=text id="rest_add"  value =" ${list.r_add }" /> 
-						</div>
-						
-						<div class = "map_wrap">
-						<!-- 지도 표시 div -->
-							<div id="map" style="width:100%;height:350px;"></div>
-						</div>
-						
-					</div> <!-- end -->
-				</div> <!-- flex_wrap2  end-->
-			
 	
-				<div class ="go_list">
-					<button class="listBtn" onclick="javascript:window.history.go(-1);">목록으로</button>
+			<div class="flex_wrap2"> 
+				<div class ="menu_box">
+					<span> ${list.r_menu}</span>	
+				</div>
+					
+				<div class ="add_wrap"> 		
+					<div class = "add_box">
+						<input type=text id="rest_add"  value =" ${list.r_add}" /> 
+					</div>
+					
+					<div class = "map_wrap">
+					<!-- 지도 표시 div -->
+						<div id="map" style="width:100%;height:350px;"></div>
+					</div>
+					
+				</div> <!-- end -->
+			</div> <!-- flex_wrap2  end-->
+	
+			<div class ="go_list">
+				<c:if test="${list.r_resveCode == 'y'}">
+					<button class="listBtn" onclick="location.href = '#'">예약하기</button>
+				</c:if>
+				<button class="listBtn" onclick="javascript:window.history.go(-1);">목록으로</button>
+			</div>
+			
+			 <br><br> <br>
+		 </c:if>	
+		 
+		<!-- 해당 가게를 찜했다면 -->
+		<c:if test="${null != like_list.r_like_num}">				 
+			<div class ="title_box">
+				<span> ${list.r_name} 정보입니다.</span>		
+			</div>	
+					
+			<!-- ajax용 r_num, r_rlike_num  -->
+			<input type="hidden" id="r_num" value="${list.r_num}"/> 
+			<input type="hidden" id="r_like_num" value="${like_list.r_like_num}" />
+		
+			<div class="flex_wrap1">  
+				<div class = "img_box">
+					<c:if test="${null != list.r_fileName}">
+						<img src="${pageContext.request.contextPath}/images/restImage/${list.r_fileName}" class="rest_img">	
+					</c:if>
+					<c:if test="${null == list.r_fileName}">
+						<img src="${pageContext.request.contextPath}/images/egovframework/common/logo.png" class="rest_img">
+					</c:if>
 				</div>
 				
-				 <br><br> <br>
-				
-			 </c:if>	
-			 
-			 
-			<!-- 해당 가게를 찜했다면 -->
-
-				<c:if test="${null != like_list.r_like_num}">
-								 
-					 <div class ="title_box">
-						<span> ${list.r_name }의 정보입니다.</span>		
-					</div>	
+				<div class ="detail_wrap"> 
+					<div class ="detail_semi_wrap">
+						<div class ="food_box">
+							<span> ${list.r_food}</span>		
+						</div>
 						
-					<!-- ajax용 r_num, r_rlike_num  -->
-					<input type="hidden"  id="r_num"  value="${list.r_num }"/> 
-					<input type="hidden"  id="r_like_num"  value="${like_list.r_like_num }" />
-			
-				<div class="flex_wrap1">  
-					<div class = "img_box">
-						<!-- <i class='fa-solid fa-image imageIcon'></i> -->
-						<c:if test="${null != list.r_fileName}">
-							<img src="${pageContext.request.contextPath}/images/restImage/${list.r_fileName}" class="rest_img">	
-						</c:if>
-						
-						<c:if test="${null == list.r_fileName}">
-							<img src="${pageContext.request.contextPath}/images/egovframework/common/logo.png" class="rest_img">
-						</c:if>
+						<div class ="heart_box">	
+							<p id="full_heart"> <i class='fa-solid fa-heart'></i> </p>
+						</div>
+					</div> <!-- detail_semi_wrap  end-->
+					
+					<div class ="tel_box">
+						<span><i class="fa-solid fa-phone restIcon"></i> ${list.r_tel}</span>		
 					</div>
 					
+					<span><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
+											
+					<div class ="open_box">
+						<span>OPEN :  ${list.r_open}</span>		
+					</div>
 					
-					<div class ="detail_wrap"> 
+					<div class ="close_box">
+						<span>CLOSE : ${list.r_close}</span>			
 					
-							<div class ="detail_semi_wrap">
-								<div class ="food_box">
-									<span> ${list.r_food }</span>		
-								</div>
-								
-								<div class ="heart_box">	
-									<p id="full_heart"> <i class='fa-solid fa-heart'></i> </p>
-								</div>
-						</div> <!-- detail_semi_wrap  end-->
-						
-						<div class ="tel_box">
-							<span><i class="fa-solid fa-phone restIcon"></i> ${list.r_tel }</span>		
-						</div>
-						
-						<span><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
-												
-						<div class ="open_box">
-							<span>OPEN :  ${list.r_open }</span>		
-						</div>
-						
-						<div class ="close_box">
-							<span>CLOSE : ${list.r_close }</span>			
-						
 						<div class ="detail_box">
-							<span> ${list.r_detail }</span>		
+							<span> ${list.r_detail}</span>		
 						</div>
-
-						</div>
-					</div> <!--detail_wrap  end -->
-					
-				</div>	 <!--flex_wrap1  end -->
-					
+					</div>
+				</div> <!--detail_wrap  end -->
+			</div>	 <!--flex_wrap1  end -->
+				
 			<div class ="text_box">
 				<span class="menu_span"> <i class="fa-solid fa-bars"></i> 메뉴 </span>	
 				<span class="add_span"> <i class="fa-solid fa-location-dot"></i> 주소 </span>	
 			</div>	
-			
-				<div class="flex_wrap2"> 
-					<div class ="menu_box">
-						<span> ${list.r_menu }</span>	
-					</div>
-						
-					<div class ="add_wrap"> 		
-						<div class = "add_box">
-							<input type=text id="rest_add"  value =" ${list.r_add }" /> 
-						</div>
-						
-						<div class = "map_wrap">
-						<!-- 지도 표시 div -->
-							<div id="map" style="width:100%;height:350px;"></div>
-						</div>
-						
-					</div> <!-- end -->
-				</div> <!-- flex_wrap2  end-->
-			
-	
-				<div class ="go_list">
-					<button class="listBtn" onclick="javascript:window.history.go(-1);">목록으로</button>
+		
+			<div class="flex_wrap2"> 
+				<div class ="menu_box">
+					<span> ${list.r_menu}</span>	
 				</div>
-				
-				 <br><br> <br>
-				
-			 </c:if>	
 					
-
-	</div> <!-- 전체 div end-->
+				<div class ="add_wrap"> 		
+					<div class = "add_box">
+						<input type=text id="rest_add"  value =" ${list.r_add}" /> 
+					</div>
+					
+					<div class = "map_wrap">
+					<!-- 지도 표시 div -->
+						<div id="map" style="width:100%;height:350px;"></div>
+					</div>
+				</div> <!-- end -->
+			</div> <!-- flex_wrap2  end-->
+		
+			<div class ="go_list">
+				<c:if test="${list.r_resveCode == 'y'}">
+					<button class="listBtn" 
+						onclick="location.href='restResveForm=${list.r_num}.do'">예약하기</button>
+				</c:if>
+				<button class="listBtn" onclick="javascript:window.history.go(-1);">목록으로</button>
+			</div>
+			
+			<br><br> <br>
+		 </c:if>		
+	</div>
+</div> <!-- 전체 div end-->
 
 </body>
 <%@ include file="/WEB-INF/jsp/egovframework/common/footer.jsp" %>

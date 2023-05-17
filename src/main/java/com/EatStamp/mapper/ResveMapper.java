@@ -10,8 +10,8 @@ import com.EatStamp.domain.ResveVO;
 
 /**
  * resve mapper
- * @version 1.1
- * @since 2023.05.15
+ * @version 1.2
+ * @since 2023.05.16
  * @author 이예지
  */
 
@@ -32,5 +32,11 @@ public interface ResveMapper {
 	
 	//0515 이예지 사장님 - 식당 관리(예약 정보) 업데이트
 	public void updateOwnerSetting(RestVO rest) throws Exception;
+	
+	//0516 이예지 회원 - 식당 정보 선택
+	public RestVO selectRestSetting(int r_num) throws Exception;
+	
+	//0516 이예지 회원 - 식당 예약
+	public void insertRestResve(ResveVO resve) throws Exception;
 
 }

@@ -89,5 +89,44 @@
 				r_resveTableCnt = #{r_resveTableCnt}
   		WHERE	r_name = #{r_name}
  	</update>
+ 	
+ 	<!-- 0516 이예지 최초 생성  -->
+	<!-- 회원 - 식당 정보 선택 -->
+ 	<!-- resveMapper.selectRestSetting  -->
+ 	<select id="selectRestSetting" parameterType="int" resultType="restVO">
+	 	SELECT	r_num,
+	 			r_name,
+	 			r_add,
+	 			r_tel,
+	 			r_open,
+	 			r_close,
+	 			r_resveCode,
+				r_resveTime,
+				r_resveDay,
+				r_resveMemCnt,
+				r_resveTableCnt
+		FROM	rest
+		WHERE	r_num = #{r_num}
+ 	</select>
+ 	
+ 	<!-- 0516 이예지 최초 생성  -->
+	<!-- 회원 - 식당 예약 -->
+ 	<!-- resveMapper.insertRestResve  -->
+ 	<insert id="insertRestResve" useGeneratedKeys="true" keyProperty="resve_num" keyColumn="resve_num" parameterType="resveVO">
+		INSERT INTO	resve 
+		  		(mem_num, 
+				r_num, 
+			  	resve_date, 
+			  	resve_memCnt,
+			  	resve_name,
+			  	resve_phoneNum) 
+		VALUES 
+				(#{mem_num}, 
+				#{r_num}, 
+				#{resve_date}, 
+				#{resve_memCnt}, 
+				#{resve_name},
+				#{resve_phoneNum})
+ 	</insert>
 
 </mapper>

@@ -563,7 +563,7 @@ public class StampController {
 		
 		//페이지 처리
 		PagingUtil page = 
-				new PagingUtil(currentPage,count,rowCount,pageCount,"/stamp/cmtList.do");
+				new PagingUtil(currentPage,count,rowCount,pageCount,"/stamp/myCmtList.do");
 		
 		List<CmtVO> list = null;
 		if(count > 0) {

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -215,6 +216,20 @@ public class ResveController {
 		}
 	}
 	
-	
+	@RequestMapping("/restResveForm={r_num}.do")
+	public ModelAndView resveForm (@PathVariable int r_num, HttpSession session) throws Exception {
+		
+		logger.debug("<<r_num>> : " + r_num);
+		RestVO rest = resveService.selectRestSetting(r_num);
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("rest/restResveForm");
+		mav.addObject("rest", rest);
+		mav.addObject("member", member);
+		
+		return mav;
+	}
 	
 }

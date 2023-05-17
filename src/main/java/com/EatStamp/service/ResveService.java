@@ -8,8 +8,8 @@ import com.EatStamp.domain.ResveVO;
 
 /**
  * resve service
- * @version 1.1
- * @since 2023.05.15
+ * @version 1.2
+ * @since 2023.05.16
  * @author 이예지
  */
 
@@ -106,4 +106,39 @@ public interface ResveService {
 	 * @throws Exception
 	 */
 	public void updateOwnerSetting(RestVO rest) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 식당정보선택: 회원의 식당 예약을 위해 식당 정보를 선택한다.
+	 * </pre>
+	 * @date : 2023. 05. 16
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 16          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param r_num
+	 * @return
+	 * @throws Exception
+	 */
+	public RestVO selectRestSetting(int r_num) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 식당예약: 회원이 식당 예약을 하면 예약 테이블에 데이터를 삽입한다.
+	 * </pre>
+	 * @date : 2023. 05. 16
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 16          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param resve
+	 * @throws Exception
+	 */
+	public void insertRestResve(ResveVO resve) throws Exception;
 }
