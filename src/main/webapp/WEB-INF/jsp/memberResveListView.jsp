@@ -162,7 +162,7 @@ History: 최은지, 2023.05.18 최초 작성
 	var resveTimeElements = document.querySelectorAll('.tr_resveTime td');
 	var cancelButtons = document.querySelectorAll('.tr_resveCancel button');
 	
-	// forEach를 사용하여 각 예약 시간에 대해 처리
+	// forEach를 사용하여 각 예약 시간에 대해 처리   ㅇㅇㅇ
 	resveTimeElements.forEach(function(element, index) {
 	  // 예약일자와 예약시간 가져오기
 	  var resveDate = new Date(resveDateElements[index].textContent);
