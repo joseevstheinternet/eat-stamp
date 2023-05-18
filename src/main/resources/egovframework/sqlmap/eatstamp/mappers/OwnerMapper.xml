@@ -156,4 +156,27 @@
 						, 1 )
 	</insert>
 	
+	
+	<!-- 0518 최은지 최초 생성  -->
+	<!-- 사장 회원 헤더 알림 갱신용 정보 조회 -->
+ 	<!-- ownerMapper.getMemNickEqualRestName  -->
+	<select id="getMemNickEqualRestName" parameterType="String" resultType="memberVO">
+		SELECT r_num,
+					r_name,
+					mem_num
+		FROM rest r
+		JOIN member m ON m.mem_nick = r.r_name
+		WHERE r_name = #{mem_nick}	
+	</select>
+	
+	<!-- 0518 최은지 최초 생성  -->
+	<!-- 사장 회원 헤더 알림 갱신용 미확인 알림 조회 -->
+ 	<!-- ownerMapper.getCountUnidentifiedAlert  -->
+	<select id="getCountUnidentifiedAlert" parameterType="int" resultType="int">
+		SELECT	COUNT(*) 
+		FROM	resve
+		WHERE	r_num = #{r_num}
+		AND		resve_chk = 'n'
+	</select>
+	
 </mapper>

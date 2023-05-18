@@ -19,12 +19,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.SearchVO;
 import com.EatStamp.service.OwnerService;
+import com.google.gson.Gson;
 
 /**
  * owner controller
@@ -594,5 +596,70 @@ public class OwnerController {
 
 	}
 	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 가게 사장 헤더에 미확인 알림 표시
+	 * </pre>
+	 * @date : 2023.05.18
+	 * @author : 최은지
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.18					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 * @throws Exception
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectAlertResve.do",  method = RequestMethod.POST )
+	public String insertOwnerSignUpInfo(HttpServletResponse response,
+																	HttpSession session
+		) throws Exception {
+		
+		/* ModelAndView 객체 */
+	    ModelAndView mav = new ModelAndView();
+	    /* 세션에서 받아올 mem_nick 문자 */
+	    String mem_nick = null;
+	    /* 알림 갱신 확인용 숫자 */
+	    int checkAlert = 0;
+	    /* 가게정보 조회 결과 확인용 vo객체 */
+	    MemberVO checkRestInfo = new MemberVO();
+	    /* 가게 고유번호 숫자 */
+	    int r_num = 0;
+	    /* 오류 retrun용 숫자  */
+	    int errorReturnNum = -1;
+	    
+		MemberVO owner = ( MemberVO ) session.getAttribute( "owner" ); //세션에서 정보 가져오기
+		mem_nick = owner.getMem_nick();
+		
+		// 멤버 닉네임이 일치하는 상호명 조회 (가게 이름, 가게 고유번호),
+		checkRestInfo = ownerService.getMemNickEqualRestName( mem_nick );
+		r_num = checkRestInfo.getR_num();
+		
+		// 해당 상호명의 알림 정보를 추가적으로 받아와 갱신 
+		checkAlert = ownerService.getCountUnidentifiedAlert( r_num ); //미확인 알림 개수 count로 가져오기
+		
+		if ( 0 < checkAlert ) { //미확인 알림이 있다면
+
+			String jsonAlert = new Gson().toJson(checkAlert);
+			
+			return jsonAlert;
+			
+		} else if ( 0 == checkAlert) { //미확인 알림이 없다면
+
+			String jsonAlert = new Gson().toJson(checkAlert);
+			
+			return jsonAlert;
+			
+		} else { //오류상황 
+			
+			logger.debug( "알림 정보 갱신 중 오류 발생" );
+			return "-1";
+		}
+		
+	}//selectAlertResve end
+
 	
 }

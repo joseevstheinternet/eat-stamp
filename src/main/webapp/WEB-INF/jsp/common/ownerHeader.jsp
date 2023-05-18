@@ -129,6 +129,16 @@ i.header_user {
 	flex-direction: column;
 	height: 20px;
 }
+
+.txt_alert{
+	border: none;
+	font-size: 13px;
+	width: 20px;
+}
+
+.div_alertResve{
+	cursor: pointer;
+}
 </style>
 <body>
 	<!-- header 시작 -->
@@ -167,6 +177,10 @@ i.header_user {
 			             	</div>
 						</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class = "div_alertResve" onclick="location.href = '/owner/ownerResveList.do'">
+			             	<i class="fa-solid fa-bell"></i>&nbsp;<input class ="txt_alert" value="0" readonly="readonly">
+			             </div>
+			             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<a><i id="logoutBtn" class="fa-solid fa-right-to-bracket header_search"></i></a>
 				</c:if>
 				<c:if test="${empty owner}">
@@ -269,6 +283,52 @@ function initAjax() {
     }
     return xmlhttp;
 }
+
+//0517 최은지
+//알림 갱신용 주기적 ajax요청
+function alertResve() {
+    console.log("알림 갱신 요청 ajax 실행");
+
+    function requestAlertResve() {
+        $.ajax({
+            url: "/selectAlertResve.do",
+            type: "post",
+            async: true,
+            success : function(data) {
+			                var parseData = parseInt(data);
+			                
+			                if ( 0 < parseData ) {
+			                    console.log( "미확인 알림 있음" );
+			                    console.log(data);
+			                    $(".txt_alert").attr("value", parseData);
+			                    
+			                } else if ( 0 == parseData ) {
+			                    console.log("미확인 알림 없음");
+			                    console.log(data);
+			                    $(".txt_alert").attr("value", parseData);
+			                    
+			                } else {
+			                    console.log( "요청 에러 발생 1" );
+			                    console.log( data );
+			                    
+			                }
+           			 },
+            error : function(xhr, status, error) {
+		                console.log( "요청 에러 발생" );
+		                console.log( xhr );
+		                console.log( status );
+		                console.log( error );
+         	   },
+            complete: function() {
+                setTimeout( requestAlertResve, 3000 ); // 3초에 한번씩 요청
+            }
+        });
+    }
+    requestAlertResve();
+}
+
+	alertResve(); //알림확인 함수 실행
+
 </script>
 
 </html>

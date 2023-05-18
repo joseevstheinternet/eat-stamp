@@ -46,5 +46,6 @@ public class MemberVO {
 	private int mem_report_cnt;
 	
 	private int r_num; //식당 번호
+	private String r_name; //식당 상호명
 	
 }

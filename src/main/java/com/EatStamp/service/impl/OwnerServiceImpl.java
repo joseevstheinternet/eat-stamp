@@ -60,49 +60,49 @@ public class OwnerServiceImpl implements OwnerService {
 	 *  ------------------------------------------------------------------------
 	 */
 	@Override
-	public MemberVO selectOwnerInfoLoginCheck(MemberVO vo) throws Exception {
+	public MemberVO selectOwnerInfoLoginCheck( MemberVO vo ) throws Exception {
 			
-		return ownerMapper.selectLoginOwnerInforCheck(vo);
+		return ownerMapper.selectLoginOwnerInforCheck( vo );
 	}
 
 
 	@Override
-	public MemberVO selectOwnerPW(MemberVO memberVO) throws Exception {
-		return ownerMapper.selectOwnerPW(memberVO);
+	public MemberVO selectOwnerPW( MemberVO memberVO ) throws Exception {
+		return ownerMapper.selectOwnerPW( memberVO );
 	}
 
 
 	@Override
-	public int updateOwnerPW(MemberVO memberVO) throws Exception {
-		return ownerMapper.updateOwnerPW(memberVO);
+	public int updateOwnerPW( MemberVO memberVO ) throws Exception {
+		return ownerMapper.updateOwnerPW( memberVO );
 	}
 
 
 	@Override
-	public int selectRestRowCount(Map<String, Object> map) throws Exception {
+	public int selectRestRowCount( Map<String, Object> map ) throws Exception {
 		return ownerMapper.selectCountOwnerSignUpRestResult(map);
 	}
 
 
 	@Override
-	public List<SearchVO> selectRestList(Map<String, Object> map) throws Exception {
+	public List<SearchVO> selectRestList( Map<String, Object> map ) throws Exception {
 		return ownerMapper.selectOwnerSignUpRestResult(map);
 	}
 
 
 	@Override
-	public RestVO getDuplSignUpCheck(String r_name) throws Exception {
+	public RestVO getDuplSignUpCheck( String r_name ) throws Exception {
 		return ownerMapper.getDuplSignUpCheck(r_name);
 	}
 
 
 	@Override
-	public int insertOwnerSignUpInfo(MemberVO memberVO) throws Exception {
+	public int insertOwnerSignUpInfo( MemberVO memberVO ) throws Exception {
 		return ownerMapper.insertOwnerSignUpInfo(memberVO);
 	}
 
 	@Override
-	public int updateRestInfoSignUp(RestVO restVO) throws Exception {
+	public int updateRestInfoSignUp( RestVO restVO ) throws Exception {
 		return ownerMapper.updateRestInfoSignUp(restVO);
 	}
 
@@ -135,6 +135,18 @@ public class OwnerServiceImpl implements OwnerService {
 	@Override
 	public int insertOwnerSignUpNewRestInfo( RestVO restVO ) throws Exception {
 		return ownerMapper.insertOwnerSignUpNewRestInfo( restVO );
+	}
+
+
+	@Override
+	public MemberVO getMemNickEqualRestName( String mem_nick ) throws Exception {
+		return ownerMapper.getMemNickEqualRestName( mem_nick );
+	}
+
+
+	@Override
+	public int getCountUnidentifiedAlert( int r_num ) throws Exception {
+		return ownerMapper.getCountUnidentifiedAlert( r_num );
 	}
 	
 	

@@ -23,7 +23,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public MemberVO selectOwnerInfoLoginCheck(MemberVO vo) throws Exception;
+	public MemberVO selectOwnerInfoLoginCheck( MemberVO vo ) throws Exception;
 	
 	/**
 	 * <pre>
@@ -35,7 +35,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public MemberVO selectOwnerPW(MemberVO memberVO) throws Exception;
+	public MemberVO selectOwnerPW( MemberVO memberVO ) throws Exception;
 	
 	/**
 	 * <pre>
@@ -47,7 +47,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateOwnerPW(MemberVO memberVO) throws Exception;
+	public int updateOwnerPW( MemberVO memberVO ) throws Exception;
 	
 	/**
 	 * <pre>
@@ -59,7 +59,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int selectRestRowCount(Map<String,Object> map)throws Exception;
+	public int selectRestRowCount( Map<String,Object> map )throws Exception;
 	
 	/**
 	 * <pre>
@@ -71,7 +71,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SearchVO> selectRestList(Map<String, Object> map)throws Exception;
+	public List<SearchVO> selectRestList( Map<String, Object> map )throws Exception;
 	
 	/**
 	 * <pre>
@@ -83,7 +83,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public RestVO getDuplSignUpCheck(String r_name)throws Exception;
+	public RestVO getDuplSignUpCheck( String r_name )throws Exception;
 	
 	/**
 	 * <pre>
@@ -95,7 +95,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertOwnerSignUpInfo(MemberVO memberVO)throws Exception;
+	public int insertOwnerSignUpInfo( MemberVO memberVO )throws Exception;
 	
 	/**
 	 * <pre>
@@ -107,7 +107,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRestInfoSignUp(RestVO restVO)throws Exception;
+	public int updateRestInfoSignUp( RestVO restVO )throws Exception;
 	
 	/**
 	 * <pre>
@@ -119,7 +119,7 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	 */
-	 public void ownerOriginSignUpEmailSend(MemberVO vo) throws Exception;
+	 public void ownerOriginSignUpEmailSend( MemberVO vo ) throws Exception;
 	 
 	/**
 	 * <pre>
@@ -131,7 +131,31 @@ public interface OwnerService {
 	 * @return
 	 * @throws Exception
 	*/
-	public int insertOwnerSignUpNewRestInfo(RestVO restVO)throws Exception;
+	public int insertOwnerSignUpNewRestInfo( RestVO restVO )throws Exception;
 	 
+	/**
+	 * <pre>
+	* 처리내용: 사장 헤더 알림 갱신용 DB정보 조회
+	* </pre>
+	* @date : 2023.05.18
+	* @author : 최은지
+	* @param mem_nick
+	 * @return
+	 * @throws Exception
+	*/
+	public MemberVO getMemNickEqualRestName( String mem_nick )throws Exception;
+	
+	
+	/**
+	 * <pre>
+	* 처리내용: 사장 헤더 알림 갱신용 미확인 알림 조회
+	* </pre>
+	* @date : 2023.05.18
+	* @author : 최은지
+	* @param r_num
+	 * @return
+	 * @throws Exception
+	*/
+	public int getCountUnidentifiedAlert( int r_num )throws Exception;
 
 }

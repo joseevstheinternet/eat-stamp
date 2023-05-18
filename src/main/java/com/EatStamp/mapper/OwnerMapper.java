@@ -43,4 +43,10 @@ public interface OwnerMapper {
 	 
 	//0516 최은지 신규 가게 사장 회원가입 시 해당 가게 정보 DB 업데이트
 	 public int insertOwnerSignUpNewRestInfo(RestVO restVO)throws Exception;
+	 
+	 //0518 최은지 사장 헤더 알림 갱신용 DB정보 조회
+	 public MemberVO getMemNickEqualRestName( String mem_nick )throws Exception;
+	 
+	 //0518 최은지 사장 헤더 알림 갱신용 미확인 알림 조회
+	 public int getCountUnidentifiedAlert( int r_num )throws Exception;
 }
