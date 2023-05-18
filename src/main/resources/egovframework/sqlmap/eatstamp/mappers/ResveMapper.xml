@@ -141,5 +141,15 @@
         AND     	resve_date = #{date}
         GROUP BY	resve_time
 	</select>
+	
+	<!-- 0518 최은지 최초 생성  -->
+	<!-- 예약내역 리스트 확인 시 미확인 여부 알림 코드 업데이트 -->
+ 	<!-- resveMapper.updateAlertCheckAfter  -->
+ 	<update id="updateAlertCheckAfter"  parameterType="int">
+		UPDATE resve
+		SET		resve_chk = 'n'
+		WHERE	r_num = #{r_num}
+	</update>
+	
 
 </mapper>
