@@ -12,189 +12,12 @@
 <!-- css -->
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />	
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/stampList.css'/>" />	
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/mypageReport.css'/>" />	
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" 
 	    referrerpolicy="no-referrer" />	
-
-<style>
-
-div.mypage-menu {
-    width: 180px;
-    height: 255px;
-}
-
-p.menu-list {
-	margin-bottom: 15px;
-}
-
-div.stamp-table-name{
-	display: flex;
-    justify-content: space-between;
-}
-
-span.table{
-	color: lightgray;
-	margin: 0;
-}
-
-div.box-parent {
-	display: block;
-}
-
-span.table-image{
-	width: 50px;
-    text-align: center;
-}
-
-span.table-title{
-    width: 350px;
-    text-align: center;
-}
-
-span.table-rname{
-    width: 80px;
-    text-align: center;
-}
-
-span.table-regdate{
-    width: 80px;
-    text-align: center;
-}
-
-span.table-writer{
-    width: 80px;
-    text-align: center;
-}
-
-div.list-span01{
-	margin-left: 0px;
-}
-
-div.box-section1{
-	justify-content: space-between;
-}
-
-div.box-no{
-	width: 50px;
-    text-align: center;
-}
-
-div.box-title{
-	width: 350px;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-div.box-rname{
-	width: 80px;
-	text-align: center;
-}
-
-div.box-date{
-	width: 80px;
-    text-align: center;
-}
-
-div.box-mem4{
-	width: 80px;
-	text-align: center;
-}
-
-div.box-button{
-	margin-top: 5px;
-}
-
-button.update-btn{
-    background-color: #ffc06c;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 15px;
-}
-
-div.mypage-menu-second{
-    width: 150px;
-    height: 190px;
-    background: white;
-    border-radius: 25px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    padding: 20 0 20 30px;
-}
-
-/* 모달 */
-.modal-dialog {
-	top: 20%;
-}
-
-.modal-header {
-    text-align: center;
-    height: 56px;
-}
-
-.modal-title {
-    font-weight: bold;
-}
-
-.modal-x {
-    position: relative;
-    top: -20px;
-}
-
-.menu_text {
-    font-size: 15px;
-    font-weight: bold;
-    width: 80px;
-    display: inline-block;
-}
-
-.modal_detail_report div {
-    margin-bottom: 10px;
-}
-
-.ajax_text {
-    border: none;
-    color: #666666;
-    font-size: 13px;
-    outline: none;
-}
-
-.ajax_text2 {
-    margin-left: 82px;
-}
-
-.why_box, .return_box {
-	display: flex;
-    margin-top: 20px;
-}
-
-textarea.ajax_area {
-    overflow: hidden;
-    resize: none;
-    width: 450px;
-    height: 70px;
-    border-radius: 20px;
-    padding: 15px;
-    border: 0;
-    background-color: #f1efe8;
-    font-size: 13px;
-}
-
-textarea.return_val {
-    overflow: hidden;
-    resize: none;
-    width: 450px;
-	height: 230px;
-    border-radius: 20px;
-    padding: 15px;
-    border: 0;
-    background-color: #ffe3be;
-}
-/* 모달 끝 */
-
-</style>
 
 <!DOCTYPE html>
 <html>
@@ -228,6 +51,8 @@ textarea.return_val {
 						href="${pageContext.request.contextPath}/stamp/myCmtList.do" style="color: #9d9d9d;">내가 쓴 댓글</a></p>
 					<p class="menu-list"><a class="menu-list" 
 						href="${pageContext.request.contextPath}/rest_list.do" style="color: #9d9d9d;">찜한 가게</a></p>
+					<p class="menu-list"><a class="menu-list" 
+						href="${pageContext.request.contextPath}/selectMemberResveList.do" style="color: #9d9d9d;"> 예약 내역 </a></p>
 					<p class="menu-list"><a class="menu-list"
 						href="${pageContext.request.contextPath}/check_report.do">신고 내역</a></p>
 					<p class="menu-list"><a class="menu-list"

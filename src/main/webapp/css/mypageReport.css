@@ -1,270 +1,173 @@
-
-
- /* 좌측 메뉴바 */
-
-div#wrap{
-	display: flex;
-    justify-content: center;
-    padding: 50px 0;
-    width: 1300px;
-    margin-left: 350px;
-}
-
 div.mypage-menu {
     width: 180px;
-    height: 200px;
+    height: 290px;
+}
+
+p.menu-list {
+	margin-bottom: 15px;
+}
+
+div.stamp-table-name{
+	display: flex;
+    justify-content: space-between;
+}
+
+span.table{
+	color: lightgray;
+	margin: 0;
+}
+
+div.box-parent {
+	display: block;
+}
+
+span.table-image{
+	width: 50px;
+    text-align: center;
+}
+
+span.table-title{
+    width: 350px;
+    text-align: center;
+}
+
+span.table-rname{
+    width: 80px;
+    text-align: center;
+}
+
+span.table-regdate{
+    width: 80px;
+    text-align: center;
+}
+
+span.table-writer{
+    width: 80px;
+    text-align: center;
+}
+
+div.list-span01{
+	margin-left: 0px;
+}
+
+div.box-section1{
+	justify-content: space-between;
+}
+
+div.box-no{
+	width: 50px;
+    text-align: center;
+}
+
+div.box-title{
+	width: 350px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.box-rname{
+	width: 80px;
+	text-align: center;
+}
+
+div.box-date{
+	width: 80px;
+    text-align: center;
+}
+
+div.box-mem4{
+	width: 80px;
+	text-align: center;
+}
+
+div.box-button{
+	margin-top: 5px;
+}
+
+button.update-btn{
+    background-color: #ffc06c;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+}
+
+div.mypage-menu-second{
+    width: 150px;
+    height: 190px;
     background: white;
     border-radius: 25px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     padding: 20 0 20 30px;
 }
 
-div.mypage-div02{
-	flex: 4;
-    margin-left: 100px;
-}
-
-a.menu-list{
-	font-size: 13px;
-    font-weight: bold;
-}
-
-p.menu-list{
-	margin: 10px 0 10px 10px;
-}
-
-/* 우측 list */
-div.no-list{
-	background-color: white;
-    text-align: center;
-    padding: 50;
-    width: 500;
-    margin: 30px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-}
-
-span.no-list{
-	font-size: 16px;
-    font-weight: bold;
-    color: gray;
-}
-
-div.mypage-section1{
-	display: flex;
-    align-items: center;
-}
-
-span.mypage-title{
-    font-size: 25px;
-    color: ffc06c;
-    font-weight: bold;
-    flex: 1;
-}
-
-i.writeBtn{
-	font-size: 30px;
-}
-
-ul.list-ul{
-	margin: 30px 0;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    padding: 30px;
-    width: 850px;
-}
-
-li.list-list{
-	list-style-type: none;
-}
-
-div.box-parent{
-    display: grid;
-    align-items: center;
-    cursor: pointer;
-}
-
-div.box-section1{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-i.imageIcon{
-    font-size: 60px;
-    color: ddd9cb;
-}
-
-img#imgfile{
-	height: 60px;
-    width: 60px;
-    border-radius: 10px;
-}
-
-div.list-span01{
-	margin-left: 25px;
-	margin-top: 3px;
-}
-
-div.box-date{
-	color: #ddd9cb;
-}
-
-span.font-set1{
-	font-size: 16px;
-	font-weight: bolder;
-	color: ffc06c;
-}
-
-span.font-set2{
-	font-size: 14px;
-	color: gray;
-}
-
-i.restIcon{
-	margin-right: 5px;
-    color: #b1b1b1;
-}
-
-hr.line{
-    margin: 15px 0;
-    background: #ddd9cb;
-    height: 1px;
-    border: 0;
-}
-
-div.page{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.insert_btn{
-	height: 30px;
-    width: 100px;
-    border-radius: 20px;
-    background-color: #ffc06c;
-    color: white;
-    margin-right: 5px;
-}
-
-.return_text{
-	flex: 1;
-}
-
-.ajax_area{
-	resize: none;
-	flex: 1;
-	border: none;
-	color: #666666;
-	width: 500px;
-	font-size: 13px;
-	white-space: pre-wrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin-left: 20px;
-	background-color: #ddd9cb;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-    margin-bottom: 10px;
-}
-
-.return_val{
-	resize: none;
-}
-
-#two_modal{
-	font-size: 15px;
-}
-
-.cancelBtn{
-	margin-right: 20px;
-}
-
-
-.ajax_text{
-	border: none;
-	color: #666666;
-	font-size: 13px;
-	flex:8;
-}
-
-.return_val{
-	resize: none;
-	flex: 1;
-	border: none;
-	color: #666666;
-	width: 500px;
-	height: 40%;
-	font-size: 13px;
-	white-space: pre-wrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin-left: 20px;
-	background-color: #ffc06c;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 3px 3px 30px 1px #ebebeb70;
-}
-
-#ajax_text_mem1{
-	margin-left: 75px;
-}
-
-#ajax_text_mem2{
-	margin-left: 75px;
-}
-
-.mem2_text{
-	margin-right: 33px;
-	font-size: 15px;
-	font-weight: bold;
-}
-.mem1_text{
-	margin-right: 16px;
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.num_text{
-	margin-right: 20px;
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.dis_text{
-	margin-right: 50px;
-	font-size: 15px;
-	font-weight: bold;	
-}
-
-.why_text{
-	margin-right: 20px;
-	font-size: 15px;
-	font-weight: bold;		
-}
-
-.return_text{
-	margin-right: 20px;
-	font-size: 15px;
-	font-weight: bold;	
-}
-
-.modal_detail_report div{
-	margin-bottom: 5px;
+/* 모달 */
+.modal-dialog {
+	top: 20%;
 }
 
 .modal-header {
-    padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
     text-align: center;
+    height: 56px;
 }
 
 .modal-title {
-    margin: 0;
-    line-height: 1.42857143;
     font-weight: bold;
 }
+
+.modal-x {
+    position: relative;
+    top: -20px;
+}
+
+.menu_text {
+    font-size: 15px;
+    font-weight: bold;
+    width: 80px;
+    display: inline-block;
+}
+
+.modal_detail_report div {
+    margin-bottom: 10px;
+}
+
+.ajax_text {
+    border: none;
+    color: #666666;
+    font-size: 13px;
+    outline: none;
+}
+
+.ajax_text2 {
+    margin-left: 82px;
+}
+
+.why_box, .return_box {
+	display: flex;
+    margin-top: 20px;
+}
+
+textarea.ajax_area {
+    overflow: hidden;
+    resize: none;
+    width: 450px;
+    height: 70px;
+    border-radius: 20px;
+    padding: 15px;
+    border: 0;
+    background-color: #f1efe8;
+    font-size: 13px;
+}
+
+textarea.return_val {
+    overflow: hidden;
+    resize: none;
+    width: 450px;
+	height: 230px;
+    border-radius: 20px;
+    padding: 15px;
+    border: 0;
+    background-color: #ffe3be;
+}
+/* 모달 끝 */
