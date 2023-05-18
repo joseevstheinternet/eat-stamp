@@ -9,6 +9,7 @@
 		SELECT  resve_num,
 				r_num,
 				resve_date,
+				resve_time,
 				resve_memCnt,
 				resve_chk,
 				resve_sttus,
@@ -19,6 +20,7 @@
 					resve_num,
 					resve.r_num,
 					resve_date,
+					resve_time,
 					resve_memCnt,
 					resve_chk,
 					CASE 
