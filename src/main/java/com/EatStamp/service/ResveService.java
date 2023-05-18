@@ -8,8 +8,8 @@ import com.EatStamp.domain.ResveVO;
 
 /**
  * resve service
- * @version 1.3
- * @since 2023.05.17
+ * @version 1.4
+ * @since 2023.05.18
  * @author 이예지
  */
 
@@ -158,5 +158,24 @@ public interface ResveService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, Object>> selectResveCntByDate(String resve_date) throws Exception;
+	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 타임 슬롯 비활성화를 위한 이미 예약된 시간 구하기
+	 * </pre>
+	 * @date : 2023. 05. 18
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 18          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param r_num
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	public List<String> getUnableTimes(Map<String, Object> map) throws Exception;
 }

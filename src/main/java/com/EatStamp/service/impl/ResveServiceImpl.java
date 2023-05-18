@@ -62,8 +62,13 @@ public class ResveServiceImpl implements ResveService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectResveCntByDate(String resve_date) throws Exception {
-		return resveMapper.selectResveCntByDate(resve_date);
+	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception {
+		return resveMapper.selectResveCntByDate(map);
+	}
+
+	@Override
+	public List<String> getUnableTimes(Map<String, Object> map) throws Exception {
+		return resveMapper.getUnableTimes(map);
 	}
 
 }

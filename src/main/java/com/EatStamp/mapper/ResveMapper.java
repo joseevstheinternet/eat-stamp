@@ -10,8 +10,8 @@ import com.EatStamp.domain.ResveVO;
 
 /**
  * resve mapper
- * @version 1.3
- * @since 2023.05.17
+ * @version 1.4
+ * @since 2023.05.18
  * @author 이예지
  */
 
@@ -40,6 +40,9 @@ public interface ResveMapper {
 	public void insertRestResve(ResveVO resve) throws Exception;
 	
 	//0517 이예지 날짜에 따른 타임별 예약 수 구하기
-	public List<Map<String, Object>> selectResveCntByDate(String resve_date) throws Exception;
+	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
+	
+	//0518 이예지 예약 불가능 시간(이미 예약된 시간) 구하기
+	public List<String> getUnableTimes(Map<String, Object> map) throws Exception;
 
 }

@@ -93,6 +93,7 @@
 
 <script type="text/javascript">
 
+	var r_num = ${rest.r_num};
     var r_open = "${rest.r_open}";
     var r_close = "${rest.r_close}";
     var r_resveTime = ${rest.r_resveTime};
@@ -111,11 +112,26 @@
             numberOfMonths : 1,
             dayNamesMin : ['일','월','화','수','목','금','토'],
             monthNamesShort : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-            minDate : 1, //오늘 날짜부터 설정
+            minDate : 1, //내일 날짜부터 설정
             maxDate : r_resveDay, // r_resveDay 일 후까지 설정
             onSelect: function(dateText) {
             	selectedDate = dateText; //사용자가 선택한 날짜 저장
-                generateTimeSlots();
+            	console.log("날짜: " + selectedDate);
+            	$.ajax({
+            		type: 'GET',
+            		url: '/getUnableTimes.do',
+            		data: { r_num : r_num, date : selectedDate },
+            		success : function(data) {
+            			
+            			console.log(data);
+            		    // data는 서버에서 받아 온 응답 객체
+            		    var unableTimes = data || []; // 'unable' 키의 값(불가능한 시간 목록)을 추출
+            		    generateTimeSlots(unableTimes);
+            		},
+            		error : function(jqXHR, textStatus, errorThrown){
+            		    alert('에러: ' + textStatus + ', ' + errorThrown);
+            		}
+            	});
             },
             beforeShow : function(input){
                 var i_offset = $(input).offset();
@@ -126,16 +142,16 @@
         });
 
         //시간 슬롯 생성 함수
-        function generateTimeSlots () {
+        function generateTimeSlots(unableTimes) {
             var start = moment(r_open, "HH:mm");
             var end = moment(r_close, "HH:mm");
-
             var timeSlots = "";
             while(start <= end) {
-                timeSlots += "<div class='timeSlots'>";
-	                timeSlots += "<i class='fa-solid fa-unlock timeIcon'>" + "</i>";
-	                timeSlots += "<span class='time'>" + start.format("HH:mm") + "</span>";
-	            timeSlots += "</div>";
+            	var isUnable = unableTimes.includes(start.format("HH:mm"));
+                timeSlots += "<div class='timeSlots " + (isUnable ? "unable" : "") + "'>";
+                timeSlots += "<i class='fa-solid fa-" + (isUnable ? "lock" : "unlock") + " timeIcon'>" + "</i>";
+                timeSlots += "<span class='time'>" + start.format("HH:mm") + "</span>";
+                timeSlots += "</div>";
                 start.add(r_resveTime, 'minutes');
             }
             $("#timePicker").html(timeSlots);
@@ -145,15 +161,16 @@
     $(document).ready(function(){
     	//시간 슬롯 클릭 이벤트 핸들러
         $('#timePicker').on('click', 'div', function(){
-            // 이전에 선택한 시간 슬롯에서 'selected' 클래스 제거
-            $('#timePicker div.selected').removeClass('selected');
-            
-            // 클릭한 시간 슬롯에 'selected' 클래스 추가
-            $(this).addClass('selected');
-
-            // 선택한 시간 슬롯 출력
-            selectedTime = $(this).text().trim();
-            
+        	if (!$(this).hasClass('unable')) { //예약 불가능한 시간이 아닐 때
+	            // 이전에 선택한 시간 슬롯에서 'selected' 클래스 제거
+	            $('#timePicker div.selected').removeClass('selected');
+	            
+	            // 클릭한 시간 슬롯에 'selected' 클래스 추가
+	            $(this).addClass('selected');
+	
+	            // 선택한 시간 슬롯 출력
+	            selectedTime = $(this).text().trim();
+        	}
             console.log("날짜: " + selectedDate);
             console.log("시간: " + selectedTime);
         });

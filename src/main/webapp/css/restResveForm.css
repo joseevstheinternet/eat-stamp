@@ -98,6 +98,11 @@ div.timeSlots {
     cursor: pointer;
 }
 
+div.timeSlots.unable {
+    background-color: #b9b9b9;
+    cursor: not-allowed;
+}
+
 i.timeIcon {
 	color: gray;
     margin: 0 10px;

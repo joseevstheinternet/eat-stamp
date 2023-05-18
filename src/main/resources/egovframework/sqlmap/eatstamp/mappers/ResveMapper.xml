@@ -134,13 +134,19 @@
  	<!-- 0517 이예지 최초 생성  -->
 	<!-- 날짜에 따른 타임별 예약 수 구하기 -->
  	<!-- resveMapper.selectResveCntByDate  -->
- 	<select id="selectResveCntByDate" resultType="java.util.HashMap" parameterType="java.lang.String">
-	    SELECT      resve_time, 
-	    			COUNT(*) as count
-	    FROM        resve
-	    WHERE       resve_date = #{resve_date}
-	    GROUP BY    resve_time
+ 	<select id="selectResveCntByDate" resultType="map" parameterType="map">
+        SELECT  	resve_time, COUNT(*) as count
+        FROM    	resve
+        WHERE   	r_num = #{r_num} 
+        AND     	resve_date = #{date}
+        GROUP BY	resve_time
 	</select>
  	
+ 	<select id="getUnableTimes" resultType="String" parameterType="map">
+        SELECT	resve_time
+        FROM	resve
+        WHERE	r_num = #{r_num} 
+        AND		resve_date = #{date}
+ 	</select>
 
 </mapper>

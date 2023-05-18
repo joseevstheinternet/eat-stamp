@@ -3,7 +3,6 @@ package com.EatStamp.web;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.EatStamp.domain.CmtVO;
 import com.EatStamp.domain.MemberVO;
-import com.EatStamp.domain.OwnerInfoVO;
 import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
 import com.EatStamp.service.ResveService;
 import com.common.utils.PagingUtil;
+import com.google.gson.Gson;
 
 /**
  * resve controller
@@ -376,36 +373,38 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 처리 내용 : 예약 내역 값을 예약 페이지로 넘기기
+	 * 처리 내용 : 예약 불가능 표시를 위한 이미 예약된 내역 넘기기
 	 * </pre>
-	 * @date : 2023. 05. 17
+	 * @date : 2023. 05. 18
 	 * @author : 이예지
 	 * @history :
 	 * -------------------------------------------------
 	 * 변경일                  변경자            변경내용
 	 * -------------------------------------------------
-	 * 2023. 05. 17          이예지            최초작성
+	 * 2023. 05. 18          이예지            최초작성
 	 * -------------------------------------------------
+	 * @param r_num
 	 * @param date
 	 * @return
+	 * @throws Exception
 	 */
-	@GetMapping("/getReservationData.do")
-    public Optional<Map<String, Integer>> getReservationData (@RequestParam String date) {
-		
-        Map<String, Integer> reservationData = new HashMap<>();
-        try {
-            // 날짜에 따른 타임별 예약 수를 구하는 서비스 메서드 호출
-            List<Map<String, Object>> rows = resveService.selectResveCntByDate(date);
-            
-            for (Map<String, Object> row : rows) {
-                String time = (String)row.get("resve_time");
-                int count = ((Long)row.get("count")).intValue();
-                reservationData.put(time, count); // 시간과 예약 수를 Map에 저장
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	@RequestMapping(value = "/getUnableTimes.do", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String getUnableTimes(@RequestParam int r_num, @RequestParam String date) throws Exception {
 
-        return Optional.ofNullable(reservationData); // 예약 데이터 Map 반환
-    }
+	    logger.debug("<<r_num>>: " + r_num);
+	    logger.debug("<<date>>: " + date);
+
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("r_num", r_num);
+	    map.put("date", date);
+
+	    List<String> unable = resveService.getUnableTimes(map);
+	    logger.debug("unableTimes: " + unable);
+
+	    String jsonData = new Gson().toJson(unable);
+	    
+	    return jsonData;
+	}
+
 }
