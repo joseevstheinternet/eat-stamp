@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+div.mypage-menu {
+    width: 150px;
+    height: 250px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 20 0 20 30px;
+}
+
+a.menu-list{
+	font-size: 13px;
+    font-weight: bold;
+}
+
+p.menu-list{
+	margin: 10px 0 10px 10px;
+}
+
+.div_page{
+	display: flex;
+    justify-content: center;
+    padding: 50px 0;
+    width: 1000px;
+    margin: 0 auto;	
+}
+
+table{
+	display:flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	overflow-x: auto;
+	overflow-y: hidden;
+	text-align: center;
+}
+
+tbody{
+	display:flex;
+}
+
+th,td{
+	display:block;
+}
+
+.div_allWrap{
+	flex: 4;
+    margin-left: 100px;
+}
+
+.txt_resve{
+	font-size: 25px;
+    color: ffc06c;
+    font-weight: bold;
+    flex: 1;	
+}
+
+.div_table{
+	margin: 30px 0;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 30px;
+}
+
+.div_noMember{
+	background-color: white;
+    text-align: center;
+    padding: 50;
+    width: 500;
+    margin: 30px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+}
+
+.txt_noMember{
+	font-size: 16px;	
+    font-weight: bold;
+    color: #d90000;
+    margin: 3px 0;
+}

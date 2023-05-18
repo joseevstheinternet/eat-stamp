@@ -42,4 +42,6 @@ public interface ResveMapper {
 	//0517 이예지 날짜에 따른 타임별 예약 수 구하기
 	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
 
+	//0518 최은지 예약내역 리스트 확인 시 미확인 여부 알림 코드 업데이트
+	public int updateAlertCheckAfter( int r_num )throws Exception;
 }

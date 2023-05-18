@@ -66,4 +66,9 @@ public class ResveServiceImpl implements ResveService {
 		return resveMapper.selectResveCntByDate(map);
 	}
 
+	@Override
+	public int updateAlertCheckAfter( int r_num ) throws Exception {
+		return resveMapper.updateAlertCheckAfter( r_num );
+	}
+
 }

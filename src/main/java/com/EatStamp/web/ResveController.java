@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
+import com.EatStamp.service.OwnerService;
 import com.EatStamp.service.ResveService;
 import com.common.utils.PagingUtil;
 import com.google.gson.Gson;
@@ -43,6 +45,10 @@ public class ResveController {
 	@Autowired
 	private ResveService resveService;
 	
+	/*서비스 빈 주입 */
+	@Resource(name = "ownerService")
+	public OwnerService ownerService;
+	
 	//자바빈(VO) 초기화
 	@ModelAttribute
 	public ResveVO initCommand() {
@@ -60,6 +66,7 @@ public class ResveController {
 	 * 변경일                  변경자            변경내용
 	 * -------------------------------------------------
 	 * 2023. 05. 15          이예지            최초작성
+	 * 2023. 05. 18			 최은지			헤더 알림 확인용 UPDATE문 추가
 	 * -------------------------------------------------
 	 * @param session
 	 * @param currentPage
@@ -71,6 +78,21 @@ public class ResveController {
 									@RequestParam(value="pageNum",defaultValue="1") int currentPage) throws Exception {
 		
 		MemberVO owner = (MemberVO)session.getAttribute("owner");
+				
+	    /* 가게정보 조회 결과 확인용 vo객체 */
+	    MemberVO checkRestInfo = new MemberVO();
+	    /* 세션에서 받아올 mem_nick 문자 */
+	    String mem_nick = null;
+	    /* 가게 고유번호 숫자 */
+	    int r_num = 0;
+	    
+		mem_nick = owner.getMem_nick(); 
+		// 멤버 닉네임이 일치하는 상호명 조회 (가게 이름, 가게 고유번호),
+		checkRestInfo = ownerService.getMemNickEqualRestName( mem_nick );
+		r_num = checkRestInfo.getR_num();
+		
+		int updateCheckResveAlert = resveService.updateAlertCheckAfter( r_num ); //알림 확인 update
+		System.out.println("???????????>>" + updateCheckResveAlert);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("mem_nick", owner.getMem_nick());

@@ -506,7 +506,7 @@ public class OwnerController {
 
 	    int test = 0;
 	    
-	    if(mem_newNick.equals("") && !mem_nick.equals("")){ //신규 상호명이 비어있고 기존 상호명이 비어있지 않을 경우
+	    if( mem_newNick.equals( "" ) && !mem_nick.equals( "" ) ){ //신규 상호명이 비어있고 기존 상호명이 비어있지 않을 경우
 	    	test = 1;
 	    }
 	    
@@ -526,7 +526,7 @@ public class OwnerController {
 	            	
 	            	int ownerSignUpinsertCheck = ownerService.insertOwnerSignUpInfo( memberVO ); //회원 정보 insert
 
-	            	if ( 1 == ownerSignUpinsertCheck) { //insert에 성공 시
+	            	if ( 1 == ownerSignUpinsertCheck ) { //insert에 성공 시
 	            		
 	            		restVO.setR_num( r_num ); //식당 고유 번호
 	            		
@@ -614,8 +614,7 @@ public class OwnerController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectAlertResve.do",  method = RequestMethod.POST )
-	public String insertOwnerSignUpInfo(HttpServletResponse response,
-																	HttpSession session
+	public String insertOwnerSignUpInfo(HttpSession session
 		) throws Exception {
 		
 		/* ModelAndView 객체 */
@@ -628,8 +627,8 @@ public class OwnerController {
 	    MemberVO checkRestInfo = new MemberVO();
 	    /* 가게 고유번호 숫자 */
 	    int r_num = 0;
-	    /* 오류 retrun용 숫자  */
-	    int errorReturnNum = -1;
+	    /* 오류 retrun용 문자  */
+	    String errorReturnNum = "-1";
 	    
 		MemberVO owner = ( MemberVO ) session.getAttribute( "owner" ); //세션에서 정보 가져오기
 		mem_nick = owner.getMem_nick();
@@ -643,20 +642,20 @@ public class OwnerController {
 		
 		if ( 0 < checkAlert ) { //미확인 알림이 있다면
 
-			String jsonAlert = new Gson().toJson(checkAlert);
+			String jsonAlert = new Gson().toJson( checkAlert );
 			
 			return jsonAlert;
 			
 		} else if ( 0 == checkAlert) { //미확인 알림이 없다면
 
-			String jsonAlert = new Gson().toJson(checkAlert);
+			String jsonAlert = new Gson().toJson( checkAlert );
 			
 			return jsonAlert;
 			
 		} else { //오류상황 
 			
 			logger.debug( "알림 정보 갱신 중 오류 발생" );
-			return "-1";
+			return errorReturnNum;
 		}
 		
 	}//selectAlertResve end

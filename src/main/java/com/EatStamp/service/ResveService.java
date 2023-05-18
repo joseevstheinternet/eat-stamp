@@ -160,4 +160,22 @@ public interface ResveService {
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 예약내역 리스트 확인 시 미확인 여부 알림 코드 업데이트
+	 * </pre>
+	 * @date : 2023. 05. 18
+	 * @author : 최은지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 18          최은지            최초작성
+	 * -------------------------------------------------
+	 * @param r_num
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateAlertCheckAfter( int r_num )throws Exception;
 }

@@ -284,7 +284,14 @@ function initAjax() {
     return xmlhttp;
 }
 
-//0517 최은지
+
+//<0518 최은지>
+//서버 렌더링 시 meta태그에 토큰 추가
+//스프링 시큐리티 설정 시 <csrf disabled = "false" />, CsrfFilter를 활성화시켜 토큰값을 비교
+var token = $("meta[name='_csrf']").attr('content');
+var header = $("meta[name='_csrf_header']").attr('content');
+
+//<0517 최은지>
 //알림 갱신용 주기적 ajax요청
 function alertResve() {
     console.log("알림 갱신 요청 ajax 실행");
@@ -294,6 +301,14 @@ function alertResve() {
             url: "/selectAlertResve.do",
             type: "post",
             async: true,
+            beforeSend : function(xhr){
+								//null값 체크
+								if(token && header) {
+							        $(document).ajaxSend(function(event, xhr, options) {
+							            xhr.setRequestHeader(header, token);
+							    	  });
+									}//if end	
+						  		}, //beforeSend end
             success : function(data) {
 			                var parseData = parseInt(data);
 			                
@@ -310,7 +325,6 @@ function alertResve() {
 			                } else {
 			                    console.log( "요청 에러 발생 1" );
 			                    console.log( data );
-			                    
 			                }
            			 },
             error : function(xhr, status, error) {
