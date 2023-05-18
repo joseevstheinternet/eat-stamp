@@ -63,10 +63,12 @@ History: 최은지, 2023.05.18 최초 작성
 			
 				<div class ="div_table">
 					<table class = "tbl_resveList">
+					
 						<tr class = "tr_resveDate">
 							<th>예약일시</th>
-							<td> 날짜1 </td>
-							<td> 날짜2 </td>
+							<c:forEach var="list" items="${list}" varStatus="status">
+								<td> ${list.r_date } </td>
+							</c:forEach>
 						</tr>
 						
 						<tr class = "tr_resveMemberName">

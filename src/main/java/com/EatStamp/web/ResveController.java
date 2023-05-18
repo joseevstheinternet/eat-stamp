@@ -92,7 +92,6 @@ public class ResveController {
 		r_num = checkRestInfo.getR_num();
 		
 		int updateCheckResveAlert = resveService.updateAlertCheckAfter( r_num ); //알림 확인 update
-		System.out.println("???????????>>" + updateCheckResveAlert);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("mem_nick", owner.getMem_nick());

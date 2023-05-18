@@ -149,7 +149,7 @@
  	<!-- resveMapper.updateAlertCheckAfter  -->
  	<update id="updateAlertCheckAfter"  parameterType="int">
 		UPDATE resve
-		SET		resve_chk = 'n'
+		SET		resve_chk = 'y'
 		WHERE	r_num = #{r_num}
 	</update>
 	
