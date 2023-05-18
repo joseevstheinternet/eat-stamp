@@ -141,12 +141,5 @@
         AND     	resve_date = #{date}
         GROUP BY	resve_time
 	</select>
- 	
- 	<select id="getUnableTimes" resultType="String" parameterType="map">
-        SELECT	resve_time
-        FROM	resve
-        WHERE	r_num = #{r_num} 
-        AND		resve_date = #{date}
- 	</select>
 
 </mapper>

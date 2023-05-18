@@ -41,8 +41,5 @@ public interface ResveMapper {
 	
 	//0517 이예지 날짜에 따른 타임별 예약 수 구하기
 	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
-	
-	//0518 이예지 예약 불가능 시간(이미 예약된 시간) 구하기
-	public List<String> getUnableTimes(Map<String, Object> map) throws Exception;
 
 }
