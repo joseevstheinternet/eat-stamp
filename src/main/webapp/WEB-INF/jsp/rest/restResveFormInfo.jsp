@@ -151,12 +151,11 @@ function regist(){
 	const resve_name = $('#resve_name').val();
 	const resve_phoneNum = $('#resve_phoneNum').val();
 	
-	console.log("r_num : " + r_num);
-	console.log("resve_date : " + resve_date);
-	console.log("resve_time : " + resve_time);
-	console.log("resve_memCnt : " + resve_memCnt);
-	console.log("resve_name : " + resve_name);
-	console.log("resve_phoneNum : " + resve_phoneNum);
+	// 모든 필드가 채워져 있는지 검사
+    if (!resve_date || !resve_time || !resve_name || !resve_phoneNum) {
+        alert('모든 예약 정보를 입력해 주세요.');
+        return; // 예약 정보가 누락된 경우 함수 종료
+    }
 	
 	//데이터 전송
 	$.ajax({

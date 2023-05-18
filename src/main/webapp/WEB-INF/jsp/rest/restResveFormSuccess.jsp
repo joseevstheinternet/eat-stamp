@@ -8,6 +8,12 @@
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/layout.css'/>" />	
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/stampListAdmin.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/restResveForm.css'/>" />
+<!-- jQuery 라이브러리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jQuery UI 라이브러리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- jQuery UI CSS -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 <!DOCTYPE html>
 <html>
@@ -49,6 +55,15 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+// 뒤로가기 금지
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+};
+</script>
+
 
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>

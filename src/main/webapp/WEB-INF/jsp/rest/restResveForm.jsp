@@ -98,6 +98,7 @@
     var r_close = "${rest.r_close}";
     var r_resveTime = ${rest.r_resveTime};
     var r_resveDay = ${rest.r_resveDay};
+    var r_resveTableCnt = ${rest.r_resveTableCnt};
     
     var selectedDate; //선택한 날짜를 저장하기 위한 전역 변수 선언
     var selectedTime; //선택한 시간을 저장하기 위한 전역 변수 선언
@@ -125,8 +126,8 @@
             			
             			console.log(data);
             		    // data는 서버에서 받아 온 응답 객체
-            		    var unableTimes = data || []; // 'unable' 키의 값(불가능한 시간 목록)을 추출
-            		    generateTimeSlots(unableTimes);
+            		    var reservationsByTime = data || []; // 'unable' 키의 값(불가능한 시간 목록)을 추출
+            		    generateTimeSlots(reservationsByTime);
             		},
             		error : function(jqXHR, textStatus, errorThrown){
             		    alert('에러: ' + textStatus + ', ' + errorThrown);
@@ -142,15 +143,25 @@
         });
 
         //시간 슬롯 생성 함수
-        function generateTimeSlots(unableTimes) {
-            var start = moment(r_open, "HH:mm");
-            var end = moment(r_close, "HH:mm");
-            var timeSlots = "";
+        function generateTimeSlots(reservationsByTime) {
+            var start = moment(r_open, "HH:mm"); //영업 시작 시간을 moment 객체로 변환
+            var end = moment(r_close, "HH:mm"); //영업 종료 시간을 moment 객체로 변환
+            var timeSlots = ""; //시간 슬롯 저장 변수 초기화
+            
             while(start <= end) {
-            	var isUnable = unableTimes.includes(start.format("HH:mm"));
+            	//reservationsByTime 배열에서 현재 시간 슬롯에 해당하는 예약 정보를 찾음
+                var reservation = reservationsByTime.find(r => r.resve_time === start.format("HH:mm"));
+                var reservedTable = reservation ? reservation.count : 0; //해당 시간 슬롯에 예약된 테이블 수 계산
+                var remainingTable = r_resveTableCnt - reservedTable; //남은 테이블 수 계산
+
+                var isUnable = remainingTable <= 0; //남은 테이블이 없으면 해당 시간 슬롯은 예약 불가
                 timeSlots += "<div class='timeSlots " + (isUnable ? "unable" : "") + "'>";
                 timeSlots += "<i class='fa-solid fa-" + (isUnable ? "lock" : "unlock") + " timeIcon'>" + "</i>";
                 timeSlots += "<span class='time'>" + start.format("HH:mm") + "</span>";
+                //남은 테이블 수를 시간 슬롯에 표시
+                if (remainingTable > 0) {
+	                timeSlots += "<span class='remainingTable'> (" + remainingTable + ")</span>";
+	            }
                 timeSlots += "</div>";
                 start.add(r_resveTime, 'minutes');
             }
@@ -169,7 +180,7 @@
 	            $(this).addClass('selected');
 	
 	            // 선택한 시간 슬롯 출력
-	            selectedTime = $(this).text().trim();
+	            selectedTime = $(this).children('span.time').text().trim();
         	}
             console.log("날짜: " + selectedDate);
             console.log("시간: " + selectedTime);
@@ -179,6 +190,11 @@
     $(document).ready(function(){
     	//예약하기 버튼 클릭 이벤트 핸들러
         $('#btn_resve').click(function(){
+       		if(!selectedTime) { // 만약 선택한 시간이 없을 경우
+                alert("예약 가능한 시간을 선택하세요.");
+                return; // 함수 실행 중단
+            }
+       		
         	// 선택한 날짜로부터 요일을 계산
             var days = ['일', '월', '화', '수', '목', '금', '토'];
             var date = new Date(selectedDate);
