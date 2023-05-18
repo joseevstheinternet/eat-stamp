@@ -114,7 +114,6 @@ div.mypage-menu-second{
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     padding: 20 0 20 30px;
 }
-
 </style>
 
 <!DOCTYPE html>
@@ -194,7 +193,7 @@ div.mypage-menu-second{
 										<div class="list-span01">
 											<div class="box-section1">
 												<div class="box-no">
-													<fmt:formatDate pattern="yy-MM-dd hh:mm" value="${resve.resve_date}"/>
+													<span class="font-set2">${resve.resve_date} ${resve.resve_time}</span>
 												</div>
 												<div class="box-title">
 													<span class="font-set2">${resve.resve_name}</span>
