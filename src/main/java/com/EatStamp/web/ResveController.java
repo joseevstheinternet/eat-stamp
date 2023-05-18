@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.EatStamp.domain.MemberVO;
 import com.EatStamp.domain.RestVO;
 import com.EatStamp.domain.ResveVO;
+import com.EatStamp.domain.SearchVO;
 import com.EatStamp.service.OwnerService;
 import com.EatStamp.service.ResveService;
 import com.common.utils.PagingUtil;
@@ -427,5 +428,57 @@ public class ResveController {
 	    
 	    return jsonData;
 	}
+	
+	
+	/**
+	 * <pre>
+	 * 처리내용: 회원 예약내역 조회
+	 * </pre>
+	 * @date : 2023.05.18
+	 * @author : 최은지
+	 * @history :
+	 * ------------------------------------------------------------------------
+	 * 변경일						작성자					변경내용
+	 * ------------------------------------------------------------------------
+	 * 2023.05.18					최은지					최초작성
+	 *  ------------------------------------------------------------------------
+	 * @throws Exception
+	 * @return
+	 */
+	@RequestMapping( value = "/selectMemberResveList.do" )
+	public ModelAndView selectMemberResveList(HttpSession session) 
+		throws Exception{
+		
+		/* return용 modelandview */
+		ModelAndView mav = new ModelAndView();
+		/* db조회 정보 전달용 map */
+		Map<String,Object> map = new HashMap<>();
+		/* db조회 결과 담기용 list */
+		List<Map<String, Object>> list = null;
+		/* 회원 고유번호 숫자 */
+		int mem_num = 0;
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		mem_num = member.getMem_num();
+		map.put( "mem_num", mem_num );
+		
+		int count = resveService.getCountMemberResve( mem_num );
+		
+		if ( 0 < count ) { //예약 내역이 존재할 경우
+			
+			list = resveService.selectMemberResveList( mem_num ); //db조회
+			
+			mav.addObject( "count", count );
+			mav.addObject( "list", list );
+			mav.setViewName( "memberResveListView" );
+			
+		} else { //예약내역이 존재하지 않을 경우
+			mav.addObject( "count", count );
+			mav.setViewName( "memberResveListView" );
+		}
+		
+		return mav;
+	}
+
 
 }

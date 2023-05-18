@@ -71,4 +71,14 @@ public class ResveServiceImpl implements ResveService {
 		return resveMapper.updateAlertCheckAfter( r_num );
 	}
 
+	@Override
+	public int getCountMemberResve(int mem_num) throws Exception {
+		return resveMapper.getCountMemberResve( mem_num );
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMemberResveList(int mem_num) throws Exception {
+		return resveMapper.selectMemberResveList( mem_num );
+	}
+
 }

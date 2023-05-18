@@ -22,7 +22,7 @@ p.menu-list{
 	display: flex;
     justify-content: center;
     padding: 50px 0;
-    width: 1000px;
+    width: 1100px;
     margin: 0 auto;	
 }
 
@@ -41,6 +41,22 @@ tbody{
 
 th,td{
 	display:block;
+}
+
+th{
+	background-color: white;
+	font-size: 15px;
+	background: none;
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 15px;
+	color: gray;
+}
+
+td{
+	font-size: 13px;
+	color: #666666;
+	margin-bottom: 10px;
 }
 
 .div_allWrap{

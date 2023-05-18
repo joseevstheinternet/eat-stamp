@@ -30,4 +30,5 @@ public class ResveVO {
 	String resve_sttus; //예약상태
 	String resve_name; //예약자성함
 	String resve_phoneNum; //예약자연락처
+	String r_name; //상호명
 }

@@ -153,5 +153,31 @@
 		WHERE	r_num = #{r_num}
 	</update>
 	
+	<!-- 0518 최은지 최초 생성  -->
+	<!-- 회원 예약내역 리스트 가져오기 -->
+ 	<!-- resveMapper.selectMemberResveList  -->
+ 	<select id="selectMemberResveList" parameterType="int" resultType="resveVO">
+		SELECT resve_num,
+					resve_date,
+					resve_time,
+					resve_memCnt,
+					resve_sttus,
+					resve_name,
+					rsv.r_num,
+					r_name
+		FROM resve rsv 
+		JOIN rest rst ON rst.r_num = rsv.r_num 
+		WHERE mem_num = #{mem_num}
+	</select>
+	
+	<!-- 0518 최은지 최초 생성  -->
+	<!-- 회원 예약내역 총 개수 세기 -->
+ 	<!-- resveMapper.getCountMemberResve  -->
+ 	<select id="getCountMemberResve" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM resve rsv 
+		JOIN rest rst ON rst.r_num = rsv.r_num 
+		WHERE mem_num = #{mem_num}
+	</select>
 
 </mapper>

@@ -765,32 +765,5 @@ public class MemberController {
 			return mav;
 	}
 	
-	
-	/**
-	 * <pre>
-	 * 처리내용: 회원 예약내역 조회
-	 * </pre>
-	 * @date : 2023.05.18
-	 * @author : 최은지
-	 * @history :
-	 * ------------------------------------------------------------------------
-	 * 변경일						작성자					변경내용
-	 * ------------------------------------------------------------------------
-	 * 2023.05.18					최은지					최초작성
-	 *  ------------------------------------------------------------------------
-	 * @throws Exception
-	 * @return
-	 */
-	@RequestMapping( value = "/selectMemberResveList.do" )
-	public ModelAndView selectMemberResveList() {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName( "memberResveListView" );
-		
-		return mav;
-	}
-
-
-	
 
 }//전체 컨트롤러단 end

@@ -178,4 +178,40 @@ public interface ResveService {
 	 * @throws Exception
 	 */
 	public int updateAlertCheckAfter( int r_num )throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 회원 예약내역 총 개수 세기
+	 * </pre>
+	 * @date : 2023. 05. 18
+	 * @author : 최은지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 18          최은지            최초작성
+	 * -------------------------------------------------
+	 * @param mem_num
+	 * @return
+	 * @throws Exception
+	 */
+	public int getCountMemberResve( int mem_num )throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 회원 예약내역 리스트 가져오기
+	 * </pre>
+	 * @date : 2023. 05. 18
+	 * @author : 최은지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 18          최은지            최초작성
+	 * -------------------------------------------------
+	 * @param mem_num
+	 * @return
+	 * @throws Exception
+	 */
+	public  List<Map<String, Object>> selectMemberResveList( int mem_num )throws Exception;
 }
