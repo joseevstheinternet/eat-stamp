@@ -475,26 +475,26 @@ public class OwnerController {
 	 * 2023.05.15					최은지					최초작성
 	 *  ------------------------------------------------------------------------
 	 *  @param	mem_email //회원 입력 이메일
-	 *  				mem_pw //회원 입력 비밀번호
-	 *  				mem_pwCheck //회원 입력 비밀번호 확인
-	 *  				mem_nick //회원 닉네임(기존 db 등록 상호명)
-	 *  				mem_new_nick //회원 닉네임(기존 db 미등록 신규 상호명)
-	 *  				r_add //회원 입력 가게 주소
-	 *  				r_semi_add //회원 입력 가게 세부주소
-	 *  				r_num //가게 고유 번호
+	 *  		mem_pw //회원 입력 비밀번호
+	 *  		mem_pwCheck //회원 입력 비밀번호 확인
+	 *  		mem_nick //회원 닉네임(기존 db 등록 상호명)
+	 *  		mem_new_nick //회원 닉네임(기존 db 미등록 신규 상호명)
+	 *  		r_add //회원 입력 가게 주소
+	 *  		r_semi_add //회원 입력 가게 세부주소
+	 *  		r_num //가게 고유 번호
 	 * @throws Exception
 	 * @return
 	 */	
 	@RequestMapping(value = "/insertOwnerSignUpInfo.do",  method = RequestMethod.POST )
 	public ModelAndView insertOwnerSignUpInfo(@RequestParam( "mem_email" ) String mem_email, 
-																	@RequestParam( "mem_pw" ) String mem_pw, 
-																	@RequestParam( "mem_pwCheck" ) String mem_pwCheck, 
-																	@RequestParam(value = "mem_nick", required = false) String mem_nick,
-																	@RequestParam( value = "mem_newNick", required = false) String mem_newNick,
-																	@RequestParam( value = "r_add", required = false) String r_add,
-																	@RequestParam( value = "r_semi_add", required = false) String r_semi_add,
-																	@RequestParam( value = "r_num", required = false) int r_num,
-																	HttpServletResponse response
+											@RequestParam( "mem_pw" ) String mem_pw, 
+											@RequestParam( "mem_pwCheck" ) String mem_pwCheck, 
+											@RequestParam(value = "mem_nick", required = false) String mem_nick,
+											@RequestParam( value = "mem_newNick", required = false) String mem_newNick,
+											@RequestParam( value = "r_add", required = false) String r_add,
+											@RequestParam( value = "r_semi_add", required = false) String r_semi_add,
+											@RequestParam( value = "r_num", required = false) int r_num,
+											HttpServletResponse response
 		) throws Exception {
 		
 		/* ModelAndView 객체 */

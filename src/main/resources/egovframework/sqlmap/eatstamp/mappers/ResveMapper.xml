@@ -156,19 +156,33 @@
 	<!-- 0518 최은지 최초 생성  -->
 	<!-- 회원 예약내역 리스트 가져오기 -->
  	<!-- resveMapper.selectMemberResveList  -->
- 	<select id="selectMemberResveList" parameterType="int" resultType="resveVO">
-		SELECT		resve_num,
-					resve_date,
-					resve_time,
-					resve_memCnt,
-					resve_sttus,
-					resve_name,
-					rsv.r_num,
-					r_name
-		FROM 		resve rsv 
-		JOIN 		rest rst ON rst.r_num = rsv.r_num 
-		WHERE 		mem_num = #{mem_num}
-		ORDER BY	resve_date DESC
+ 	<select id="selectMemberResveList" parameterType="map" resultType="resveVO">
+		SELECT  resve_num,
+				resve_date,
+				resve_time,
+				resve_memCnt,
+				resve_sttus,
+				resve_name,
+				r_num,
+				r_name
+		FROM(
+			SELECT		@rownum:=@rownum+1 AS rn,
+						resve_num,
+						resve_date,
+						resve_time,
+						resve_memCnt,
+						resve_sttus,
+						resve_name,
+						resve.r_num,
+						r_name
+			FROM		eatstamp.resve resve 
+			JOIN 		eatstamp.rest rest 
+			ON			resve.r_num = rest.r_num  
+			JOIN		(SELECT @rownum:=0) TMP 
+			WHERE		mem_num = ${mem_num}
+			ORDER BY	resve_date DESC, resve_time DESC
+			) t1
+		WHERE	rn BETWEEN #{start} and #{end}
 	</select>
 	
 	<!-- 0518 최은지 최초 생성  -->

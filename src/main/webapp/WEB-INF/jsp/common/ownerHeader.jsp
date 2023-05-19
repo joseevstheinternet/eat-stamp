@@ -328,10 +328,10 @@ function alertResve() {
 			                }
            			 },
             error : function(xhr, status, error) {
-		                console.log( "요청 에러 발생" );
-		                console.log( xhr );
-		                console.log( status );
-		                console.log( error );
+// 		                console.log( "요청 에러 발생" );
+// 		                console.log( xhr );
+// 		                console.log( status );
+// 		                console.log( error );
          	   },
             complete: function() {
                 setTimeout( requestAlertResve, 3000 ); // 3초에 한번씩 요청

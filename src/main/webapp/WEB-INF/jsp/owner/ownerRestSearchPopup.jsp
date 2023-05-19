@@ -5,6 +5,7 @@
 작성일자: 2023.05.15
 처리내용: 가게 사장 회원가입 중 상호명 검색을 위한 팝업 페이지이다.
 History: 최은지, 2023.05.15 최초 작성
+		 이예지, 2023.05.19 수정
  --%>
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -27,6 +28,33 @@ History: 최은지, 2023.05.15 최초 작성
 <script src="https://code.jquery.com/jquery-1.12.0.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 
+<style>
+
+.div_main {
+	padding: 10px;
+}
+
+.div_wrapSearchResult {
+	margin-top: 20px;
+}
+
+.div_restResultList {
+	margin-bottom: 15px;
+}
+
+.div_title {
+	width: 230px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.txt_r_num {
+	font-size: 14px;
+    color: #b7b7b7;
+}
+
+</style>
+
 <body>
 
 	<div class = "div_main">
@@ -45,9 +73,11 @@ History: 최은지, 2023.05.15 최초 작성
 			<c:if test="${0 < count}">
 				<c:forEach var="list" items="${list}" varStatus="status">
 					<div class = "div_restResultList">
-						<span class="txt_r_name" >${list.r_name}</span>
-						<span class="txt_r_num" >${list.r_num}</span>
-						<button type="button" class = "btn_choiceRest">선택</button>
+						<div class = "div_title">
+							<span class="txt_r_name" >${list.r_name}</span>
+							<button type="button" class = "btn_choiceRest">선택</button>
+						</div>
+						<span class="txt_r_num" >${list.r_add}</span>
 					</div>
 				</c:forEach>
 			</c:if>

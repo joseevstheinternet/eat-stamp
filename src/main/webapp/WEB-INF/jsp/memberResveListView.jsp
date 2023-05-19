@@ -20,7 +20,14 @@
 	    referrerpolicy="no-referrer" />	
 
 <style>
-
+button.cancel-button{
+	background-color: #b5b5b5;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-size: 13px;
+    margin-left: 5px;
+}
 </style>
 
 <!DOCTYPE html>
@@ -104,17 +111,18 @@
 												</div>
 												<div class="box-mem4">
 												    <c:if test="${'w' == list.resve_sttus}">
-														<span class="font-set2">대기</span>
+														<span class="font-set2 status-w">대기</span>
 													</c:if>
 													<c:if test="${'n' == list.resve_sttus}">
 														<span class="font-set2">거절</span>
 													</c:if>
 													<c:if test="${'y' == list.resve_sttus}">
-														<span class="font-set2">승인</span>
+														<span class="font-set2 status-y">승인</span>
 													</c:if>
 													<c:if test="${'c' == list.resve_sttus}">
 														<span class="font-set2">취소</span>
 													</c:if>
+													<button class="cancel-button" onclick="updateResveStatus(${list.resve_num}, 'c')" style="display:none;">취소</button>
 												</div>
 											</div>
 										</div>
@@ -124,6 +132,7 @@
 									</li>
 								</c:forEach>
 							</ul>
+							<div class="page">${page}</div>
 						</c:if>
 					</div>
 				</div>
@@ -139,7 +148,46 @@
 </div>
 
 <script>
+// 페이지가 모두 로드되면 실행되는 함수
+window.onload = function() {
+    var listItems = document.querySelectorAll('.list-list');
+    
+    listItems.forEach(function(item) {
+    	//resve_date와 resve_time을 합쳐서 가져옴
+        var resveDateTimeStr = item.querySelector('.box-no .font-set2').innerText; 
+        //resveDateTimeStr을 date 객체로 변환
+        var resveDateTime = new Date(resveDateTimeStr.replace(' ', 'T') + ':00');
+        var currentTime = new Date(); //현재 시간
+        //예약 시간과 현재 시간의 차이를 시간 단위로 계산
+        var timeDiffHours = (resveDateTime - currentTime) / (1000 * 60 * 60); 
 
+        var status = item.querySelector('.box-mem4 .font-set2').innerText;
+        //'대기' 혹은 '승인'일 때, 예약 시간과 현재 시간의 차이가 12 시간 이상이라면 취소 버튼 표시
+        if ((status === '대기' || status === '승인') && timeDiffHours >= 12) { 
+            item.querySelector('.cancel-button').style.display = 'inline';
+        }
+    });
+};
+
+// 회원 상태 업데이트
+function updateResveStatus(resve_num, resve_sttus) {
+	//확인 창을 띄우고 사용자의 선택에 따라 실행
+	if (confirm("예약을 취소하시겠습니까?")){
+		//Ajax POST 요청
+        $.ajax({
+        	url: "/owner/updateResveStatus.do",
+        	type: "POST",
+        	data: {
+        		resve_num: resve_num,
+        		resve_sttus: resve_sttus
+        	},
+        	success:function(){
+        		//요청이 성공하면 페이지를 새로고침하여 목록 업데이트
+        		location.reload();
+        	}
+        });
+	}
+}
 </script>
 
 <%@ include file="/WEB-INF/jsp/egovframework/common/footer.jsp" %>

@@ -10,8 +10,8 @@ import com.EatStamp.domain.ResveVO;
 
 /**
  * resve mapper
- * @version 1.4
- * @since 2023.05.18
+ * @version 1.5
+ * @since 2023.05.19
  * @author 이예지
  */
 
@@ -43,11 +43,11 @@ public interface ResveMapper {
 	public List<Map<String, Object>> selectResveCntByDate(Map<String, Object> map) throws Exception;
 
 	//0518 최은지 예약내역 리스트 확인 시 미확인 여부 알림 코드 업데이트
-	public int updateAlertCheckAfter( int r_num )throws Exception;
+	public int updateAlertCheckAfter(int r_num) throws Exception;
 	
 	//0518 최은지 회원 예약내역 리스트 가져오기
-	public List<Map<String, Object>> selectMemberResveList( int mem_num )throws Exception;
+	public List<Map<String, Object>> selectMemberResveList(Map<String, Object> map) throws Exception;
 	
 	//0518 최은지 회원 예약내역 총 개수 세기
-	public int getCountMemberResve( int mem_num )throws Exception;
+	public int getCountMemberResve(int mem_num) throws Exception;
 }

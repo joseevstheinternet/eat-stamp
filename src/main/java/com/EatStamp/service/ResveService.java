@@ -9,7 +9,7 @@ import com.EatStamp.domain.ResveVO;
 /**
  * resve service
  * @version 1.4
- * @since 2023.05.18
+ * @since 2023.05.19
  * @author 이예지
  */
 
@@ -213,5 +213,5 @@ public interface ResveService {
 	 * @return
 	 * @throws Exception
 	 */
-	public  List<Map<String, Object>> selectMemberResveList( int mem_num )throws Exception;
+	public  List<Map<String, Object>> selectMemberResveList(Map<String, Object> map)throws Exception;
 }

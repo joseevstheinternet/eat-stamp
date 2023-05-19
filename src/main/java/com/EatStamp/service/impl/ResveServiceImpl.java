@@ -77,8 +77,8 @@ public class ResveServiceImpl implements ResveService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectMemberResveList(int mem_num) throws Exception {
-		return resveMapper.selectMemberResveList( mem_num );
+	public List<Map<String, Object>> selectMemberResveList(Map<String, Object> map) throws Exception {
+		return resveMapper.selectMemberResveList(map);
 	}
 
 }

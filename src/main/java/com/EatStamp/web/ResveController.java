@@ -447,8 +447,8 @@ public class ResveController {
 	 * @return
 	 */
 	@RequestMapping( value = "/selectMemberResveList.do" )
-	public ModelAndView selectMemberResveList(HttpSession session) 
-		throws Exception{
+	public ModelAndView selectMemberResveList(HttpSession session, 
+											  @RequestParam(value="pageNum",defaultValue="1") int currentPage) throws Exception{
 		
 		/* return용 modelandview */
 		ModelAndView mav = new ModelAndView();
@@ -465,12 +465,19 @@ public class ResveController {
 		
 		int count = resveService.getCountMemberResve( mem_num );
 		
+		//페이지 처리
+		PagingUtil page = new PagingUtil(currentPage, count, rowCount, pageCount, "/selectMemberResveList.do");
+		
 		if ( 0 < count ) { //예약 내역이 존재할 경우
-			list = resveService.selectMemberResveList( mem_num );
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = resveService.selectMemberResveList(map);
 		}
 
 		mav.addObject( "count", count );
 		mav.addObject( "list", list );
+		mav.addObject("page", page.getPage());
 		mav.setViewName( "memberResveListView" );
 		
 		return mav;
