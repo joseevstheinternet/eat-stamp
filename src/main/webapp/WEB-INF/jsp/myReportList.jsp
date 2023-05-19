@@ -184,9 +184,9 @@ $('.box-parent').click(function(e){
 			  	          
 			  	          $(data).each(function(){
 			  	        	  
-			  	        	div += "<div class= 'modal_detail_report'>"; 
+			  	        	div += "<div class = 'modal_detail_report'>"; 
 			  	        	
-			  	        	div += "<div class = wrap_div'>" //전체 div
+			  	        	div += "<div class = 'wrap_div'>" //전체 div
 			  	  
 			  	        	div += "<div class = 'num_box'>"
 					  	        div += "<span class ='num_text menu_text'> 접수번호</span>"

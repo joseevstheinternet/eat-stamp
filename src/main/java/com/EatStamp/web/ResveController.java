@@ -421,10 +421,10 @@ public class ResveController {
 	    map.put("r_num", r_num);
 	    map.put("date", date);
 
-	    List<Map<String, Object>> reservationsByTime = resveService.selectResveCntByDate(map);
-	    logger.debug("reservationsByTime: " + reservationsByTime);
+	    List<Map<String, Object>> unable = resveService.selectResveCntByDate(map);
+	    logger.debug("unable: " + unable);
 
-	    String jsonData = new Gson().toJson(reservationsByTime);
+	    String jsonData = new Gson().toJson(unable);
 	    
 	    return jsonData;
 	}

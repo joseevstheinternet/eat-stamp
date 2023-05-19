@@ -130,6 +130,19 @@ div.mypage-menu-second{
 
 .modal_detail_report div {
     margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+div.modal-body {
+	margin-top: 10px;
+}
+
+div.wrap_div {
+	margin-bottom: 0;
+}
+
+div#one_modal {
+	margin-bottom: 0;
 }
 
 .ajax_text {
@@ -169,5 +182,13 @@ textarea.return_val {
     padding: 15px;
     border: 0;
     background-color: #ffe3be;
+    font-size: 13px;
+}
+
+button.btn {
+	background-color: #ffc06c;
+    color: white;
+    border-radius: 20px;
+    margin-top: 10px;
 }
 /* 모달 끝 */

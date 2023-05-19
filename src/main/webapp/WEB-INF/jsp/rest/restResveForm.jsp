@@ -117,6 +117,7 @@
             maxDate : r_resveDay, // r_resveDay 일 후까지 설정
             onSelect: function(dateText) {
             	selectedDate = dateText; //사용자가 선택한 날짜 저장
+            	selectedTime = undefined; //사용자가 선택한 시간 초기화
             	console.log("날짜: " + selectedDate);
             	$.ajax({
             		type: 'GET',
@@ -126,8 +127,8 @@
             			
             			console.log(data);
             		    // data는 서버에서 받아 온 응답 객체
-            		    var reservationsByTime = data || []; // 'unable' 키의 값(불가능한 시간 목록)을 추출
-            		    generateTimeSlots(reservationsByTime);
+            		    var unableTime = data || []; // 'unable' 키의 값(불가능한 시간 목록)을 추출
+            		    generateTimeSlots(unableTime);
             		},
             		error : function(jqXHR, textStatus, errorThrown){
             		    alert('에러: ' + textStatus + ', ' + errorThrown);
@@ -143,14 +144,14 @@
         });
 
         //시간 슬롯 생성 함수
-        function generateTimeSlots(reservationsByTime) {
+        function generateTimeSlots(unableTime) {
             var start = moment(r_open, "HH:mm"); //영업 시작 시간을 moment 객체로 변환
             var end = moment(r_close, "HH:mm"); //영업 종료 시간을 moment 객체로 변환
             var timeSlots = ""; //시간 슬롯 저장 변수 초기화
             
             while(start <= end) {
-            	//reservationsByTime 배열에서 현재 시간 슬롯에 해당하는 예약 정보를 찾음
-                var reservation = reservationsByTime.find(r => r.resve_time === start.format("HH:mm"));
+            	//unableTime 배열에서 현재 시간 슬롯에 해당하는 예약 정보를 찾음
+                var reservation = unableTime.find(r => r.resve_time === start.format("HH:mm"));
                 var reservedTable = reservation ? reservation.count : 0; //해당 시간 슬롯에 예약된 테이블 수 계산
                 var remainingTable = r_resveTableCnt - reservedTable; //남은 테이블 수 계산
 
