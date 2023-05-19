@@ -229,16 +229,16 @@ button#pw_restet_checkBtn{
 	  var newPw = document.getElementById("new_mem_pw").value;
 	  var newPwCheck = document.getElementById("new_mem_pwCheck").value;
 	  
-// 		//최소 8자, 대문자 하나 이상, 소문자 하나 및 숫자 하나, 특수문자 하나>> Test12345678!
-// 	  var getCheck= RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
+		//최소 8자, 대문자 하나 이상, 소문자 하나 및 숫자 하나, 특수문자 하나>> Test12345678!
+	  var getCheck= RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
 
-// 		//비밀번호 유효성검사
-// 	  if (!getCheck.test(newPw)) {
-// 		  alert("비밀번호를 형식에 맞게 입력해주세요.");
-// 		  document.getElementById("new_mem_pw").value = "";
-// 		  document.getElementById("new_mem_pw").focus();
-// 		  return false;
-// 		}
+		//비밀번호 유효성검사
+	  if (!getCheck.test(newPw)) {
+		  alert("비밀번호를 형식에 맞게 입력해주세요.");
+		  document.getElementById("new_mem_pw").value = "";
+		  document.getElementById("new_mem_pw").focus();
+		  return false;
+		}
 		
 	  if (pwCheck === "" || newPw === "" || newPwCheck === "") {
 	    alert("빈칸을 모두 입력해주세요.");

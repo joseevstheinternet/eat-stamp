@@ -441,6 +441,7 @@ public class ResveController {
 	 * 변경일						작성자					변경내용
 	 * ------------------------------------------------------------------------
 	 * 2023.05.18					최은지					최초작성
+	 * 2023.05.19					최은지					분기수정
 	 *  ------------------------------------------------------------------------
 	 * @throws Exception
 	 * @return
@@ -465,17 +466,12 @@ public class ResveController {
 		int count = resveService.getCountMemberResve( mem_num );
 		
 		if ( 0 < count ) { //예약 내역이 존재할 경우
-			
-			list = resveService.selectMemberResveList( mem_num ); //db조회
-			
-			mav.addObject( "count", count );
-			mav.addObject( "list", list );
-			mav.setViewName( "memberResveListView" );
-			
-		} else { //예약내역이 존재하지 않을 경우
-			mav.addObject( "count", count );
-			mav.setViewName( "memberResveListView" );
+			list = resveService.selectMemberResveList( mem_num );
 		}
+
+		mav.addObject( "count", count );
+		mav.addObject( "list", list );
+		mav.setViewName( "memberResveListView" );
 		
 		return mav;
 	}

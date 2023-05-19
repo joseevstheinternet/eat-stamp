@@ -192,3 +192,7 @@ button.btn {
     margin-top: 10px;
 }
 /* 모달 끝 */
+
+h3#footer_title {
+	margin-top: 0;
+}

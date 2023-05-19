@@ -30,8 +30,8 @@ import com.google.gson.Gson;
 
 /**
  * owner controller
- * @version 1.0
- * @since 2023.05.12
+ * @version 1.1
+ * @since 2023.05.19
  * @author 최은지
  */
 @Controller
@@ -170,8 +170,6 @@ public class OwnerController {
 	        		
 	        			pwdMatch = pwEncoder.matches(vo.getMem_pw(), login.getMem_pw());
 	        			
-	        			System.out.println("비번매치>>>>>>>>>" + pwdMatch);
-
 						if(null != login && pwdMatch == true) { //조회정보 누락 여부, 비밀번호 일치 여부 확인
 							
 							session.setAttribute("owner", login); //로그인 정보 전달
@@ -180,7 +178,7 @@ public class OwnerController {
 			            	String ownerNick;
 			            	ownerNick = login.getMem_nick();
 
-			                message = ownerNick + "사장님 반갑습니다.";
+			                message = ownerNick + " 사장님 반갑습니다.";
 			                out.println( "<script>alert('" + message + "');</script>" );
 			                out.println( "<script>location.replace('/ownerMypage.do');</script>" );
 			                out.flush();
@@ -277,13 +275,14 @@ public class OwnerController {
 	 * <pre>
 	 * 처리내용: 가게 사장 비밀번호 변경
 	 * </pre>
-	 * @date : 2023.05.15
+	 * @date : 2023.05.19
 	 * @author : 이예지
 	 * @history :
 	 * -----------------------------------------------------------
 	 * 변경일						작성자					변경내용
 	 * -----------------------------------------------------------
 	 * 2023.05.15				이예지					최초작성
+	 * 2023.05.19               이예지                    비밀번호 암호화
 	 * -----------------------------------------------------------
 	 * @param mem_num
 	 * @param mem_email
@@ -323,9 +322,14 @@ public class OwnerController {
     	
     	String newPW = new_mem_pw;
     	
+    	//암호화 매치용 변수 생성
+    	boolean pwdMatch;
+    	//비밀번호 암호화 매치
+    	pwdMatch = pwEncoder.matches(pw1, pw2);
+    	
     	if(null != owner) {
 	        //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 떄
-	        if(!pw1.equals(pw2)) {
+	        if(!pwdMatch) {
 	        	String message = "현재 비밀번호가 일치하지 않습니다.";
 	            response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
@@ -333,8 +337,12 @@ public class OwnerController {
 	            out.flush();
 	            return "/owner/ownerMypageView";
 	        } else {
+	        	//비밀번호 암호화
+	        	String inputPass = newPW;
+	        	String pwd = pwEncoder.encode(inputPass);
+	        	
 	        	 //비밀번호 재설정
-	    	    vo.setMem_pw(newPW);
+	    	    vo.setMem_pw(pwd);
 	    		
 	    		//db에 수정된 비밀번호 업뎃시키기
 	    	    int result1 = ownerService.updateOwnerPW(vo);
