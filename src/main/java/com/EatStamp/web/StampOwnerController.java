@@ -104,7 +104,23 @@ public class StampOwnerController {
 		return mav;
 	}
 	
-	//========글상세===========//
+	/**
+	 * <pre>
+	 * 리뷰상세: 사장님 가게의 리뷰 상세페이지를 출력한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param s_num
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/ownerStampDetail.do")
 	public ModelAndView detail (@RequestParam int s_num, HttpSession session) throws Exception {
 
@@ -128,7 +144,23 @@ public class StampOwnerController {
 		return mav;
 	}
 	
-	//===========댓글 목록=============//
+	/**
+	 * <pre>
+	 * 댓글목록: 사장님 가게의 리뷰 상세페이지에서 댓글 목록을 출력한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param s_num
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/listCmt.do")
 	@ResponseBody
 	public String listCmt(@RequestParam int s_num, HttpSession session) throws Exception {
@@ -160,7 +192,25 @@ public class StampOwnerController {
 		return jsonData;
 	}
 	
-	//===========댓글 등록===========//
+	/**
+	 * <pre>
+	 * 댓글등록: 사장님 가게의 리뷰 상세페이지에서 댓글을 등록한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param s_num
+	 * @param cmt_content
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/writeCmt.do")
 	@ResponseBody
 	public String writeCmt(@RequestParam int s_num, String cmt_content, 
@@ -190,7 +240,25 @@ public class StampOwnerController {
 	}
 	
 	
-	//===========댓글 수정===========//
+	/**
+	 * <pre>
+	 * 댓글 수정: 사장님 가게의 리뷰 상세페이지에서 댓글을 수정한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param cmt_num
+	 * @param cmt_content
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/updateCmt.do")
 	@ResponseBody
 	public String modifyCmt(@RequestParam int cmt_num, String cmt_content, 
@@ -215,7 +283,23 @@ public class StampOwnerController {
 	}
 	
 	
-	//===========댓글 삭제===========//
+	/**
+	 * <pre>
+	 * 댓글 삭제: 사장님 가게의 리뷰 상세페이지에서 댓글을 삭제한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param cmt_num
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/owner/deleteCmt.do")
 	@ResponseBody
 	public String deleteCmt(@RequestParam int cmt_num, HttpSession session) throws Exception {

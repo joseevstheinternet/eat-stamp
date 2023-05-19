@@ -56,7 +56,7 @@ public interface MemberAdminService {
 	
 	/**
 	 * <pre>
-	 * 처리내용: 관리자 - 사장님 관리 목록 선택
+	 * 처리내용 : 관리자 페이지의 사장님 관리 목록을 선택한다
 	 * </pre>
 	 * @date : 2023.05.15
 	 * @author : 이예지
@@ -74,7 +74,7 @@ public interface MemberAdminService {
 	
 	/**
 	 * <pre>
-	 * 처리내용: 관리자 - 사장님 관리 목록 개수 선택
+	 * 처리내용 : 관리자 페이지의 사장님 관리 목록 개수를 구한다
 	 * </pre>
 	 * @date : 2023.05.15
 	 * @author : 이예지

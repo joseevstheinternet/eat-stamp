@@ -58,7 +58,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 예약목록: 사장님 페이지의 예약 목록을 출력한다
+	 * 처리내용 : 사장님 페이지의 예약 목록을 출력한다
 	 * </pre>
 	 * @date : 2023. 05. 15
 	 * @author : 이예지
@@ -125,7 +125,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 예약상태변경: 사장님 페이지의 예약 상태를 업데이트한다
+	 * 처리내용 : 사장님 페이지의 예약 상태를 업데이트한다
 	 * </pre>
 	 * @date : 2023. 05. 15
 	 * @author : 이예지
@@ -159,7 +159,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 식당관리: 사장님 페이지의 식당 관리 설정을 불러온다
+	 * 처리내용 : 사장님 페이지의 식당 관리 설정을 불러온다
 	 * </pre>
 	 * @date : 2023. 05. 15
 	 * @author : 이예지
@@ -188,7 +188,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 식당설정변경: 사장님 페이지의 식당 관리 설정을 업데이트한다
+	 * 처리내용 : 사장님 페이지의 식당 관리 설정을 업데이트한다
 	 * </pre>
 	 * @date : 2023. 05. 16
 	 * @author : 이예지
@@ -239,7 +239,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 예약일시 선택 폼: 회원 전용 예약일시 선택 폼
+	 * 처리내용 : 회원 전용 예약일시 선택 폼
 	 * </pre>
 	 * @date : 2023. 05. 16
 	 * @author : 이예지
@@ -272,7 +272,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 예약정보 입력 폼: 회원 전용 예약정보 입력 폼
+	 * 처리내용 : 회원 전용 예약정보 입력 폼
 	 * </pre>
 	 * @date : 2023. 05. 17
 	 * @author : 이예지
@@ -319,7 +319,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 예약정보 전송 : 회원이 예약한 정보를 DB에 저장
+	 * 처리내용 : 회원이 예약한 정보를 DB에 저장
 	 * </pre>
 	 * @date : 2023. 05. 17
 	 * @author : 이예지
@@ -376,7 +376,7 @@ public class ResveController {
 
 	/**
 	 * <pre>
-	 * 예약 완료 : 예약 완료 페이지
+	 * 처리내용 : 예약 완료 페이지
 	 * </pre>
 	 * @date : 2023. 05. 17
 	 * @author : 이예지
@@ -395,7 +395,7 @@ public class ResveController {
 	
 	/**
 	 * <pre>
-	 * 처리 내용 : 예약 불가능 표시를 위한 이미 예약된 내역 넘기기
+	 * 처리내용 : 예약 불가능 표시를 위한 이미 예약된 내역 넘기기
 	 * </pre>
 	 * @date : 2023. 05. 18
 	 * @author : 이예지

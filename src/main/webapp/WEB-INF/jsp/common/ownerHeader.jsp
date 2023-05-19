@@ -313,18 +313,18 @@ function alertResve() {
 			                var parseData = parseInt(data);
 			                
 			                if ( 0 < parseData ) {
-			                    console.log( "미확인 알림 있음" );
-			                    console.log(data);
+// 			                    console.log( "미확인 알림 있음" );
+// 			                    console.log(data);
 			                    $(".txt_alert").attr("value", parseData);
 			                    
 			                } else if ( 0 == parseData ) {
-			                    console.log("미확인 알림 없음");
-			                    console.log(data);
+// 			                    console.log("미확인 알림 없음");
+// 			                    console.log(data);
 			                    $(".txt_alert").attr("value", parseData);
 			                    
 			                } else {
-			                    console.log( "요청 에러 발생 1" );
-			                    console.log( data );
+// 			                    console.log( "요청 에러 발생 1" );
+// 			                    console.log( data );
 			                }
            			 },
             error : function(xhr, status, error) {

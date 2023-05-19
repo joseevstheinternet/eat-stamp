@@ -619,12 +619,6 @@ public class MemberController {
 				@RequestParam("mem_pwCheck") String mem_pwCheck, @RequestParam("new_mem_pw") String new_mem_pw,
 								HttpSession session, HttpServletResponse response) throws Exception{
 		
-		System.out.println(mem_num);
-		System.out.println(mem_email);
-		System.out.println(mem_pwCheck);
-		System.out.println(new_mem_pw);
-		
-		
 		//vo에 값 세팅>>service단으로 넘겨주기
 		MemberVO vo = new MemberVO();	
     	vo.setMem_num(mem_num);

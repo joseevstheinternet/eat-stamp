@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   <c:set var="path" value="${pageContext.request.contextPath }"/>    
     <!-- 헤더  -->
-   <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
+   <%@ include file="/WEB-INF/jsp/common/ownerHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가게 정보 수정 페이지</title>
+<title>EatStamp 사장님 - 가게 정보 수정 페이지</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");
@@ -40,17 +40,26 @@
 	<!-- alert custom cdn -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<style>
+
+div.detail_box {
+	margin-left: 15px;
+}
+
+.title_input {
+	flex: auto;
+	width: 370px;
+}
+
+</style>
+
 <body>
-	
 	<div class ="page_main" >
-			
-			<div class="all_wrap">
-			
-			<form action="/updateRestContent.do"  method="post"  enctype="multipart/form-data" onsubmit="return checks()">
-			
+		<div class="all_wrap">
+			<form action="/updateRestOwner.do"  method="post"  enctype="multipart/form-data" onsubmit="return checks()">
 				<!-- controller 전송용 r_num, r_fileName-->
-				<input type="hidden" name= r_num  value="${list.r_num }"> 
-				<input type="hidden" name= "old_fileName"  value="${list.r_fileName }"> 
+				<input type="hidden" name= r_num  value="${list.r_num}"> 
+				<input type="hidden" name= "old_fileName" value="${list.r_fileName}"> 
 				<input type="hidden" name= r_fileName class="file_name" > 
 				
 				<!--  윗단 flex용 감싸기 -->
@@ -61,16 +70,15 @@
 					<c:if test="${null != list.r_fileName}">
 						<img src="${pageContext.request.contextPath}/images/restImage/${list.r_fileName}" class="rest_img" id="preview">	
 					</c:if>
-						
 					<c:if test="${null == list.r_fileName}">
-							<img src="https://via.placeholder.com/300/a5a5a5/ffffff?Text=이미지를 등록해주세요.com" class="rest_img">
+						<img src="https://via.placeholder.com/300/a5a5a5/ffffff?Text=이미지를 등록해주세요.com" class="rest_img">
 					</c:if>
 					<br>
 					<div class ="btn_div">
 						<label for="img_route" class="img_insert_btn"> 이미지 등록</label>
 					</div>
-						<!-- 파일 숨기기 -->
-						<input  type="file" value="${list.r_fileName}"  class ="img_route" id="img_route" name="img_route" accept="image/*" >
+					<!-- 파일 숨기기 -->
+					<input type="file" value="${list.r_fileName}" class ="img_route" id="img_route" name="img_route" accept="image/*" >
 				</div>
 				
 				<!-- flex용 감싸기 -->
@@ -81,7 +89,11 @@
 					<div class="title_text div_box">
 						<span class ="title_span"><i class="fa-solid fa-signature"></i> 상호명</span>
 					</div>
-					<input class="title_input" name="r_name" type="text" value="${list.r_name }" placeholder="상호명을 입력해주세요.">
+					<div class="title_2">
+						<input class="title_input" name="r_name" type="text" value="${list.r_name}" readonly>
+						<span class="resve-font-ex"><i class="fa-solid fa-check exIcon"></i>
+							상호명 변경을 원하시면 관리자에게 문의하세요.</span>
+					</div>
 				</div>
 				
 				<!-- 전화번호  >>형식 맞춰서 입력하도록 유효성 검사 -->
@@ -89,38 +101,35 @@
 					<div class="title_text div_box">
 						<span class ="tel_span"><i class="fa-solid fa-phone restIcon"></i> 전화번호</span>	
 					</div>
-					<input class="tel_input" name="r_tel" type="text" value="${list.r_tel }" placeholder="가게 전화번호를 입력해주세요.">
+					<input class="tel_input" name="r_tel" type="text" value="${list.r_tel}" placeholder="가게 전화번호를 입력해 주세요.">
 				</div>
 				
 				<!-- 개점 시간  -->
 				<div class ="open_box">
 					<div class="open_text div_box">
-							<span class ="open_span"><i class="fa-solid fa-door-open"></i> OPEN</span>	
+						<span class ="open_span"><i class="fa-solid fa-door-open"></i> OPEN</span>	
 					</div>
-					<input class="open_input" name="r_open" type="text" value="${list.r_open }" placeholder="개점 시간을 형식에 맞춰 입력해주세요. ex)09:00">
+					<input class="open_input" name="r_open" type="text" value="${list.r_open}" placeholder="개점 시간을 형식에 맞춰 입력해 주세요. ex)09:00">
 				</div>
 				
 				<!-- 폐점 시간  -->
 				<div class ="close_box">
 					<div class="close_text div_box">
-							<span class ="close_span"><i class="fa-solid fa-door-closed"></i> CLOSE</span>	
+						<span class ="close_span"><i class="fa-solid fa-door-closed"></i> CLOSE</span>	
 					</div>
-					<input class="close_input" name="r_close" type="text" value="${list.r_close }" placeholder="폐점 시간을 형식에 맞춰 입력해주세요. ex)21:00">
+					<input class="close_input" name="r_close" type="text" value="${list.r_close}" placeholder="폐점 시간을 형식에 맞춰 입력해 주세요. ex)21:00">
 				</div>
-				
 				
 				<!-- 상세정보  >>개행문자 안내 -->
 				<div class ="detail_box">
 					<div class="detail_text">
 						<span class="detail_span"><i class="fa-solid fa-circle-info"></i> 세부정보 </span>
-						<span class="detail_semi_span">가게 정보는 내용 하나당 줄바꿈으로 입력해주세요.</span>
+						<span class="detail_semi_span">가게 정보는 내용 하나당 줄바꿈으로 입력해 주세요.</span>
 					</div>
-					<textarea class="detail_input" name="r_detail"  placeholder="가게 상세 정보를 입력해주세요.">${list.r_detail }</textarea>
+					<textarea class="detail_input" name="r_detail" placeholder="가게 상세 정보를 입력해 주세요.">${list.r_detail}</textarea>
 				</div>
-				
 			</div> <!-- top_semi_warp end -->
 		</div> <!-- top_wrap end -->
-		
 		
 		<!--아랫단 감싸기용  div-->
 		<div class ="under_wrap">
@@ -132,8 +141,8 @@
 					
 					<!-- 기존 주소 출력 영역  -->
 					<div class ="add_basic_field">
-						<input id="add_input" class="add_input"  name="r_add" type="text" value="${list.r_add }"  readonly="readonly">			
-						<button class="add_update_btn"  id="add_update_btn" type="button" >주소 수정</button>
+						<input id="add_input" class="add_input" name="r_add" type="text" value="${list.r_add}" readonly="readonly">			
+						<button class="add_update_btn" id="add_update_btn" type="button">주소 수정</button>
 					</div>
 					
 					<!-- 버튼 클릭 시 나오는 수정 영역 -->
@@ -142,24 +151,21 @@
 						<input class="hidden_add" type="text" id="sample6_postcode" placeholder="우편번호">
 						<input class="hidden_add" type="text" id="sample6_extraAddress" placeholder="참고항목">
 						
-						<input class="add_input"  name="update_add" id="sample6_address" type="text"  placeholder="수정할 주소는 우측의 검색 버튼을 클릭해 등록해주세요." readonly="readonly">	
-						<input type="text"  name="update_add_semi" class="add_input" id="sample6_detailAddress" placeholder="상세주소를 입력해주세요.">
-						<button class="add_search_btn"  type="button"  onclick="sample6_execDaumPostcode()">검색</button>		
+						<input class="add_input" name="update_add" id="sample6_address" type="text" placeholder="수정할 주소는 우측의 검색 버튼을 클릭해 등록해 주세요." readonly="readonly">	
+						<input type="text" name="update_add_semi" class="add_input" id="sample6_detailAddress" placeholder="상세주소를 입력해 주세요.">
+						<button class="add_search_btn" type="button"  onclick="sample6_execDaumPostcode()">검색</button>		
 					</div>
-					
-				</div>
+				</div> <!-- add_box end -->
 				
 				<!-- 메뉴-->
 				<div class ="menu_box">
-				
 					<div class="menu_text">
 						<div class="menu_text">
 							<span class="menu_span"><i class="fa-solid fa-bars"></i> 메뉴</span>
-							<span class ="menu_semi_span">메뉴 하나당 줄바꿈으로 구분해서 입력해주세요.</span>
+							<span class ="menu_semi_span">메뉴 하나당 줄바꿈으로 구분해서 입력해 주세요.</span>
 						</div>
 					</div>
-				
-					<textarea class="menu_input" name="r_menu" placeholder="가게 메뉴를 입력해주세요.">${list.r_menu }</textarea>
+					<textarea class="menu_input" name="r_menu" placeholder="가게 메뉴를 입력해 주세요.">${list.r_menu}</textarea>
 				</div>
 		</div>	<!-- under_wrap end -->	
 		

@@ -38,7 +38,6 @@ import com.EatStamp.service.RestService;
 import com.EatStamp.service.StampService;
 import com.EatStamp.service.TagService;
 import com.EatStamp.domain.StampVO;
-import com.EatStamp.mapper.MemberMapper;
 import com.common.utils.PagingUtil;
 import com.common.utils.StringUtil;
 import com.google.gson.Gson;

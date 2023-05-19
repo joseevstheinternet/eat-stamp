@@ -191,9 +191,9 @@
     $(document).ready(function(){
     	//예약하기 버튼 클릭 이벤트 핸들러
         $('#btn_resve').click(function(){
-       		if(!selectedTime) { // 만약 선택한 시간이 없을 경우
-                alert("예약 가능한 시간을 선택하세요.");
-                return; // 함수 실행 중단
+			if(!selectedTime) { // 만약 선택한 시간이 없을 경우
+				alert("예약 가능한 시간을 선택하세요.");
+				return; // 함수 실행 중단
             }
        		
         	// 선택한 날짜로부터 요일을 계산

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.EatStamp.mapper.RestOwnerMapper"> 
+
+	<!-- 0519 이예지 최초 생성  -->
+	<!-- 사장님 가게 상세 정보 불러오기 -->
+ 	<!-- restOwnerMApper.getRestOwnerDetail  -->
+  	<select id="getRestOwnerDetail" parameterType="String" resultType="restVO">
+  		SELECT	r_num,
+  				r_name,
+  				r_add,
+  				r_food,
+  				r_tel,
+  				r_fileName,
+  				r_detail,
+  				r_menu,
+  				r_open,
+  				r_close,
+  				r_category
+  		FROM	rest
+		WHERE 	r_name = #{mem_nick}
+  	</select>
+  	
+	<!-- 0519 이예지 최초 생성  -->
+	<!-- 사장님 가게 상세 정보 업데이트 -->
+ 	<!-- restOwnerMApper.updateRestOwner  -->
+  	<update id="updateRestOwner" parameterType="restVO">
+	  	UPDATE	rest
+		SET		r_add = #{r_add}, 
+				r_tel = #{r_tel},
+				r_fileName = #{r_fileName}, 
+				r_detail = #{r_detail},
+				r_menu = #{r_menu},
+				r_open = #{r_open},
+				r_close = #{r_close} 
+		WHERE	r_num = #{r_num}
+  	</update>
+
+</mapper>

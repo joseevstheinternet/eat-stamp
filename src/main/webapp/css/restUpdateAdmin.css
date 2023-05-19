@@ -17,17 +17,15 @@ input::placeholder{
 }
 
 .page_main{
-	width: 850px;
-	margin: auto;
-	background-color: white;
-	border-radius: 20px;
-	margin-top: 40px;
-	margin-bottom: 40px;
-	box-shadow: 3px 3px 30px 1px #ebebeb70;
-	padding-top: 30px;
-	padding-bottom: 120px;
-	padding-right: 20px;
-	padding-left: 20px;
+    width: 850px;
+    margin: auto;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 70px;
+    margin-bottom: 100px;
+    box-shadow: 3px 3px 30px 1px #ebebeb70;
+    padding: 50px;
+    padding-bottom: 180px;
 }
 
 .btn_div{
@@ -115,6 +113,7 @@ input::placeholder{
 	border-radius: 20px;
     box-shadow: 3px 3px 30px 1px #ebebeb70;
     margin-bottom: 15px;
+    object-fit: cover;
 }
 
 .rest_img i{
@@ -140,7 +139,6 @@ input::placeholder{
 }
 
 .title_text{
-	height: 20px;
 	flex: 1;
 }
 
@@ -160,7 +158,6 @@ input::placeholder{
 }
 
 .tel_text{
-	height: 20px;
 	flex: 1;
 	color: gray;
 }
@@ -291,7 +288,7 @@ input::placeholder{
 .menu_input{
 	flex: 2;
 	height: 300px;
-	width: 700px;
+	width: 640px;
 	font-size: 15px;
 	background-color: #f6ecdb;
 	box-shadow: 3px 3px 30px 1px #ebebeb70;
@@ -305,10 +302,11 @@ input::placeholder{
 }
 
 .btn_list{
-	margin-top: 40px;
-	display: flex;
-	width: 400px;
-	float: right;
+	margin-top: 70px;
+    display: flex;
+    width: 400px;
+    float: right;
+    margin-right: 55px;
 }
 
 .cancel_btn{
@@ -353,7 +351,6 @@ input::placeholder{
 }
 
 .open_text{
-	height: 20px;
 	flex: 1;
 	color: gray;
 }
@@ -388,7 +385,6 @@ input::placeholder{
 }
 
 .close_text{
-	height: 20px;
 	flex: 1;
 	color: gray;
 }
@@ -407,3 +403,18 @@ input::placeholder{
     color: gray;
 }
 
+/* 0519 사장님 식당 수정용 */
+div.div_box {
+    margin-left: 15px;
+}
+
+span.resve-font-ex{
+	font-size: 13px;
+    color: #afafaf;
+}
+
+div.title_2 {
+	display: flex;
+    flex-direction: column;
+}
+/* 0519 사장님 식당 수정용 끝 */

@@ -17,7 +17,7 @@ public interface ResveService {
 
 	/**
 	 * <pre>
-	 * 예약목록: 사장님 페이지의 예약 목록을 선택한다
+	 * 처리내용 : 사장님 페이지의 예약 목록을 선택한다
 	 * </pre>
 	 * @date : 2023. 05. 12
 	 * @author : 이예지
@@ -35,7 +35,7 @@ public interface ResveService {
 
 	/**
 	 * <pre>
-	 * 예약개수: 사장님 식당의 예약 개수를 구한다
+	 * 처리내용 : 사장님 식당의 예약 개수를 구한다
 	 * </pre>
 	 * @date : 2023. 05. 12
 	 * @author : 이예지
@@ -54,7 +54,7 @@ public interface ResveService {
 	
 	/**
 	 * <pre>
-	 * 예약상태: 예약 목록에서 예약 상태를 업데이트한다
+	 * 처리내용 : 예약 목록에서 예약 상태를 업데이트한다
 	 * </pre>
 	 * @date : 2023. 05. 12
 	 * @author : 이예지
@@ -73,7 +73,7 @@ public interface ResveService {
 	
 	/**
 	 * <pre>
-	 * 식당설정: 사장님의 식당 예약 설정을 선택한다
+	 * 처리내용 : 사장님의 식당 예약 설정을 선택한다
 	 * </pre>
 	 * @date : 2023. 05. 15
 	 * @author : 이예지
@@ -91,7 +91,7 @@ public interface ResveService {
 
 	/**
 	 * <pre>
-	 * 식당설정변경: 사장님의 식당 예약 설정을 업데이트한다
+	 * 처리내용 : 사장님의 식당 예약 설정을 업데이트한다
 	 * </pre>
 	 * @date : 2023. 05. 15
 	 * @author : 이예지
@@ -109,7 +109,7 @@ public interface ResveService {
 	
 	/**
 	 * <pre>
-	 * 식당정보선택: 회원의 식당 예약을 위해 식당 정보를 선택한다.
+	 * 처리내용 : 회원의 식당 예약을 위해 식당 정보를 선택한다.
 	 * </pre>
 	 * @date : 2023. 05. 16
 	 * @author : 이예지
@@ -127,7 +127,7 @@ public interface ResveService {
 	
 	/**
 	 * <pre>
-	 * 식당예약: 회원이 식당 예약을 하면 예약 테이블에 데이터를 삽입한다.
+	 * 처리내용 : 회원이 식당 예약을 하면 예약 테이블에 데이터를 삽입한다.
 	 * </pre>
 	 * @date : 2023. 05. 16
 	 * @author : 이예지
