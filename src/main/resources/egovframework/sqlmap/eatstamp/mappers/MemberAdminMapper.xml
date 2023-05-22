@@ -339,4 +339,14 @@
 	    </where>
  	</select>
   	
+  	<!-- 0522 이예지 최초 생성  -->
+	<!-- 관리자 - 사장님 상태 변경 시 식당 정보 변경 -->
+ 	<!-- memberAdminMapper.updateRestStatus  -->
+  	<update id="updateRestStatus" parameterType="map">
+  		UPDATE	eatstamp.rest
+		SET		r_block = #{r_block}, 
+				r_resveCode = #{r_resveCode}
+		WHERE	r_name = (SELECT mem_nick FROM eatstamp.member WHERE mem_num = #{mem_num})
+  	</update>
+  	
 </mapper>

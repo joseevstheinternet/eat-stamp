@@ -79,7 +79,7 @@ public interface OwnerService {
 	 * </pre>
 	 * @date : 2023.05.16
 	 * @author : 최은지
-	 * @param map
+	 * @param r_name
 	 * @return
 	 * @throws Exception
 	 */
@@ -99,15 +99,15 @@ public interface OwnerService {
 	
 	/**
 	 * <pre>
-	 * 처리내용: 가게 사장 회원가입 시 해당 가게 정보 DB 업데이트
+	 * 처리내용: 가게 사장 회원가입 중 기존 가입여부 확인
 	 * </pre>
-	 * @date : 2023.05.16
-	 * @author : 최은지
-	 * @param restVO
+	 * @date : 2023.05.22
+	 * @author : 최은지, 이예지
+	 * @param mem_nick
 	 * @return
 	 * @throws Exception
 	 */
-	public int updateRestInfoSignUp( RestVO restVO )throws Exception;
+	public int updateRestInfoSignUp(String mem_nick)throws Exception;
 	
 	/**
 	 * <pre>

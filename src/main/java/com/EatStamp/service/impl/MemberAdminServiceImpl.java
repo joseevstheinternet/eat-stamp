@@ -121,4 +121,9 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 		return memberMapper.selectListOwnerCnt(map);
 	}
 
+	@Override
+	public int updateRestStatus(Map<String, Object> map) throws Exception {
+		return memberMapper.updateRestStatus(map);
+	}
+
 }

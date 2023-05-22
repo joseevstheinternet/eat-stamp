@@ -147,3 +147,10 @@ div.page{
     align-items: center;
     justify-content: center;
 }
+
+button.mapBtn {
+	background-color: #ffc06c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}

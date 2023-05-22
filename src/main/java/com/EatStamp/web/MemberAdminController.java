@@ -181,232 +181,278 @@ public class MemberAdminController {
 	
 	
 	//0502 최은지 신고 상세 정보 조회(모달창)
-		@ResponseBody
-		@RequestMapping("/getReportDetail.do")
-		public String getReportDetail(@RequestParam(value = "report_num") int report_num) throws Exception {
-			
-			//vo 생성하고 값 세팅
-			ReportVO vo = new ReportVO();
-			vo.setReport_num(report_num);
-			
-			ReportVO detailList = memberService.getReportDetailContent(vo);
-			
-			String jsonData = new Gson().toJson(detailList);
-			
-			return jsonData;
-			
-		}//신고 상세 end
+	@ResponseBody
+	@RequestMapping("/getReportDetail.do")
+	public String getReportDetail(@RequestParam(value = "report_num") int report_num) throws Exception {
 		
+		//vo 생성하고 값 세팅
+		ReportVO vo = new ReportVO();
+		vo.setReport_num(report_num);
 		
-		//0502 최은지 신고 처리하기
-		@RequestMapping("/insertReportAdmin.do")
-		public ModelAndView insertReport(HttpServletResponse response,
-											@RequestParam(value = "report_num") int report_num,
-											@RequestParam(value = "report_return") String report_return,
-											@RequestParam(value = "mem_email1") String mem_email1) throws Exception {
+		ReportVO detailList = memberService.getReportDetailContent(vo);
+		
+		String jsonData = new Gson().toJson(detailList);
+		
+		return jsonData;
+		
+	}//신고 상세 end
+	
+	
+	//0502 최은지 신고 처리하기
+	@RequestMapping("/insertReportAdmin.do")
+	public ModelAndView insertReport(HttpServletResponse response,
+										@RequestParam(value = "report_num") int report_num,
+										@RequestParam(value = "report_return") String report_return,
+										@RequestParam(value = "mem_email1") String mem_email1) throws Exception {
 
-			ModelAndView mav = new ModelAndView();
-			String text = "";
+		ModelAndView mav = new ModelAndView();
+		String text = "";
+		
+		//반려사유가 입력되지 않았을 때(승인 처리)
+		if(report_return.equals(text)) {
 			
-			//반려사유가 입력되지 않았을 때(승인 처리)
-			if(report_return.equals(text)) {
+			MemberVO vo = new MemberVO();
+			vo.setMem_email(mem_email1);
+			
+			int result = memberService.acceptReport(vo);
+			
+			if(1==result) { //1차 업뎃 성공 시 >>피신고회원 신고횟수 누적, 조건 충족 시 정지
 				
-				MemberVO vo = new MemberVO();
-				vo.setMem_email(mem_email1);
+				//2차 코드 업뎃 > (report테이블 report_ynCode컬럼) 업데이트
+				int result2 = memberService.changeCode(report_num);
 				
-				int result = memberService.acceptReport(vo);
-				
-				if(1==result) { //1차 업뎃 성공 시 >>피신고회원 신고횟수 누적, 조건 충족 시 정지
+				if(1 == result2) {//2차 코드 업뎃까지 성공 시
 					
-					//2차 코드 업뎃 > (report테이블 report_ynCode컬럼) 업데이트
-					int result2 = memberService.changeCode(report_num);
-					
-					if(1 == result2) {//2차 코드 업뎃까지 성공 시
-						
-						message = "해당 신고 요청이 승인 처리되었습니다.";
-			            response.setContentType("text/html; charset=UTF-8");
-			            PrintWriter out = response.getWriter();
-			            out.println("<script>alert('"+ message +"');</script>"); 
-			            out.println("<script>location.replace('/reportListAdmin.do');</script>");
-			            out.flush();
-					}else {
-						System.out.println("승인 2차 오류메시지 추가하기");
-					}
-					
-				}else { //1차 업뎃 실패 시
-					System.out.println("승인 1차 오류메시지 추가하기");
-				}
-				
-				return mav; //승인 시 return
-				
-			//반려사유가 입력되었을 때(반려 처리)
-			}else {
-				
-				ReportVO vo = new ReportVO();
-				vo.setReport_num(report_num);
-				vo.setReport_return(report_return);
-				
-				int result = memberService.denidedReport(vo);
-				
-				if(1 == result) {//반려요청 처리 성공 시
-					message = "해당 신고 요청이 반려 처리되었습니다.";
+					message = "해당 신고 요청이 승인 처리되었습니다.";
 		            response.setContentType("text/html; charset=UTF-8");
 		            PrintWriter out = response.getWriter();
 		            out.println("<script>alert('"+ message +"');</script>"); 
 		            out.println("<script>location.replace('/reportListAdmin.do');</script>");
 		            out.flush();
-					
-				}else { //반려요청 처리 실패 시
-					System.out.println("반려 처리 메시지 추가하기");
-				}				
-				return mav; //반려 시 return
-
-			}//리턴 내용 분기 end
-		
-		}//신고 상세 end
-		
-		
-		//0504 최은지 신고내역 검색
-		@RequestMapping("/goReportSearchAdmin.do")
-		public ModelAndView searchReport(HttpServletResponse response,
-														@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
-														@RequestParam(value = "search_keyword") String search_keyword,
-														@RequestParam(value = "field") String field) throws Exception {
-			
-			ModelAndView mav = new ModelAndView();
-			List<ReportVO> list = null;
-			Map<String,Object> map = new HashMap<>();
-			
-			map.put("field", field);
-			map.put("search_keyword", search_keyword);
-			
-			int count = memberService.selectReportSearchRowCount(map);
-			
-			//페이징 처리
-			PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,"/goReportSearchAdmin.do");
-			
-			if(count > 0) {
-				map.put("start", page.getStartRow());
-				map.put("end", page.getEndRow());
+				}else {
+					System.out.println("승인 2차 오류메시지 추가하기");
+				}
 				
-				//리스트 조회
-				list = memberService.getSearchReportAdminList(map);
-				
-				map.put("list", list);
-
-			}else {//검색값이 없을 시
-
-	        	mav.addObject("count", count);
-	        	mav.setViewName("admin/reportListAdmin");
-	        	
-				return mav;
+			}else { //1차 업뎃 실패 시
+				System.out.println("승인 1차 오류메시지 추가하기");
 			}
 			
-			//업데이트 리스트
-			List<ReportVO> updatedList = new ArrayList<>();
-					
-			//회원 닉네임+이메일 추가 조회
-				for (ReportVO reportVO : list) {
-					   int mem_num1 = reportVO.getMem_num(); //신고자
-					   int mem_num2 = reportVO.getMem_num2(); //피신고자
-					   
-					    //기존 vo조회값 백업
-					    int report_num = reportVO.getReport_num();
-					    String report_why = reportVO.getReport_why();
-					    String report_ynCode = reportVO.getReport_ynCode();
-					    int s_num = reportVO.getS_num();
-					    int cmt_num = reportVO.getCmt_num();
-					    String report_return = reportVO.getReport_return();
-					    
-					   //신고 회원 조회
-					    reportVO = memberService.getMemselectOne(mem_num1);
-					   String mem_nick = reportVO.getMem_nick();
-					   String mem_email = reportVO.getMem_email();				   
-					   
-					   //피신고 회원 조회
-					   ReportVO reportVO2 = new ReportVO();
-					   reportVO2.setMem_num2(mem_num2);
-					   
-					   reportVO2 = memberService.getMemselectTwo(mem_num2);
-					   String mem_nick2 = reportVO2.getMem_nick();
-					   
-					   //다시 값 세팅
-					   	reportVO.setMem_num(mem_num1);
-					   	reportVO.setMem_num2(mem_num2);
-					    reportVO.setMem_nick(mem_nick);
-					    reportVO.setMem_nick2(mem_nick2);
-					    reportVO.setReport_num(report_num);
-					    reportVO.setReport_why(report_why);
-					    reportVO.setReport_ynCode(report_ynCode);
-					    reportVO.setS_num(s_num);
-					    reportVO.setCmt_num(cmt_num);
-					    reportVO.setReport_return(report_return);
-					    
-					    updatedList.add(reportVO);
-					    
-					}
-					
-					mav.addObject("count", count);
-					mav.addObject("list", list);
-					mav.addObject("list", updatedList);
-					mav.addObject("page", page.getPage());
-					mav.setViewName("reportListAdmin");
+			return mav; //승인 시 return
 			
-					return mav;
-		}//신고 검색 end
+		//반려사유가 입력되었을 때(반려 처리)
+		}else {
+			
+			ReportVO vo = new ReportVO();
+			vo.setReport_num(report_num);
+			vo.setReport_return(report_return);
+			
+			int result = memberService.denidedReport(vo);
+			
+			if(1 == result) {//반려요청 처리 성공 시
+				message = "해당 신고 요청이 반려 처리되었습니다.";
+	            response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>alert('"+ message +"');</script>"); 
+	            out.println("<script>location.replace('/reportListAdmin.do');</script>");
+	            out.flush();
+				
+			}else { //반려요청 처리 실패 시
+				System.out.println("반려 처리 메시지 추가하기");
+			}				
+			return mav; //반려 시 return
+
+		}//리턴 내용 분기 end
 	
-		/**
-		 * <pre>
-		 * 관리자 - 사장님 관리: 관리자 페이지의 사장님 관리 목록을 출력한다
-		 * </pre>
-		 * @date : 2023. 05. 15
-		 * @author : 이예지
-		 * @history :
-		 * -------------------------------------------------
-		 * 변경일                  변경자            변경내용
-		 * -------------------------------------------------
-		 * 2023. 05. 15          이예지            최초작성
-		 * -------------------------------------------------
-		 * @param currentPage
-		 * @param searchType
-		 * @param searchKeyword
-		 * @return
-		 * @throws Exception
-		 */
-		@RequestMapping("/adminOwnerList.do")
-		public ModelAndView adminOwnerList (@RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
-											@RequestParam(value = "searchType", defaultValue = "") String searchType,
-											@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) 
-											throws Exception {
+	}//신고 상세 end
+	
+	
+	//0504 최은지 신고내역 검색
+	@RequestMapping("/goReportSearchAdmin.do")
+	public ModelAndView searchReport(HttpServletResponse response,
+													@RequestParam(value = "pageNum",defaultValue = "1") int currentPage,
+													@RequestParam(value = "search_keyword") String search_keyword,
+													@RequestParam(value = "field") String field) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		List<ReportVO> list = null;
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("field", field);
+		map.put("search_keyword", search_keyword);
+		
+		int count = memberService.selectReportSearchRowCount(map);
+		
+		//페이징 처리
+		PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,"/goReportSearchAdmin.do");
+		
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
 			
-			Map<String,Object> map = new HashMap<>();
-			map.put("searchType", searchType);
-			map.put("searchKeyword", searchKeyword);
+			//리스트 조회
+			list = memberService.getSearchReportAdminList(map);
 			
-			//글의 총개수(검색된 글의 개수)
-			int count = memberService.selectListOwnerCnt(map);
-			logger.debug("<<count>> : " + count);
-			
-			//페이지 처리
-			PagingUtil page =
-					new PagingUtil(currentPage, count, rowCount, pageCount, "/owner/adminOwnerList.do");
-			
-			List<MemberVO> list = null;
-			if(count > 0) {
-				map.put("start", page.getStartRow());
-				map.put("end", page.getEndRow());
-				
-				list = memberService.selectListOwner(map);
-				
-				map.put("list", list);
-			}
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("admin/adminOwnerList");
-			mav.addObject("count", count);
-			mav.addObject("list", list);
-			mav.addObject("page", page.getPage());
-			
+			map.put("list", list);
+
+		}else {//검색값이 없을 시
+
+        	mav.addObject("count", count);
+        	mav.setViewName("admin/reportListAdmin");
+        	
 			return mav;
 		}
+		
+		//업데이트 리스트
+		List<ReportVO> updatedList = new ArrayList<>();
+				
+		//회원 닉네임+이메일 추가 조회
+			for (ReportVO reportVO : list) {
+				   int mem_num1 = reportVO.getMem_num(); //신고자
+				   int mem_num2 = reportVO.getMem_num2(); //피신고자
+				   
+				    //기존 vo조회값 백업
+				    int report_num = reportVO.getReport_num();
+				    String report_why = reportVO.getReport_why();
+				    String report_ynCode = reportVO.getReport_ynCode();
+				    int s_num = reportVO.getS_num();
+				    int cmt_num = reportVO.getCmt_num();
+				    String report_return = reportVO.getReport_return();
+				    
+				   //신고 회원 조회
+				    reportVO = memberService.getMemselectOne(mem_num1);
+				   String mem_nick = reportVO.getMem_nick();
+				   String mem_email = reportVO.getMem_email();				   
+				   
+				   //피신고 회원 조회
+				   ReportVO reportVO2 = new ReportVO();
+				   reportVO2.setMem_num2(mem_num2);
+				   
+				   reportVO2 = memberService.getMemselectTwo(mem_num2);
+				   String mem_nick2 = reportVO2.getMem_nick();
+				   
+				   //다시 값 세팅
+				   	reportVO.setMem_num(mem_num1);
+				   	reportVO.setMem_num2(mem_num2);
+				    reportVO.setMem_nick(mem_nick);
+				    reportVO.setMem_nick2(mem_nick2);
+				    reportVO.setReport_num(report_num);
+				    reportVO.setReport_why(report_why);
+				    reportVO.setReport_ynCode(report_ynCode);
+				    reportVO.setS_num(s_num);
+				    reportVO.setCmt_num(cmt_num);
+				    reportVO.setReport_return(report_return);
+				    
+				    updatedList.add(reportVO);
+				    
+				}
+				
+				mav.addObject("count", count);
+				mav.addObject("list", list);
+				mav.addObject("list", updatedList);
+				mav.addObject("page", page.getPage());
+				mav.setViewName("reportListAdmin");
+		
+				return mav;
+	}//신고 검색 end
+
+	/**
+	 * <pre>
+	 * 처리내용 : 관리자 페이지의 사장님 관리 목록을 출력한다
+	 * </pre>
+	 * @date : 2023. 05. 15
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 15          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param currentPage
+	 * @param searchType
+	 * @param searchKeyword
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/adminOwnerList.do")
+	public ModelAndView adminOwnerList (@RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
+										@RequestParam(value = "searchType", defaultValue = "") String searchType,
+										@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) 
+										throws Exception {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("searchType", searchType);
+		map.put("searchKeyword", searchKeyword);
+		
+		//글의 총개수(검색된 글의 개수)
+		int count = memberService.selectListOwnerCnt(map);
+		logger.debug("<<count>> : " + count);
+		
+		//페이지 처리
+		PagingUtil page =
+				new PagingUtil(currentPage, count, rowCount, pageCount, "/owner/adminOwnerList.do");
+		
+		List<MemberVO> list = null;
+		if(count > 0) {
+			map.put("start", page.getStartRow());
+			map.put("end", page.getEndRow());
+			
+			list = memberService.selectListOwner(map);
+			
+			map.put("list", list);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/adminOwnerList");
+		mav.addObject("count", count);
+		mav.addObject("list", list);
+		mav.addObject("page", page.getPage());
+		
+		return mav;
+	}
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 관리자가 사장님 회원의 상태 변경 시 식당 정보를 변경한다.
+	 * </pre>
+	 * @date : 2023. 05. 22
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 22          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param mem_num
+	 * @param mem_admin_auth
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/updateOwnerStatus.do")
+	@ResponseBody
+	public String updateOwnerStatus(@RequestParam(value = "mem_num") int mem_num, 
+									@RequestParam(value = "mem_admin_auth") int mem_admin_auth) throws Exception {
+		
+		//파라미터를 Map에 저장
+		Map<String, Object> map = new HashMap<>();
+		map.put("mem_num", mem_num);
+		map.put("mem_admin_auth", mem_admin_auth);
+
+		//회원 상태 업데이트 서비스 호출
+		int result = memberService.updateMemberStatus(map);
+		
+		// 추가: rest 테이블에서 데이터를 찾아 업데이트
+		int r_block = 1;
+		String r_resveCode = "n";
+		if(mem_admin_auth == 4) {
+			r_block = 0;
+			r_resveCode = "y";
+		}
+		map.put("r_block", r_block);
+		map.put("r_resveCode", r_resveCode);
+
+		int restResult = memberService.updateRestStatus(map);
+
+		//업데이트 결과에 따라 성공/실패 문자열 반환
+		return (result > 0 && restResult > 0) ? "success" : "failure";
+	}
 }

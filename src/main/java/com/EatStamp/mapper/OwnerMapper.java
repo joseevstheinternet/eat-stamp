@@ -39,7 +39,7 @@ public interface OwnerMapper {
 	public int insertOwnerSignUpInfo(MemberVO memberVO)throws Exception;
 	
 	//0516 최은지 가게 사장 회원가입 시 해당 가게 정보 DB 업데이트
-	 public int updateRestInfoSignUp(RestVO restVO)throws Exception;
+	 public int updateRestInfoSignUp(String mem_nick)throws Exception;
 	 
 	//0516 최은지 신규 가게 사장 회원가입 시 해당 가게 정보 DB 업데이트
 	 public int insertOwnerSignUpNewRestInfo(RestVO restVO)throws Exception;

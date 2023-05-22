@@ -44,7 +44,7 @@
 			<!-- 상단 타이틀 -->
 			<div class="mypage-section1">
 				<span class="mypage-title">찜한 가게</span>
-				<button onclick="location.href = '/selectRestLikeMapList.do'"> Map으로 보기 </button>
+				<button class="mapBtn" onclick="location.href = '/selectRestLikeMapList.do'"> Map으로 보기 </button>
 			</div>
 			<!-- 상단 타이틀 끝 -->
 			<!-- 리스트 -->

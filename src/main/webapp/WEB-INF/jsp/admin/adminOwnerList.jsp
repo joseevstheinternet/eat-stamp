@@ -165,12 +165,13 @@ select{
  %>		
 <script>
  // 회원 상태 업데이트
- function updateMemberStatus(mem_num, mem_admin_auth) {
+ function updateOwnerStatus(event, mem_num, mem_admin_auth) {
+	 event.stopPropagation();
  	//확인 창을 띄우고 사용자의 선택에 따라 실행
- 	if (confirm("회원 상태를 변경하시겠습니까?")){
+ 	if (confirm("사장님 상태를 변경하시겠습니까?")) {
  		//Ajax POST 요청
          $.ajax({
-         	url: "/updateMemberStatus.do",
+         	url: "/updateOwnerStatus.do",
          	type: "POST",
          	data: {
          		mem_num: mem_num,
@@ -266,18 +267,18 @@ select{
 													</span>
 												</div>
 												<div class="box-mem4">
-												    <c:choose>
-												        <c:when test="${owner.mem_admin_auth == 3}">
-												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 4)">승인</button>
-												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 5)" style="background-color:#b5b5b5">거절</button>
-												        </c:when>
-												        <c:when test="${owner.mem_admin_auth == 4}">
-												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 5)" style="background-color:#b5b5b5">정지</button>
-												        </c:when>
-												        <c:when test="${owner.mem_admin_auth == 5}">
-												            <button class="update-btn" onclick="updateMemberStatus(${owner.mem_num}, 4)">일반</button>
-												        </c:when>
-												    </c:choose>
+													<c:choose>
+													    <c:when test="${owner.mem_admin_auth == 3}">
+													        <button class="update-btn" onclick="updateOwnerStatus(event, ${owner.mem_num}, 4)">승인</button>
+													        <button class="update-btn" onclick="updateOwnerStatus(event, ${owner.mem_num}, 5)" style="background-color:#b5b5b5">거절</button>
+													    </c:when>
+													    <c:when test="${owner.mem_admin_auth == 4}">
+													        <button class="update-btn" onclick="updateOwnerStatus(event, ${owner.mem_num}, 5)" style="background-color:#b5b5b5">정지</button>
+													    </c:when>
+													    <c:when test="${owner.mem_admin_auth == 5}">
+													        <button class="update-btn" onclick="updateOwnerStatus(event, ${owner.mem_num}, 4)">일반</button>
+													    </c:when>
+													</c:choose>
 												</div>
 											</div>
 										</div>

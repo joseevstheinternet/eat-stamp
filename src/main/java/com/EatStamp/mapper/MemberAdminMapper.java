@@ -62,4 +62,7 @@ public interface MemberAdminMapper {
 	
 	//0515 이예지 관리자 - 사장님 관리 목록 개수 구하기
 	public int selectListOwnerCnt(Map<String,Object> map) throws Exception;
+	
+	//0522 이예지 관리자 - 사장님 가입 승인 시 식당 정보 변경
+	public int updateRestStatus(Map<String, Object> map) throws Exception;
 }

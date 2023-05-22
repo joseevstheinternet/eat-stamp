@@ -89,4 +89,23 @@ public interface MemberAdminService {
 	 * @throws Exception
 	 */
 	public int selectListOwnerCnt(Map<String,Object> map) throws Exception;
+	
+	/**
+	 * <pre>
+	 * 처리내용 : 관리자가 사장님 회원의 상태 변경 시 식당 정보를 변경한다.
+	 * </pre>
+	 * @date : 2023.05.22
+	 * @author : 이예지
+	 * @history :
+	 * -------------------------------------------------
+	 * 변경일                  변경자            변경내용
+	 * -------------------------------------------------
+	 * 2023. 05. 22          이예지            최초작성
+	 * -------------------------------------------------
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateRestStatus(Map<String, Object> map) throws Exception;
+		
 }

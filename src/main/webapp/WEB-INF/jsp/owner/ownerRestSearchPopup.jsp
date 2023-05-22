@@ -48,7 +48,7 @@ History: 최은지, 2023.05.15 최초 작성
     justify-content: space-between;
 }
 
-.txt_r_num {
+.txt_r_add {
 	font-size: 14px;
     color: #b7b7b7;
 }
@@ -75,9 +75,10 @@ History: 최은지, 2023.05.15 최초 작성
 					<div class = "div_restResultList">
 						<div class = "div_title">
 							<span class="txt_r_name" >${list.r_name}</span>
+							<span class="txt_r_num" style="display: none">${list.r_num}</span>
 							<button type="button" class = "btn_choiceRest">선택</button>
 						</div>
-						<span class="txt_r_num" >${list.r_add}</span>
+						<span class="txt_r_add" >${list.r_add}</span>
 					</div>
 				</c:forEach>
 			</c:if>
@@ -91,8 +92,10 @@ History: 최은지, 2023.05.15 최초 작성
 	    var selectedText = $(this).siblings(".txt_r_name").text();
 	    opener.document.getElementById("txt_restNameInput").value = selectedText;
 	    
-	    var selectedText2 = $(this).siblings(".txt_r_num").text();
-	    opener.document.getElementById("hdn_restNumInput").value = selectedText2;
+// 	    var selectedText2 = $(this).siblings(".txt_r_num").text();
+// 	    opener.document.getElementById("hdn_restNumInput").value = selectedText2;
+	    
+	    window.close();
 	  });
 </script>
 

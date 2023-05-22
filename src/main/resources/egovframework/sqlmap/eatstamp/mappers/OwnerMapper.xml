@@ -106,11 +106,11 @@
 	<!-- 0516 최은지 최초 생성  -->
 	<!-- 사장 회원 회원가입 처리 중 기존 가게 정보 업데이트 -->
  	<!-- ownerMapper.getDuplSignUpCheck  -->
-	<update id="updateRestInfoSignUp"  parameterType="restVO">	
+	<update id="updateRestInfoSignUp"  parameterType="String">	
 		 UPDATE rest
 		 SET  r_block = 0, 
 		 		r_resveCode = 'n'
-		 WHERE r_num = #{r_num}
+		 WHERE r_name = #{mem_nick}
 	</update>	
 	
 	<!-- 0516 최은지 최초 생성  -->

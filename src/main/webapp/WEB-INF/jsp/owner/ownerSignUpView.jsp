@@ -1,10 +1,11 @@
 <%--
 시스템명 : 가게 사장 회원가입 화면
-파일명: ownerMyPageView.jsp
+파일명: ownerSignUpView.jsp
 작성자: 최은지
 작성일자: 2023.05.15
 처리내용: 가게 사장 전용 마이 페이지이다.
 History: 최은지, 2023.05.15 최초 작성
+		 이예지, 2023.05.22 수정
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -15,7 +16,7 @@ History: 최은지, 2023.05.15 최초 작성
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Owner My Page</title>
+<title>EatStamp 사장님 - 회원가입</title>
 </head>
 
 <%-- css 링크 연결 --%>
@@ -70,15 +71,15 @@ History: 최은지, 2023.05.15 최초 작성
 				<div class = "div_wrapSearchRestName">
 						<span class = "txt_restName">상호명 검색</span>
 					<div class = "div_searchRestName">
-						<input class ="txt_restNameInput"  name ="mem_nick" id ="txt_restNameInput" type="text" placeholder="우측 버튼을 클릭해 상호명을 검색해주세요." readonly>
-						<input class ="hdn_restNumInput"  name ="r_num" id ="hdn_restNumInput" type="hidden" readonly>
+						<input class ="txt_restNameInput" name ="mem_nick" id ="txt_restNameInput" type="text" placeholder="우측 버튼을 클릭해 상호명을 검색해주세요." readonly>
+<!-- 						<input class ="hdn_restNumInput" name ="r_num" id ="hdn_restNumInput" type="hidden" readonly> -->
 						<button class = "btn_searchRestName" type="button"> 검색 </button>
 					</div>
 				</div>
 				
 				<div class = "div_wrapInsertRestName">
 					<span class = "txt_restName"><i class="fa-solid fa-arrow-right" ></i> 검색된 상호명이 없나요? (1/2)</span>
-					<input class ="txt_restNameInputInsert"  name ="mem_newNick"  type="text" placeholder="직접 상호명을 입력해주세요.">
+					<input class ="txt_restNameInputInsert" name ="mem_newNick" type="text" placeholder="직접 상호명을 입력해주세요.">
 				</div>
 			
 				<div class = "div_wrapAdd">
@@ -87,10 +88,10 @@ History: 최은지, 2023.05.15 최초 작성
 					<input class ="hdn_extra" type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 						
 					<div class = "div_wrapSemiAdd">
-						<input class ="txt_addMainInput"  name="r_add" id="sample6_address" type="text"  placeholder="등록할 주소는 우측의 검색 버튼을 클릭해 등록해주세요." readonly="readonly">
-						<button class ="btn_addSearch"  type="button"  onclick="sample6_execDaumPostcode()">검색</button>			
+						<input class ="txt_addMainInput" name="r_add" id="sample6_address" type="text" placeholder="등록할 주소는 우측의 검색 버튼을 클릭해 등록해주세요." readonly="readonly">
+						<button class ="btn_addSearch" type="button" onclick="sample6_execDaumPostcode()">검색</button>			
 					</div>
-						<input class ="txt_addSemiInput" type="text"  name="r_semi_add" id="sample6_detailAddress" placeholder="상세주소를 입력해주세요.">
+						<input class ="txt_addSemiInput" type="text" name="r_semi_add" id="sample6_detailAddress" placeholder="상세주소를 입력해주세요.">
 				</div>
 				
 				<button class = "sbm_ownerSignUp" type="submit"> Sign Up</button>
@@ -112,25 +113,25 @@ var checkEmail = false; //이메일 중복 체크용 기본 설정
 //버튼 클릭 시 이메일 중복 체크 이벤트
 $( document ).on( "click", ".btn_checkDuplEmail", function () {
     $.ajax({
-        			type : "post",
-    				url : "/emailDupl.do",
-			        data:{
-				        	mem_email : $('.txt_emailInput').val()
-				        	},
-					dataType: "text",
-		            success : function(data) {		            
-						                if (data == 1) { 
-						                   		alert("중복된 이메일입니다.");
-						                   		checkEmail = false; 
-						                } else { 
-						                   		 alert("사용 가능한 이메일입니다.");
-						                   		 checkEmail = true;
-						               	 } //else end
-				          	  }, //success end
-				      error : function(data){
-				    	  			console.log(data);
-				      }//error end
-	    }) //ajax end	
+        type : "post",
+    	url : "/emailDupl.do",
+		data:{
+			  mem_email : $('.txt_emailInput').val()
+			  },
+		dataType: "text",
+		success : function(data) {		            
+			if (data == 1) { 
+				alert("중복된 이메일입니다.");
+				checkEmail = false; 
+			} else { 
+				alert("사용 가능한 이메일입니다.");
+				checkEmail = true;
+			} //else end
+		}, //success end
+		error : function(data){
+			console.log(data);
+		}//error end
+	}); //ajax end	
 	    
 	    //return checkEmail;
 	    

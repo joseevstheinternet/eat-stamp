@@ -20,13 +20,17 @@
 	    referrerpolicy="no-referrer" />	
 
 <style>
-button.cancel-button{
+button.cancel-button {
 	background-color: #b5b5b5;
     color: white;
     padding: 3px 8px;
     border-radius: 15px;
     font-size: 13px;
     margin-left: 5px;
+}
+
+div.box-section1 {
+	cursor: auto;
 }
 </style>
 

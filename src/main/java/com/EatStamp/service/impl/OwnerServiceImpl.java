@@ -102,8 +102,8 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public int updateRestInfoSignUp( RestVO restVO ) throws Exception {
-		return ownerMapper.updateRestInfoSignUp(restVO);
+	public int updateRestInfoSignUp( String mem_nick ) throws Exception {
+		return ownerMapper.updateRestInfoSignUp(mem_nick);
 	}
 
 
