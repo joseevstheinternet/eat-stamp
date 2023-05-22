@@ -172,24 +172,14 @@ select{
     border: 1px solid #ffc06c;
     border-radius: 20px;
     color: #ffc06c;
-/*     text-align: center; */
 }
-
-/* select option{ */
-/*     text-align: center; */
-/*     border-radius: 0; */
-/*     margin-left: -20px; */
-/* } */
-
-
-
 </style>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 회원 정보 관리</title>
+<title>EatStamp 관리자 - 회원 정보 관리</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");

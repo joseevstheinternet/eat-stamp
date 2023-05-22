@@ -15,7 +15,7 @@ History: 최은지, 2023.05.12 최초 작성
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Owner Login Page</title>
+<title>EatStamp 사장님 - 로그인</title>
 </head>
 
 <%-- css 링크 연결 --%>

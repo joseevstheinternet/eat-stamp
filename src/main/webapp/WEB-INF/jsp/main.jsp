@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>EatStamp - 메인</title>
+    <title>EatStamp - 메인 페이지</title>
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />	
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/main.css'/>" />
     <%-- <link type="script" rel="stylesheet" href="<c:url value='/css/egovframework/main.css'/>" /> --%>

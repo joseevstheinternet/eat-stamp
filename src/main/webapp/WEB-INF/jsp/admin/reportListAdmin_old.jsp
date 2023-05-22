@@ -5,48 +5,124 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
-<!-- 부트스트랩 사용  -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- css -->
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/stampList.css'/>" />	
-<link type="text/css" rel="stylesheet" href="<c:url value='/css/mypageReport.css'/>" />	
 <!-- 아이콘 사용 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" 
 	    referrerpolicy="no-referrer" />	
 
+<!-- 부트스트랩 사용  -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    
 <style>
 
-div.num_box {
+ul.list-ul{
+	margin: 15px 0;
+}
+
+div.stamp-table-name{
 	display: flex;
     justify-content: space-between;
 }
 
-input.ajax_text {
-	width: 380px;
+span.table-image{
+	width: 60px;
+    text-align: center;
 }
 
-a.direct_link {
+span.table-title{
+    width: 225px;
+    text-align: center;
+}
+
+span.table-rname{
+    width: 180px;
+    text-align: center;
+}
+
+span.table-regdate{
+    width: 110px;
+    text-align: center;
+}
+
+span.table-writer{
+    width: 85px;
+    text-align: center;
+}
+
+div.box-title{
 	width: 100px;
-	font-size: 14px;
+	margin-left: 15px;
 }
 
-div.mypage-menu {
-	height: 260px;
+div.box-title2{
+	width: 200px;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
+
+div.box-rname{
+	width: 180px;
+	text-align: center;
+}
+
+div.box-date{
+	margin: 0 13px;
+}
+
+div.box-mem{
+    width: 85px;
+    text-align: center;
+    margin-left: 40px;
+}
+
+div.list-image01{
+    width: 60px;
+    text-align: center;
+}
+
+/*검색창*/
+
+div.mypage-section1-search{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button.searchIcon{
+    position: absolute;
+    font-size: 14px;
+    color: #ffc06c;
+    margin-top: 9px;
+    margin-left: 10px;
+}
+
+.search_text {
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 27px;
+    background-color: white;
+    border: 1px solid #ffc06c;
+    color: #ffc06c;
+}
+
+input::placeholder{
+	color: #ffc06c;
+}
+
 </style>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp 관리자 - 신고 내역 관리</title>
-</head>
-
+<title>EatStamp 관리자 - 신고내역 관리</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");
@@ -55,6 +131,10 @@ div.mypage-menu {
 	 if(request.getProtocol().equals("HTTP/1.1"))
      response.setHeader("Cache-Control","no-cache");
  %>		
+</head>
+
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />	
+<link type="text/css" rel="stylesheet" href="<c:url value='/css/reportListAdmin.css'/>" />
 
 <body>
 
@@ -88,9 +168,10 @@ div.mypage-menu {
 					<!-- 상단 타이틀 끝 -->
 					<!-- 검색창 -->
 					<div class="mypage-section1-search">
+					
 					    <form method="post"  action="/goReportSearchAdmin.do">
 					        <select name="field">			    
-							    <c:set var = "field" value = "${field}" />
+							    <c:set var = "field" value = "${field }" />
 									<option value="mem_num"
 										<c:if test="${field == 'mem_num'}">selected</c:if>>피신고자</option>			
 									<option value="mem_num2"
@@ -104,26 +185,28 @@ div.mypage-menu {
 					<!-- 리스트 -->
 					<div class="mypage-section2">
 						<c:if test="${count == 0}">
-							<div class="no-list"><span class="no-list">신고한 내역이 없습니다.</span></div>
+							<div class="no-list"><span class="no-list">검색 결과가 존재하지 않습니다.</span></div>
 						</c:if>
 						<c:if test="${count > 0}">
 							<ul class="list-ul">
 								<div class="stamp-table-name">
-									<span class="table-image table">구분</span>
-									<span class="table-title table">신고사유</span>
-									<span class="table-rname table">신고자</span>
-									<span class="table-regdate table">피신고자</span>
-									<span class="table-writer table">처리상태</span>
+									<span class="table-image">신고 번호</span>
+									<span class="table-image">구분</span>
+									<span class="table-title">신고 내용</span>
+									<span class="table-rname">신고자</span>
+									<span class="table-regdate">피신고자</span>
+									<span class="table-regdate">처리 상태</span>
 								</div>
-								<hr class="line2"/>
-								<c:forEach var="list" items="${list}" varStatus="status">
+								<hr class="line">
+								<c:forEach var="list" items="${list}">
 									<li class="list-list">
-										<div class="list-span01 box-parent">
+										<div class="box-parent" id="test_div" >
+											<%-- <input type="hidden" value="${rest.r_num}"> --%>		
 											<div class="box-section1">
-												<div id="report_num_div" style="display: none;">
+												<div class="box-title" id="report_num_div">
 													<span class="font-set2">${list.report_num}</span>
 												</div>
-												<div class="box-no">
+													<div class="box-title">
 													<c:if test="${'' == list.s_num}">
 														<span class="font-set2">댓글</span>
 													</c:if>
@@ -131,31 +214,31 @@ div.mypage-menu {
 														<span class="font-set2">글</span>
 													</c:if>
 												</div>
-												<div class="box-title">
-													<span class="font-set2" >${list.report_why}</span>
-												</div>
-												<div class="box-rname">
-													<span class="font-set2">${list.mem_nick2}</span>
-												</div>
-												<div class="box-date">
-													<span class="font-set2">${list.mem_nick}</span>
-												</div>
-												<div class="box-mem4">
-												    <c:if test="${'w' == list.report_ynCode}">
-														<span class="font-set2">대기</span>
-													</c:if>
-													<c:if test="${'n' == list.report_ynCode}">
-														<span class="font-set2">반려</span>
-													</c:if>
-													<c:if test="${'y' == list.report_ynCode}">
-														<span class="font-set2">승인</span>
-													</c:if>
+											<div class="list-span01">
+												<div class="box-section1">
+													<div class="box-title2">
+														<span class="font-set2" >${list.report_why}</span>
+													</div>
+													<div class="box-rname">
+														<span class="font-set2">${list.mem_nick2}</span>
+													</div>
+													<div class="box-rname">
+														<span class="font-set2">${list.mem_nick}</span>
+													</div>	
+													<div class="box-mem">
+														<c:if test="${'w' == list.report_ynCode}">
+															<span class="font-set4">대기</span>
+														</c:if>
+														<c:if test="${'n' == list.report_ynCode}">
+															<span class="font-set4">반려</span>
+														</c:if>
+														<c:if test="${'y' == list.report_ynCode}">
+															<span class="font-set4">승인</span>
+														</c:if>
+													</div>
 												</div>
 											</div>
 										</div>
-										<c:if test="${not status.last}">
-											<hr class="line"/>
-										</c:if>
 									</li>
 								</c:forEach>
 							</ul>
@@ -171,25 +254,31 @@ div.mypage-menu {
 						<div class="modal-header">
 							<h4 class="modal-title" id="exampleModalLabel">신고 상세 내역</h4>
 							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true" class="modal-x">X</span>
+								<span aria-hidden="true">X</span>
 							</button>
 						</div>
+						
 						<form method='post' action='/insertReportAdmin.do'>
-							<!-- 상세내역 출력 div -->
-							<div class="modal-body"></div>
-						</form>
+						<!-- 상세내역 출력 div -->
+						<div class="modal-body"></div>
+					</form>
+					
 					</div>
 				</div>
 			</div> <!-- 모달 end  -->
+
 		</c:when>
 		<c:otherwise>
 			<div class="no-admin">
 				<span class="no-admin">잘못된 접근입니다.</span>
-				<span class="no-admin">다시 로그인해주세요.</span>
+				<span class="no-admin">관리자 ID로 로그인하세요.</span>
 			</div>
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+</body>
 
 <script>
 //<0510 최은지>
@@ -238,13 +327,13 @@ var header = $("meta[name='_csrf_header']").attr('content');
 				  	        	div += "<div class = wrap_div'>" //전체 div
 				  	  
 				  	        	div += "<div class = 'num_box'>"
-				  	        	div += "<span class ='num_text menu_text'> 접수번호</span>"
+				  	        	div += "<span class ='num_text'> 접수번호</span>"
 					  	    	div += "<input type='text' readonly name='report_num' class = 'ajax_text' value='"+this.report_num +"'>";
 								div += "<a class='direct_link' href='"+ this.report_link + "'>상세내역 확인</a>";
 				  	        	div += "</div>";	//num_box end
 				  	        	
 				  	        	div += "<div class = 'dis_box'>";
-				  	        	div += "<span class = 'dis_text menu_text'>구분</span>";
+				  	        	div += "<span class = 'dis_text'>구분</span>";
 											if ('' == this.s_num){
 												div += "<span class='ajax_text'>댓글</span>";
 												div += "<span class='ajax_text'> &nbsp; </span>"
@@ -252,44 +341,42 @@ var header = $("meta[name='_csrf_header']").attr('content');
 												div += "<span class='ajax_text'>글</span>";
 												div += "<span class='ajax_text'> &nbsp; </span>"
 											}
-               				div += "</div>";	//dis_div end
+                 				div += "</div>";	//dis_div end
 				  	        	
-               				div += "<div class = 'mem2_box'>" //신고자
-               				div += "<span class = 'mem2_text menu_text'>신고자</span>"
-  				  	        div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'><br>"; 
-				  	        	div += "<input type='text' readonly name='mem2_email'  id='ajax_text_mem2' class = 'ajax_text ajax_text2' value='"+this.mem_email2 +"'>"; 
+                 				div += "<div class = 'mem2_box'>" //신고자
+                 				div += "<span class = 'mem2_text'>신고자</span>"
+    				  	        div += "<input type='text' readonly name='mem_nick2' class = 'ajax_text' value='"+this.mem_nick2 +"'><br>"; 
+				  	        	div += "<input type='text' readonly name='mem2_email'  id='ajax_text_mem2' class = 'ajax_text' value='"+this.mem_email2 +"'>"; 
 				  	      		div += "</div>";	//mem2_box end
 				  	        	
 								div += "<div class = 'mem1_box'>" //피신고자
-	                 			div += "<span class = 'mem1_text menu_text'> 피신고자</span>";
+	                 			div += "<span class = 'mem1_text'> 피신고자</span>";
 				  	        	div += "<input type='text' readonly name='mem_nick1' class = 'ajax_text' value='"+this.mem_nick1 +"'><br>"; 
-				  	        	div += "<input type='text' readonly name='mem_email1' id='ajax_text_mem1' class = 'ajax_text ajax_text2' value='"+this.mem_email1 +"'>"; 
+				  	        	div += "<input type='text' readonly name='mem_email1' id='ajax_text_mem1' class = 'ajax_text' value='"+this.mem_email1 +"'>"; 
 					  	        
 					  	      	div += "</div>";	//mem1_box end
 					  	        	
 				  	        	div += "<div class = 'why_box'>"
-				  	        	div += "<span class = 'why_text menu_text' > 신고사유</span><br><br>"
+				  	        	div += "<span class = 'why_text' > 신고사유</span><br><br>"
 				  	        	div += "<textarea readonly name='report_why' class = 'ajax_area'>"+ this.report_why + "</textarea>"; 
 				  	        	div += "</div>"; //why_box end     
 				  	        	
 				  	        	div += "<div class ='return_box'>"
 						  	        		if (undefined == this.report_return){
-								  	        	div += "<span class = 'return_text menu_text' style ='display:none'> 반려 사유</span><br>"
+								  	        	div += "<span class = 'return_text' style ='display:none'> 반려 사유</span><br>"
 								  	        	div += "<textarea class = 'return_val' style ='display:none'>"+ this.report_return  +"</textarea>"
 											}else{
-								  	        	div += "<span class = 'return_text menu_text'> 반려 사유</span><br><br>"
+								  	        	div += "<span class = 'return_text'> 반려 사유</span><br><br>"
 								  	        	div += "<textarea class = 'return_val' readonly>"+ this.report_return  +"</textarea>"
 											}
 				  	        	div += "</div>" //return_box end
 				  	        	//버튼을 누르기 전까지는 display none
 				  	        	div += "<div class = 'return_insert_box' style ='display:none'>";
-				  	        	div += "<div class = 'return_insert'>";
-				  	        	div += "<span class = 'return_text menu_text'> 반려 사유</span><br>";
-				  	        	div += "<textarea name='report_return' class='return_insert_val' placeholder='반려사유를 필수적으로 입력해주세요.'></textarea>";
-				  	        	div += "</div>";
-					  	        div += "<div class='modal-footer' id='two_modal'>";
-				  	        	div += "<button class='cancelBtn btn' style='background-color: #b7b7b7;' type = 'button'>취소</button>";
-				  	        	div += "<button class='subminBtn btn' type = 'submit'>등록</button>";
+				  	        	div += "<span class = 'return_text'> 반려 사유</span><br>";
+				  	        	div += "<textarea name='report_return' class='return_insert_val' placeholder='반려사유를 필수적으로 입력해주세요.'></textarea>"
+					  	        div += "	<div class='modal-footer' id='two_modal'>";
+				  	        	div += "<button class='cancelBtn' type = 'button'>취소</button>";
+				  	        	div += "<button class='subminBtn' type = 'submit'>등록</button>";
 				  	        	div += "</div>"; //two_modal end
 				  	        	div += "</div>"; //return_insert_box end      
 				  	        	
@@ -354,8 +441,8 @@ var header = $("meta[name='_csrf_header']").attr('content');
 			 alert("오류가 발생했습니다. 다시 시도해주세요.");
 		 }
 	});
+	
+
 </script>
 
-<%@ include file="/WEB-INF/jsp/egovframework/common/footer.jsp" %>
-</body>
 </html>

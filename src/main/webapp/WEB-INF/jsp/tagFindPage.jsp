@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 태그 검색 페이지</title>
 </head>
 
 	<!-- jquery 사용 -->

@@ -1,3 +1,13 @@
+<%--
+시스템명 : 회원 식당 예약 내역 화면
+파일명: memberResveListView.jsp
+작성자: 최은지
+작성일자: 2023.05.18
+처리내용: 회원 전용 식당 예약 일시 선택 페이지이다.
+History: 최은지, 2023.05.18 최초 작성
+		 이예지, 2023.05.19 수정
+ --%>
+
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

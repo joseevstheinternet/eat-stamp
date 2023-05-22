@@ -1,3 +1,12 @@
+<%--
+시스템명 : 회원 식당 예약 완료 화면
+파일명: restResveForm.jsp
+작성자: 이예지
+작성일자: 2023.05.16
+처리내용: 회원 전용 식당 예약 완료 안내 페이지이다.
+History: 이예지, 2023.05.17 최초 작성
+ --%>
+
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp JoinPage</title>
+<title>EatStamp - 회원가입</title>
 </head>
 	<!-- css 링크 사용 -->
 	<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />

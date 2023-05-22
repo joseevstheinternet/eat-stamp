@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 내 식사 기록</title>
+<title>EatStamp - 신고 내역</title>
 </head>
 
  <%

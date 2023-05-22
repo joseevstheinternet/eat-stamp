@@ -14,7 +14,7 @@ History: 최은지, 2023.05.15 최초 작성
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상호명 검색</title>
 </head>
 
 <%-- fontawsome 아이콘 사용 CDN --%>

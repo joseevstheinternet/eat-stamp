@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 기록 작성하기</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/jsp/egovframework/common/header.jsp" %>

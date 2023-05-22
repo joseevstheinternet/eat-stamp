@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 회원 탈퇴</title>
 </head>
 
 <!-- css 링크 사용 -->

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 검색 페이지</title>
 </head>
 
 	<!-- css 링크 사용 -->

@@ -286,24 +286,24 @@ public class RestControllerAdmin {
 		//0424 최은지 가게 정보 수정 비즈니스 로직
 		@RequestMapping(value = "/updateRestContent.do")
 		public ModelAndView restContentUpdate(@RequestParam(value = "r_num") int r_num,
-																	@RequestParam(value = "img_route") MultipartFile real_file,
-																	@RequestParam(value = "r_name") String r_name,
-																	@RequestParam(value = "r_tel") String r_tel,
-																	@RequestParam(value = "r_detail") String r_detail,
-																	@RequestParam(value = "r_add") String r_add,
-																	@RequestParam(value = "r_open") String r_open,
-																	@RequestParam(value = "r_close") String r_close,
-																	@RequestParam(value = "r_menu") String r_menu,
-																	@RequestParam(value = "r_fileName") String r_fileName, //새로 등록한 파일네임
-																	@RequestParam(value = "old_fileName") String old_fileName, //기존 파일네임
-																	@RequestParam(value = "update_add") String update_add,
-																	@RequestParam(value = "update_add_semi") String update_add_semi,
-																	MultipartHttpServletRequest request,
-																	HttpServletResponse response) throws Exception{ //시간나면 폼 데이터 한번에 받아오는 걸로 변경
+											@RequestParam(value = "img_route") MultipartFile real_file,
+											@RequestParam(value = "r_name") String r_name,
+											@RequestParam(value = "r_tel") String r_tel,
+											@RequestParam(value = "r_detail") String r_detail,
+											@RequestParam(value = "r_add") String r_add,
+											@RequestParam(value = "r_open") String r_open,
+											@RequestParam(value = "r_close") String r_close,
+											@RequestParam(value = "r_menu") String r_menu,
+											@RequestParam(value = "r_fileName") String r_fileName, //새로 등록한 파일네임
+											@RequestParam(value = "old_fileName") String old_fileName, //기존 파일네임
+											@RequestParam(value = "update_add") String update_add,
+											@RequestParam(value = "update_add_semi") String update_add_semi,
+											MultipartHttpServletRequest request,
+											HttpServletResponse response) throws Exception{ //시간나면 폼 데이터 한번에 받아오는 걸로 변경
 				
 			ModelAndView mav = new ModelAndView();
 			RestVO vo = new RestVO();
-			String uploadPath = "C:/Users/shush/git/ojtproject/src/main/webapp/images/restImage";
+			String uploadPath = "C:/Users/prend/git/ojtproject/src/main/webapp/images/restImage";
 		
 			//1. 이미지 파일 변경 여부 확인
 			if(r_fileName.equals("") ) { //새로 등록한 파일이 없다면

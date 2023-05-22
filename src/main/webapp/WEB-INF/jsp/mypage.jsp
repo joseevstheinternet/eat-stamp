@@ -116,7 +116,7 @@ button#pw_restet_checkBtn{
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 내 식사 기록</title>
+<title>EatStamp - 마이페이지</title>
 </head>
 
 <body>

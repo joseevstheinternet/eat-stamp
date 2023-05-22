@@ -16,7 +16,7 @@ History: 최은지, 2023.05.17 최초 작성
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 찜한 가게</title>
 
 <%--  영역 감추기용 style태그 선언 --%>
 <style type="text/css">
@@ -50,6 +50,12 @@ History: 최은지, 2023.05.17 최초 작성
 	    float: right;
 	    box-shadow: 3px 3px 30px 1px #ebebeb70;
 	    height: 50px;
+	  }
+	  
+	  div.infoWindow {
+	  	font-size: 15px;
+	  	margin: 0 auto;
+	  	padding: 5px 10px;
 	  }
 </style>
 
@@ -114,14 +120,14 @@ History: 최은지, 2023.05.17 최초 작성
 	 	 rNameArray.push( addNameElements[i].textContent ); //식당 상호명
 	}
 
-	console.log( addressArray ); // 값 확인
-	console.log( rNumArray ); // 값 확인
-	console.log( rNameArray ); // 값 확인
+// 	console.log( addressArray ); // 값 확인
+// 	console.log( rNumArray ); // 값 확인
+// 	console.log( rNameArray ); // 값 확인
 	
 	var mapContainer = document.getElementById('div_map'); // 지도를 표시할 div
 	var mapOption = {
-	  center: new kakao.maps.LatLng( 37.498095, 127.027610 ), // 지도의 중심 좌표(강남역 설정)
-	  level: 3 // 지도의 확대 레벨
+	  center: new kakao.maps.LatLng(37.497485, 127.046319), // 지도의 중심 좌표(강남역 설정)
+	  level: 6 // 지도의 확대 레벨
 	};
 	
 	var map = new kakao.maps.Map( mapContainer, mapOption ); // 지도 생성
@@ -147,7 +153,7 @@ History: 최은지, 2023.05.17 최초 작성
 		        var r_name = rNameArray[index]; // r_name 가져오기
 		        
 		        var infowindow = new kakao.maps.InfoWindow({
-			          content: '<div>' + r_name + '</div>'
+			          content: '<div class="infoWindow">' + r_name + '</div>'
 			        });
 
 		        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));

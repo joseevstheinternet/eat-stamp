@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EatStamp - 비밀번호 재설정</title>
 </head>
 	<!-- css 링크 사용 -->
 	<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />

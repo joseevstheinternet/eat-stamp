@@ -106,35 +106,41 @@
 				FROM eatstamp.report , (SELECT @rownum:=0) TMP
 				) t1
 			WHERE rn BETWEEN #{start} and #{end}
+			ORDER BY 
+			    CASE 
+			        WHEN report_ynCode = 'w' THEN 1
+			        ELSE 2
+			    END,
+			    report_num DESC
   	</select>
   	
   	
   	<!-- 0502 최은지 관리자 신고 내역 상세 확인-->
-		<select id="selectReportDetailContent" parameterType="reportVO" resultType="reportVO">
-		  SELECT 
-		    r.report_num,
-		    r.mem_num,
-		    r.mem_num2,
-		    r.report_why,
-		    r.report_ynCode,
-		    r.s_num,
-		    r.cmt_num,
-		    r.report_return,
-		    r.report_link,
-		    m1.mem_email AS mem_email1,
-		    m1.mem_nick AS mem_nick1,
-		    m2.mem_email AS mem_email2,
-		    m2.mem_nick AS mem_nick2
-		    
-		  FROM
-		    eatstamp.report r
-		    
-		    JOIN member m1 ON r.mem_num = m1.mem_num
-		    JOIN member m2 ON r.mem_num2 = m2.mem_num
-		    
-		  WHERE 
-		    r.report_num = #{report_num}
-		</select>
+	<select id="selectReportDetailContent" parameterType="reportVO" resultType="reportVO">
+	  SELECT 
+	    r.report_num,
+	    r.mem_num,
+	    r.mem_num2,
+	    r.report_why,
+	    r.report_ynCode,
+	    r.s_num,
+	    r.cmt_num,
+	    r.report_return,
+	    r.report_link,
+	    m1.mem_email AS mem_email1,
+	    m1.mem_nick AS mem_nick1,
+	    m2.mem_email AS mem_email2,
+	    m2.mem_nick AS mem_nick2
+	    
+	  FROM
+	    eatstamp.report r
+	    
+	    JOIN member m1 ON r.mem_num = m1.mem_num
+	    JOIN member m2 ON r.mem_num2 = m2.mem_num
+	    
+	  WHERE 
+	    r.report_num = #{report_num}
+	</select>
 		
   	
   	<!--  0502 최은지 관리자 신고 회원 닉네임, 이메일 조회-->
@@ -199,7 +205,7 @@
   	</update>
   	
   
-  <!-- <0503 최은지 신고글 검색 후 리스트 출력 -->
+ 	 <!-- <0503 최은지 신고글 검색 후 리스트 출력 -->
 	 <select id="getSearchReportAdminList" parameterType="map" resultType="reportVO">
 			SELECT 
 			    report_num,
@@ -225,25 +231,30 @@
 			    FROM report r, (SELECT @rownum:=0) TMP
 			    <if test="field != '' and search_keyword != ''">
 			       <choose>
-	                <when test="field == 'mem_num'">
-	                   	WHERE EXISTS (
-			            SELECT 1
-			            FROM member m
-			            WHERE m.mem_email LIKE CONCAT('%', #{search_keyword}, '%')
-			            AND r.mem_num = m.mem_num
-	                </when>
-	                <when test="field == 'mem_num2'">
-	                   	WHERE EXISTS (
-			            SELECT 1
-			            FROM member m
-			            WHERE m.mem_email LIKE CONCAT('%', #{search_keyword}, '%')
-			            AND r.mem_num2 = m.mem_num
-	                </when>
-	            </choose> 
-			      )
+		                <when test="field == 'mem_num'">
+		                   	WHERE EXISTS (
+				            SELECT 1
+				            FROM member m
+				            WHERE m.mem_email LIKE CONCAT('%', #{search_keyword}, '%')
+				            AND r.mem_num = m.mem_num )
+		                </when>
+		                <when test="field == 'mem_num2'">
+		                   	WHERE EXISTS (
+				            SELECT 1
+				            FROM member m
+				            WHERE m.mem_email LIKE CONCAT('%', #{search_keyword}, '%')
+				            AND r.mem_num2 = m.mem_num )
+		                </when>
+					</choose> 
 			    </if>
 			) t1
 			WHERE rn BETWEEN #{start} and #{end}
+			ORDER BY 
+			    CASE 
+			        WHEN report_ynCode = 'w' THEN 1
+			        ELSE 2
+			    END,
+			    report_num DESC
 	</select>
 	
 	

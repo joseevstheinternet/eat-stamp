@@ -136,14 +136,7 @@ select{
     border: 1px solid #ffc06c;
     border-radius: 20px;
     color: #ffc06c;
-/*     text-align: center; */
 }
-
-/* select option{ */
-/*     text-align: center; */
-/*     border-radius: 0; */
-/*     margin-left: -20px; */
-/* } */
 
 </style>
 

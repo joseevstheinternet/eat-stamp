@@ -1,5 +1,5 @@
 <%--
-시스템명 : 가게 사장 로그인 화면
+시스템명 : 가게 사장 마이페이지 화면
 파일명: ownerMyPageView.jsp
 작성자: 최은지
 작성일자: 2023.05.15
@@ -16,7 +16,7 @@ History: 최은지, 2023.05.15 최초 작성
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Owner My Page</title>
+<title>EatStamp 사장님 - 마이페이지</title>
 </head>
 
 <%-- css 링크 연결 --%>

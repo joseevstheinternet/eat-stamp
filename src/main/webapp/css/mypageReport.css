@@ -102,6 +102,47 @@ div.mypage-menu-second{
     padding: 20 0 20 30px;
 }
 
+/*검색창*/
+
+div.mypage-section1-search{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button.searchIcon{
+    position: absolute;
+    font-size: 14px;
+    color: #ffc06c;
+    margin-top: 9px;
+    margin-left: 10px;
+}
+
+.search_text {
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 27px;
+    background-color: white;
+    border: 1px solid #ffc06c;
+    color: #ffc06c;
+}
+
+input::placeholder{
+	color: #ffc06c;
+}
+
+select {
+	height: 30px;
+    padding: 0 0 0 5px;
+    border: 1px solid #ffc06c;
+    border-radius: 20px;
+    color: #ffc06c;
+}
+
+/* 검색창 끝 */
+
 /* 모달 */
 .modal-dialog {
 	top: 20%;
@@ -178,6 +219,20 @@ textarea.return_val {
     resize: none;
     width: 450px;
 	height: 230px;
+    border-radius: 20px;
+    padding: 15px;
+    border: 0;
+    background-color: #ffe3be;
+    font-size: 13px;
+}
+
+div.return_insert {
+	display: flex;
+}
+
+textarea.return_insert_val {
+	resize: none;
+    width: 450px;
     border-radius: 20px;
     padding: 15px;
     border: 0;

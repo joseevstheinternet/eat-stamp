@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp LoginPage</title>
+<title>EatStamp - 로그인</title>
 </head>
 	<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/layout.css'/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/login.css'/>" />	

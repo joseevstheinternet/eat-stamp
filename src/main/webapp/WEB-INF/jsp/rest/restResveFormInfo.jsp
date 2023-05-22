@@ -1,3 +1,13 @@
+<%--
+시스템명 : 회원 식당 예약 정보 입력 화면
+파일명: restResveFormInfo.jsp
+작성자: 이예지
+작성일자: 2023.05.17
+처리내용: 회원 전용 식당 예약 정보 입력 페이지이다.
+History: 이예지, 2023.05.17 최초 작성
+		 이예지, 2023.05.19 수정
+ --%>
+
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

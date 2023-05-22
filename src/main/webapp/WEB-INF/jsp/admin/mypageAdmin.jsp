@@ -125,7 +125,7 @@ button#pw_restet_checkBtn{
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EatStamp - 관리자 페이지</title>
+<title>EatStamp 관리자 - 마이페이지</title>
  <%
 	 // 브라우저 캐시 미저장 설정. 로그아웃(세션삭제) 후 뒤로가기 등 페이지 접근 막기 위함.
 	 response.setHeader("Cache-Control","no-store");

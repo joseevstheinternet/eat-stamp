@@ -1,3 +1,12 @@
+<%--
+시스템명 : 가게 사장 식당 정보 수정 화면
+파일명: ownerRestUpdate.jsp
+작성자: 이예지
+작성일자: 2023.05.19
+처리내용: 가게 사장 전용 식당 정보 수정 페이지이다.
+History: 이예지, 2023.05.19 최초 작성
+ --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
