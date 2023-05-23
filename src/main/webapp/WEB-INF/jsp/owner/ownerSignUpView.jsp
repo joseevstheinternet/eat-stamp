@@ -108,7 +108,7 @@ History: 최은지, 2023.05.15 최초 작성
 
 <script type="text/javascript">
 
-var checkEmail = false; //이메일 중복 체크용 기본 설정
+var checkEmail = false; //이메일 중복 체크 변수 (false로 초기 설정)
 
 //버튼 클릭 시 이메일 중복 체크 이벤트
 $( document ).on( "click", ".btn_checkDuplEmail", function () {
@@ -132,16 +132,11 @@ $( document ).on( "click", ".btn_checkDuplEmail", function () {
 			console.log(data);
 		}//error end
 	}); //ajax end	
-	    
-	    //return checkEmail;
-	    
 }); //onclick end
 
-
-//클릭시 비밀번호 입력값 노출 이벤트
+//비밀번호 입력란 보이기/숨기기 토글 기능 설정
 $( document ).on( "click", ".div_wrapPwdOneBox i", function () {
     $( 'input' ).toggleClass( 'active' );
-    
     if ( $( 'input' ).hasClass( 'active' ) ) {
         $( this ).attr( 'class',"fa fa-eye-slash fa-lg" )
         .prev( 'input' ).attr( 'type', "text" );
@@ -151,11 +146,9 @@ $( document ).on( "click", ".div_wrapPwdOneBox i", function () {
     }
 });
 
-
-//클릭시 비밀번호 확인 입력값 노출 이벤트
+//비밀번호 확인 입력란 보이기/숨기기 토글 기능 설정
 $( document ).on( "click", ".div_wrapPwdTwoBox i", function () {
     $( 'input' ).toggleClass( 'active' );
-    
     if( $( 'input' ).hasClass( 'active' )){
         $( this ).attr( 'class',"fa fa-eye-slash fa-lg" )
         .prev( 'input' ).attr( 'type', "text" );
@@ -165,8 +158,7 @@ $( document ).on( "click", ".div_wrapPwdTwoBox i", function () {
     }
 });
 
-
-//검색버튼 클릭 시 레스토랑 리스트 출력 이벤트
+//상호명 검색 버튼 클릭 시 레스토랑 리스트 출력 이벤트
 $( document ).on( "click", ".btn_searchRestName", function () {
 	url = "/goRestSearchPopUp.do";
 	window.open(url,"selectRestList",'width=500,height=400, scrollbars=no, resizable=no');
@@ -177,77 +169,65 @@ $( document ).on( "click", ".btn_searchRestName", function () {
 //return true : 검사 조건 충족
 //return false : 검사 조건 미충족, form action실행 불가
 function checks() {
-	
 	//이메일 정규식
      var getMail = RegExp( /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
-   
 	//비밀번호 정규식
    	//최소 8자, 대문자 하나 이상, 소문자 하나 및 숫자 하나, 특수문자 하나 ex)Test12345678!
      var getCheck = RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
-     
 	//이메일 공백 확인
 	 if ($(".txt_emailInput").val() == "") {
 		   alert ( "이메일을 입력해주세요" );
 		   $( ".txt_emailInput" ).focus();
 		   return false;
 	 }
-	      
 	 //이메일 유효성 검사
 	 if ( !getMail.test( $( ".txt_emailInput" ).val() ) ){
 		   alert ( "이메일형식에 맞춰 입력해주세요" );
 		   $( ".txt_emailInput" ).focus();
 		   return false;
 	 }
-	 
 	 //이메일 중복 여부 검사
 	 if ( false == checkEmail ) {
 		 alert ( "이메일 중복 여부를 확인해주세요." );
 		 $( ".txt_emailInput" ).focus();
 		  return false;
 	 }
-	 
 	//비밀번호 공백 확인
 	 if ( $( ".pwd_inputOne" ).val() == "" ) {
 	  		alert ( "비밀번호를 입력해주세요." );
 	   		$( ".pwd_inputOne" ).focus();
 	  	 	return false;
 	 }
-	     
 	 //비밀번호 유효성검사
 	 if ( !getCheck.test ( $(".pwd_inputOne").val() ) ) {
 		   alert( "비밀번호를 형식에 맞게 입력해주세요." );
 		   $(".pwd_inputOne").focus();
 		   return false;
 	 }
-	      
 	 //비밀번호 확인란 공백 확인
 	 if ( $(".pwd_inputTwo").val() == "" ) {
 		   alert ( "비밀번호 확인란을 입력해주세요" );
 		   $(".pwd_inputTwo").focus();
 	   	   return false;
 	 }
-	      
 	 //비밀번호 매치 확인
 	 if ( $(".pwd_inputOne").val() != $(".pwd_inputTwo").val() ){
 	     alert("비밀번호가 상이합니다");
 	     $(".pwd_inputTwo").focus();
 	     return false;
 	 } 
-	 
 	 //상호명 중복입력 확인
 	   if ( $(".txt_restNameInput").val() != ""  &&  $( ".txt_restNameInputInsert").val() != "" ) {
 		    alert ( "기존 등록 가게와 신규 등록 가게 중 하나만 선택할 수 있습니다." );
 		    $( ".txt_restNameInput" ).focus();
 		    return false;
 		 }
-	 
 	//상호명 미입력 확인
 	   if ( $(".txt_restNameInput").val() == "" &&  $( ".txt_restNameInputInsert").val() == "" ) {
 		    alert ( "상호명을 입력해주세요." );
 		    $( ".txt_restNameInput" ).focus();
 		    return false;
 		 }
-	 
 } //return check() end
 
 
