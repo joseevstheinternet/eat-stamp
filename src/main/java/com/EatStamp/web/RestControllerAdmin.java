@@ -408,7 +408,7 @@ public class RestControllerAdmin {
 			
 					ModelAndView mav = new ModelAndView();
 					RestVO vo = new RestVO();
-					String uploadPath =  "C:/Users/shush/git/ojtproject/src/main/webapp/images/restImage";
+					String uploadPath =  "C:/Users/prend/git/ojtproject/src/main/webapp/images/restImage";
 					
 					
 					//날짜 확인용 객체 생성

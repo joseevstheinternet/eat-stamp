@@ -59,7 +59,7 @@
 			SET
 				mem_pw = #{mem_pw}
 			WHERE
-				mem_email=#{mem_email}
+				mem_email = #{mem_email}
 		</update>
 		
 		

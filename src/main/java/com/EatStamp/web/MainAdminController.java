@@ -106,7 +106,7 @@ public class MainAdminController {
 	            PrintWriter out = response.getWriter();
 	            out.println("<script>alert('"+ message +"');</script>");
 	            out.flush();
-	            return "mypageAdmin";
+	            return "admin/mypageAdmin";
 	        } else {
 	        	 //비밀번호 재설정
 	    	    vo.setMem_pw(newPW);
@@ -116,7 +116,7 @@ public class MainAdminController {
 	    		
 	    	  //업데이트에 성공하지 못한다면
 	    	    if(0 == result1){
-	    	    	return "mypageAdmin";
+	    	    	return "admin/mypageAdmin";
 	    	    }
 	    	    
 	    	    //업데이트에 성공시

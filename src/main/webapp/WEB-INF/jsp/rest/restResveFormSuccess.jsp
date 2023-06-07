@@ -56,7 +56,7 @@ History: 이예지, 2023.05.17 최초 작성
 					</span>
 
 					<div class="div_btn">
-						<button type="button" onclick="location.href='mypage.do'" class="box-button btn_cancel">목록으로</button>
+						<button type="button" onclick="location.href='selectMemberResveList.do'" class="box-button btn_cancel">목록으로</button>
 					</div>
 				</ul>
 			</div>
