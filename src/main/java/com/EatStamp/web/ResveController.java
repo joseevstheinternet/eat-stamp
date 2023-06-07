@@ -88,11 +88,11 @@ public class ResveController {
 	    int r_num = 0;
 	    
 		mem_nick = owner.getMem_nick(); 
-		// 멤버 닉네임이 일치하는 상호명 조회 (가게 이름, 가게 고유번호),
-		checkRestInfo = ownerService.getMemNickEqualRestName( mem_nick );
+		// 멤버 닉네임이 일치하는 상호명 조회 (가게 이름, 가게 고유번호)
+		checkRestInfo = ownerService.getMemNickEqualRestName(mem_nick);
 		r_num = checkRestInfo.getR_num();
 		
-		int updateCheckResveAlert = resveService.updateAlertCheckAfter( r_num ); //알림 확인 update
+		int updateCheckResveAlert = resveService.updateAlertCheckAfter(r_num); //알림 확인 update
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("mem_nick", owner.getMem_nick());
@@ -229,10 +229,9 @@ public class ResveController {
 			
 			return "success";
 			
-			
 		} catch (Exception e) {
-			
 			System.out.println("업데이트 중 에러 발생: " + e.getMessage());
+			
 	        return "fail";
 		}
 	}
@@ -461,9 +460,9 @@ public class ResveController {
 		
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		mem_num = member.getMem_num();
-		map.put( "mem_num", mem_num );
+		map.put("mem_num", mem_num);
 		
-		int count = resveService.getCountMemberResve( mem_num );
+		int count = resveService.getCountMemberResve(mem_num);
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(currentPage, count, rowCount, pageCount, "/selectMemberResveList.do");
@@ -475,13 +474,11 @@ public class ResveController {
 			list = resveService.selectMemberResveList(map);
 		}
 
-		mav.addObject( "count", count );
-		mav.addObject( "list", list );
+		mav.addObject("count", count);
+		mav.addObject("list", list);
 		mav.addObject("page", page.getPage());
-		mav.setViewName( "memberResveListView" );
+		mav.setViewName("memberResveListView");
 		
 		return mav;
 	}
-
-
 }

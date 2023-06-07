@@ -329,7 +329,7 @@ public class OwnerController {
     	//비밀번호 암호화 매치
     	pwdMatch = pwEncoder.matches(pw1, pw2);
     	
-    	if(null != owner) {
+    	if (null != owner) {
 	        //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 떄
 	        if(!pwdMatch) {
 	        	String message = "현재 비밀번호가 일치하지 않습니다.";
@@ -343,13 +343,13 @@ public class OwnerController {
 	        	String inputPass = newPW;
 	        	String pwd = pwEncoder.encode(inputPass);
 	        	
-	        	 //비밀번호 재설정
+	        	//비밀번호 재설정
 	    	    vo.setMem_pw(pwd);
 	    		
 	    		//db에 수정된 비밀번호 업뎃시키기
 	    	    int result1 = ownerService.updateOwnerPW(vo);
 	    		
-	    	  //업데이트에 성공하지 못한다면
+	    	    //업데이트에 성공하지 못한다면
 	    	    if(0 == result1){
 	    	    	return "/owner/ownerMypageView";
 	    	    }
@@ -360,16 +360,15 @@ public class OwnerController {
 			 	//0426 최은지 신규 jsp 페이지 이동 후 이동 페이지에서 세션 제거하는 방식으로 변경
 	            return "/owner/ownerPWChangeAlert";
 	        }
-	        
     	}//세션값 else end
 
-    		message = "이미 만료된 세션입니다. 다시 로그인해주세요.";
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('"+ message +"');</script>");
-            out.flush();
-			
-			return "/owner/ownerLoginView";
+		message = "이미 만료된 세션입니다. 다시 로그인해주세요.";
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('"+ message +"');</script>");
+		out.flush();
+		
+		return "/owner/ownerLoginView";
 		}
 	
 	
