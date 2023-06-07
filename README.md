@@ -2382,26 +2382,27 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper; 로 수정하고
 ### (admin) 비밀번호 변경 시 입력한 비밀번호와 현재 비밀번호가 같음에도 일치하지 않음으로 넘어가는 문제
 💣 문제
    - 아래 코드에서 pw1과 pw2가 같은데도 "현재 비밀번호가 일치하지 않습니다." 메시지가 뜸
-	```java
-	//입력한 비밀번호 확인값 
-	    String pw1 = mem_pwCheck;
+		```java					
+		//입력한 비밀번호 확인값 
+		    String pw1 = mem_pwCheck;
 
-		//db에 저장된 멤버 비밀번호
-	    String pw2 = result.getMem_pw();
+			//db에 저장된 멤버 비밀번호
+		    String pw2 = result.getMem_pw();
 
-		String newPW = new_mem_pw;
+			String newPW = new_mem_pw;
 
-	  //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 때
-	  if(pw1 != pw2) {
-		String message = "현재 비밀번호가 일치하지 않습니다.";
-	```
+		  //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 때
+		  if(pw1 != pw2) {
+			String message = "현재 비밀번호가 일치하지 않습니다.";
+		``` 
 
 💡 해결
    - Java에서는 문자열을 비교할 때 **`==`**  또는 **`!=`**  연산자를 사용하지 않기 때문
     - 이러한 연산자는 참조 변수의 주소를 비교하므로, 두 문자열의 내용이 동일하더라도 다른 객체를 참조할 경우 false를 반환
    - Java에서 문자열의 내용을 비교하려면 **`equals()`**  메서드를 사용해야 함
-	```java
-	  //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 때
-	  if(!pw1.equals(pw2)) {
-		String message = "현재 비밀번호가 일치하지 않습니다.";
-	```
+		```java					
+		  //입력한 비밀번호와 비밀번호 확인 입력값이 상이할 때
+		  if(!pw1.equals(pw2)) {
+			String message = "현재 비밀번호가 일치하지 않습니다.";
+		``` 
+
